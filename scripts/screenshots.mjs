@@ -1,7 +1,10 @@
 // Renders the cards with mock alarm data and saves the README screenshots.
 // Usage: npm run build && npm run screenshots
 import { chromium } from "playwright";
-import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { states, entities, sensors, armedAway, arming, triggered, withCode } from "./mock-states.mjs";
 
@@ -45,21 +48,9 @@ const page_html = (theme, width) => `<!doctype html><html><head><meta charset="u
 </style></head><body><div id="root"></div></body></html>`;
 
 const PANEL = "alarm_control_panel.alarmo";
-const shots = [
-  { file: "card", type: "alarm-card", theme: "light", width: 460, config: {} },
-  { file: "card-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: arming },
-  { file: "card-armed", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: armedAway },
-  { file: "card-triggered", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: triggered },
-  { file: "card-code", type: "alarm-card", theme: "light", width: 460, config: { show_sensors: false }, overrides: withCode, clicks: ['[data-mode="disarm"]', '[data-digit="1"]', '[data-digit="2"]'] },
-  { file: "mini-card", type: "alarm-mini-card", theme: "light", width: 380, config: {} },
-  { file: "mini-card-dark", type: "alarm-mini-card", theme: "dark", width: 380, config: {}, overrides: arming },
-  { file: "mini-card-zoom", type: "alarm-mini-card", theme: "light", width: 460, config: {}, clicks: [".zoom"] },
-];
 
-const browser = await chromium.launch(
-  process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}
-);
-for (const s of shots) {
+// Opens a fresh page for one shot and mounts the card with its mock states and overrides.
+async function openCard(browser, s) {
   // A new page per shot: the card's script declares top-level names, which cannot be evaluated twice in one page.
   const page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1000, height: 2000 } });
   page.on("pageerror", (err) => console.error(`pageerror (${s.file}): ${err.message}`));
@@ -78,6 +69,25 @@ for (const s of shots) {
     },
     { type: s.type, config: s.config, states, entities, sensors, PANEL, overrides: s.overrides }
   );
+  return page;
+}
+
+const shots = [
+  { file: "card", type: "alarm-card", theme: "light", width: 460, config: {} },
+  { file: "card-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: arming },
+  { file: "card-armed", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: armedAway },
+  { file: "card-triggered", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: triggered },
+  { file: "card-code", type: "alarm-card", theme: "light", width: 460, config: { show_sensors: false }, overrides: withCode, clicks: ['[data-mode="disarm"]', '[data-digit="1"]', '[data-digit="2"]'] },
+  { file: "mini-card", type: "alarm-mini-card", theme: "light", width: 380, config: {} },
+  { file: "mini-card-dark", type: "alarm-mini-card", theme: "dark", width: 380, config: {}, overrides: arming },
+  { file: "mini-card-zoom", type: "alarm-mini-card", theme: "light", width: 460, config: {}, clicks: [".zoom"] },
+];
+
+const browser = await chromium.launch(
+  process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}
+);
+for (const s of shots) {
+  const page = await openCard(browser, s);
   for (const sel of s.clicks || []) {
     // A mouse click (detail 1), not .click(): a keyboard-like click would move the focus and show its ring.
     await page.evaluate(
@@ -99,5 +109,32 @@ for (const s of shots) {
   });
   console.log(`screenshots/${s.file}.png`);
   await page.close();
+}
+
+// Record the triggered alarm as a looping GIF. Needs ffmpeg on PATH. Every animation is paused and stepped
+// frame by frame, so the GIF is identical whatever the machine's speed.
+const gif = { file: "triggered", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: triggered };
+const FPS = 20;
+const SECONDS = 3;
+{
+  const page = await openCard(browser, gif);
+  await page.waitForTimeout(300);
+  const box = await page.locator("#root").boundingBox();
+  const clip = { x: 0, y: 0, width: gif.width + 32, height: Math.ceil(box.height) + 32 };
+  const dir = mkdtempSync(join(tmpdir(), "al-frames-"));
+  const frames = Math.round(FPS * SECONDS);
+  for (let i = 0; i < frames; i++) {
+    await page.evaluate((t) => { for (const a of document.getAnimations()) { a.pause(); a.currentTime = t; } }, (i * 1000) / FPS);
+    await page.screenshot({ path: join(dir, `f${String(i).padStart(3, "0")}.png`), clip });
+  }
+  await page.close();
+  const out = `${root}screenshots/${gif.file}.gif`;
+  execFileSync("ffmpeg", [
+    "-y", "-loglevel", "error", "-framerate", String(FPS), "-i", join(dir, "f%03d.png"),
+    "-vf", `scale=${clip.width}:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=4`,
+    "-loop", "0", out,
+  ]);
+  rmSync(dir, { recursive: true });
+  console.log(`screenshots/${gif.file}.gif`);
 }
 await browser.close();
