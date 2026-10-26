@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 — 2026-10-26
+### Fixes
+- Code pad with a text code field (non-numeric `code_format`): typing a code now re-renders the pad, so the **OK** button enables and can be clicked instead of only responding to the Enter key. The numeric keypad was already re-rendering through its click handler.
+
 ## 1.1.0
 ### Changes
 - Header logo on a round tinted badge (40 px, 32 px on the mini card) in the card's accent color, like the other ha-* cards; the mini card's state shield (`show_logo: false`) is 32 px too.
