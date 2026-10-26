@@ -466,7 +466,10 @@ class AlarmBase extends HTMLElement {
     this._toggled = new Set();
     this.shadowRoot.addEventListener("click", (ev) => this._onClick(ev));
     this.shadowRoot.addEventListener("input", (ev) => {
-      if (ev.target?.dataset?.action === "code_input") this._code = ev.target.value;
+      if (ev.target?.dataset?.action === "code_input") {
+        this._code = ev.target.value;
+        this._update();
+      }
     });
     this.shadowRoot.addEventListener("keydown", (ev) => {
       if (ev.target?.dataset?.action === "code_input" && ev.key === "Enter") {
