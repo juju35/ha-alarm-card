@@ -352,18 +352,14 @@ const morph = (root, html) => {
   patchChildren(root, tpl.content);
 };
 
-// Card logo: a red shield sending out radar waves, on a slate background light enough to stand out on a dark
-// theme.
-const logo = () => `<svg class="logo" viewBox="0 0 48 48" role="img" aria-label="Alarm">
-  <defs><linearGradient id="al-logo" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#56607a"/><stop offset="1" stop-color="#2f3644"/>
-  </linearGradient></defs>
-  <rect width="48" height="48" rx="12" fill="url(#al-logo)"/>
-  <path d="M24 8 11 13.5v9c0 8.3 5.5 15.4 13 17.5 7.5-2.1 13-9.2 13-17.5v-9Z" fill="none" stroke="#ff5a5f" stroke-width="2.6" stroke-linejoin="round"/>
-  <circle cx="24" cy="24" r="2.6" fill="#ff5a5f"/>
-  <path d="M20.3 20.3a5.2 5.2 0 0 0 0 7.4M27.7 20.3a5.2 5.2 0 0 1 0 7.4" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-  <path d="M17.2 17.2a9.6 9.6 0 0 0 0 13.6M30.8 17.2a9.6 9.6 0 0 1 0 13.6" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>
-</svg>`;
+// Card logo: a shield sending out radar waves, drawn in the accent color on a round tinted badge like the other
+// ha-* cards.
+const logo = () => `<div class="badge"><svg class="icon" viewBox="6 6 36 36" role="img" aria-label="Alarm">
+  <path d="M24 8 11 13.5v9c0 8.3 5.5 15.4 13 17.5 7.5-2.1 13-9.2 13-17.5v-9Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
+  <circle cx="24" cy="24" r="2.6"/>
+  <path d="M20.3 20.3a5.2 5.2 0 0 0 0 7.4M27.7 20.3a5.2 5.2 0 0 1 0 7.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M17.2 17.2a9.6 9.6 0 0 0 0 13.6M30.8 17.2a9.6 9.6 0 0 1 0 13.6" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>
+</svg></div>`;
 
 // Big state shield of the full card (and the small one of the mini card): pulses while a delay runs, flashes
 // when the alarm goes off.
@@ -388,7 +384,9 @@ const BASE_STYLE = `
   .chip { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; white-space: nowrap;
           background: color-mix(in srgb, var(--c, var(--al-off)) 15%, transparent); color: var(--c, var(--al-off)); flex: none; }
   .header { display: flex; align-items: center; gap: 10px; padding: 12px 12px 4px; }
-  .logo { height: 40px; width: 40px; flex: none; }
+  .badge { --c: var(--al-accent); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none;
+           background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c); }
+  .badge .icon { width: 24px; height: 24px; }
   .titles { flex: 1; min-width: 0; }
   .name { font-size: 16px; font-weight: 500; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sub { font-size: 12px; color: var(--secondary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -987,8 +985,8 @@ class AlarmCard extends AlarmBase {
 
 const MINI_STYLE = `
   .header { padding: 12px; }
-  .header .shield { width: 40px; height: 40px; }
-  .header .shield .icon { width: 24px; height: 24px; }
+  .header .badge, .header .shield { width: 32px; height: 32px; }
+  .header .badge .icon, .header .shield .icon { width: 20px; height: 20px; }
   .sub .st { color: var(--c); font-weight: 500; }
   .sub .dot { margin-right: 4px; vertical-align: 1px; }
   .controls { display: flex; gap: 6px; flex: none; }

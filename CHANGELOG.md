@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Changes
+- Header logo on a round tinted badge (40 px, 32 px on the mini card) in the card's accent color, like the other ha-* cards; the mini card's state shield (`show_logo: false`) is 32 px too.
+
+### Maintenance
+- Screenshots: 16 px frame on the theme background, shared theme tokens, 460 px cards and 380 px mini cards, English everywhere (mock data included).
+
 ## 1.0.2
 
 ### Changes
