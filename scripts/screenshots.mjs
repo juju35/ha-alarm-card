@@ -47,13 +47,13 @@ const page_html = (theme, width) => `<!doctype html><html><head><meta charset="u
 const PANEL = "alarm_control_panel.alarmo";
 const shots = [
   { file: "card", type: "alarm-card", theme: "light", width: 460, config: {} },
-  { file: "card-dark", type: "alarm-card", theme: "dark", width: 460, config: { language: "fr" }, overrides: arming },
-  { file: "card-armed", type: "alarm-card", theme: "light", width: 460, config: { language: "fr" }, overrides: armedAway },
+  { file: "card-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: arming },
+  { file: "card-armed", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: armedAway },
   { file: "card-triggered", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: triggered },
   { file: "card-code", type: "alarm-card", theme: "light", width: 460, config: { show_sensors: false }, overrides: withCode, clicks: ['[data-mode="disarm"]', '[data-digit="1"]', '[data-digit="2"]'] },
   { file: "mini-card", type: "alarm-mini-card", theme: "light", width: 380, config: {} },
-  { file: "mini-card-dark", type: "alarm-mini-card", theme: "dark", width: 380, config: { language: "fr" }, overrides: arming },
-  { file: "mini-card-zoom", type: "alarm-mini-card", theme: "light", width: 380, config: {}, clicks: [".zoom"] },
+  { file: "mini-card-dark", type: "alarm-mini-card", theme: "dark", width: 380, config: {}, overrides: arming },
+  { file: "mini-card-zoom", type: "alarm-mini-card", theme: "light", width: 460, config: {}, clicks: [".zoom"] },
 ];
 
 const browser = await chromium.launch(

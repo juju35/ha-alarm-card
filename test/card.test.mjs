@@ -78,7 +78,7 @@ test("arming with a sensor open asks first, then forces through Alarmo", () => {
   click(card, { action: "mode", mode: "arm_away" });
   assert.equal(hass.calls.length, 0);
   assert.match(card.shadowRoot.innerHTML, /dialog-open/);
-  assert.match(card.shadowRoot.innerHTML, /Fenêtre cuisine: open\. Arm away anyway\?/);
+  assert.match(card.shadowRoot.innerHTML, /Kitchen window: open\. Arm away anyway\?/);
   click(card, { action: "confirm_ok" });
   assert.deepEqual(plain(hass.calls), [["alarmo", "arm", { entity_id: PANEL, mode: "away", force: true }]]);
   assert.doesNotMatch(card.shadowRoot.innerHTML, /dialog-open/);
@@ -93,7 +93,7 @@ test("Cancel in the popup arms nothing", () => {
 });
 
 test("arming with everything closed calls the standard service", () => {
-  const hass = makeHass({ "binary_sensor.fenetre_cuisine": { ...states["binary_sensor.fenetre_cuisine"], state: "off" } });
+  const hass = makeHass({ "binary_sensor.kitchen_window": { ...states["binary_sensor.kitchen_window"], state: "off" } });
   const card = newCard(hass);
   click(card, { action: "mode", mode: "arm_home" });
   assert.deepEqual(plain(hass.calls), [["alarm_control_panel", "alarm_arm_home", { entity_id: PANEL }]]);
@@ -134,7 +134,7 @@ test("a triggered panel names the open sensor", () => {
   const card = newCard(makeHass(triggered));
   const html = card.shadowRoot.innerHTML;
   assert.match(html, /Triggered/);
-  assert.match(html, /Open: Fenêtre cuisine/);
+  assert.match(html, /Open: Kitchen window/);
   assert.match(html, /class="shield alarm"/);
 });
 
@@ -189,7 +189,7 @@ test("the mini card fits on one row: state, countdown and buttons in the header"
   assert.match(html, /Armement<\/span> · 4\d s/);
   assert.match(html, /class="controls"/);
   const trig = newCard(makeHass(triggered), {}, al.AlarmMiniCard);
-  assert.match(trig.shadowRoot.innerHTML, /Triggered<\/span> · Fenêtre cuisine/);
+  assert.match(trig.shadowRoot.innerHTML, /Triggered<\/span> · Kitchen window/);
   const noLogo = newCard(makeHass(), { show_logo: false }, al.AlarmMiniCard);
   assert.match(noLogo.shadowRoot.innerHTML, /class="shield off"/);
 });

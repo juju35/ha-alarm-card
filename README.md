@@ -131,12 +131,12 @@ zoom: true
 
 ## Screenshots
 
-| Light | Dark (French, arming: exit delay countdown) |
+| Light | Dark (arming: exit delay countdown) |
 |---|---|
 | ![card](screenshots/card.png) | ![card dark](screenshots/card-dark.png) |
 | ![mini card](screenshots/mini-card.png) | ![mini card dark](screenshots/mini-card-dark.png) |
 
-| Armed away (French) | Triggered (dark) |
+| Armed away | Triggered (dark) |
 |---|---|
 | ![card armed](screenshots/card-armed.png) | ![card triggered](screenshots/card-triggered.png) |
 
