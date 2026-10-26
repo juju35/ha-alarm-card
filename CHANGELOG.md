@@ -4,6 +4,9 @@
 
 ### Changes
 - Header logo on a round tinted badge (40 px, 32 px on the mini card) in the card's accent color, like the other ha-* cards; the mini card's state shield (`show_logo: false`) is 32 px too.
+- Active and confirm buttons (the current arm mode, Disarm while triggered, OK in the code pad and the confirmation popup) are tinted with their color instead of filled, like the other ha-* cards.
+- The state under the shield is 22 px (was 20 px), like the other cards' main state.
+- Header spacing like the other cards: icon 12 px from the card's top and left edges (the mini card's icon was 1.5 px lower), the content 8 px under the header.
 
 ### Maintenance
 - Screenshots: 16 px frame on the theme background, shared theme tokens, 460 px cards and 380 px mini cards, English everywhere (mock data included).
