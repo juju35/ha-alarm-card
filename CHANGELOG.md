@@ -4,7 +4,7 @@
 ### Fixes
 - Code pad with a text code field (non-numeric `code_format`): typing a code now re-renders the pad, so the **OK** button enables and can be clicked instead of only responding to the Enter key. The numeric keypad was already re-rendering through its click handler.
 
-## 1.1.0
+## 1.1.0 — 2026-10-26
 ### Changes
 - Header logo on a round tinted badge (40 px, 32 px on the mini card) in the card's accent color, like the other ha-* cards; the mini card's state shield (`show_logo: false`) is 32 px too.
 - Active and confirm buttons (the current arm mode, Disarm while triggered, OK in the code pad and the confirmation popup) are tinted with their color instead of filled, like the other ha-* cards.
@@ -14,7 +14,7 @@
 ### Maintenance
 - Screenshots: 16 px frame on the theme background, shared theme tokens, 460 px cards and 380 px mini cards, English everywhere (mock data included).
 
-## 1.0.2
+## 1.0.2 — 2026-10-26
 
 ### Changes
 - Mini card on a single row: the state shows in color under the name (with the exit / entry delay countdown, or the open sensor when the alarm goes off), next to the round arm / disarm buttons and the detail button. No more state pill and state line repeating each other. With `show_logo: false`, the state shield takes the logo's place.
@@ -22,7 +22,7 @@
 ### Maintenance
 - Test for the compact layout (18 in all); screenshots regenerated.
 
-## 1.0.1
+## 1.0.1 — 2026-10-26
 
 ### Changes
 - New card logo: a red shield sending out radar waves on a slate background, lighter so that it stands out on dark themes.
@@ -30,7 +30,7 @@
 ### Maintenance
 - Screenshots regenerated.
 
-## 1.0.0
+## 1.0.0 — 2026-10-25
 
 ### Changes
 - First release: **Alarm Card** and **Alarm Mini Card** for any alarm control panel (Alarmo, Manual…).
