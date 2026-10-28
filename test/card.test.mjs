@@ -122,6 +122,17 @@ test("confirm_disarm asks before disarming", () => {
   assert.match(card.shadowRoot.innerHTML, /Code to disarm/); // then the code
 });
 
+test("the code pad takes taps right after the confirm popup closes", () => {
+  const hass = makeHass(withCode);
+  const card = newCard(hass, { confirm_disarm: true });
+  click(card, { action: "mode", mode: "disarm" });
+  click(card, { action: "confirm_ok" });
+  // All within CONFIRM_GUARD_MS of the popup closing: the guard must not swallow pad taps.
+  for (const d of ["1", "2", "3", "4"]) click(card, { action: "key", digit: d });
+  click(card, { action: "pad_ok" });
+  assert.deepEqual(plain(hass.calls), [["alarm_control_panel", "alarm_disarm", { entity_id: PANEL, code: "1234" }]]);
+});
+
 test("arming shows the countdown and a Cancel button", () => {
   const card = newCard(makeHass(arming));
   const html = card.shadowRoot.innerHTML;

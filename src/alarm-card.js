@@ -454,6 +454,10 @@ const inDialog = (ev) => ev.composedPath().some((n) => ["ha-more-info-dialog", "
 // double click on OK would otherwise land on what lies under the button.
 const CONFIRM_GUARD_MS = 400;
 
+// Code pad actions are exempt from that guard: confirming a disarm opens the pad, and the first tap on a
+// digit may well come within the guard window.
+const PAD_ACTIONS = new Set(["key", "key_back", "pad_cancel", "pad_ok", "code_input"]);
+
 // ---------------------------------------------------------------------------
 // Base
 // ---------------------------------------------------------------------------
@@ -590,7 +594,7 @@ class AlarmBase extends HTMLElement {
   _onClick(ev) {
     const path = ev.composedPath();
     const el = path.find((n) => n.dataset && (n.dataset.entity || n.dataset.action));
-    if (!this._confirm && Date.now() - (this._confirmClosedAt ?? 0) < CONFIRM_GUARD_MS) {
+    if (!this._confirm && !PAD_ACTIONS.has(el?.dataset.action) && Date.now() - (this._confirmClosedAt ?? 0) < CONFIRM_GUARD_MS) {
       ev.stopPropagation();
       return;
     }
