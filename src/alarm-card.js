@@ -821,12 +821,16 @@ class AlarmBase extends HTMLElement {
       if (withBar && rem.total) out.push(`<div class="bar ${stateClass(st.state)}"><div style="width:${((100 * rem.left) / rem.total).toFixed(1)}%"></div></div>`);
     }
     const open = entityList(a.open_sensors);
-    if (open.length)
+    if (open.length) {
+      // Each name opens its own sensor's more-info: the names are spliced, already marked up, into the
+      // escaped translated line through a placeholder no translation can contain.
+      const names = open
+        .map((id) => `<span class="clickable" role="button" tabindex="0" data-entity="${esc(id)}">${esc(this._sensorName(id))}</span>`)
+        .join(", ");
       out.push(
-        `<div class="alert-line ${st.state === "triggered" ? "alarm" : "wait"} clickable" role="button" tabindex="0" data-entity="${esc(open[0])}">${svgIcon(ICONS.alert)}<span>${esc(
-          this._t("open_sensors", { list: open.map((id) => this._sensorName(id)).join(", ") })
-        )}</span></div>`
+        `<div class="alert-line ${st.state === "triggered" ? "alarm" : "wait"}">${svgIcon(ICONS.alert)}<span>${esc(this._t("open_sensors", { list: "\u0000" })).replace("\u0000", names)}</span></div>`
       );
+    }
     const bypassed = entityList(a.bypassed_sensors);
     if (bypassed.length)
       out.push(`<div class="line">${svgIcon(ICONS.shield_off)}<span>${esc(this._t("bypassed", { list: bypassed.map((id) => this._sensorName(id)).join(", ") }))}</span></div>`);
@@ -933,7 +937,8 @@ class AlarmCard extends AlarmBase {
   }
 
   getCardSize() {
-    return 5 + Math.ceil(this._sensors?.().length / 2 || 0);
+    // HA may ask before setConfig: no config yet, answer the bare card's size.
+    return this._config ? 5 + Math.ceil(this._sensors().length / 2) : 5;
   }
 
   getGridOptions() {

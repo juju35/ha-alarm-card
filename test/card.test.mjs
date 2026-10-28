@@ -145,7 +145,8 @@ test("a triggered panel names the open sensor", () => {
   const card = newCard(makeHass(triggered));
   const html = card.shadowRoot.innerHTML;
   assert.match(html, /Triggered/);
-  assert.match(html, /Open: Kitchen window/);
+  // Each open sensor name is its own more-info link.
+  assert.match(html, /Open: <span[^>]*data-entity="binary_sensor\.kitchen_window"[^>]*>Kitchen window<\/span>/);
   assert.match(html, /class="shield alarm"/);
 });
 
