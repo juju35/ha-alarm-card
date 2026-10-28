@@ -504,21 +504,32 @@ class AlarmBase extends HTMLElement {
     };
   }
 
-  // Durations move with the clock: a render check every second (cheap: the signature only changes on the
-  // second while a delay counts down, on the minute otherwise).
+  // Durations move with the clock: a render check every second while a delay counts down (the signature
+  // changes on the second), every minute otherwise (it only changes on the minute).
   connectedCallback() {
-    clearInterval(this._timer);
-    this._timer = setInterval(() => {
-      if (this._hass) this.hass = this._hass;
-    }, 1000);
+    this._startClock();
     document.addEventListener("click", this._onOutside, true);
     if (this._confirm || this._pad) window.addEventListener("keydown", this._onKey);
   }
 
   disconnectedCallback() {
     clearInterval(this._timer);
+    this._timer = null;
+    this._timerPeriod = null;
     document.removeEventListener("click", this._onOutside, true);
     window.removeEventListener("keydown", this._onKey);
+  }
+
+  // (Re)arm the render clock at the pace the current state needs. State changes themselves arrive through
+  // `set hass`, which re-renders and brings the clock back here, so each pace switch follows the state.
+  _startClock() {
+    const period = this._hass && this._config && remaining(this._panel()) ? 1000 : 60000;
+    if (this._timer && this._timerPeriod === period) return;
+    clearInterval(this._timer);
+    this._timerPeriod = period;
+    this._timer = setInterval(() => {
+      if (this._hass) this.hass = this._hass;
+    }, period);
   }
 
   set hass(hass) {
@@ -537,6 +548,7 @@ class AlarmBase extends HTMLElement {
     if (!config) throw new Error("Invalid configuration");
     if (config.sensors !== undefined && !Array.isArray(config.sensors)) throw new Error("sensors must be a list");
     this._config = { ...config };
+    this._autoEntity = undefined;
     this._html = "";
     this._sig = null;
     this._update();
@@ -550,11 +562,15 @@ class AlarmBase extends HTMLElement {
     return lang(this._hass, this._config);
   }
 
+  // Without a configured entity, the first alarm panel (alphabetically) is used; the scan of every state is
+  // memoized, and redone only if the chosen entity disappears.
   _entityId() {
     if (this._config.entity) return this._config.entity;
-    return Object.keys(this._hass.states)
+    if (this._autoEntity && this._hass.states[this._autoEntity]) return this._autoEntity;
+    this._autoEntity = Object.keys(this._hass.states)
       .filter((id) => id.startsWith("alarm_control_panel."))
       .sort()[0];
+    return this._autoEntity;
   }
 
   _panel() {
@@ -580,6 +596,7 @@ class AlarmBase extends HTMLElement {
 
   _update(sig) {
     if (!this._hass || !this._config) return;
+    if (this.isConnected) this._startClock();
     this._sig = sig ?? this._signature();
     let html = this._render();
     if (this._confirm) html = html.replace(/<ha-card([^>]*)>([\s\S]*)<\/ha-card>\s*$/, (_, _attrs, inner) => `<ha-card class="dialog-open">${inner}${this._confirmHtml()}</ha-card>`);
