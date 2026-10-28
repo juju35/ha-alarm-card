@@ -38,8 +38,13 @@ export const load = () => {
   };
   sandbox.window = sandbox;
   vm.createContext(sandbox);
+  // The DOM morphing needs a real DOM: the tests swap it for a plain innerHTML replacement. Fail loudly if
+  // a refactor moved the block out of the pattern's reach, instead of running the real morph and failing
+  // every DOM test in confusing ways.
+  const patched = source.replace(/const morph = \(root, html\) => \{[\s\S]*?\n\};/, "const morph = (root, html) => { root.innerHTML = html; };");
+  if (patched === source) throw new Error("test/load.mjs: the morph block was not found in src/alarm-card.js — update the replacement pattern.");
   return vm.runInContext(
-    `${source.replace(/const morph = \(root, html\) => \{[\s\S]*?\n\};/, "const morph = (root, html) => { root.innerHTML = html; };")}
+    `${patched}
     ({ stateClass, supportedModes, remaining, fmtCountdown, fmtDuration, parseTime, entityList, esc,
        AlarmCard: customElements.get("alarm-card"), AlarmMiniCard: customElements.get("alarm-mini-card") })`,
     sandbox,
