@@ -211,3 +211,23 @@ test("French strings", () => {
   assert.match(card.shadowRoot.innerHTML, /Armement/);
   assert.match(card.shadowRoot.innerHTML, /Armée dans/);
 });
+
+test("I18N parity: every language has exactly the English keys and placeholders", () => {
+  const ph = (v) => [...String(v).matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
+  const en = al.STRINGS.en;
+  for (const [l, strings] of Object.entries(al.STRINGS)) {
+    assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), `${l}: keys differ from en`);
+    for (const k of Object.keys(en)) assert.deepEqual(ph(strings[k]), ph(en[k]), `${l}.${k}: placeholders differ from en`);
+  }
+  for (const l of ["en", "fr", "de", "es"]) assert.ok(al.STRINGS[l], `missing ${l}`);
+});
+
+test("German and Spanish strings, from the config or the HA locale", () => {
+  const de = newCard(makeHass(arming), { language: "de" });
+  assert.match(de.shadowRoot.innerHTML, /Wird scharf geschaltet/);
+  assert.match(de.shadowRoot.innerHTML, /Scharf in/);
+  const hass = { ...makeHass(arming), language: "es", locale: { language: "es-ES" } };
+  const es = newCard(hass);
+  assert.match(es.shadowRoot.innerHTML, /Armando/);
+  assert.match(es.shadowRoot.innerHTML, /Armada en/);
+});
