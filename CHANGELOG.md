@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0 — 2026-10-28
+### Changes
+- German and Spanish translations: both cards and the visual editor in `de` and `es` (auto-detected from Home Assistant or forced with `language`), with Deutsch and Español in the editor's language selector.
+- In German, the arm mode inside the code pad title and the open-sensor confirmation keeps its capital letter, quoted, instead of being lowercased.
+
 ## 1.2.1 — 2026-10-28
 ### Fixes
 - Disarm confirmation followed by the code pad: the first tap on a digit right after the popup closes is no longer swallowed by the double-click guard.
