@@ -30,7 +30,7 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 - Collapsible sensors section
 - Click the state or a sensor to open its more-info dialog
 - Visual editor in the dashboard UI for both cards (no YAML needed)
-- Light and dark mode, English and French, reduced-motion aware
+- Light and dark mode, English, French, German and Spanish, reduced-motion aware
 - Single file, no external dependency
 
 ## Prerequisites
@@ -127,7 +127,7 @@ zoom: true
 | `show_sensors` | full | `true` | Sensors section |
 | `collapsed` | full | `false` | Fold the sensors section by default (click its title to unfold it) |
 | `zoom` | mini | `true` | Detail button at the top right of the mini card: it shows the full card's content (with the same options) and switches back; `false` removes it |
-| `language` | both | Auto | Force language: `fr` or `en` (auto-detects from HA settings) |
+| `language` | both | Auto | Force language: `en`, `fr`, `de` or `es` (auto-detects from HA settings) |
 
 ## Screenshots
 
@@ -188,6 +188,8 @@ The cards auto-detect the language from your Home Assistant settings. Currently 
 |---|---|
 | English | `en` |
 | Français | `fr` |
+| Deutsch | `de` |
+| Español | `es` |
 
 Contributions for additional languages are welcome!
 
