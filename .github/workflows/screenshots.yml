@@ -10,8 +10,10 @@ on:
 
 # Protected main is never pushed to: the job commits the refreshed screenshots
 # back onto the pull request's own branch, so they land through the normal merge.
+# actions: write lets the job re-dispatch the PR checks on the screenshot commit (see the last steps).
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: screenshots-${{ github.head_ref || github.ref_name }}
@@ -59,6 +61,7 @@ jobs:
             exit 1
           }
       - name: Commit refreshed screenshots
+        id: commit
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         run: |
           if [ -z "$(git status --porcelain screenshots)" ]; then
@@ -69,10 +72,18 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add screenshots
           git commit -m "chore: refresh screenshots"
-          # Pushed with GITHUB_TOKEN, so this commit does not re-trigger pull_request workflows on the new head.
-          # main requires no status check, so the PR is not blocked; if checks ever become required, push with
-          # an App / PAT token instead (or re-run the checks by hand).
           git push
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+      # A push made with GITHUB_TOKEN does not trigger pull_request workflows, but workflow_dispatch does:
+      # re-run the PR checks on the branch so the screenshot commit gets its own Lint / Validate / HACS results.
+      - name: Re-run checks on the screenshot commit
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for wf in lint.yml validate.yml hacs.yml; do
+            [ -f ".github/workflows/$wf" ] && gh workflow run "$wf" --ref "${{ github.head_ref }}"
+          done
       - name: Upload screenshots (manual run)
         if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
