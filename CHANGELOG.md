@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.2 — 2026-10-29
+### Fixes
+- The visual editor now ticks the arm modes written without the `arm_` prefix (`modes: [away, home]`, as in the README example) and they can be unticked; ticking another mode no longer adds a second button for a mode already listed.
+- A mode listed twice in `modes` (for example `away` and `arm_away`) shows a single button.
+
 ## 1.4.1 — 2026-10-29
 ### Fixes
 - With no `entity` set and several alarm panels, the visual editor now shows the same panel as the card (the first one alphabetically) and its arm modes; editing an option no longer silently switches the card to another panel.
