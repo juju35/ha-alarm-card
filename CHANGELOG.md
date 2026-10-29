@@ -4,6 +4,7 @@
 ### Fixes
 - The visual editor now ticks the arm modes written without the `arm_` prefix (`modes: [away, home]`, as in the README example) and they can be unticked; ticking another mode no longer adds a second button for a mode already listed.
 - A mode listed twice in `modes` (for example `away` and `arm_away`) shows a single button.
+- Sensors that Alarmo reports because they are unavailable (or were deleted or renamed since they were added to Alarmo) are listed on their own "Unavailable" line instead of being shown as open.
 
 ## 1.4.1 — 2026-10-29
 ### Fixes

@@ -159,6 +159,7 @@ Mini card zoomed in with its detail button (top right, click it again or anywher
 - **Modes**: the buttons follow the panel's `supported_features` (home, away, night, vacation, custom bypass), narrowed by `modes`.
 - **Code**: when the panel has a `code_format`, Disarm opens the code pad, and so do the arm buttons unless `code_arm_required` is `false`. The code is sent with the standard `alarm_control_panel.alarm_*` services; a wrong code is reported by Home Assistant.
 - **Open sensors**: before arming, the card checks the configured `sensors`. When one is open it asks for confirmation; once confirmed, an Alarmo panel is armed with `alarmo.arm` and `force: true` (the standard service would be refused), other panels with the standard service.
+- **Unavailable sensors**: Alarmo also reports sensors that are unavailable, or that no longer exist under the entity_id it was set up with, among its open sensors (they block arming). The card lists them on a separate "Unavailable" line; if an entity_id is shown there, update that sensor in Alarmo's settings.
 - **Delays**: during `arming` (exit delay) and `pending` (entry delay), the card counts down from Alarmo's `delay` attribute and the last state change, or from an `expiration` attribute.
 - **Updates**: the card only redraws when the panel, its sensors or the countdown change, and patches the page in place (no flicker, the code field keeps what you typed).
 

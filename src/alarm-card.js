@@ -67,6 +67,7 @@ const STRINGS = {
     arming_in: "Armed in {d}",
     pending_in: "Alarm in {d}",
     open_sensors: "Open: {list}",
+    unavailable_sensors: "Unavailable: {list}",
     open_confirm: "{list}: open. Arm {mode} anyway?",
     bypassed: "Bypassed: {list}",
     last_triggered: "Last triggered {when}",
@@ -137,6 +138,7 @@ const STRINGS = {
     arming_in: "Armée dans {d}",
     pending_in: "Alarme dans {d}",
     open_sensors: "Ouvert : {list}",
+    unavailable_sensors: "Indisponible : {list}",
     open_confirm: "{list} : ouvert. Armer en mode {mode} quand même ?",
     bypassed: "Exclus : {list}",
     last_triggered: "Dernier déclenchement {when}",
@@ -205,6 +207,7 @@ const STRINGS = {
     arming_in: "Aktiviert in {d}",
     pending_in: "Alarm in {d}",
     open_sensors: "Offen: {list}",
+    unavailable_sensors: "Nicht verfügbar: {list}",
     open_confirm: "{list}: offen. Trotzdem „{mode}“ aktivieren?",
     bypassed: "Überbrückt: {list}",
     last_triggered: "Zuletzt ausgelöst {when}",
@@ -273,6 +276,7 @@ const STRINGS = {
     arming_in: "Armada en {d}",
     pending_in: "Alarma en {d}",
     open_sensors: "Abierto: {list}",
+    unavailable_sensors: "No disponible: {list}",
     open_confirm: "{list}: abierto. ¿Armar en modo «{mode}» de todos modos?",
     bypassed: "Excluidos: {list}",
     last_triggered: "Último disparo {when}",
@@ -977,17 +981,25 @@ class AlarmBase extends HTMLElement {
       out.push(`<div class="line">${svgIcon(ICONS.timer)}<span>${esc(this._t(key, { d: fmtCountdown(rem.left) }))}</span></div>`);
       if (withBar && rem.total) out.push(`<div class="bar ${stateClass(st.state)}"><div style="width:${((100 * rem.left) / rem.total).toFixed(1)}%"></div></div>`);
     }
-    const open = entityList(a.open_sensors);
-    if (open.length) {
-      // Each name opens its own sensor's more-info: the names are spliced, already marked up, into the
-      // escaped translated line through a placeholder no translation can contain.
-      const names = open
+    // Alarmo also lists unavailable sensors (or ones deleted/renamed since its setup) in open_sensors: they
+    // block arming like open ones, but get their own "Unavailable" line instead of being called open.
+    const reported = entityList(a.open_sensors);
+    const isGone = (id) => {
+      const s = a.open_sensors && !Array.isArray(a.open_sensors) ? a.open_sensors[id] : this._hass.states[id]?.state;
+      return s === undefined || s === null || s === "unavailable" || s === "unknown";
+    };
+    const unavailable = reported.filter(isGone);
+    const open = reported.filter((id) => !isGone(id));
+    // Each name opens its own sensor's more-info: the names are spliced, already marked up, into the
+    // escaped translated line through a placeholder no translation can contain.
+    const sensorLine = (ids, key, cls) => {
+      const names = ids
         .map((id) => `<span class="clickable" role="button" tabindex="0" data-entity="${esc(id)}">${esc(this._sensorName(id))}</span>`)
         .join(", ");
-      out.push(
-        `<div class="alert-line ${st.state === "triggered" ? "alarm" : "wait"}">${svgIcon(ICONS.alert)}<span>${esc(this._t("open_sensors", { list: "\u0000" })).replace("\u0000", names)}</span></div>`
-      );
-    }
+      out.push(`<div class="alert-line ${cls}">${svgIcon(ICONS.alert)}<span>${esc(this._t(key, { list: "\u0000" })).replace("\u0000", names)}</span></div>`);
+    };
+    if (open.length) sensorLine(open, "open_sensors", st.state === "triggered" ? "alarm" : "wait");
+    if (unavailable.length) sensorLine(unavailable, "unavailable_sensors", "wait");
     const bypassed = entityList(a.bypassed_sensors);
     if (bypassed.length)
       out.push(`<div class="line">${svgIcon(ICONS.shield_off)}<span>${esc(this._t("bypassed", { list: bypassed.map((id) => this._sensorName(id)).join(", ") }))}</span></div>`);
