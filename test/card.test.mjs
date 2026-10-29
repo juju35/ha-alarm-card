@@ -160,6 +160,24 @@ test("a triggered panel names the open sensor", () => {
   assert.match(html, /class="shield alarm"/);
 });
 
+test("sensors Alarmo reports as unavailable are listed apart, not as open", () => {
+  // Alarmo puts unavailable sensors (or ones deleted/renamed since its setup) in open_sensors: they block
+  // arming, but calling them "open" is wrong.
+  const st = { ...states[PANEL], attributes: { ...states[PANEL].attributes, open_sensors: { "binary_sensor.gone": "unavailable", "binary_sensor.kitchen_window": "on" } } };
+  const html = newCard(makeHass({ [PANEL]: st })).shadowRoot.innerHTML;
+  assert.match(html, /Open: <span[^>]*data-entity="binary_sensor\.kitchen_window"[^>]*>Kitchen window<\/span><\/span>/);
+  assert.match(html, /Unavailable: <span[^>]*data-entity="binary_sensor\.gone"[^>]*>binary_sensor\.gone<\/span>/);
+  assert.doesNotMatch(html, /Open: [^<]*<span[^>]*data-entity="binary_sensor\.gone"/);
+  assert.doesNotMatch(html, /Kitchen window<\/span>, <span[^>]*binary_sensor\.gone/);
+});
+
+test("a list-shaped open_sensors uses the live state to tell unavailable from open", () => {
+  const st = { ...states[PANEL], attributes: { ...states[PANEL].attributes, open_sensors: ["binary_sensor.kitchen_window", "binary_sensor.gone"] } };
+  const html = newCard(makeHass({ [PANEL]: st })).shadowRoot.innerHTML;
+  assert.match(html, /Open: <span[^>]*data-entity="binary_sensor\.kitchen_window"/);
+  assert.match(html, /Unavailable: <span[^>]*data-entity="binary_sensor\.gone"/);
+});
+
 test("an unrelated state change does not rebuild the card", () => {
   const hass = makeHass();
   const card = newCard(hass);
