@@ -402,11 +402,16 @@ const stateIcon = (state) => {
   return ICONS.shield_check;
 };
 
+// The `modes` option with the optional arm_ prefix added and duplicates removed ("away" and "arm_away" are one
+// mode). Anything but a list is returned as is.
+const armModes = (modes) =>
+  Array.isArray(modes) ? [...new Set(modes.map((m) => (String(m).startsWith("arm_") ? String(m) : `arm_${m}`)))] : modes;
+
 // Arm modes the panel supports, in button order, narrowed to `modes` when set.
 const supportedModes = (stateObj, modes) => {
   const f = Number(stateObj?.attributes?.supported_features) || 0;
   const all = MODES.filter(([, bit]) => f & bit).map(([m]) => m);
-  const wanted = (Array.isArray(modes) ? modes : []).map((m) => (m.startsWith("arm_") ? m : `arm_${m}`));
+  const wanted = Array.isArray(modes) ? armModes(modes) : [];
   return wanted.length ? wanted.filter((m) => all.includes(m)) : all;
 };
 
@@ -1346,6 +1351,8 @@ class AlarmEditorBase extends HTMLElement {
       this.appendChild(this._form);
     }
     const data = { ...this._config, sensors: normalize(this._config.sensors).map((s) => s.entity) };
+    // The selector's values carry the arm_ prefix, optional in YAML: without it nothing would be checked.
+    if (data.modes !== undefined) data.modes = armModes(data.modes);
     for (const [name, def] of toggles) if (data[name] === undefined) data[name] = def;
     if (!data.entity) data.entity = AlarmCard.getStubConfig(this._hass).entity;
     this._form.hass = this._hass;
