@@ -252,3 +252,27 @@ test("German and Spanish strings, from the config or the HA locale", () => {
   assert.match(es.shadowRoot.innerHTML, /Armando/);
   assert.match(es.shadowRoot.innerHTML, /Armada en/);
 });
+
+test("without an entity, the editor shows the panel the card controls", () => {
+  // Inserted out of alphabetical order: the card picks the first one alphabetically.
+  const panel = (features) => ({ state: "disarmed", attributes: { supported_features: features } });
+  const hass = {
+    ...makeHass(),
+    states: { "alarm_control_panel.zone": panel(2), "alarm_control_panel.maison": panel(5) }, // away / home + night
+  };
+  const card = newCard(hass, { entity: undefined, sensors: [] });
+  assert.equal(card._entityId(), "alarm_control_panel.maison");
+  assert.equal(al.AlarmCard.getStubConfig(hass).entity, "alarm_control_panel.maison");
+  for (const Editor of [al.AlarmCardEditor, al.AlarmMiniCardEditor]) {
+    const editor = new Editor();
+    editor._hass = hass;
+    editor._config = {};
+    const modes = editor._schema().find((s) => s.name === "modes").selector.select.options.map((o) => o.value);
+    assert.deepEqual([...modes], ["arm_home", "arm_night"]);
+  }
+});
+
+test("the stub config has no entity when there is no alarm panel", () => {
+  assert.deepEqual({ ...al.AlarmCard.getStubConfig({ states: { "light.a": { state: "on" } } }) }, {});
+  assert.deepEqual({ ...al.AlarmCard.getStubConfig(undefined) }, {});
+});
