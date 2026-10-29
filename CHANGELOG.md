@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1 — 2026-10-29
+### Fixes
+- With no `entity` set and several alarm panels, the visual editor now shows the same panel as the card (the first one alphabetically) and its arm modes; editing an option no longer silently switches the card to another panel.
+
 ## 1.4.0 — 2026-10-29
 ### Changes
 - German labels use Home Assistant's own alarm terminology ("Aktiviert (Abwesend)", "Deaktiviert", "Wird aktiviert", "Anstehend", "Mit Bypass"…) instead of "scharf / unscharf", so the card matches the more-info dialog; Spanish "Armada de vacaciones" likewise.
