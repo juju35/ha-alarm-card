@@ -240,8 +240,8 @@ test("I18N: every editor toggle has a label in every language", () => {
 
 test("German and Spanish strings, from the config or the HA locale", () => {
   const de = newCard(makeHass(arming), { language: "de" });
-  assert.match(de.shadowRoot.innerHTML, /Wird scharf geschaltet/);
-  assert.match(de.shadowRoot.innerHTML, /Scharf in/);
+  assert.match(de.shadowRoot.innerHTML, /Wird aktiviert/);
+  assert.match(de.shadowRoot.innerHTML, /Aktiviert in/);
   const hass = { ...makeHass(arming), language: "es", locale: { language: "es-ES" } };
   const es = newCard(hass);
   assert.match(es.shadowRoot.innerHTML, /Armando/);
