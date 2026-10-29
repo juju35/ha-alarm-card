@@ -238,6 +238,11 @@ test("I18N: every editor toggle has a label in every language", () => {
       for (const [l, strings] of Object.entries(al.STRINGS)) assert.ok(strings[name], `${l}.${name}: missing editor label`);
 });
 
+test("Mini card editor offers the zoomed view's sensor options", () => {
+  const names = al.AlarmMiniCardEditor.toggles.map(([n]) => n);
+  for (const n of ["show_sensors", "collapsed"]) assert.ok(names.includes(n), `${n}: missing from the mini card editor`);
+});
+
 test("German and Spanish strings, from the config or the HA locale", () => {
   const de = newCard(makeHass(arming), { language: "de" });
   assert.match(de.shadowRoot.innerHTML, /Wird aktiviert/);

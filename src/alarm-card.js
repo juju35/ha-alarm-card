@@ -1373,8 +1373,11 @@ class AlarmMiniCardEditor extends AlarmEditorBase {
     return [
       ["show_logo", true],
       ["show_controls", true],
+      // Both apply to the zoomed view, which renders the full card with the same options.
+      ["show_sensors", true],
       ["show_info", true],
       ["confirm_disarm", false],
+      ["collapsed", false],
       ["zoom", true],
     ];
   }

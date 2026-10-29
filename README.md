@@ -124,8 +124,8 @@ zoom: true
 | `show_controls` | both | `true` | Arm / disarm buttons |
 | `show_info` | both | `true` | Who changed the state and the last trigger (Alarmo) |
 | `confirm_disarm` | both | `false` | Ask for confirmation before disarming |
-| `show_sensors` | full | `true` | Sensors section (also applies to the mini card's zoomed view; YAML only on the mini card) |
-| `collapsed` | full | `false` | Fold the sensors section by default, click its title to unfold it (also applies to the mini card's zoomed view; YAML only on the mini card) |
+| `show_sensors` | both | `true` | Sensors section (on the mini card: in its zoomed view) |
+| `collapsed` | both | `false` | Fold the sensors section by default, click its title to unfold it (on the mini card: in its zoomed view) |
 | `zoom` | mini | `true` | Detail button at the top right of the mini card: it shows the full card's content (with the same options) and switches back; `false` removes it |
 | `language` | both | Auto | Force language: `en`, `fr`, `de` or `es` (auto-detects from HA settings) |
 
