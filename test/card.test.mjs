@@ -30,6 +30,8 @@ test("stateClass gives each state its color", () => {
   assert.equal(al.stateClass("pending"), "wait");
   assert.equal(al.stateClass("triggered"), "alarm");
   assert.equal(al.stateClass("unavailable"), "idle");
+  // Unknown armed_* states never reach a class attribute as is.
+  assert.equal(al.stateClass("armed_x\" onclick=\"y"), "idle");
 });
 
 test("arm modes follow the supported features and the modes option", () => {
@@ -82,6 +84,14 @@ test("arming with a sensor open asks first, then forces through Alarmo", () => {
   click(card, { action: "confirm_ok" });
   assert.deepEqual(plain(hass.calls), [["alarmo", "arm", { entity_id: PANEL, mode: "away", force: true }]]);
   assert.doesNotMatch(card.shadowRoot.innerHTML, /dialog-open/);
+});
+
+test("forcing Custom bypass through Alarmo sends its custom mode", () => {
+  const hass = makeHass({ [PANEL]: { ...states[PANEL], attributes: { ...states[PANEL].attributes, supported_features: 63 } } });
+  const card = newCard(hass);
+  click(card, { action: "mode", mode: "arm_custom_bypass" });
+  click(card, { action: "confirm_ok" });
+  assert.deepEqual(plain(hass.calls), [["alarmo", "arm", { entity_id: PANEL, mode: "custom", force: true }]]);
 });
 
 test("Cancel in the popup arms nothing", () => {
@@ -220,6 +230,12 @@ test("I18N parity: every language has exactly the English keys and placeholders"
     for (const k of Object.keys(en)) assert.deepEqual(ph(strings[k]), ph(en[k]), `${l}.${k}: placeholders differ from en`);
   }
   for (const l of ["en", "fr", "de", "es"]) assert.ok(al.STRINGS[l], `missing ${l}`);
+});
+
+test("I18N: every editor toggle has a label in every language", () => {
+  for (const Editor of [al.AlarmCardEditor, al.AlarmMiniCardEditor])
+    for (const [name] of Editor.toggles)
+      for (const [l, strings] of Object.entries(al.STRINGS)) assert.ok(strings[name], `${l}.${name}: missing editor label`);
 });
 
 test("German and Spanish strings, from the config or the HA locale", () => {

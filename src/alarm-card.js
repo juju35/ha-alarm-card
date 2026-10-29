@@ -104,6 +104,7 @@ const STRINGS = {
     modes: "Arm modes shown (all supported ones when empty)",
     sensors_option: "Sensors to display",
     show_logo: "Show logo",
+    show_controls: "Show arm / disarm buttons",
     show_sensors: "Show sensors",
     show_info: "Show last trigger and who changed it",
     confirm_disarm: "Ask for confirmation before disarming",
@@ -171,6 +172,7 @@ const STRINGS = {
     modes: "Modes affichés (tous ceux pris en charge si vide)",
     sensors_option: "Capteurs à afficher",
     show_logo: "Afficher le logo",
+    show_controls: "Afficher les boutons d'armement",
     show_sensors: "Afficher les capteurs",
     show_info: "Afficher le dernier déclenchement et l'auteur",
     confirm_disarm: "Demander confirmation avant de désarmer",
@@ -238,6 +240,7 @@ const STRINGS = {
     modes: "Angezeigte Modi (alle unterstützten, wenn leer)",
     sensors_option: "Anzuzeigende Sensoren",
     show_logo: "Logo anzeigen",
+    show_controls: "Schaltflächen zum Scharf-/Unscharfschalten anzeigen",
     show_sensors: "Sensoren anzeigen",
     show_info: "Letzte Auslösung und Urheber der Änderung anzeigen",
     confirm_disarm: "Vor dem Unscharfschalten nachfragen",
@@ -305,6 +308,7 @@ const STRINGS = {
     modes: "Modos mostrados (todos los compatibles si está vacío)",
     sensors_option: "Sensores a mostrar",
     show_logo: "Mostrar el logotipo",
+    show_controls: "Mostrar los botones de armado",
     show_sensors: "Mostrar los sensores",
     show_info: "Mostrar el último disparo y quién cambió el estado",
     confirm_disarm: "Pedir confirmación antes de desarmar",
@@ -384,8 +388,9 @@ const stateClass = (state) => {
   if (s === "disarmed") return "off";
   if (s === "triggered") return "alarm";
   if (/^(arming|pending|disarming)$/.test(s)) return "wait";
-  if (s.startsWith("armed_")) return s.slice(6).replace("custom_bypass", "custom");
-  return "idle";
+  // Only the known modes: the result goes unescaped into class attributes.
+  const mode = s.startsWith("armed_") ? s.slice(6).replace("custom_bypass", "custom") : "";
+  return /^(home|away|night|vacation|custom)$/.test(mode) ? mode : "idle";
 };
 
 const stateIcon = (state) => {
@@ -873,7 +878,7 @@ class AlarmBase extends HTMLElement {
   _send(mode, code, force = false) {
     const entity_id = this._entityId();
     if (force && mode !== "disarm" && this._isAlarmo())
-      return this._call("alarmo", "arm", { entity_id, mode: mode.slice(4), force: true, ...(code ? { code } : {}) });
+      return this._call("alarmo", "arm", { entity_id, mode: mode.slice(4).replace("custom_bypass", "custom"), force: true, ...(code ? { code } : {}) });
     return this._call("alarm_control_panel", `alarm_${mode}`, { entity_id, ...(code ? { code } : {}) });
   }
 
@@ -919,7 +924,7 @@ class AlarmBase extends HTMLElement {
     return String(st?.state ?? "");
   }
 
-  // "for 2 h 05 · by Julien".
+  // "for 2 h 05 · by Alex".
   _subtitle(st) {
     const tr = (k) => this._t(k);
     const bits = [];
@@ -940,7 +945,7 @@ class AlarmBase extends HTMLElement {
           <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
           <div class="sub">${esc(this._subtitle(st))}</div>
         </div>
-        <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${esc(st.entity_id)}"><span class="dot"></span>${esc(this._stateText(st))}</span>
+        <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${esc(st.entity_id)}" title="${esc(this._stateText(st))}"><span class="dot"></span><span class="chip-text">${esc(this._stateText(st))}</span></span>
         ${this._zoomButton()}
       </div>`;
   }
@@ -1042,6 +1047,9 @@ class AlarmBase extends HTMLElement {
 
 const FULL_STYLE = `
   .content { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 12px; }
+  /* Long state labels (German) shrink with an ellipsis instead of squeezing the title out. */
+  .header .chip { flex: 0 1 auto; min-width: 0; max-width: 50%; }
+  .header .chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .hero { display: flex; align-items: center; gap: 14px; }
   .hero .shield { width: 72px; height: 72px; }
   .hero .shield .icon { width: 40px; height: 40px; }

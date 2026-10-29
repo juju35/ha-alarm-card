@@ -46,7 +46,8 @@ export const load = () => {
   return vm.runInContext(
     `${patched}
     ({ stateClass, supportedModes, remaining, fmtCountdown, fmtDuration, parseTime, entityList, esc, STRINGS,
-       AlarmCard: customElements.get("alarm-card"), AlarmMiniCard: customElements.get("alarm-mini-card") })`,
+       AlarmCard: customElements.get("alarm-card"), AlarmMiniCard: customElements.get("alarm-mini-card"),
+       AlarmCardEditor: customElements.get("alarm-card-editor"), AlarmMiniCardEditor: customElements.get("alarm-mini-card-editor") })`,
     sandbox,
   );
 };
