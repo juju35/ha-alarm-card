@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.3.1 — 2026-10-29
+## 1.4.0 — 2026-10-29
 ### Changes
 - German labels use Home Assistant's own alarm terminology ("Aktiviert (Abwesend)", "Deaktiviert", "Wird aktiviert", "Anstehend", "Mit Bypass"…) instead of "scharf / unscharf", so the card matches the more-info dialog; Spanish "Armada de vacaciones" likewise.
 - The mini card's visual editor offers "Show sensors" and "Fold the sensors by default", which apply to its zoomed view.
