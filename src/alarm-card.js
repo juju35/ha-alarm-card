@@ -444,6 +444,15 @@ const normalize = (items) =>
     .filter((e) => e?.entity);
 
 // Alarmo's open_sensors / bypassed_sensors: { entity_id: state } or a list of entity ids.
+// The panel used when the config names none: the first alarm_control_panel alphabetically. Shared by the
+// card and the visual editor, so both show the same panel whatever the order of hass.states.
+const firstPanel = (hass) =>
+  hass?.states
+    ? Object.keys(hass.states)
+        .filter((id) => id.startsWith("alarm_control_panel."))
+        .sort()[0]
+    : undefined;
+
 const entityList = (v) => (Array.isArray(v) ? v : v && typeof v === "object" ? Object.keys(v) : []);
 
 // Same values, compared by identity: used to skip a render when nothing the card shows has changed.
@@ -712,9 +721,7 @@ class AlarmBase extends HTMLElement {
   _entityId() {
     if (this._config.entity) return this._config.entity;
     if (this._autoEntity && this._hass.states[this._autoEntity]) return this._autoEntity;
-    this._autoEntity = Object.keys(this._hass.states)
-      .filter((id) => id.startsWith("alarm_control_panel."))
-      .sort()[0];
+    this._autoEntity = firstPanel(this._hass);
     return this._autoEntity;
   }
 
@@ -1080,7 +1087,7 @@ class AlarmCard extends AlarmBase {
   }
 
   static getStubConfig(hass) {
-    const id = hass && Object.keys(hass.states).find((e) => e.startsWith("alarm_control_panel."));
+    const id = firstPanel(hass);
     return id ? { entity: id } : {};
   }
 
