@@ -276,3 +276,39 @@ test("the stub config has no entity when there is no alarm panel", () => {
   assert.deepEqual({ ...al.AlarmCard.getStubConfig({ states: { "light.a": { state: "on" } } }) }, {});
   assert.deepEqual({ ...al.AlarmCard.getStubConfig(undefined) }, {});
 });
+
+test("a mode listed twice (with and without arm_) shows one button", () => {
+  const st = { attributes: { supported_features: 11 } }; // home, away, trigger
+  assert.deepEqual([...al.supportedModes(st, ["away", "home", "arm_away"])], ["arm_away", "arm_home"]);
+  const card = newCard(makeHass(), { modes: ["away", "home", "arm_away"] });
+  assert.equal(card.shadowRoot.innerHTML.match(/data-mode="arm_away"/g).length, 1);
+  assert.equal(card.shadowRoot.innerHTML.match(/data-mode="arm_home"/g).length, 1);
+});
+
+// The editor's ha-form, replaced by a plain object: _render then only sets its data and schema.
+const newEditor = (hass, config, Editor = al.AlarmCardEditor) => {
+  const editor = new Editor();
+  editor._form = {};
+  editor._hass = hass;
+  editor.setConfig(config);
+  return editor;
+};
+
+test("the editor checks the modes written without the arm_ prefix (README example)", () => {
+  for (const Editor of [al.AlarmCardEditor, al.AlarmMiniCardEditor]) {
+    const editor = newEditor(makeHass(), { entity: PANEL, modes: ["away", "home"] }, Editor);
+    const options = editor._form.schema.find((s) => s.name === "modes").selector.select.options.map((o) => o.value);
+    assert.deepEqual([...editor._form.data.modes], ["arm_away", "arm_home"]);
+    for (const m of editor._form.data.modes) assert.ok(options.includes(m), `${m}: not an option of the editor`);
+    // Mixed or repeated entries are folded into one checkbox each.
+    const mixed = newEditor(makeHass(), { entity: PANEL, modes: ["arm_away", "away", "home"] }, Editor);
+    assert.deepEqual([...mixed._form.data.modes], ["arm_away", "arm_home"]);
+  }
+});
+
+test("the editor leaves a config without modes (or with an invalid one) as is", () => {
+  const none = newEditor(makeHass(), { entity: PANEL });
+  assert.equal(none._form.data.modes, undefined);
+  const str = newEditor(makeHass(), { entity: PANEL, modes: "away" });
+  assert.equal(str._form.data.modes, "away");
+});
