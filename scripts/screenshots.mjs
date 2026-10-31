@@ -6,7 +6,8 @@ import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { states, entities, sensors, armedAway, arming, triggered, withCode } from "./mock-states.mjs";
+import { states, entities, sensors } from "./mock-states.mjs";
+import { shots, gifs } from "./screenshot-shots.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const cardJs = readFileSync(`${root}dist/alarm-card.js`, "utf8");
@@ -96,21 +97,6 @@ async function makeGif(browser, gif, { fps = 20, seconds = 3 } = {}) {
   console.log(`screenshots/${gif.file}.gif`);
 }
 
-const shots = [
-  { file: "card", type: "alarm-card", theme: "light", width: 460, config: {} },
-  { file: "card-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: arming },
-  { file: "card-armed", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: armedAway },
-  { file: "card-armed-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: armedAway },
-  { file: "card-triggered", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: triggered },
-  { file: "card-triggered-light", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: triggered },
-  { file: "card-code", type: "alarm-card", theme: "light", width: 460, config: { show_sensors: false }, overrides: withCode, clicks: ['[data-mode="disarm"]', '[data-digit="1"]', '[data-digit="2"]'] },
-  { file: "card-code-dark", type: "alarm-card", theme: "dark", width: 460, config: { show_sensors: false }, overrides: withCode, clicks: ['[data-mode="disarm"]', '[data-digit="1"]', '[data-digit="2"]'] },
-  { file: "mini-card", type: "alarm-mini-card", theme: "light", width: 380, config: {} },
-  { file: "mini-card-dark", type: "alarm-mini-card", theme: "dark", width: 380, config: {}, overrides: arming },
-  { file: "mini-card-zoom", type: "alarm-mini-card", theme: "light", width: 460, config: {}, clicks: [".zoom"] },
-  { file: "mini-card-zoom-dark", type: "alarm-mini-card", theme: "dark", width: 460, config: {}, clicks: [".zoom"] },
-];
-
 const browser = await chromium.launch(
   process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}
 );
@@ -139,9 +125,6 @@ for (const s of shots) {
   await page.close();
 }
 
-// One looping GIF per distinct shield animation: al-flash while triggered, al-pulse while arming — each in light and dark.
-await makeGif(browser, { file: "triggered", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: triggered });
-await makeGif(browser, { file: "triggered-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: triggered });
-await makeGif(browser, { file: "arming", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: arming });
-await makeGif(browser, { file: "arming-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: arming });
+// One looping GIF per distinct shield animation (see scripts/screenshot-shots.mjs).
+for (const gif of gifs) await makeGif(browser, gif);
 await browser.close();
