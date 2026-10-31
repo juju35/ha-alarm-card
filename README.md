@@ -138,7 +138,7 @@ The shield animates with the panel's state: it flashes while the alarm is trigge
 | Triggered (flashing) | ![shield flashing while triggered](screenshots/triggered.gif) | ![shield flashing while triggered dark](screenshots/triggered-dark.gif) |
 | Arming (pulsing) | ![shield pulsing while arming](screenshots/arming.gif) | ![shield pulsing while arming dark](screenshots/arming-dark.gif) |
 
-| Light | Dark (arming: exit delay countdown) |
+| Light | Dark |
 |---|---|
 | ![card](screenshots/card.png) | ![card dark](screenshots/card-dark.png) |
 | ![mini card](screenshots/mini-card.png) | ![mini card dark](screenshots/mini-card-dark.png) |
