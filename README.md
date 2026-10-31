@@ -133,9 +133,10 @@ zoom: true
 
 The shield animates with the panel's state: it flashes while the alarm is triggered and pulses while arming (and during the entry delay). It settles to a still card once disarmed, and honours `prefers-reduced-motion`.
 
-![shield flashing while triggered](screenshots/triggered.gif)
-
-![shield pulsing while arming](screenshots/arming.gif)
+| | Light | Dark |
+|---|---|---|
+| Triggered (flashing) | ![shield flashing while triggered](screenshots/triggered.gif) | ![shield flashing while triggered dark](screenshots/triggered-dark.gif) |
+| Arming (pulsing) | ![shield pulsing while arming](screenshots/arming.gif) | ![shield pulsing while arming dark](screenshots/arming-dark.gif) |
 
 | Light | Dark (arming: exit delay countdown) |
 |---|---|
