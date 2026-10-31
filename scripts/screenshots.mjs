@@ -139,7 +139,9 @@ for (const s of shots) {
   await page.close();
 }
 
-// One looping GIF per distinct shield animation: al-flash while triggered, al-pulse while arming.
+// One looping GIF per distinct shield animation: al-flash while triggered, al-pulse while arming — each in light and dark.
 await makeGif(browser, { file: "triggered", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: triggered });
+await makeGif(browser, { file: "triggered-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: triggered });
 await makeGif(browser, { file: "arming", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: arming });
+await makeGif(browser, { file: "arming-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: arming });
 await browser.close();
