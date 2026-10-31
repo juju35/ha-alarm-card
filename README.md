@@ -142,17 +142,24 @@ The shield animates with the panel's state: it flashes while the alarm is trigge
 | ![card](screenshots/card.png) | ![card dark](screenshots/card-dark.png) |
 | ![mini card](screenshots/mini-card.png) | ![mini card dark](screenshots/mini-card-dark.png) |
 
-| Armed away | Triggered (dark) |
+Armed away and triggered:
+
+| Light | Dark |
 |---|---|
-| ![card armed](screenshots/card-armed.png) | ![card triggered](screenshots/card-triggered.png) |
+| ![card armed](screenshots/card-armed.png) | ![card armed dark](screenshots/card-armed-dark.png) |
+| ![card triggered light](screenshots/card-triggered-light.png) | ![card triggered](screenshots/card-triggered.png) |
 
 Code pad (panel with a number code):
 
-![code pad](screenshots/card-code.png)
+| Light | Dark |
+|---|---|
+| ![code pad](screenshots/card-code.png) | ![code pad dark](screenshots/card-code-dark.png) |
 
 Mini card zoomed in with its detail button (top right, click it again or anywhere outside the card to go back):
 
-![mini card zoomed in](screenshots/mini-card-zoom.png)
+| Light | Dark |
+|---|---|
+| ![mini card zoomed in](screenshots/mini-card-zoom.png) | ![mini card zoomed in dark](screenshots/mini-card-zoom-dark.png) |
 
 ## How it works
 
