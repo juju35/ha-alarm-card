@@ -247,7 +247,36 @@ test("I18N parity: every language has exactly the English keys and placeholders"
     assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), `${l}: keys differ from en`);
     for (const k of Object.keys(en)) assert.deepEqual(ph(strings[k]), ph(en[k]), `${l}.${k}: placeholders differ from en`);
   }
-  for (const l of ["en", "fr", "de", "es"]) assert.ok(al.STRINGS[l], `missing ${l}`);
+  for (const l of ["en", "fr", "de", "es", "sr", "sr-Latn"]) assert.ok(al.STRINGS[l], `missing ${l}`);
+});
+
+test("I18N: Serbian Cyrillic has no Latin letters and Serbian Latin no Cyrillic (placeholders and units aside)", () => {
+  const units = new Set(["min", "h", "d"]);
+  const strip = (v) => String(v).replace(/\{\w+\}/g, "");
+  for (const [k, v] of Object.entries(al.STRINGS.sr))
+    if (!units.has(k)) assert.doesNotMatch(strip(v), /[A-Za-z]/, `sr.${k}: Latin letter in ${JSON.stringify(v)}`);
+  for (const [k, v] of Object.entries(al.STRINGS["sr-Latn"])) assert.doesNotMatch(strip(v), /[\u0400-\u04FF]/, `sr-Latn.${k}: Cyrillic letter in ${JSON.stringify(v)}`);
+});
+
+test("I18N: the full HA language when known, else the part before the dash, else English", () => {
+  const render = (language, config = {}) => newCard({ ...makeHass(arming), language, locale: { language } }, config).shadowRoot.innerHTML;
+  assert.match(render("fr-FR"), /Armement/);
+  assert.match(render("sr-Latn"), /Aktiviranje u toku/);
+  assert.match(render("sr"), /Активирање у току/);
+  assert.match(render("pt-BR"), /Arming/);
+  // The card's language option still wins over Home Assistant's.
+  assert.match(render("sr-Latn", { language: "fr" }), /Armement/);
+});
+
+test("I18N: the editor offers every language of the card, Serbian included", () => {
+  const editor = new al.AlarmCardEditor();
+  editor._hass = makeHass();
+  editor._config = { entity: PANEL };
+  const options = editor._schema().find((s) => s.name === "language").selector.select.options;
+  const values = options.map((o) => o.value).filter(Boolean);
+  assert.deepEqual([...values].sort(), Object.keys(al.STRINGS).sort());
+  assert.equal(options.find((o) => o.value === "sr").label, "Српски");
+  assert.equal(options.find((o) => o.value === "sr-Latn").label, "Srpski (latinica)");
 });
 
 test("I18N: every editor toggle has a label in every language", () => {
