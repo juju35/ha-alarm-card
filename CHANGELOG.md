@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.4.6 — 2026-11-01
+### Fixes
+- Mini card at its default size (6 columns) with every arm mode: the name, the state and the detail button disappeared behind the row of buttons, so the full card could no longer be opened. When the buttons do not fit beside the name, they now move to a second row under it, right-aligned, with the detail button; the name always keeps a few characters.
+- Full card at its narrowest (6 columns): the header chip keeps only its colored dot (the state is written right below, and stays in the chip's tooltip and screen-reader label), so the title is no longer cut to one letter.
+- The header chip of the full card sits on the title's line instead of straddling the title and the subtitle.
+- The line naming what set the alarm off ("Open: Kitchen window, Front door") wraps (up to three lines) instead of being cut after a few characters.
+- Number code pad: the keyboard's digits, Backspace and Enter now work, as in Home Assistant's own dialog. The pad takes the focus when it opens, so Enter sends the code instead of pressing the mode button again.
+- Serbian: the triggered state, the last trigger and "never triggered" no longer use the word for "armed" ("Узбуна / Uzbuna", "Последње окидање / Poslednje okidanje", "Никада није окинут / Nikada nije okinut"), and the open sensor count reads "Отворено: 2 / Otvoreno: 2".
+- Dutch: the subtitle reads "al 2 u 05" (for 2 h 05) instead of "sinds 2 u 05", which read as a time of day.
+
+### Maintenance
+- Tests: layout at narrow widths measured in Chromium (mini card with every mode at 240 and 360 px, full card at 240 px, in English, Polish and Serbian Latin, light and dark), physical keyboard on the number pad, Serbian and Dutch strings. The Validate workflow installs Chromium for them.
+- README: the feature list names the 10 languages.
+
 ## 1.4.5 — 2026-11-01
 ### Changes
 - Added Italian, Dutch, European Portuguese and Polish translations (`it`, `nl`, `pt`, `pl`), offered in the visual editor's language list ("Italiano", "Nederlands", "Português (Portugal)", "Polski"). A Home Assistant set to `pt-BR` now uses European Portuguese instead of English. Relative times use European Portuguese formats (`pt` → `pt-PT` for Intl; `pt-BR` keeps Brazilian formats).
