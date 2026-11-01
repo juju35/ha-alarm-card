@@ -2,7 +2,7 @@
 // Usage: npm run build && npm run screenshots
 import { chromium } from "playwright";
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,6 +11,24 @@ import { shots, gifs } from "./screenshot-shots.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const cardJs = readFileSync(`${root}dist/alarm-card.js`, "utf8");
+const work = mkdtempSync(join(tmpdir(), "al-shots-"));
+
+// The decoded pixels of an image or animation, frame by frame (size, timing and an MD5 of each RGBA frame):
+// two files that look the same compare equal even when their bytes differ (PNG/GIF encoder, metadata).
+const pixels = (file) =>
+  execFileSync("ffmpeg", ["-nostdin", "-loglevel", "error", "-i", file, "-pix_fmt", "rgba", "-f", "framemd5", "-"], { encoding: "utf8" })
+    .split("\n")
+    .filter((l) => l && !l.startsWith("#"))
+    .join("\n");
+
+// Replaces screenshots/<name> with the fresh render only when it looks different: an unchanged render leaves
+// the committed file (and the git history) alone.
+const keep = (fresh, name) => {
+  const dest = `${root}screenshots/${name}`;
+  if (existsSync(dest) && pixels(dest) === pixels(fresh)) return console.log(`screenshots/${name} (unchanged)`);
+  copyFileSync(fresh, dest);
+  console.log(`screenshots/${name}`);
+};
 
 const THEMES = {
   light: {
@@ -100,14 +118,14 @@ async function makeGif(browser, gif, { fps = 20, seconds = 3 } = {}) {
     await page.screenshot({ path: join(dir, `f${String(i).padStart(3, "0")}.png`), clip });
   }
   await page.close();
-  const out = `${root}screenshots/${gif.file}.gif`;
+  const out = join(work, `${gif.file}.gif`);
   execFileSync("ffmpeg", [
     "-y", "-loglevel", "error", "-framerate", String(fps), "-i", join(dir, "f%03d.png"),
     "-vf", `scale=${clip.width}:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=4`,
     "-loop", "0", "-fflags", "+bitexact", "-flags:v", "+bitexact", out,
   ]);
   rmSync(dir, { recursive: true });
-  console.log(`screenshots/${gif.file}.gif`);
+  keep(out, `${gif.file}.gif`);
 }
 
 const browser = await chromium.launch(
@@ -131,15 +149,16 @@ for (const s of shots) {
   // Running animations (the shield's flash or pulse) are frozen at their start, so the shot is the same every run.
   await page.evaluate(() => { for (const a of window.allAnimations()) { a.pause(); a.currentTime = 0; } });
   const box = await page.locator("#root").boundingBox();
-  await page.screenshot({
-    path: `${root}screenshots/${s.file}.png`,
-    clip: { x: 0, y: 0, width: s.width + 32, height: Math.ceil(box.height) + 32 },
-    animations: "disabled",
-  });
-  console.log(`screenshots/${s.file}.png`);
+  const fresh = join(work, `${s.file}.png`);
+  writeFileSync(
+    fresh,
+    await page.screenshot({ clip: { x: 0, y: 0, width: s.width + 32, height: Math.ceil(box.height) + 32 }, animations: "disabled" })
+  );
+  keep(fresh, `${s.file}.png`);
   await page.close();
 }
 
 // One looping GIF per distinct shield animation (see scripts/screenshot-shots.mjs).
 for (const gif of gifs) await makeGif(browser, gif);
 await browser.close();
+rmSync(work, { recursive: true });
