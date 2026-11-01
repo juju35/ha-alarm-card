@@ -492,3 +492,24 @@ test("I18N: Dutch subtitle reads as a duration (al 2 u 05), not a clock time (si
   assert.match(card.shadowRoot.innerHTML, /al 2 u 05/);
   assert.doesNotMatch(card.shadowRoot.innerHTML, /sinds/);
 });
+
+test("the focus the card moves itself (code pad, confirm popup, detail button) never scrolls the page", () => {
+  const spy = (card) => {
+    const seen = [];
+    card.shadowRoot.querySelector = (sel) => ({ focus: (opts) => seen.push([sel, opts]) });
+    return seen;
+  };
+  const pad = newCard(makeHass(withCode));
+  const padSeen = spy(pad);
+  click(pad, { action: "mode", mode: "disarm" });
+  const confirm = newCard(makeHass(), { confirm_disarm: true });
+  const confirmSeen = spy(confirm);
+  click(confirm, { action: "mode", mode: "disarm" });
+  const mini = newCard(makeHass(), {}, al.AlarmMiniCard);
+  const miniSeen = spy(mini);
+  mini._toggleZoom({ detail: 0 });
+  for (const seen of [padSeen, confirmSeen, miniSeen]) {
+    assert.ok(seen.length, "the card moved the focus");
+    for (const [sel, opts] of seen) assert.equal(opts?.preventScroll, true, `${sel}: focus() without preventScroll`);
+  }
+});

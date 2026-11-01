@@ -155,3 +155,238 @@ test("full card at 240 px: the line naming what triggered the alarm is not cut, 
   assert.match(m2.alert.text, /Kitchen window, Front door/);
   assert.equal(m2.alert.clipped, false, `"${m2.alert.text}" is cut`);
 });
+
+// Opens a page with the card's script, for the tests below that mount several cards or move things around.
+const openPage = async () => {
+  const page = await browser.newPage({ viewport: { width: 1000, height: 900 } });
+  await page.clock.setFixedTime(NOW);
+  await page.setContent(`<!doctype html><html><head><meta charset="utf-8"><style>:root{${Object.entries(THEMES.light)
+    .map(([k, v]) => `${k}:${v};`)
+    .join("")}} body{margin:0;padding:16px;font-family:Roboto,Arial,sans-serif;font-size:14px}</style></head><body></body></html>`);
+  await page.addScriptTag({ content: HA_CARD });
+  await page.addScriptTag({ content: cardJs });
+  return page;
+};
+
+// Every visible box of the card (cut by its clipping ancestors), and the texts that end in an ellipsis.
+const audit = async ({ type, width, language = "en", theme = "light", ov = {}, config = {}, zoom = false }) => {
+  const page = await browser.newPage({ viewport: { width: 1000, height: 1400 } });
+  try {
+    await page.clock.setFixedTime(NOW);
+    await page.setContent(`<!doctype html><html><head><meta charset="utf-8"><style>:root{${Object.entries(THEMES[theme])
+      .map(([k, v]) => `${k}:${v};`)
+      .join("")}} body{margin:0;padding:16px;font-family:Roboto,Arial,sans-serif;font-size:14px}</style></head><body><div id="root" style="width:${width}px"></div></body></html>`);
+    await page.addScriptTag({ content: HA_CARD });
+    await page.addScriptTag({ content: cardJs });
+    return await page.evaluate(
+      async ({ type, states, entities, sensors, ov, language, config, PANEL, zoom }) => {
+        const all = structuredClone(states);
+        for (const [id, o] of Object.entries(ov)) all[id] = { ...all[id], ...o };
+        const el = document.createElement(type);
+        el.setConfig({ type, entity: PANEL, sensors, ...config });
+        el.hass = { states: all, entities, language, locale: { language }, callService: () => {} };
+        document.getElementById("root").appendChild(el);
+        const sr = el.shadowRoot;
+        if (zoom) sr.querySelector(".zoom").dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true, detail: 1 }));
+        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+        const card = sr.querySelector("ha-card").getBoundingClientRect();
+        const outside = [];
+        for (const n of sr.querySelectorAll("ha-card *")) {
+          if (n.localName === "style") continue;
+          const r = n.getBoundingClientRect();
+          if (!r.width && !r.height) continue;
+          let left = r.left;
+          let right = r.right;
+          for (let a = n.parentElement; a && a.localName !== "ha-card"; a = a.parentElement)
+            if (getComputedStyle(a).overflowX !== "visible") {
+              const q = a.getBoundingClientRect();
+              left = Math.max(left, q.left);
+              right = Math.min(right, q.right);
+            }
+          if (right - left >= 0.5 && (left < card.left - 0.5 || right > card.right + 0.5))
+            outside.push(`${n.localName}.${[...n.classList].join(".")} ${Math.round(left - card.left)}–${Math.round(right - card.left)} px`);
+        }
+        const cut = [];
+        for (const sel of [".state", ".header > .chip .chip-text", ".modes .btn", ".tile .v", ".section-title .chip"])
+          for (const n of sr.querySelectorAll(sel)) if (getComputedStyle(n).display !== "none" && n.scrollWidth > n.clientWidth + 1) cut.push(n.textContent.trim());
+        const name = sr.querySelector(".header .name");
+        const ctx = document.createElement("canvas").getContext("2d");
+        const cs = getComputedStyle(name);
+        ctx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+        const chip = sr.querySelector(".header > .chip .chip-text");
+        return {
+          card: card.width,
+          outside,
+          cut,
+          name: name.getBoundingClientRect().width,
+          fourChars: ctx.measureText(`${name.textContent.trim().slice(0, 4)}…`).width,
+          chip: chip && { text: chip.textContent, shown: getComputedStyle(chip).display !== "none", whole: chip.scrollWidth <= chip.clientWidth + 1 },
+        };
+      },
+      { type, states, entities, sensors, ov, language, config, PANEL, zoom },
+    );
+  } finally {
+    await page.close();
+  }
+};
+
+const unavailable = { [PANEL]: { ...states[PANEL], state: "unavailable" } };
+
+test("phone width (6 of 12 columns, 156 and 168 px) and 245 px: nothing leaves the card, no state is cut, the title keeps 4 characters", async (t) => {
+  if (skip) return t.skip(skip);
+  const kinds = [
+    ["alarm-card", {}, false],
+    ["alarm-mini-card", {}, false],
+    ["alarm-mini-card", {}, true],
+  ];
+  for (const [type, config, zoom] of kinds)
+    for (const language of ["en", "pl", "sr-Latn"])
+      for (const [name, ov] of Object.entries({ ...VARIANTS, unavailable }))
+        for (const width of [156, 168, 245]) {
+          const theme = width === 168 ? "dark" : "light";
+          const m = await audit({ type, width, language, theme, ov: allModes(ov), config, zoom });
+          const what = `${type}${zoom ? " zoomed" : ""} ${language} ${theme} ${name} ${width}px`;
+          assert.deepEqual(m.outside, [], `${what}: leaves the card`);
+          assert.deepEqual(m.cut, [], `${what}: cut`);
+          assert.ok(m.name + 0.5 >= m.fourChars, `${what}: title ${Math.round(m.name)} px < 4 characters (${Math.round(m.fourChars)} px)`);
+        }
+});
+
+test("full card (and zoomed mini card) from 245 to 500 px: the header chip shows its whole label in English, Polish and Serbian", async (t) => {
+  if (skip) return t.skip(skip);
+  for (const [type, zoom] of [["alarm-card", false], ["alarm-mini-card", true]])
+    for (const language of ["en", "pl", "sr-Latn"])
+      for (const [name, ov] of Object.entries({ ...VARIANTS, unavailable }))
+        for (const width of [245, 285, 320, 500]) {
+          const m = await audit({ type, width, language, ov, zoom });
+          const what = `${type}${zoom ? " zoomed" : ""} ${language} ${name} ${width}px`;
+          assert.ok(m.chip.shown && m.chip.whole, `${what}: chip "${m.chip.text}" ${m.chip.shown ? "cut" : "hidden"}`);
+          assert.deepEqual(m.outside, [], `${what}: leaves the card`);
+        }
+});
+
+test("in a parent sized by its content (inline-block, grid auto column, flex row) the cards keep a usable width", async (t) => {
+  if (skip) return t.skip(skip);
+  const page = await openPage();
+  try {
+    const widths = await page.evaluate(
+      ({ states, entities, sensors, PANEL }) => {
+        const out = {};
+        const parents = {
+          "inline-block": "display:inline-block",
+          "grid auto": "display:grid;grid-template-columns:auto auto;justify-content:start",
+          flex: "display:flex",
+        };
+        for (const [k, style] of Object.entries(parents))
+          for (const type of ["alarm-card", "alarm-mini-card"]) {
+            const parent = document.createElement("div");
+            parent.style.cssText = style;
+            document.body.appendChild(parent);
+            const el = document.createElement(type);
+            el.setConfig({ type, entity: PANEL, sensors });
+            el.hass = { states, entities, language: "en", callService: () => {} };
+            parent.appendChild(el);
+            out[`${type} in ${k}`] = el.shadowRoot.querySelector("ha-card").getBoundingClientRect().width;
+          }
+        return out;
+      },
+      { states, entities, sensors, PANEL },
+    );
+    for (const [k, w] of Object.entries(widths)) assert.ok(w >= 300, `${k}: ${Math.round(w)} px`);
+  } finally {
+    await page.close();
+  }
+});
+
+test("two cards side by side in a 1fr 1fr grid (grid card, layout-card) or a horizontal stack shrink with it: no overflow", async (t) => {
+  if (skip) return t.skip(skip);
+  const page = await openPage();
+  try {
+    const rows = await page.evaluate(
+      ({ states, entities, sensors, PANEL }) => {
+        const out = [];
+        const parents = {
+          "grid 1fr 1fr": ["display:grid;grid-template-columns:1fr 1fr;gap:8px", false],
+          // layout-card and HA wrap each card in an element of their own: that wrapper is the grid item.
+          "grid 1fr 1fr, wrapped": ["display:grid;grid-template-columns:1fr 1fr;gap:8px", true],
+          "horizontal stack": ["display:flex;gap:8px", false],
+        };
+        for (const width of [320, 360, 500])
+          for (const [k, [style, wrap]] of Object.entries(parents))
+            for (const type of ["alarm-card", "alarm-mini-card"]) {
+              document.body.innerHTML = "";
+              const parent = document.createElement("div");
+              parent.style.cssText = `${style};width:${width}px`;
+              document.body.appendChild(parent);
+              const cards = [];
+              for (let i = 0; i < 2; i++) {
+                const el = document.createElement(type);
+                el.setConfig({ type, entity: PANEL, sensors });
+                el.hass = { states, entities, language: "en", callService: () => {} };
+                if (k === "horizontal stack") el.style.cssText = "flex:1 1 0;min-width:0";
+                if (wrap) {
+                  const box = document.createElement("div");
+                  box.appendChild(el);
+                  parent.appendChild(box);
+                } else parent.appendChild(el);
+                cards.push(el);
+              }
+              const right = parent.getBoundingClientRect().right;
+              for (const el of cards) {
+                const r = el.shadowRoot.querySelector("ha-card").getBoundingClientRect();
+                out.push({ what: `${type} in ${k} at ${width}px`, width: r.width, overflow: r.right - right });
+              }
+            }
+        return out;
+      },
+      { states, entities, sensors, PANEL },
+    );
+    for (const r of rows) {
+      assert.ok(r.overflow <= 0.5, `${r.what}: overflows by ${Math.round(r.overflow)} px`);
+      assert.ok(r.width > 100, `${r.what}: ${Math.round(r.width)} px`);
+    }
+  } finally {
+    await page.close();
+  }
+});
+
+test("a hass update with the focus in the card (code pad open) does not scroll the page", async (t) => {
+  if (skip) return t.skip(skip);
+  const page = await openPage();
+  try {
+    const moves = await page.evaluate(
+      async ({ states, entities, sensors, PANEL, withCode }) => {
+        const all = { ...structuredClone(states), ...structuredClone(withCode) };
+        const out = [];
+        for (const type of ["alarm-card", "alarm-mini-card"]) {
+          document.body.innerHTML = "";
+          const top = document.createElement("div");
+          top.style.height = "1500px";
+          const bottom = document.createElement("div");
+          bottom.style.height = "1500px";
+          const el = document.createElement(type);
+          el.style.cssText = "display:block;width:360px";
+          el.setConfig({ type, entity: PANEL, sensors });
+          el.hass = { states: all, entities, language: "en", callService: () => {} };
+          document.body.append(top, el, bottom);
+          // The card's lower edge just in view: focusing the pad without preventScroll would scroll to it.
+          window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - window.innerHeight + 40);
+          await new Promise((r) => requestAnimationFrame(r));
+          const before = window.scrollY;
+          el.shadowRoot.querySelector('[data-action="mode"]').dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true, detail: 1 }));
+          el.hass = { states: { ...all }, entities, language: "en", callService: () => {} };
+          await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+          out.push({ type, before, after: window.scrollY, focused: !!el.shadowRoot.activeElement });
+        }
+        return out;
+      },
+      { states, entities, sensors, PANEL, withCode },
+    );
+    for (const m of moves) {
+      assert.ok(m.focused, `${m.type}: the pad took the focus`);
+      assert.equal(m.after, m.before, `${m.type}: the page scrolled from ${m.before} to ${m.after}`);
+    }
+  } finally {
+    await page.close();
+  }
+});
