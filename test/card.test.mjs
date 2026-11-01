@@ -245,9 +245,12 @@ test("I18N parity: every language has exactly the English keys and placeholders"
   const en = al.STRINGS.en;
   for (const [l, strings] of Object.entries(al.STRINGS)) {
     assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), `${l}: keys differ from en`);
-    for (const k of Object.keys(en)) assert.deepEqual(ph(strings[k]), ph(en[k]), `${l}.${k}: placeholders differ from en`);
+    for (const k of Object.keys(en)) {
+      assert.deepEqual(ph(strings[k]), ph(en[k]), `${l}.${k}: placeholders differ from en`);
+      assert.ok(String(strings[k]).trim(), `${l}.${k}: empty value`);
+    }
   }
-  for (const l of ["en", "fr", "de", "es", "sr", "sr-Latn"]) assert.ok(al.STRINGS[l], `missing ${l}`);
+  for (const l of ["en", "fr", "de", "es", "sr", "sr-Latn", "it", "nl", "pt", "pl"]) assert.ok(al.STRINGS[l], `missing ${l}`);
 });
 
 test("I18N: Serbian Cyrillic has no Latin letters and Serbian Latin no Cyrillic (placeholders and units aside)", () => {
@@ -263,12 +266,18 @@ test("I18N: the full HA language when known, else the part before the dash, else
   assert.match(render("fr-FR"), /Armement/);
   assert.match(render("sr-Latn"), /Aktiviranje u toku/);
   assert.match(render("sr"), /Активирање у току/);
-  assert.match(render("pt-BR"), /Arming/);
+  assert.match(render("it-IT"), /In attivazione/);
+  assert.match(render("nl-BE"), /Schakelt in/);
+  assert.match(render("pt"), /A armar/);
+  // Brazilian Portuguese falls back to European Portuguese (assumed).
+  assert.match(render("pt-BR"), /A armar/);
+  assert.match(render("pl-PL"), /Uzbrajanie/);
+  assert.match(render("ja"), /Arming/);
   // The card's language option still wins over Home Assistant's.
   assert.match(render("sr-Latn", { language: "fr" }), /Armement/);
 });
 
-test("I18N: the editor offers every language of the card, Serbian included", () => {
+test("I18N: the editor offers every language of the card, Serbian, Italian, Dutch, Portuguese and Polish included", () => {
   const editor = new al.AlarmCardEditor();
   editor._hass = makeHass();
   editor._config = { entity: PANEL };
@@ -277,6 +286,10 @@ test("I18N: the editor offers every language of the card, Serbian included", () 
   assert.deepEqual([...values].sort(), Object.keys(al.STRINGS).sort());
   assert.equal(options.find((o) => o.value === "sr").label, "Српски");
   assert.equal(options.find((o) => o.value === "sr-Latn").label, "Srpski (latinica)");
+  assert.equal(options.find((o) => o.value === "it").label, "Italiano");
+  assert.equal(options.find((o) => o.value === "nl").label, "Nederlands");
+  assert.equal(options.find((o) => o.value === "pt").label, "Português");
+  assert.equal(options.find((o) => o.value === "pl").label, "Polski");
 });
 
 test("I18N: every editor toggle has a label in every language", () => {
