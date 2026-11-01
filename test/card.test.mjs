@@ -330,3 +330,39 @@ test("the editor leaves a config without modes (or with an invalid one) as is", 
   const str = newEditor(makeHass(), { entity: PANEL, modes: "away" });
   assert.equal(str._form.data.modes, "away");
 });
+
+test("the sensors section header is a keyboard button (Tab, then Enter or Space)", () => {
+  const card = newCard(makeHass());
+  const header = card.shadowRoot.innerHTML.match(/<div class="section-title toggle"[^>]*>/)[0];
+  assert.match(header, /role="button"/);
+  assert.match(header, /tabindex="0"/);
+  assert.match(header, /aria-expanded="true"/);
+  // The re-render after the toggle keeps the header (and its keyboard attributes) in place.
+  click(card, { action: "toggle_section", section: "sensors" });
+  const folded = card.shadowRoot.innerHTML.match(/<div class="section-title toggle"[^>]*>/)[0];
+  assert.match(folded, /role="button" tabindex="0"/);
+  assert.match(folded, /aria-expanded="false"/);
+});
+
+test("smoke detectors show a smoke detector icon, with its alert variant when smoke is detected", () => {
+  const SMOKE = "M12 4C16.41 4 20 7.59 20 12S16.41 20";
+  const SMOKE_ALERT = "M10 4C14.4 4 18 7.6 18 12S14.4 20";
+  const tile = (html) => html.match(/data-entity="binary_sensor\.kitchen_smoke">([\s\S]*?)<\/div>\s*<\/div>/)[1];
+  const ok = tile(newCard(makeHass()).shadowRoot.innerHTML);
+  assert.ok(ok.includes(SMOKE), "mdi:smoke-detector-variant when clear");
+  assert.ok(!ok.includes("M12,0A12,12") && !ok.includes("L15.5,18C14.97"), "no barred circle");
+  const smoke = { ...states["binary_sensor.kitchen_smoke"], state: "on" };
+  assert.ok(tile(newCard(makeHass({ "binary_sensor.kitchen_smoke": smoke })).shadowRoot.innerHTML).includes(SMOKE_ALERT));
+  // An unavailable detector keeps the plain icon.
+  const gone = { ...smoke, state: "unavailable" };
+  assert.ok(tile(newCard(makeHass({ "binary_sensor.kitchen_smoke": gone })).shadowRoot.innerHTML).includes(SMOKE));
+});
+
+test("the mock panel's last trigger is relative to now, so the screenshots do not change from day to day", () => {
+  const last = states[PANEL].attributes.last_triggered;
+  // Alarmo's format: local time, "YYYY-MM-DD HH:MM:SS".
+  assert.match(last, /^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$/);
+  const days = (Date.now() - al.parseTime(last)) / 86400e3;
+  assert.ok(Math.abs(days - 83) < 0.01, `last_triggered is ${days.toFixed(2)} days ago`);
+  assert.match(newCard(makeHass()).shadowRoot.innerHTML, /Last triggered 83 days ago/);
+});
