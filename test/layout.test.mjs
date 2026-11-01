@@ -209,6 +209,12 @@ const audit = async ({ type, width, language = "en", theme = "light", ov = {}, c
         const cut = [];
         for (const sel of [".state", ".header > .chip .chip-text", ".modes .btn", ".tile .v", ".section-title .chip"])
           for (const n of sr.querySelectorAll(sel)) if (getComputedStyle(n).display !== "none" && n.scrollWidth > n.clientWidth + 1) cut.push(n.textContent.trim());
+        // The mini card's state under its name is inline in a line that ends in an ellipsis: it is cut when one of
+        // its line boxes goes past that line's right edge.
+        for (const n of sr.querySelectorAll(".sub .st")) {
+          const box = n.parentElement.getBoundingClientRect();
+          if ([...n.getClientRects()].some((r) => r.right > box.right + 1)) cut.push(n.textContent.trim());
+        }
         const name = sr.querySelector(".header .name");
         const ctx = document.createElement("canvas").getContext("2d");
         const cs = getComputedStyle(name);
@@ -232,7 +238,7 @@ const audit = async ({ type, width, language = "en", theme = "light", ov = {}, c
 
 const unavailable = { [PANEL]: { ...states[PANEL], state: "unavailable" } };
 
-test("phone width (6 of 12 columns, 156 and 168 px) and 245 px: nothing leaves the card, no state is cut, the title keeps 4 characters", async (t) => {
+test("phone width (6 of 12 columns, 156, 168 and 178 px) and 245 px: nothing leaves the card, no state is cut (mini card's too), the title keeps 4 characters", async (t) => {
   if (skip) return t.skip(skip);
   const kinds = [
     ["alarm-card", {}, false],
@@ -242,7 +248,7 @@ test("phone width (6 of 12 columns, 156 and 168 px) and 245 px: nothing leaves t
   for (const [type, config, zoom] of kinds)
     for (const language of ["en", "pl", "sr-Latn"])
       for (const [name, ov] of Object.entries({ ...VARIANTS, unavailable }))
-        for (const width of [156, 168, 245]) {
+        for (const width of [156, 168, 178, 245]) {
           const theme = width === 168 ? "dark" : "light";
           const m = await audit({ type, width, language, theme, ov: allModes(ov), config, zoom });
           const what = `${type}${zoom ? " zoomed" : ""} ${language} ${theme} ${name} ${width}px`;
@@ -350,7 +356,7 @@ test("two cards side by side in a 1fr 1fr grid (grid card, layout-card) or a hor
   }
 });
 
-test("a hass update with the focus in the card (code pad open) does not scroll the page", async (t) => {
+test("hass updates with the focus in the card (code pad open) do not scroll the page", async (t) => {
   if (skip) return t.skip(skip);
   const page = await openPage();
   try {
@@ -369,12 +375,17 @@ test("a hass update with the focus in the card (code pad open) does not scroll t
           el.setConfig({ type, entity: PANEL, sensors });
           el.hass = { states: all, entities, language: "en", callService: () => {} };
           document.body.append(top, el, bottom);
-          // The card's lower edge just in view: focusing the pad without preventScroll would scroll to it.
+          // The card's lower edge just in view. Opening the pad (a click: the user's own action) brings it on
+          // screen; the hass updates after it must not scroll any further.
           window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - window.innerHeight + 40);
           await new Promise((r) => requestAnimationFrame(r));
-          const before = window.scrollY;
           el.shadowRoot.querySelector('[data-action="mode"]').dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true, detail: 1 }));
-          el.hass = { states: { ...all }, entities, language: "en", callService: () => {} };
+          await new Promise((r) => requestAnimationFrame(r));
+          const before = window.scrollY;
+          for (let i = 0; i < 3; i++) {
+            el.hass = { states: { ...all }, entities, language: "en", callService: () => {} };
+            await new Promise((r) => requestAnimationFrame(r));
+          }
           await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
           out.push({ type, before, after: window.scrollY, focused: !!el.shadowRoot.activeElement });
         }
@@ -385,6 +396,63 @@ test("a hass update with the focus in the card (code pad open) does not scroll t
     for (const m of moves) {
       assert.ok(m.focused, `${m.type}: the pad took the focus`);
       assert.equal(m.after, m.before, `${m.type}: the page scrolled from ${m.before} to ${m.after}`);
+    }
+  } finally {
+    await page.close();
+  }
+});
+
+test("opening the confirm popup or the code pad brings it on screen (phone, the card partly scrolled out)", async (t) => {
+  if (skip) return t.skip(skip);
+  const page = await browser.newPage({ viewport: { width: 390, height: 700 } });
+  try {
+    await page.clock.setFixedTime(NOW);
+    await page.setContent(`<!doctype html><html><head><meta charset="utf-8"><style>:root{${Object.entries(THEMES.light)
+      .map(([k, v]) => `${k}:${v};`)
+      .join("")}} body{margin:0;padding:16px;font-family:Roboto,Arial,sans-serif;font-size:14px}</style></head><body></body></html>`);
+    await page.addScriptTag({ content: HA_CARD });
+    await page.addScriptTag({ content: cardJs });
+    const rows = await page.evaluate(
+      async ({ states, entities, sensors, PANEL, armedAway, withCode }) => {
+        const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+        const out = [];
+        const cases = [
+          // The popup sits at the top of the card: the card's top scrolled out, the Disarm button near the top.
+          ["confirm popup", "alarm-card", armedAway, { confirm_disarm: true }, ".modal", "top"],
+          ["confirm popup", "alarm-mini-card", armedAway, { confirm_disarm: true }, ".modal", "top"],
+          // The pad opens under the buttons: the button near the bottom of the screen, the pad below it.
+          ["code pad", "alarm-card", withCode, {}, ".pad", "bottom"],
+          ["code pad", "alarm-mini-card", withCode, {}, ".pad", "bottom"],
+        ];
+        for (const [what, type, ov, config, sel, edge] of cases) {
+          document.body.innerHTML = "";
+          const all = { ...structuredClone(states), ...structuredClone(ov) };
+          const top = document.createElement("div");
+          top.style.height = "1500px";
+          const bottom = document.createElement("div");
+          bottom.style.height = "1500px";
+          const el = document.createElement(type);
+          el.style.cssText = "display:block;width:358px";
+          el.setConfig({ type, entity: PANEL, sensors, ...config });
+          el.hass = { states: all, entities, language: "en", callService: () => {} };
+          document.body.append(top, el, bottom);
+          await frame();
+          const btn = el.shadowRoot.querySelector('[data-action="mode"][data-mode="disarm"]') || el.shadowRoot.querySelector('[data-action="mode"]');
+          const b = btn.getBoundingClientRect();
+          window.scrollTo(0, window.scrollY + (edge === "top" ? b.top - 20 : b.bottom - window.innerHeight + 20));
+          await frame();
+          btn.dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true, detail: 1 }));
+          await frame();
+          const r = el.shadowRoot.querySelector(sel).getBoundingClientRect();
+          out.push({ what: `${what} (${type})`, top: r.top, bottom: r.bottom, height: window.innerHeight, focused: !!el.shadowRoot.activeElement });
+        }
+        return out;
+      },
+      { states, entities, sensors, PANEL, armedAway, withCode },
+    );
+    for (const r of rows) {
+      assert.ok(r.focused, `${r.what}: took the focus`);
+      assert.ok(r.top >= -0.5 && r.bottom <= r.height + 0.5, `${r.what}: at ${Math.round(r.top)}–${Math.round(r.bottom)} px, screen 0–${r.height}`);
     }
   } finally {
     await page.close();
