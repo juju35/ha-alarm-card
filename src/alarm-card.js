@@ -351,11 +351,11 @@ const STRINGS = {
     unavailable_sensors: "Недоступно: {list}",
     open_confirm: "{list}: отворено. Активирати режим \"{mode}\" упркос томе?",
     bypassed: "Премошћено: {list}",
-    last_triggered: "Последњи пут активиран {when}",
-    never_triggered: "Никада није активиран",
+    last_triggered: "Последње окидање {when}",
+    never_triggered: "Никада није окинут",
     sensors: "Сензори",
     all_closed: "Све је затворено",
-    n_open: "{n} отворено",
+    n_open: "Отворено: {n}",
     open: "Отворено",
     closed: "Затворено",
     detected: "Детектовано",
@@ -377,7 +377,7 @@ const STRINGS = {
     s_arming: "Активирање у току",
     s_disarming: "Деактивирање у току",
     s_pending: "На чекању",
-    s_triggered: "Активиран (Узбуна)",
+    s_triggered: "Узбуна",
     s_unavailable: "Недоступно",
     s_unknown: "Непознато",
     // Editor
@@ -422,11 +422,11 @@ const STRINGS = {
     unavailable_sensors: "Nedostupno: {list}",
     open_confirm: "{list}: otvoreno. Aktivirati režim \"{mode}\" uprkos tome?",
     bypassed: "Premošćeno: {list}",
-    last_triggered: "Poslednji put aktiviran {when}",
-    never_triggered: "Nikada nije aktiviran",
+    last_triggered: "Poslednje okidanje {when}",
+    never_triggered: "Nikada nije okinut",
     sensors: "Senzori",
     all_closed: "Sve je zatvoreno",
-    n_open: "{n} otvoreno",
+    n_open: "Otvoreno: {n}",
     open: "Otvoreno",
     closed: "Zatvoreno",
     detected: "Detektovano",
@@ -448,7 +448,7 @@ const STRINGS = {
     s_arming: "Aktiviranje u toku",
     s_disarming: "Deaktiviranje u toku",
     s_pending: "Na čekanju",
-    s_triggered: "Aktiviran (Uzbuna)",
+    s_triggered: "Uzbuna",
     s_unavailable: "Nedostupno",
     s_unknown: "Nepoznato",
     // Editor
@@ -555,7 +555,7 @@ const STRINGS = {
     code_for: "Code voor: {action}",
     code_placeholder: "Code",
     clear: "Wissen",
-    since: "sinds {d}",
+    since: "al {d}",
     just_now: "zojuist",
     by: "door {name}",
     arming_in: "Ingeschakeld over {d}",
@@ -991,7 +991,7 @@ const BASE_STYLE = `
   .badge { --c: var(--al-accent); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none;
            background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c); }
   .badge .icon { width: 24px; height: 24px; }
-  .titles { flex: 1; min-width: 0; }
+  .titles { flex: 1 1 auto; min-width: 0; }
   .name { font-size: 16px; font-weight: 500; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sub { font-size: 12px; color: var(--secondary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .warning { padding: 16px; color: ${textColor("var(--al-wait)")}; }
@@ -1009,7 +1009,9 @@ const BASE_STYLE = `
   .line .icon { width: 14px; height: 14px; }
   .alert-line { display: flex; align-items: center; gap: 6px; font-size: 12px; color: ${textColor("var(--c, var(--al-wait))")}; min-width: 0; }
   .alert-line .icon { color: var(--c, var(--al-wait)); }
-  .alert-line span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* What set the alarm off is the line that matters: up to three lines before it is cut. */
+  .alert-line > span { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3;
+                       overflow-wrap: anywhere; }
   .alert-line .icon { width: 14px; height: 14px; }
   .bar { height: 4px; border-radius: 3px; background: var(--divider-color, rgba(127,127,127,.25)); overflow: hidden; }
   .bar > div { height: 100%; border-radius: 3px; background: var(--c, var(--al-wait)); transition: width 1s linear; }
@@ -1023,6 +1025,7 @@ const BASE_STYLE = `
   .btn.round { width: 36px; height: 36px; padding: 0; border-radius: 50%; }
   .btn.disabled { opacity: .45; cursor: default; }
   .pad { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 12px; border: 1px solid var(--divider-color, rgba(127,127,127,.25)); }
+  .pad:focus { outline: none; }
   .pad-title { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; }
   .pad-title .icon { width: 18px; height: 18px; color: var(--c, var(--al-accent)); }
   .pad input { font: inherit; font-size: 18px; letter-spacing: .3em; text-align: center; padding: 8px; border-radius: 10px; box-sizing: border-box; width: 100%;
@@ -1091,7 +1094,8 @@ class AlarmBase extends HTMLElement {
     });
     // Escape closes the popup or the code pad (as Cancel), listened on the window while one is open.
     this._onKey = (ev) => {
-      if (ev.key !== "Escape" || (!this._confirm && !this._pad)) return;
+      if (ev.key !== "Escape") return this._padKey(ev);
+      if (!this._confirm && !this._pad) return;
       ev.stopPropagation();
       if (this._confirm) this._closeConfirm();
       else this._closePad();
@@ -1319,7 +1323,28 @@ class AlarmBase extends HTMLElement {
     this._code = "";
     window.addEventListener("keydown", this._onKey);
     this._update();
-    this.shadowRoot.querySelector?.(".pad input")?.focus();
+    // The field of a text code, else the number pad itself: the focus leaves the mode button, so that Enter
+    // submits the code instead of clicking that button again.
+    (this.shadowRoot.querySelector?.(".pad input") || this.shadowRoot.querySelector?.(".pad"))?.focus();
+  }
+
+  // Physical keyboard on the number pad (it has no field to type in): digits, Backspace and Enter, as in
+  // Home Assistant's own dialog. Keys typed in a field (elsewhere on the page, or the password field of a text
+  // code), shortcuts, and Enter on a focused button (which clicks that button) are left alone.
+  _padKey(ev) {
+    if (!this._pad || this._confirm || ev.ctrlKey || ev.metaKey || ev.altKey) return;
+    if (this._panel()?.attributes?.code_format !== "number") return;
+    const target = ev.composedPath?.()[0];
+    const tag = target?.localName;
+    if (tag === "input" || tag === "textarea" || tag === "select" || target?.isContentEditable) return;
+    if (/^[0-9]$/.test(ev.key)) this._code = `${this._code || ""}${ev.key}`;
+    else if (ev.key === "Backspace") this._code = String(this._code || "").slice(0, -1);
+    else if (ev.key === "Enter" && tag !== "button" && target?.getAttribute?.("role") !== "button") {
+      ev.preventDefault();
+      return this._submitCode();
+    } else return;
+    ev.preventDefault();
+    this._update();
   }
 
   _submitCode() {
@@ -1409,7 +1434,7 @@ class AlarmBase extends HTMLElement {
           <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
           <div class="sub">${esc(this._subtitle(st))}</div>
         </div>
-        <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${esc(st.entity_id)}" title="${esc(this._stateText(st))}"><span class="dot"></span><span class="chip-text">${esc(this._stateText(st))}</span></span>
+        <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${esc(st.entity_id)}" title="${esc(this._stateText(st))}" aria-label="${esc(this._stateText(st))}"><span class="dot"></span><span class="chip-text">${esc(this._stateText(st))}</span></span>
         ${this._zoomButton()}
       </div>`;
   }
@@ -1491,7 +1516,7 @@ class AlarmBase extends HTMLElement {
     } else {
       body = `<input type="password" autocomplete="off" data-action="code_input" placeholder="${esc(this._t("code_placeholder"))}">`;
     }
-    return `<div class="pad ${cls}">
+    return `<div class="pad ${cls}" tabindex="-1">
       <div class="pad-title">${svgIcon(p.mode === "disarm" ? ICONS.unlock : MODE_ICON[p.mode])}${esc(this._t("code_for", { action: label }))}</div>
       ${body}
       <div class="pad-actions">
@@ -1519,9 +1544,15 @@ class AlarmBase extends HTMLElement {
 
 const FULL_STYLE = `
   .content { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 12px; }
-  /* Long state labels (German) shrink with an ellipsis instead of squeezing the title out. */
-  .header .chip { flex: 0 1 auto; min-width: 0; max-width: 50%; }
+  ha-card { container-type: inline-size; }
+  /* The title keeps a few characters; long state labels (German) shrink with an ellipsis instead of squeezing
+     it out. The chip sits on the title's line, not across title and subtitle. */
+  .header .titles { min-width: 64px; }
+  .header > .chip { flex: 0 1 auto; min-width: 0; max-width: 50%; align-self: flex-start; margin-top: 4px; }
   .header .chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  /* Narrow card (min_columns): the hero below already names the state, the chip keeps only its dot (the text
+     stays in its title and aria-label). */
+  @container (max-width: 300px) { .header > .chip { padding: 4px 6px; } .header > .chip .chip-text { display: none; } }
   .hero { display: flex; align-items: center; gap: 14px; }
   .hero .shield { width: 72px; height: 72px; }
   .hero .shield .icon { width: 40px; height: 40px; }
@@ -1634,16 +1665,29 @@ class AlarmCard extends AlarmBase {
 // ---------------------------------------------------------------------------
 
 const MINI_STYLE = `
-  .header { padding: 12px; }
+  /* One row when it fits; else the buttons (with the detail button) wrap under the title, right-aligned, and
+     wrap again if even that row is too narrow (narrow cards: see the container query below). The title never
+     drops under a few characters, the round buttons never shrink, and nothing leaves the card (ha-card clips
+     its overflow). */
+  .header { padding: 12px; flex-wrap: wrap; row-gap: 8px; }
   .header.with-pad { padding-bottom: 0; }
-  .header .titles { margin-block: -2px; }
+  .header .titles { margin-block: -2px; flex: 1 1 0; min-width: 64px; }
+  .actions { display: flex; align-items: center; gap: 10px; margin-left: auto; flex: 0 1 auto; min-width: 0; max-width: 100%; }
   .header .badge, .header .shield { width: 32px; height: 32px; }
   .header .badge .icon, .header .shield .icon { width: 20px; height: 20px; }
   .sub .st { color: ${textColor("var(--c)")}; font-weight: 500; }
   .sub .dot { margin-right: 4px; vertical-align: 1px; }
-  .controls { display: flex; gap: 6px; flex: none; }
-  .controls .btn.round { width: 32px; height: 32px; }
+  .controls { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; min-width: 0; }
+  .controls .btn.round { width: 32px; height: 32px; flex: none; }
   .controls .btn .icon { width: 16px; height: 16px; }
+  /* Default size (6 columns, ~240 px) and narrower: always two rows, the detail button on the name's row and
+     the buttons on their own full row, closer together so that every mode (6 buttons) fits on it. */
+  ha-card { container-type: inline-size; }
+  @container (max-width: 300px) {
+    .actions { display: contents; }
+    .zoom { order: 1; }
+    .controls { order: 2; flex: 1 1 100%; gap: 4px; }
+  }
   .pad-wrap { padding: 8px 12px 12px; }
 `;
 
@@ -1716,11 +1760,17 @@ class AlarmMiniCard extends AlarmCard {
               this._stateText(st)
             )}</span>${esc(this._miniDetail(st))}</div>
           </div>
-          ${c.show_controls !== false ? `<div class="controls">${this._modeButtons(st, true)}</div>` : ""}
-          ${this._zoomButton()}
+          ${this._miniActions(st)}
         </div>
         ${this._pad ? `<div class="pad-wrap">${this._padHtml(st)}</div>` : ""}
       </ha-card>`;
+  }
+
+  // The round arm / disarm buttons and the detail button, kept together when they wrap under the title.
+  _miniActions(st) {
+    const controls = this._config.show_controls !== false ? `<div class="controls">${this._modeButtons(st, true)}</div>` : "";
+    const zoom = this._zoomButton();
+    return controls || zoom ? `<div class="actions">${controls}${zoom}</div>` : "";
   }
 
   // What follows the state: " · 30 s" during a delay, " · Kitchen window" for the open sensor while the

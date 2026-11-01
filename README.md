@@ -19,18 +19,18 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 ## Features
 
 - Two cards: a full **Alarm Card** and a compact, single-row **Alarm Mini Card** (state, countdown and one-tap buttons)
-- Detail button at the top right of the mini card: it switches to the full card and back; a click anywhere outside the card brings the compact view back
+- Detail button at the top right of the mini card: it switches to the full card and back; a click anywhere outside the card brings the compact view back. When the card is too narrow for all its buttons (every arm mode at the default 6 columns), they move to a second row under the name
 - State shield colored by state and mode (disarmed, home, away, night, vacation, custom), pulsing during the exit / entry delay, flashing when the alarm goes off
 - One button per supported arm mode, and Disarm (Cancel during the exit delay)
 - Exit and entry delay countdown with a progress bar (Alarmo's `delay`, or the `expiration` attribute)
-- Code pad when the panel needs a code: digits for a number code, a password field otherwise
+- Code pad when the panel needs a code: digits for a number code (the keyboard's digits, Backspace and Enter work too), a password field otherwise
 - Sensors of your choice (doors, windows, motion, smoke, leak) with their state; arming with a sensor open asks first ("Kitchen window: open. Arm away anyway?") and, with Alarmo, forces the arming
 - Open and bypassed sensors reported by Alarmo, last trigger, who changed the state and since when
 - Optional confirmation before disarming
 - Collapsible sensors section
 - Click the state or a sensor to open its more-info dialog
 - Visual editor in the dashboard UI for both cards (no YAML needed)
-- Light and dark mode, English, French, German and Spanish, reduced-motion aware
+- Light and dark mode, 10 languages (see [Translations](#translations)), reduced-motion aware
 - Single file, no external dependency
 
 ## Prerequisites
