@@ -1563,7 +1563,7 @@ const FULL_STYLE = `
      room left (long Polish or German labels on a narrow card), and a single word is cut with an ellipsis only
      when even that does not fit. The chip sits on the title's line, not across title and subtitle. */
   .header .titles { flex: 1 1 0; min-width: 64px; }
-  .header > .chip { flex: 0 1 auto; min-width: 0; align-self: flex-start; margin-top: 4px; white-space: normal; line-height: 14px; }
+  .header > .chip { flex: 0 1 auto; min-width: 0; align-self: flex-start; margin-top: 4px; white-space: normal; }
   .header .chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; text-wrap: balance; }
   /* Phone width (6 columns of a Sections view, ~156-180 px): the hero below already names the state, the chip
      keeps only its dot (the text stays in its title and aria-label). */
