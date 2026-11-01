@@ -127,7 +127,7 @@ zoom: true
 | `show_sensors` | both | `true` | Sensors section (on the mini card: in its zoomed view) |
 | `collapsed` | both | `false` | Fold the sensors section by default, click its title to unfold it (on the mini card: in its zoomed view) |
 | `zoom` | mini | `true` | Detail button at the top right of the mini card: it shows the full card's content (with the same options) and switches back; `false` removes it |
-| `language` | both | Auto | Force language: `en`, `fr`, `de`, `es`, `sr` or `sr-Latn` (auto-detects from HA settings) |
+| `language` | both | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt` or `pl` (auto-detects from HA settings) |
 
 ## Screenshots
 
@@ -201,8 +201,12 @@ The cards auto-detect the language from your Home Assistant settings. Currently 
 | Español | `es` |
 | Српски (Serbian, Cyrillic) | `sr` |
 | Srpski (Serbian, Latin) | `sr-Latn` |
+| Italiano | `it` |
+| Nederlands | `nl` |
+| Português (Portugal) | `pt` |
+| Polski | `pl` |
 
-Contributions for additional languages are welcome!
+Brazilian Portuguese (`pt-BR`) falls back to European Portuguese. Contributions for additional languages are welcome!
 
 ## License
 
