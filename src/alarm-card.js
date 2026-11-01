@@ -35,7 +35,10 @@ const ICONS = {
   garage: "M22,9V20H20V11H4V20H2V9L12,5L22,9M19,12H5V14H19V12M19,18H5V20H19V18M19,15H5V17H19V15Z",
   motion:
     "M13.5,5.5C14.59,5.5 15.5,4.58 15.5,3.5C15.5,2.38 14.59,1.5 13.5,1.5C12.39,1.5 11.5,2.38 11.5,3.5C11.5,4.58 12.39,5.5 13.5,5.5M9.89,19.38L10.89,15L13,17V23H15V15.5L12.89,13.5L13.5,10.5C14.79,12 16.79,13 19,13V11C17.09,11 15.5,10 14.69,8.58L13.69,7C13.29,6.38 12.69,6 12,6C11.69,6 11.5,6.08 11.19,6.08L6,8.28V13H8V9.58L9.79,8.88L8.19,17L3.29,16L2.89,18L9.89,19.38Z",
-  smoke: "M12,18A6,6 0 0,1 6,12C6,11 6.25,10.03 6.7,9.2L15.5,18C14.97,18 14.5,18 12,18M17.3,14.8L8.5,6C9.03,6 9.5,6 12,6A6,6 0 0,1 18,12C18,13 17.75,13.97 17.3,14.8M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z",
+  // mdi:smoke-detector-variant and mdi:smoke-detector-variant-alert (HA's icons for the smoke device class)
+  smoke: "M12 4C16.41 4 20 7.59 20 12S16.41 20 12 20 4 16.41 4 12 7.59 4 12 4M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M12 11C11.45 11 11 11.45 11 12S11.45 13 12 13 13 12.55 13 12 12.55 11 12 11M10.72 9.3C11.11 9.11 11.54 9 12 9S12.89 9.11 13.29 9.3L14 8.57C13.43 8.22 12.74 8 12 8S10.58 8.22 10 8.57L10.72 9.3M15 12C15 12.46 14.89 12.89 14.7 13.29L15.43 14C15.79 13.43 16 12.74 16 12S15.79 10.58 15.43 10L14.7 10.72C14.89 11.11 15 11.54 15 12M9 12C9 11.54 9.11 11.11 9.3 10.72L8.57 10C8.22 10.58 8 11.26 8 12S8.22 13.43 8.57 14L9.3 13.29C9.11 12.89 9 12.46 9 12M13.29 14.7C12.89 14.89 12.46 15 12 15S11.11 14.89 10.72 14.7L10 15.43C10.58 15.79 11.26 16 12 16S13.43 15.79 14 15.43L13.29 14.7M16.89 8.53L16.17 9.25C16.69 10.04 17 11 17 12S16.69 13.96 16.17 14.75L16.89 15.47C17.59 14.5 18 13.3 18 12S17.59 9.5 16.89 8.53M9.25 7.83C10.04 7.31 11 7 12 7S13.96 7.31 14.75 7.83L15.47 7.11C14.5 6.42 13.3 6 12 6S9.5 6.42 8.53 7.11L9.25 7.83M14.75 16.17C13.96 16.69 13 17 12 17S10.04 16.69 9.25 16.17L8.53 16.89C9.5 17.59 10.7 18 12 18S14.5 17.59 15.47 16.89L14.75 16.17M7.83 14.75C7.31 13.96 7 13 7 12S7.31 10.04 7.83 9.25L7.11 8.53C6.42 9.5 6 10.7 6 12S6.42 14.5 7.11 15.47L7.83 14.75Z",
+  smoke_alert:
+    "M10 4C14.4 4 18 7.6 18 12S14.4 20 10 20 2 16.4 2 12 5.6 4 10 4M10 2C4.5 2 0 6.5 0 12S4.5 22 10 22 20 17.5 20 12 15.5 2 10 2M10 11C9.4 11 9 11.4 9 12S9.4 13 10 13 11 12.6 11 12 10.6 11 10 11M8.7 9.3C9.1 9.1 9.5 9 10 9S10.9 9.1 11.3 9.3L12 8.6C11.4 8.2 10.7 8 10 8S8.6 8.2 8 8.6L8.7 9.3M13 12C13 12.5 12.9 12.9 12.7 13.3L13.4 14C13.8 13.4 14 12.7 14 12S13.8 10.6 13.4 10L12.7 10.7C12.9 11.1 13 11.5 13 12M7 12C7 11.5 7.1 11.1 7.3 10.7L6.6 10C6.2 10.6 6 11.3 6 12S6.2 13.4 6.6 14L7.3 13.3C7.1 12.9 7 12.5 7 12M11.3 14.7C10.9 14.9 10.5 15 10 15S9.1 14.9 8.7 14.7L8 15.4C8.6 15.8 9.3 16 10 16S11.4 15.8 12 15.4L11.3 14.7M14.9 8.5L14.2 9.2C14.7 10 15 11 15 12S14.7 14 14.2 14.8L14.9 15.5C15.6 14.5 16 13.3 16 12S15.6 9.5 14.9 8.5M7.2 7.8C8 7.3 9 7 10 7S12 7.3 12.8 7.8L13.5 7.1C12.5 6.4 11.3 6 10 6S7.5 6.4 6.5 7.1L7.2 7.8M12.8 16.2C12 16.7 11 17 10 17S8 16.7 7.2 16.2L6.5 16.9C7.5 17.6 8.7 18 10 18S12.5 17.6 13.5 16.9L12.8 16.2M5.8 14.8C5.3 14 5 13 5 12S5.3 10 5.8 9.2L5.1 8.5C4.4 9.5 4 10.7 4 12S4.4 14.5 5.1 15.5L5.8 14.8M24 7H22V13H24V8M24 15H22V17H24V15Z",
   water: "M12,20A6,6 0 0,1 6,14C6,10 12,3.25 12,3.25C12,3.25 18,10 18,14A6,6 0 0,1 12,20Z",
   sensor: "M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z",
   backspace:
@@ -442,7 +445,7 @@ const SENSOR_KIND = {
   motion: ["motion", ICONS.motion, ICONS.motion],
   occupancy: ["motion", ICONS.motion, ICONS.motion],
   presence: ["motion", ICONS.motion, ICONS.motion],
-  smoke: ["problem", ICONS.smoke, ICONS.smoke],
+  smoke: ["problem", ICONS.smoke, ICONS.smoke_alert],
   moisture: ["problem", ICONS.water, ICONS.water],
 };
 
@@ -526,9 +529,16 @@ const shield = (state) => `<div class="shield ${stateClass(state)}">${svgIcon(st
 // Styles
 // ---------------------------------------------------------------------------
 
+// Text in a state color: the color mixed with the theme's text color, which darkens it in a light theme and
+// lightens it in a dark one, so that it stays readable (WCAG AA 4.5:1, checked by test/contrast.test.mjs) on
+// the card and on the tinted chips, buttons and tiles. Dots, icons, borders and tints keep the pure color.
+const textColor = (c) => `color-mix(in srgb, ${c} 40%, var(--primary-text-color, #212121))`;
+
+// The mode colors follow HA's palette variables, so that a theme can change them.
 const BASE_STYLE = `
-  :host { --al-accent: #e5484d; --al-off: var(--success-color, #43a047); --al-home: #f59f00; --al-away: var(--error-color, #db4437);
-          --al-night: #7048e8; --al-vacation: #1098ad; --al-custom: #ae3ec9; --al-wait: var(--warning-color, #ffa600);
+  :host { --al-accent: #e5484d; --al-off: var(--success-color, #43a047); --al-home: var(--orange-color, #f59f00); --al-away: var(--error-color, #db4437);
+          --al-night: var(--deep-purple-color, #7048e8); --al-vacation: var(--cyan-color, #1098ad); --al-custom: var(--purple-color, #ae3ec9);
+          --al-wait: var(--warning-color, #ffa600);
           --al-alarm: var(--error-color, #db4437); --al-idle: var(--disabled-text-color, #9e9e9e); }
   ha-card { overflow: hidden; }
   .icon { width: 18px; height: 18px; fill: currentColor; flex: none; }
@@ -539,7 +549,7 @@ const BASE_STYLE = `
   .alarm { --c: var(--al-alarm); } .idle { --c: var(--al-idle); }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c); flex: none; display: inline-block; }
   .chip { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; white-space: nowrap;
-          background: color-mix(in srgb, var(--c, var(--al-off)) 15%, transparent); color: var(--c, var(--al-off)); flex: none; }
+          background: color-mix(in srgb, var(--c, var(--al-off)) 15%, transparent); color: ${textColor("var(--c, var(--al-off))")}; flex: none; }
   .header { display: flex; align-items: center; gap: 10px; padding: 12px 12px 0; }
   .badge { --c: var(--al-accent); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none;
            background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c); }
@@ -547,7 +557,7 @@ const BASE_STYLE = `
   .titles { flex: 1; min-width: 0; }
   .name { font-size: 16px; font-weight: 500; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sub { font-size: 12px; color: var(--secondary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .warning { padding: 16px; color: var(--al-wait); }
+  .warning { padding: 16px; color: ${textColor("var(--al-wait)")}; }
   .shield { flex: none; display: grid; place-items: center; border-radius: 50%; color: var(--c);
             background: color-mix(in srgb, var(--c) 14%, transparent); transition: color .4s ease, background .4s ease; }
   .shield.wait { animation: al-pulse 1.4s ease-in-out infinite; }
@@ -555,12 +565,13 @@ const BASE_STYLE = `
   @keyframes al-pulse { 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--c) 0%, transparent), 0 0 0 0 color-mix(in srgb, var(--c) 35%, transparent);
                               background: color-mix(in srgb, var(--c) 26%, transparent); } }
   @keyframes al-flash { from { background: color-mix(in srgb, var(--c) 14%, transparent); } to { background: var(--c); color: #fff; } }
-  @media (prefers-reduced-motion: reduce) { .shield { animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .shield { animation: none !important; transition: none; } }
   .info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
   .line { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--secondary-text-color); min-width: 0; }
   .line span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .line .icon { width: 14px; height: 14px; }
-  .alert-line { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--c, var(--al-wait)); min-width: 0; }
+  .alert-line { display: flex; align-items: center; gap: 6px; font-size: 12px; color: ${textColor("var(--c, var(--al-wait))")}; min-width: 0; }
+  .alert-line .icon { color: var(--c, var(--al-wait)); }
   .alert-line span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .alert-line .icon { width: 14px; height: 14px; }
   .bar { height: 4px; border-radius: 3px; background: var(--divider-color, rgba(127,127,127,.25)); overflow: hidden; }
@@ -570,7 +581,7 @@ const BASE_STYLE = `
          color: var(--primary-text-color); min-width: 0; }
   .btn:hover { background: color-mix(in srgb, var(--c, var(--al-accent)) 14%, var(--secondary-background-color, rgba(127,127,127,.12))); }
   .btn .icon { width: 18px; height: 18px; color: var(--c, var(--primary-text-color)); }
-  .btn.primary { background: color-mix(in srgb, var(--c, var(--al-accent)) 16%, transparent); color: var(--c, var(--al-accent)); }
+  .btn.primary { background: color-mix(in srgb, var(--c, var(--al-accent)) 16%, transparent); color: ${textColor("var(--c, var(--al-accent))")}; }
   .btn.primary:hover { background: color-mix(in srgb, var(--c, var(--al-accent)) 24%, transparent); }
   .btn.round { width: 36px; height: 36px; padding: 0; border-radius: 50%; }
   .btn.disabled { opacity: .45; cursor: default; }
@@ -1077,7 +1088,7 @@ const FULL_STYLE = `
   .hero { display: flex; align-items: center; gap: 14px; }
   .hero .shield { width: 72px; height: 72px; }
   .hero .shield .icon { width: 40px; height: 40px; }
-  .state { font-size: 22px; font-weight: 400; line-height: 1.2; color: var(--c); }
+  .state { font-size: 22px; font-weight: 400; line-height: 1.2; color: ${textColor("var(--c)")}; }
   .modes { display: flex; flex-wrap: wrap; gap: 6px; }
   .modes .btn { flex: 1 1 auto; }
   .section-title { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; text-transform: uppercase;
@@ -1088,13 +1099,14 @@ const FULL_STYLE = `
   .section-title.toggle[aria-expanded="false"] { margin-bottom: 0; }
   .section-title .chevron { margin-left: auto; width: 16px; height: 16px; transition: transform .2s ease; }
   .section-title.toggle[aria-expanded="false"] .chevron { transform: rotate(-90deg); }
+  @media (prefers-reduced-motion: reduce) { .section-title .chevron { transition: none; } }
   .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
   .tile { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 10px; min-width: 0;
           background: var(--secondary-background-color, rgba(127,127,127,.08)); }
   .tile .icon { width: 20px; height: 20px; color: var(--c, var(--secondary-text-color)); }
   .tile .tx { min-width: 0; display: flex; flex-direction: column; }
   .tile .k { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tile .v { font-size: 11px; color: var(--c, var(--secondary-text-color)); white-space: nowrap; }
+  .tile .v { font-size: 11px; color: ${textColor("var(--c, var(--secondary-text-color))")}; white-space: nowrap; }
   .tile.on { background: color-mix(in srgb, var(--c) 12%, var(--secondary-background-color, transparent)); }
 `;
 
@@ -1173,7 +1185,7 @@ class AlarmCard extends AlarmBase {
     const open = this._openSensors().length;
     const closed = this._isCollapsed("sensors");
     return `<div>
-      <div class="section-title toggle" data-action="toggle_section" data-section="sensors" aria-expanded="${!closed}">${svgIcon(ICONS.door)}${esc(this._t("sensors"))}
+      <div class="section-title toggle" role="button" tabindex="0" data-action="toggle_section" data-section="sensors" aria-expanded="${!closed}">${svgIcon(ICONS.door)}${esc(this._t("sensors"))}
         <span class="chip ${open ? "away" : "off"}">${esc(open ? this._t("n_open", { n: open }) : this._t("all_closed"))}</span>${svgIcon(ICONS.chevron_down, "chevron")}</div>
       ${closed ? "" : `<div class="tiles">${tiles.join("")}</div>`}
     </div>`;
@@ -1190,7 +1202,7 @@ const MINI_STYLE = `
   .header .titles { margin-block: -2px; }
   .header .badge, .header .shield { width: 32px; height: 32px; }
   .header .badge .icon, .header .shield .icon { width: 20px; height: 20px; }
-  .sub .st { color: var(--c); font-weight: 500; }
+  .sub .st { color: ${textColor("var(--c)")}; font-weight: 500; }
   .sub .dot { margin-right: 4px; vertical-align: 1px; }
   .controls { display: flex; gap: 6px; flex: none; }
   .controls .btn.round { width: 32px; height: 32px; }
