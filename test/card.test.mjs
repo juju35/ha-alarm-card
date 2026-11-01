@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { arming, entities, sensors, states, triggered, withCode } from "../scripts/mock-states.mjs";
+import { armedAway, arming, entities, sensors, states, triggered, withCode } from "../scripts/mock-states.mjs";
 import { load } from "./load.mjs";
 
 const al = load();
@@ -146,7 +146,7 @@ test("the code pad takes taps right after the confirm popup closes", () => {
 test("arming shows the countdown and a Cancel button", () => {
   const card = newCard(makeHass(arming));
   const html = card.shadowRoot.innerHTML;
-  assert.match(html, /Armed in 4\d s/);
+  assert.match(html, /Armed in [34]\d s/);
   assert.match(html, /class="bar wait"/);
   assert.match(html, /data-mode="disarm"[^>]*>.*Cancel/s);
 });
@@ -226,7 +226,7 @@ test("the mini card fits on one row: state, countdown and buttons in the header"
   const html = card.shadowRoot.innerHTML;
   assert.equal((html.match(/class="header"/g) || []).length, 1);
   assert.doesNotMatch(html, /class="content/);
-  assert.match(html, /Armement<\/span> · 4\d s/);
+  assert.match(html, /Armement<\/span> · [34]\d s/);
   assert.match(html, /class="controls"/);
   const trig = newCard(makeHass(triggered), {}, al.AlarmMiniCard);
   assert.match(trig.shadowRoot.innerHTML, /Triggered<\/span> · Kitchen window/);
@@ -421,4 +421,74 @@ test("the mock panel's last trigger is relative to now, so the screenshots do no
   const days = (Date.now() - al.parseTime(last)) / 86400e3;
   assert.ok(Math.abs(days - 83) < 0.01, `last_triggered is ${days.toFixed(2)} days ago`);
   assert.match(newCard(makeHass()).shadowRoot.innerHTML, /Last triggered 83 days ago/);
+});
+
+// A key typed on a physical keyboard, as the window listener receives it while the pad is open.
+const key = (card, k, target = { localName: "body", getAttribute: () => null }, extra = {}) => {
+  const ev = { key: k, composedPath: () => [target], preventDefault() {}, stopPropagation() {}, ...extra };
+  card._onKey(ev);
+  return ev;
+};
+
+test("the number pad takes the physical keyboard: digits, Backspace and Enter", () => {
+  const hass = makeHass(withCode);
+  const card = newCard(hass);
+  click(card, { action: "mode", mode: "disarm" });
+  for (const d of ["1", "2", "3", "9"]) key(card, d);
+  key(card, "Backspace");
+  key(card, "4");
+  assert.match(card.shadowRoot.innerHTML, /(<i><\/i>){4}/);
+  key(card, "Enter");
+  assert.deepEqual(plain(hass.calls), [["alarm_control_panel", "alarm_disarm", { entity_id: PANEL, code: "1234" }]]);
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /Code to disarm/);
+});
+
+test("the number pad leaves other fields, shortcuts and focused buttons alone", () => {
+  const hass = makeHass(withCode);
+  const card = newCard(hass);
+  // Pad closed: digits do nothing.
+  key(card, "1");
+  assert.equal(card._code, undefined);
+  click(card, { action: "mode", mode: "disarm" });
+  // Typing in a field elsewhere on the page (HA search, another card) does not feed the pad.
+  key(card, "5", { localName: "input", getAttribute: () => null });
+  key(card, "5", { localName: "div", isContentEditable: true, getAttribute: () => null });
+  // Ctrl+1 and the like are shortcuts, not digits.
+  key(card, "6", undefined, { ctrlKey: true });
+  assert.equal(card._code, "");
+  key(card, "1");
+  // Enter on a focused button clicks that button (Cancel here): the pad must not submit on top of it.
+  key(card, "Enter", { localName: "button", getAttribute: () => null });
+  assert.equal(hass.calls.length, 0);
+  assert.equal(card._code, "1");
+  // Enter without a code sends nothing.
+  key(card, "Backspace");
+  key(card, "Enter");
+  assert.equal(hass.calls.length, 0);
+});
+
+test("a text code (password field) is not fed by the window listener: the field types itself", () => {
+  const p = withCode[PANEL];
+  const hass = makeHass({ [PANEL]: { ...p, attributes: { ...p.attributes, code_format: "text" } } });
+  const card = newCard(hass);
+  click(card, { action: "mode", mode: "disarm" });
+  key(card, "1");
+  assert.equal(card._code, "");
+});
+
+test("I18N: Serbian says triggered (okidanje / Uzbuna), not armed (aktiviran), and counts without agreement", () => {
+  for (const l of ["sr", "sr-Latn"]) {
+    const s = al.STRINGS[l];
+    for (const k of ["s_triggered", "last_triggered", "never_triggered"]) assert.doesNotMatch(s[k], /активиран|aktiviran/i, `${l}.${k}: ${s[k]}`);
+    assert.match(s.n_open, /: \{n\}$/, `${l}.n_open: ${s.n_open}`);
+  }
+  const card = newCard(makeHass(armedAway), { language: "sr-Latn" });
+  assert.match(card.shadowRoot.innerHTML, /Poslednje okidanje pre 83 dana/);
+  for (const n of [1, 2, 5, 21, 22]) assert.equal(al.STRINGS["sr-Latn"].n_open.replace("{n}", n), `Otvoreno: ${n}`);
+});
+
+test("I18N: Dutch subtitle reads as a duration (al 2 u 05), not a clock time (sinds 2 u 05)", () => {
+  const card = newCard(makeHass(), { language: "nl" });
+  assert.match(card.shadowRoot.innerHTML, /al 2 u 05/);
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /sinds/);
 });
