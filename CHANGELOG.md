@@ -6,7 +6,8 @@
 - Full card at its narrowest (6 columns on a phone, about 160-240 px): the header chip keeps only its colored dot (the state is written right below, and stays in the chip's tooltip and screen-reader label), so the title is no longer cut to one letter. From 245 px up, the chip shows its whole label: the title gives way first, and a long label (Polish "Uzbrojony (poza domem)") goes onto two lines instead of ending in "…".
 - Full card on a phone (about 160 px): the state moves under a smaller shield and gets the card's whole width, the sensor tiles take one column, and the sensors heading wraps, so nothing is cut or pushed out of the card.
 - Cards placed in a parent sized by its content (layout-card, button-card, a grid with an `auto` column) no longer collapse to a sliver, and two cards side by side in a `1fr 1fr` grid or a horizontal stack shrink with it instead of overflowing it.
-- Opening the code pad, the confirm popup or the mini card's detail view moves the focus without scrolling the page.
+- Opening the code pad or the confirm popup brings the whole of it on screen, even when the top of the card is scrolled out (the popup sits at the top of the card) or the pad opens below the screen; the focus itself never scrolls the page, so updates from Home Assistant leave the page where it is.
+- Mini card on a phone (6 columns, about 156-178 px): the state under the name wraps instead of being cut ("Uzbrojony (p…", "Aktiviran u odsus…").
 - The header chip of the full card sits on the title's line instead of straddling the title and the subtitle.
 - The line naming what set the alarm off ("Open: Kitchen window, Front door") wraps (up to three lines) instead of being cut after a few characters.
 - Number code pad: the keyboard's digits, Backspace and Enter now work, as in Home Assistant's own dialog. The pad takes the focus when it opens, so Enter sends the code instead of pressing the mode button again.
@@ -15,7 +16,7 @@
 
 ### Maintenance
 - Tests: layout at narrow widths measured in Chromium (mini card with every mode at 240 and 360 px, full card at 240 px, in English, Polish and Serbian Latin, light and dark), physical keyboard on the number pad, Serbian and Dutch strings. The Validate workflow installs Chromium for them.
-- Tests: full card, mini card and zoomed mini card at phone width (156, 168 and 245 px) in every state including unavailable, header chip label from 245 to 500 px, cards in an inline-block, an `auto` grid column, a `1fr 1fr` grid (with and without a wrapper) and a horizontal stack at 320, 360 and 500 px, and the page not scrolling when the card moves the focus.
+- Tests: full card, mini card and zoomed mini card at phone width (156, 168, 178 and 245 px) in every state including unavailable, the mini card's state under its name, header chip label from 245 to 500 px, cards in an inline-block, an `auto` grid column, a `1fr 1fr` grid (with and without a wrapper) and a horizontal stack at 320, 360 and 500 px, the page not scrolling on Home Assistant updates with the focus in the card, and the popup and the pad opening on screen.
 - README: the feature list names the 10 languages.
 - Screenshots: the script only rewrites a file whose decoded pixels changed, so an unchanged render no longer shows up as a new commit.
 

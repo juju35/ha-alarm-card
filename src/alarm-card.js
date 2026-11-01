@@ -1337,6 +1337,7 @@ class AlarmBase extends HTMLElement {
     // The field of a text code, else the number pad itself: the focus leaves the mode button, so that Enter
     // submits the code instead of clicking that button again.
     (this.shadowRoot.querySelector?.(".pad input") || this.shadowRoot.querySelector?.(".pad"))?.focus({ preventScroll: true });
+    this._reveal(".pad");
   }
 
   // Physical keyboard on the number pad (it has no field to type in): digits, Backspace and Enter, as in
@@ -1387,6 +1388,14 @@ class AlarmBase extends HTMLElement {
     window.addEventListener("keydown", this._onKey);
     this._update();
     this.shadowRoot.querySelector?.(".modal .primary")?.focus({ preventScroll: true });
+    this._reveal(".modal");
+  }
+
+  // The user just opened the pad or the popup: bring the whole of it on screen (the popup sits at the top of
+  // the card, which may be scrolled out; the pad opens under the buttons, maybe below the screen). The focus
+  // itself never scrolls (preventScroll): it would scroll to the focused button only, not to the whole box.
+  _reveal(sel) {
+    this.shadowRoot.querySelector?.(sel)?.scrollIntoView?.({ block: "nearest", inline: "nearest" });
   }
 
   _closeConfirm() {
@@ -1702,7 +1711,9 @@ const MINI_STYLE = `
   .actions { display: flex; align-items: center; gap: 10px; margin-left: auto; flex: 0 1 auto; min-width: 0; max-width: 100%; }
   .header .badge, .header .shield { width: 32px; height: 32px; }
   .header .badge .icon, .header .shield .icon { width: 20px; height: 20px; }
-  .sub .st { color: ${textColor("var(--c)")}; font-weight: 500; }
+  /* The state wraps (the line itself ends in an ellipsis for the time or the sensor after it): never cut at
+     phone width (6 columns, ~156-178 px) in long languages ("Uzbrojony (poza domem)", "Aktiviran u odsustvu"). */
+  .sub .st { color: ${textColor("var(--c)")}; font-weight: 500; white-space: normal; overflow-wrap: anywhere; }
   .sub .dot { margin-right: 4px; vertical-align: 1px; }
   .controls { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; min-width: 0; }
   .controls .btn.round { width: 32px; height: 32px; flex: none; }
