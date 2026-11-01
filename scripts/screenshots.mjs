@@ -6,7 +6,7 @@ import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { states, entities, sensors } from "./mock-states.mjs";
+import { NOW, states, entities, sensors } from "./mock-states.mjs";
 import { shots, gifs } from "./screenshot-shots.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
@@ -53,9 +53,22 @@ const PANEL = "alarm_control_panel.alarmo";
 // Opens a fresh page for one shot and mounts the card with its mock states and overrides.
 async function openCard(browser, s) {
   // A new page per shot: the card's script declares top-level names, which cannot be evaluated twice in one page.
-  const page = await browser.newPage({ deviceScaleFactor: 2, viewport: { width: 1000, height: 2000 } });
+  // Same time zone as this script (the mock's local timestamps) and a fixed locale, whatever the machine.
+  const page = await browser.newPage({
+    deviceScaleFactor: 2,
+    viewport: { width: 1000, height: 2000 },
+    timezoneId: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    locale: "en-US",
+  });
   page.on("pageerror", (err) => console.error(`pageerror (${s.file}): ${err.message}`));
+  // The page's clock stands still at the mock's NOW: "for 2 h 05", the countdown and its bar never drift.
+  await page.clock.setFixedTime(NOW);
   await page.setContent(page_html(s.theme, s.width));
+  // document.getAnimations() leaves out the card's shadow DOM: this one walks into every shadow root.
+  await page.evaluate(() => {
+    const walk = (root) => [...root.getAnimations(), ...[...root.querySelectorAll("*")].flatMap((el) => (el.shadowRoot ? walk(el.shadowRoot) : []))];
+    window.allAnimations = () => walk(document);
+  });
   await page.addScriptTag({ content: HA_CARD });
   await page.addScriptTag({ content: cardJs });
   await page.evaluate(
@@ -83,7 +96,7 @@ async function makeGif(browser, gif, { fps = 20, seconds = 3 } = {}) {
   const dir = mkdtempSync(join(tmpdir(), "al-frames-"));
   const frames = Math.round(fps * seconds);
   for (let i = 0; i < frames; i++) {
-    await page.evaluate((t) => { for (const a of document.getAnimations()) { a.pause(); a.currentTime = t; } }, (i * 1000) / fps);
+    await page.evaluate((t) => { for (const a of window.allAnimations()) { a.pause(); a.currentTime = t; } }, (i * 1000) / fps);
     await page.screenshot({ path: join(dir, `f${String(i).padStart(3, "0")}.png`), clip });
   }
   await page.close();
@@ -91,7 +104,7 @@ async function makeGif(browser, gif, { fps = 20, seconds = 3 } = {}) {
   execFileSync("ffmpeg", [
     "-y", "-loglevel", "error", "-framerate", String(fps), "-i", join(dir, "f%03d.png"),
     "-vf", `scale=${clip.width}:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=4`,
-    "-loop", "0", out,
+    "-loop", "0", "-fflags", "+bitexact", "-flags:v", "+bitexact", out,
   ]);
   rmSync(dir, { recursive: true });
   console.log(`screenshots/${gif.file}.gif`);
@@ -115,6 +128,8 @@ for (const s of shots) {
     await page.waitForTimeout(100);
   }
   await page.waitForTimeout(800);
+  // Running animations (the shield's flash or pulse) are frozen at their start, so the shot is the same every run.
+  await page.evaluate(() => { for (const a of window.allAnimations()) { a.pause(); a.currentTime = 0; } });
   const box = await page.locator("#root").boundingBox();
   await page.screenshot({
     path: `${root}screenshots/${s.file}.png`,
