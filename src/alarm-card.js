@@ -943,6 +943,8 @@ const patchChildren = (cur, next) => {
   });
   while (cur.childNodes.length > fresh.length) cur.removeChild(cur.lastChild);
 };
+// See .strut in BASE_STYLE: sizes the card in parents sized by their content.
+const STRUT = `<div class="strut" aria-hidden="true">${"<i></i>".repeat(10)}</div>`;
 const morph = (root, html) => {
   const tpl = document.createElement("template");
   tpl.innerHTML = html;
@@ -991,7 +993,16 @@ const BASE_STYLE = `
   .badge { --c: var(--al-accent); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none;
            background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c); }
   .badge .icon { width: 24px; height: 24px; }
-  .titles { flex: 1 1 auto; min-width: 0; }
+  .titles { flex: 1 1 0; min-width: 0; }
+  /* The container queries need a container (ha-card), and a container has no width of its own: in a parent
+     sized by its content (inline-block, grid "auto" column, flex row: layout-card, button-card) the card would
+     collapse to nothing. The strut, an invisible row of 10 small boxes next to ha-card, gives the card a
+     preferred width (max-content: the whole row, 360-400 px) while its narrowest width (min-content: one box)
+     stays small, so that a "1fr 1fr" grid or a stack still shrinks the card instead of letting it overflow
+     (contain-intrinsic-size or a min-width would raise both). */
+  :host { display: block; min-width: 0; }
+  .strut { display: flex; flex-wrap: wrap; height: 0; overflow: hidden; visibility: hidden; pointer-events: none; }
+  .strut > i { flex: none; }
   .name { font-size: 16px; font-weight: 500; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sub { font-size: 12px; color: var(--secondary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .warning { padding: 16px; color: ${textColor("var(--al-wait)")}; }
@@ -1325,7 +1336,7 @@ class AlarmBase extends HTMLElement {
     this._update();
     // The field of a text code, else the number pad itself: the focus leaves the mode button, so that Enter
     // submits the code instead of clicking that button again.
-    (this.shadowRoot.querySelector?.(".pad input") || this.shadowRoot.querySelector?.(".pad"))?.focus();
+    (this.shadowRoot.querySelector?.(".pad input") || this.shadowRoot.querySelector?.(".pad"))?.focus({ preventScroll: true });
   }
 
   // Physical keyboard on the number pad (it has no field to type in): digits, Backspace and Enter, as in
@@ -1375,7 +1386,7 @@ class AlarmBase extends HTMLElement {
     this._confirm = confirm;
     window.addEventListener("keydown", this._onKey);
     this._update();
-    this.shadowRoot.querySelector?.(".modal .primary")?.focus();
+    this.shadowRoot.querySelector?.(".modal .primary")?.focus({ preventScroll: true });
   }
 
   _closeConfirm() {
@@ -1427,15 +1438,16 @@ class AlarmBase extends HTMLElement {
   _header(st) {
     const c = this._config;
     const cls = stateClass(st.state);
+    const zoom = this._zoomButton();
     return `
-      <div class="header">
+      <div class="header${zoom ? " has-zoom" : ""}">
         ${c.show_logo !== false ? logo() : ""}
         <div class="titles">
           <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
           <div class="sub">${esc(this._subtitle(st))}</div>
         </div>
         <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${esc(st.entity_id)}" title="${esc(this._stateText(st))}" aria-label="${esc(this._stateText(st))}"><span class="dot"></span><span class="chip-text">${esc(this._stateText(st))}</span></span>
-        ${this._zoomButton()}
+        ${zoom}
       </div>`;
   }
 
@@ -1545,21 +1557,36 @@ class AlarmBase extends HTMLElement {
 const FULL_STYLE = `
   .content { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 12px; }
   ha-card { container-type: inline-size; }
-  /* The title keeps a few characters; long state labels (German) shrink with an ellipsis instead of squeezing
-     it out. The chip sits on the title's line, not across title and subtitle. */
-  .header .titles { min-width: 64px; }
-  .header > .chip { flex: 0 1 auto; min-width: 0; max-width: 50%; align-self: flex-start; margin-top: 4px; }
-  .header .chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-  /* Narrow card (min_columns): the hero below already names the state, the chip keeps only its dot (the text
-     stays in its title and aria-label). */
-  @container (max-width: 300px) { .header > .chip { padding: 4px 6px; } .header > .chip .chip-text { display: none; } }
+  .strut > i { width: 40px; }
+  /* The title takes the room the chip leaves (flex-basis 0, so it does not claim its full text first) and
+     always keeps a few characters; the chip shows its whole label, on two lines when one is too long for the
+     room left (long Polish or German labels on a narrow card), and a single word is cut with an ellipsis only
+     when even that does not fit. The chip sits on the title's line, not across title and subtitle. */
+  .header .titles { flex: 1 1 0; min-width: 64px; }
+  .header > .chip { flex: 0 1 auto; min-width: 0; align-self: flex-start; margin-top: 4px; white-space: normal; line-height: 14px; }
+  .header .chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; text-wrap: balance; }
+  /* Phone width (6 columns of a Sections view, ~156-180 px): the hero below already names the state, the chip
+     keeps only its dot (the text stays in its title and aria-label). */
+  @container (max-width: 240px) { .header > .chip { padding: 4px 6px; } .header > .chip .chip-text { display: none; } }
+  /* Narrow card with the zoomed mini card's detail button in the header (up to 280 px): the logo gives its room
+     to the title and the chip, so that the button stays in the card and the chip's label stays whole (the
+     shield below already shows the state). */
+  @container (max-width: 280px) { .header.has-zoom > .badge { display: none; } }
   .hero { display: flex; align-items: center; gap: 14px; }
   .hero .shield { width: 72px; height: 72px; }
   .hero .shield .icon { width: 40px; height: 40px; }
+  /* Phone width: the state gets the card's whole width under a smaller shield, so that it is never cut. */
+  @container (max-width: 220px) {
+    .hero { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .hero .info { width: 100%; }
+    .hero .shield { width: 52px; height: 52px; }
+    .hero .shield .icon { width: 30px; height: 30px; }
+    .state { overflow-wrap: anywhere; }
+  }
   .state { font-size: 22px; font-weight: 400; line-height: 1.2; color: ${textColor("var(--c)")}; }
   .modes { display: flex; flex-wrap: wrap; gap: 6px; }
   .modes .btn { flex: 1 1 auto; }
-  .section-title { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; text-transform: uppercase;
+  .section-title { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; font-size: 12px; font-weight: 500; text-transform: uppercase;
                    letter-spacing: .04em; color: var(--secondary-text-color); margin-bottom: 6px; }
   .section-title .icon { width: 16px; height: 16px; }
   .section-title .chip { text-transform: none; letter-spacing: 0; }
@@ -1568,7 +1595,7 @@ const FULL_STYLE = `
   .section-title .chevron { margin-left: auto; width: 16px; height: 16px; transition: transform .2s ease; }
   .section-title.toggle[aria-expanded="false"] .chevron { transform: rotate(-90deg); }
   @media (prefers-reduced-motion: reduce) { .section-title .chevron { transition: none; } }
-  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(140px, 100%), 1fr)); gap: 6px; }
   .tile { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 10px; min-width: 0;
           background: var(--secondary-background-color, rgba(127,127,127,.08)); }
   .tile .icon { width: 20px; height: 20px; color: var(--c, var(--secondary-text-color)); }
@@ -1604,7 +1631,7 @@ class AlarmCard extends AlarmBase {
     const parts = [this._hero(st)];
     if (c.show_controls !== false) parts.push(`<div class="modes">${this._modeButtons(st)}</div>`, this._padHtml(st));
     if (c.show_sensors !== false) parts.push(this._sensorSection());
-    return `<style>${BASE_STYLE}${FULL_STYLE}</style>
+    return `<style>${BASE_STYLE}${FULL_STYLE}</style>${STRUT}
       <ha-card>
         ${this._header(st)}
         <div class="content">${parts.filter(Boolean).join("")}</div>
@@ -1683,6 +1710,7 @@ const MINI_STYLE = `
   /* Default size (6 columns, ~240 px) and narrower: always two rows, the detail button on the name's row and
      the buttons on their own full row, closer together so that every mode (6 buttons) fits on it. */
   ha-card { container-type: inline-size; }
+  .strut > i { width: 36px; }
   @container (max-width: 300px) {
     .actions { display: contents; }
     .zoom { order: 1; }
@@ -1739,7 +1767,7 @@ class AlarmMiniCard extends AlarmCard {
   // From the keyboard (Enter / Space: no click count), the focus stays on the button.
   _toggleZoom(ev) {
     this._setZoom(!this._zoomed);
-    if (ev.detail === 0) this.shadowRoot.querySelector?.(".zoom")?.focus();
+    if (ev.detail === 0) this.shadowRoot.querySelector?.(".zoom")?.focus({ preventScroll: true });
   }
 
   // Compact view: a single row, the state in color under the name (with the countdown, or the open sensor
@@ -1750,7 +1778,7 @@ class AlarmMiniCard extends AlarmCard {
     if (error) return error;
     const c = this._config;
     const cls = stateClass(st.state);
-    return `<style>${BASE_STYLE}${MINI_STYLE}</style>
+    return `<style>${BASE_STYLE}${MINI_STYLE}</style>${STRUT}
       <ha-card>
         <div class="header${this._pad ? " with-pad" : ""}">
           ${c.show_logo !== false ? logo() : `<div class="clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}">${shield(st.state)}</div>`}
