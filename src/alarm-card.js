@@ -778,6 +778,17 @@ const lang = (hass, config) => {
   return STRINGS[l] ? l : STRINGS[l.split("-")[0]] ? l.split("-")[0] : "en";
 };
 
+// Locale for Intl: Home Assistant's full locale when it is the card's language (pt-BR keeps Brazilian formats),
+// else the card's language. A bare "pt" is Home Assistant's European Portuguese: Intl reads it as Brazilian.
+const intlLang = (hass, config) => {
+  const l = lang(hass, config);
+  const full = config?.language ? "" : (hass && (hass.locale?.language || hass.language)) || "";
+  const base = l.split("-")[0];
+  let out = l;
+  if (full && full.split("-")[0] === base && !(l === "sr" && /-Latn\b/.test(full))) out = full;
+  return out === "pt" ? "pt-PT" : out;
+};
+
 const t = (hass, config, key, vars = {}) =>
   String(STRINGS[lang(hass, config)][key] ?? STRINGS.en[key] ?? key).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? "");
 
@@ -1575,7 +1586,7 @@ class AlarmCard extends AlarmBase {
     if (this._config.show_info !== false) {
       const last = parseTime(st.attributes?.last_triggered);
       if (Number.isFinite(last))
-        lines.push(`<div class="line">${svgIcon(ICONS.history)}<span>${esc(this._t("last_triggered", { when: ago(this._lang(), last) }))}</span></div>`);
+        lines.push(`<div class="line">${svgIcon(ICONS.history)}<span>${esc(this._t("last_triggered", { when: ago(intlLang(this._hass, this._config), last) }))}</span></div>`);
       else if ("last_triggered" in (st.attributes || {})) lines.push(`<div class="line">${svgIcon(ICONS.history)}<span>${esc(this._t("never_triggered"))}</span></div>`);
     }
     return `<div class="hero ${cls}">
@@ -1770,7 +1781,7 @@ class AlarmEditorBase extends HTMLElement {
               { value: "sr-Latn", label: "Srpski (latinica)" },
               { value: "it", label: "Italiano" },
               { value: "nl", label: "Nederlands" },
-              { value: "pt", label: "Português" },
+              { value: "pt", label: "Português (Portugal)" },
               { value: "pl", label: "Polski" },
             ],
           },

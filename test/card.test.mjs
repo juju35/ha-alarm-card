@@ -277,6 +277,20 @@ test("I18N: the full HA language when known, else the part before the dash, else
   assert.match(render("sr-Latn", { language: "fr" }), /Armement/);
 });
 
+test("I18N: Intl gets pt-PT for Home Assistant's pt, keeps pt-BR, and follows the language option", () => {
+  const h = (language) => ({ language, locale: { language } });
+  assert.equal(al.intlLang(h("pt"), {}), "pt-PT");
+  assert.equal(al.intlLang(h("pt-BR"), {}), "pt-BR");
+  assert.equal(al.intlLang(h("fr-CA"), {}), "fr-CA");
+  assert.equal(al.intlLang(h("ja"), {}), "en");
+  assert.equal(al.intlLang(h("sr-Latn"), {}), "sr-Latn");
+  assert.equal(al.intlLang(h("en"), { language: "pt" }), "pt-PT");
+  assert.equal(al.intlLang(h("pt-BR"), { language: "pt" }), "pt-PT");
+  assert.equal(al.intlLang(h("pt"), { language: "fr" }), "fr");
+  // European wording ("dentro de"), not the Brazilian "em 3 horas".
+  assert.equal(al.ago(al.intlLang(h("pt"), {}), 3 * 3600000, 0), "dentro de 3 horas");
+});
+
 test("I18N: the editor offers every language of the card, Serbian, Italian, Dutch, Portuguese and Polish included", () => {
   const editor = new al.AlarmCardEditor();
   editor._hass = makeHass();
@@ -288,7 +302,7 @@ test("I18N: the editor offers every language of the card, Serbian, Italian, Dutc
   assert.equal(options.find((o) => o.value === "sr-Latn").label, "Srpski (latinica)");
   assert.equal(options.find((o) => o.value === "it").label, "Italiano");
   assert.equal(options.find((o) => o.value === "nl").label, "Nederlands");
-  assert.equal(options.find((o) => o.value === "pt").label, "Português");
+  assert.equal(options.find((o) => o.value === "pt").label, "Português (Portugal)");
   assert.equal(options.find((o) => o.value === "pl").label, "Polski");
 });
 
