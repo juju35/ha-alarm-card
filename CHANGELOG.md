@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.4 — 2026-11-01
+### Changes
+- Serbian translations by @cpmarexel2f (#14): Cyrillic (`sr`, "Српски") and Latin (`sr-Latn`, "Srpski (latinica)"), offered in the visual editor's language list. A Home Assistant set to `sr-Latn` picks the Latin script automatically.
+
+### Maintenance
+- Tests: language resolution (`fr-FR` → fr, `sr-Latn` → sr-Latn, `sr` → sr, `pt-BR` → en), script check of the Serbian strings (no Latin letter in `sr`, no Cyrillic in `sr-Latn`), editor language list matching the card's languages.
+
 ## 1.4.3 — 2026-10-29
 ### Fixes
 - Text drawn in a state color (header chip, big state label, active mode button, sensor values, alerts) is now readable in light and dark themes: it mixes the state color with the theme's text color and reaches at least 4.5:1, while dots, icons and tints keep the pure color. The orange "Armed home" text on a white card was at 2.1:1 and the purple "Armed night" chip at 2.7:1 in a dark theme.
