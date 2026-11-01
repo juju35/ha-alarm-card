@@ -45,7 +45,7 @@ export const load = () => {
   if (patched === source) throw new Error("test/load.mjs: the morph block was not found in src/alarm-card.js — update the replacement pattern.");
   return vm.runInContext(
     `${patched}
-    ({ stateClass, supportedModes, remaining, fmtCountdown, fmtDuration, parseTime, entityList, esc, STRINGS,
+    ({ stateClass, supportedModes, remaining, fmtCountdown, fmtDuration, parseTime, entityList, esc, STRINGS, intlLang, ago,
        AlarmCard: customElements.get("alarm-card"), AlarmMiniCard: customElements.get("alarm-mini-card"),
        AlarmCardEditor: customElements.get("alarm-card-editor"), AlarmMiniCardEditor: customElements.get("alarm-mini-card-editor") })`,
     sandbox,

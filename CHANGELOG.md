@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.4.5 — 2026-11-01
+### Changes
+- Added Italian, Dutch, European Portuguese and Polish translations (`it`, `nl`, `pt`, `pl`), offered in the visual editor's language list ("Italiano", "Nederlands", "Português (Portugal)", "Polski"). A Home Assistant set to `pt-BR` now uses European Portuguese instead of English. Relative times use European Portuguese formats (`pt` → `pt-PT` for Intl; `pt-BR` keeps Brazilian formats).
+
+### Maintenance
+- Tests: language resolution (`it-IT` → it, `nl-BE` → nl, `pt` and `pt-BR` → pt, `pl-PL` → pl, `ja` → en), no empty translation, editor labels of the new languages.
+
+## 1.4.4 — 2026-11-01
+### Changes
+- Serbian translations by @cpmarexel2f (#14): Cyrillic (`sr`, "Српски") and Latin (`sr-Latn`, "Srpski (latinica)"), offered in the visual editor's language list. A Home Assistant set to `sr-Latn` picks the Latin script automatically.
+
+### Maintenance
+- Tests: language resolution (`fr-FR` → fr, `sr-Latn` → sr-Latn, `sr` → sr, `pt-BR` → en), script check of the Serbian strings (no Latin letter in `sr`, no Cyrillic in `sr-Latn`), editor language list matching the card's languages.
+
+## 1.4.3 — 2026-10-29
+### Fixes
+- Text drawn in a state color (header chip, big state label, active mode button, sensor values, alerts) is now readable in light and dark themes: it mixes the state color with the theme's text color and reaches at least 4.5:1, while dots, icons and tints keep the pure color. The orange "Armed home" text on a white card was at 2.1:1 and the purple "Armed night" chip at 2.7:1 in a dark theme.
+- The Home, Night, Vacation and Custom mode colors follow Home Assistant's palette (`--orange-color`, `--deep-purple-color`, `--cyan-color`, `--purple-color`), so a theme can change them.
+- The "Sensors" section header can be reached with Tab and folded or unfolded with Enter or Space.
+- Smoke detectors show a smoke detector icon (with its alert variant when smoke is detected) instead of a "no entry" sign.
+- With reduced motion requested, the shield's color change and the section chevron no longer animate.
+
+### Maintenance
+- Screenshots are reproducible: fixed clock and time zone, mock timestamps relative to one instant, animations frozen (in the card's shadow DOM too) and bit-exact GIF encoding, so a run on another day no longer commits new images.
+- CI: Biome 2.6.3 everywhere; the Lint workflow reads the Biome version from `.pre-commit-config.yaml`.
+
 ## 1.4.2 — 2026-10-29
 ### Fixes
 - The visual editor now ticks the arm modes written without the `arm_` prefix (`modes: [away, home]`, as in the README example) and they can be unticked; ticking another mode no longer adds a second button for a mode already listed.

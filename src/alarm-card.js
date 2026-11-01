@@ -35,7 +35,10 @@ const ICONS = {
   garage: "M22,9V20H20V11H4V20H2V9L12,5L22,9M19,12H5V14H19V12M19,18H5V20H19V18M19,15H5V17H19V15Z",
   motion:
     "M13.5,5.5C14.59,5.5 15.5,4.58 15.5,3.5C15.5,2.38 14.59,1.5 13.5,1.5C12.39,1.5 11.5,2.38 11.5,3.5C11.5,4.58 12.39,5.5 13.5,5.5M9.89,19.38L10.89,15L13,17V23H15V15.5L12.89,13.5L13.5,10.5C14.79,12 16.79,13 19,13V11C17.09,11 15.5,10 14.69,8.58L13.69,7C13.29,6.38 12.69,6 12,6C11.69,6 11.5,6.08 11.19,6.08L6,8.28V13H8V9.58L9.79,8.88L8.19,17L3.29,16L2.89,18L9.89,19.38Z",
-  smoke: "M12,18A6,6 0 0,1 6,12C6,11 6.25,10.03 6.7,9.2L15.5,18C14.97,18 14.5,18 12,18M17.3,14.8L8.5,6C9.03,6 9.5,6 12,6A6,6 0 0,1 18,12C18,13 17.75,13.97 17.3,14.8M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z",
+  // mdi:smoke-detector-variant and mdi:smoke-detector-variant-alert (HA's icons for the smoke device class)
+  smoke: "M12 4C16.41 4 20 7.59 20 12S16.41 20 12 20 4 16.41 4 12 7.59 4 12 4M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M12 11C11.45 11 11 11.45 11 12S11.45 13 12 13 13 12.55 13 12 12.55 11 12 11M10.72 9.3C11.11 9.11 11.54 9 12 9S12.89 9.11 13.29 9.3L14 8.57C13.43 8.22 12.74 8 12 8S10.58 8.22 10 8.57L10.72 9.3M15 12C15 12.46 14.89 12.89 14.7 13.29L15.43 14C15.79 13.43 16 12.74 16 12S15.79 10.58 15.43 10L14.7 10.72C14.89 11.11 15 11.54 15 12M9 12C9 11.54 9.11 11.11 9.3 10.72L8.57 10C8.22 10.58 8 11.26 8 12S8.22 13.43 8.57 14L9.3 13.29C9.11 12.89 9 12.46 9 12M13.29 14.7C12.89 14.89 12.46 15 12 15S11.11 14.89 10.72 14.7L10 15.43C10.58 15.79 11.26 16 12 16S13.43 15.79 14 15.43L13.29 14.7M16.89 8.53L16.17 9.25C16.69 10.04 17 11 17 12S16.69 13.96 16.17 14.75L16.89 15.47C17.59 14.5 18 13.3 18 12S17.59 9.5 16.89 8.53M9.25 7.83C10.04 7.31 11 7 12 7S13.96 7.31 14.75 7.83L15.47 7.11C14.5 6.42 13.3 6 12 6S9.5 6.42 8.53 7.11L9.25 7.83M14.75 16.17C13.96 16.69 13 17 12 17S10.04 16.69 9.25 16.17L8.53 16.89C9.5 17.59 10.7 18 12 18S14.5 17.59 15.47 16.89L14.75 16.17M7.83 14.75C7.31 13.96 7 13 7 12S7.31 10.04 7.83 9.25L7.11 8.53C6.42 9.5 6 10.7 6 12S6.42 14.5 7.11 15.47L7.83 14.75Z",
+  smoke_alert:
+    "M10 4C14.4 4 18 7.6 18 12S14.4 20 10 20 2 16.4 2 12 5.6 4 10 4M10 2C4.5 2 0 6.5 0 12S4.5 22 10 22 20 17.5 20 12 15.5 2 10 2M10 11C9.4 11 9 11.4 9 12S9.4 13 10 13 11 12.6 11 12 10.6 11 10 11M8.7 9.3C9.1 9.1 9.5 9 10 9S10.9 9.1 11.3 9.3L12 8.6C11.4 8.2 10.7 8 10 8S8.6 8.2 8 8.6L8.7 9.3M13 12C13 12.5 12.9 12.9 12.7 13.3L13.4 14C13.8 13.4 14 12.7 14 12S13.8 10.6 13.4 10L12.7 10.7C12.9 11.1 13 11.5 13 12M7 12C7 11.5 7.1 11.1 7.3 10.7L6.6 10C6.2 10.6 6 11.3 6 12S6.2 13.4 6.6 14L7.3 13.3C7.1 12.9 7 12.5 7 12M11.3 14.7C10.9 14.9 10.5 15 10 15S9.1 14.9 8.7 14.7L8 15.4C8.6 15.8 9.3 16 10 16S11.4 15.8 12 15.4L11.3 14.7M14.9 8.5L14.2 9.2C14.7 10 15 11 15 12S14.7 14 14.2 14.8L14.9 15.5C15.6 14.5 16 13.3 16 12S15.6 9.5 14.9 8.5M7.2 7.8C8 7.3 9 7 10 7S12 7.3 12.8 7.8L13.5 7.1C12.5 6.4 11.3 6 10 6S7.5 6.4 6.5 7.1L7.2 7.8M12.8 16.2C12 16.7 11 17 10 17S8 16.7 7.2 16.2L6.5 16.9C7.5 17.6 8.7 18 10 18S12.5 17.6 13.5 16.9L12.8 16.2M5.8 14.8C5.3 14 5 13 5 12S5.3 10 5.8 9.2L5.1 8.5C4.4 9.5 4 10.7 4 12S4.4 14.5 5.1 15.5L5.8 14.8M24 7H22V13H24V8M24 15H22V17H24V15Z",
   water: "M12,20A6,6 0 0,1 6,14C6,10 12,3.25 12,3.25C12,3.25 18,10 18,14A6,6 0 0,1 12,20Z",
   sensor: "M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z",
   backspace:
@@ -325,6 +328,432 @@ const STRINGS = {
     lang_auto: "Automático",
     disarm_confirm: "¿Desarmar la alarma?",
   },
+  sr: {
+    title: "Аларм",
+    disarm: "Деактивирај",
+    arm_home: "Код куће",
+    arm_away: "Одсутан",
+    arm_night: "Ноћ",
+    arm_vacation: "Одмор",
+    arm_custom_bypass: "Прилагођено",
+    cancel: "Откажи",
+    ok: "У реду",
+    arm_anyway: "Активирај упркос свему",
+    code_for: "Код за: {action}",
+    code_placeholder: "Код",
+    clear: "Обриши",
+    since: "већ {d}",
+    just_now: "управо сада",
+    by: "променио/ла {name}",
+    arming_in: "Активира се за {d}",
+    pending_in: "Аларм за {d}",
+    open_sensors: "Отворено: {list}",
+    unavailable_sensors: "Недоступно: {list}",
+    open_confirm: "{list}: отворено. Активирати режим \"{mode}\" упркос томе?",
+    bypassed: "Премошћено: {list}",
+    last_triggered: "Последњи пут активиран {when}",
+    never_triggered: "Никада није активиран",
+    sensors: "Сензори",
+    all_closed: "Све је затворено",
+    n_open: "{n} отворено",
+    open: "Отворено",
+    closed: "Затворено",
+    detected: "Детектовано",
+    clear_state: "Чисто",
+    alert: "Упозорење",
+    ok_state: "У реду",
+    min: "min",
+    h: "h",
+    d: "d",
+    no_alarm: "Није пронађен ниједан алармни панел.",
+    unknown_entity: "Алармни панел није пронађен",
+    // States
+    s_disarmed: "Деактивиран",
+    s_armed_home: "Активиран код куће",
+    s_armed_away: "Активиран у одсуству",
+    s_armed_night: "Ноћни режим",
+    s_armed_vacation: "Режим одмора",
+    s_armed_custom_bypass: "Прилагођено активиран",
+    s_arming: "Активирање у току",
+    s_disarming: "Деактивирање у току",
+    s_pending: "На чекању",
+    s_triggered: "Активиран (Узбуна)",
+    s_unavailable: "Недоступно",
+    s_unknown: "Непознато",
+    // Editor
+    entity: "Алармни панел",
+    title_option: "Наслов (опционо, подразумевано је назив панела)",
+    modes: "Приказани режими активације (сви подржани ако је празно)",
+    sensors_option: "Сензори за приказ",
+    show_logo: "Прикажи лого",
+    show_controls: "Прикажи дугмад за активирање / деактивирање",
+    show_sensors: "Прикажи сензоре",
+    show_info: "Прикажи последње окидање и ко је променио статус",
+    confirm_disarm: "Тражи потврду пре деактивирања",
+    collapsed: "Подразумевано скупи приказ сензора",
+    zoom: "Дугме за детаље",
+    zoom_helper: "Дугме у горњем десном углу које пребацује мини картицу на пун приказ и назад",
+    zoom_in: "Прикажи целу картицу",
+    zoom_out: "Назад на компактни приказ",
+    language: "Језик",
+    lang_auto: "Аутоматски",
+    disarm_confirm: "Деактивирати аларм?",
+  },
+  "sr-Latn": {
+    title: "Alarm",
+    disarm: "Deaktiviraj",
+    arm_home: "Kod kuće",
+    arm_away: "Odsutan",
+    arm_night: "Noć",
+    arm_vacation: "Odmor",
+    arm_custom_bypass: "Prilagođeno",
+    cancel: "Otkaži",
+    ok: "U redu",
+    arm_anyway: "Aktiviraj uprkos svemu",
+    code_for: "Kod za: {action}",
+    code_placeholder: "Kod",
+    clear: "Obriši",
+    since: "već {d}",
+    just_now: "upravo sada",
+    by: "promenio/la {name}",
+    arming_in: "Aktivira se za {d}",
+    pending_in: "Alarm za {d}",
+    open_sensors: "Otvoreno: {list}",
+    unavailable_sensors: "Nedostupno: {list}",
+    open_confirm: "{list}: otvoreno. Aktivirati režim \"{mode}\" uprkos tome?",
+    bypassed: "Premošćeno: {list}",
+    last_triggered: "Poslednji put aktiviran {when}",
+    never_triggered: "Nikada nije aktiviran",
+    sensors: "Senzori",
+    all_closed: "Sve je zatvoreno",
+    n_open: "{n} otvoreno",
+    open: "Otvoreno",
+    closed: "Zatvoreno",
+    detected: "Detektovano",
+    clear_state: "Čisto",
+    alert: "Upozorenje",
+    ok_state: "U redu",
+    min: "min",
+    h: "h",
+    d: "d",
+    no_alarm: "Nije pronađen nijedan alarmni panel.",
+    unknown_entity: "Alarmni panel nije pronađen",
+    // States
+    s_disarmed: "Deaktiviran",
+    s_armed_home: "Aktiviran kod kuće",
+    s_armed_away: "Aktiviran u odsustvu",
+    s_armed_night: "Noćni režim",
+    s_armed_vacation: "Režim odmora",
+    s_armed_custom_bypass: "Prilagođeno aktiviran",
+    s_arming: "Aktiviranje u toku",
+    s_disarming: "Deaktiviranje u toku",
+    s_pending: "Na čekanju",
+    s_triggered: "Aktiviran (Uzbuna)",
+    s_unavailable: "Nedostupno",
+    s_unknown: "Nepoznato",
+    // Editor
+    entity: "Alarmni panel",
+    title_option: "Naslov (opciono, podrazumevano je naziv panela)",
+    modes: "Prikazani režimi aktivacije (svi podržani ako je prazno)",
+    sensors_option: "Senzori za prikaz",
+    show_logo: "Prikaži logo",
+    show_controls: "Prikaži dugmad za aktiviranje / deaktiviranje",
+    show_sensors: "Prikaži senzore",
+    show_info: "Prikaži poslednje okidanje i ko je promenio status",
+    confirm_disarm: "Traži potvrdu pre deaktiviranja",
+    collapsed: "Podrazumevano skupi prikaz senzora",
+    zoom: "Dugme za detalje",
+    zoom_helper: "Dugme u gornjem desnom uglu koje prebacuje mini karticu na pun prikaz i nazad",
+    zoom_in: "Prikaži celu karticu",
+    zoom_out: "Nazad na kompaktni prikaz",
+    language: "Jezik",
+    lang_auto: "Automatski",
+    disarm_confirm: "Deaktivirati alarm?",
+  },
+  it: {
+    title: "Allarme",
+    disarm: "Disattiva",
+    arm_home: "Casa",
+    arm_away: "Fuori casa",
+    arm_night: "Notte",
+    arm_vacation: "Vacanza",
+    arm_custom_bypass: "Personalizzato",
+    cancel: "Annulla",
+    ok: "OK",
+    arm_anyway: "Attiva comunque",
+    code_for: "Codice per: {action}",
+    code_placeholder: "Codice",
+    clear: "Cancella",
+    since: "da {d}",
+    just_now: "proprio ora",
+    by: "cambiato da {name}",
+    arming_in: "Attivo tra {d}",
+    pending_in: "Allarme tra {d}",
+    open_sensors: "Aperti: {list}",
+    unavailable_sensors: "Non disponibili: {list}",
+    open_confirm: "Sensori aperti: {list}. Attivare comunque la modalità {mode}?",
+    bypassed: "Esclusi: {list}",
+    last_triggered: "Ultimo allarme {when}",
+    never_triggered: "Mai scattato",
+    sensors: "Sensori",
+    all_closed: "Tutto chiuso",
+    n_open: "Aperti: {n}",
+    open: "Aperto",
+    closed: "Chiuso",
+    detected: "Rilevato",
+    clear_state: "Libero",
+    alert: "Allerta",
+    ok_state: "OK",
+    min: "min",
+    h: "h",
+    d: "g",
+    no_alarm: "Nessun pannello di allarme trovato.",
+    unknown_entity: "Pannello di allarme non trovato",
+    // States
+    s_disarmed: "Disattivato",
+    s_armed_home: "Attivo in casa",
+    s_armed_away: "Attivo fuori casa",
+    s_armed_night: "Attivo notte",
+    s_armed_vacation: "Attivo vacanza",
+    s_armed_custom_bypass: "Attivo personalizzato",
+    s_arming: "In attivazione",
+    s_disarming: "In disattivazione",
+    s_pending: "In attesa",
+    s_triggered: "Scattato",
+    s_unavailable: "Non disponibile",
+    s_unknown: "Sconosciuto",
+    // Editor
+    entity: "Pannello di allarme",
+    title_option: "Titolo (facoltativo, per impostazione predefinita il nome del pannello)",
+    modes: "Modalità di attivazione mostrate (tutte quelle supportate se vuoto)",
+    sensors_option: "Sensori da mostrare",
+    show_logo: "Mostra il logo",
+    show_controls: "Mostra i pulsanti di attivazione / disattivazione",
+    show_sensors: "Mostra i sensori",
+    show_info: "Mostra l'ultimo allarme e chi ha cambiato lo stato",
+    confirm_disarm: "Chiedi conferma prima di disattivare",
+    collapsed: "Comprimi i sensori per impostazione predefinita",
+    zoom: "Pulsante dettagli",
+    zoom_helper: "Pulsante in alto a destra che passa dalla mini scheda alla scheda completa e viceversa",
+    zoom_in: "Mostra la scheda completa",
+    zoom_out: "Torna alla vista compatta",
+    language: "Lingua",
+    lang_auto: "Automatica",
+    disarm_confirm: "Disattivare l'allarme?",
+  },
+  nl: {
+    title: "Alarm",
+    disarm: "Uitschakelen",
+    arm_home: "Thuis",
+    arm_away: "Afwezig",
+    arm_night: "Nacht",
+    arm_vacation: "Vakantie",
+    arm_custom_bypass: "Aangepast",
+    cancel: "Annuleren",
+    ok: "OK",
+    arm_anyway: "Toch inschakelen",
+    code_for: "Code voor: {action}",
+    code_placeholder: "Code",
+    clear: "Wissen",
+    since: "sinds {d}",
+    just_now: "zojuist",
+    by: "door {name}",
+    arming_in: "Ingeschakeld over {d}",
+    pending_in: "Alarm over {d}",
+    open_sensors: "Open: {list}",
+    unavailable_sensors: "Niet beschikbaar: {list}",
+    open_confirm: "{list}: open. Toch inschakelen in modus {mode}?",
+    bypassed: "Overbrugd: {list}",
+    last_triggered: "Laatst afgegaan {when}",
+    never_triggered: "Nooit afgegaan",
+    sensors: "Sensoren",
+    all_closed: "Alles gesloten",
+    n_open: "Open: {n}",
+    open: "Open",
+    closed: "Gesloten",
+    detected: "Gedetecteerd",
+    clear_state: "Vrij",
+    alert: "Alarm",
+    ok_state: "OK",
+    min: "min",
+    h: "u",
+    d: "d",
+    no_alarm: "Geen alarmpaneel gevonden.",
+    unknown_entity: "Alarmpaneel niet gevonden",
+    // States
+    s_disarmed: "Uitgeschakeld",
+    s_armed_home: "Ingeschakeld thuis",
+    s_armed_away: "Ingeschakeld afwezig",
+    s_armed_night: "Ingeschakeld nacht",
+    s_armed_vacation: "Ingeschakeld vakantie",
+    s_armed_custom_bypass: "Ingeschakeld aangepast",
+    s_arming: "Schakelt in",
+    s_disarming: "Schakelt uit",
+    s_pending: "In afwachting",
+    s_triggered: "Afgegaan",
+    s_unavailable: "Niet beschikbaar",
+    s_unknown: "Onbekend",
+    // Editor
+    entity: "Alarmpaneel",
+    title_option: "Titel (optioneel, standaard de naam van het paneel)",
+    modes: "Getoonde inschakelmodi (alle ondersteunde indien leeg)",
+    sensors_option: "Te tonen sensoren",
+    show_logo: "Logo tonen",
+    show_controls: "Knoppen voor in- / uitschakelen tonen",
+    show_sensors: "Sensoren tonen",
+    show_info: "Laatste alarm en wie de status wijzigde tonen",
+    confirm_disarm: "Om bevestiging vragen voor het uitschakelen",
+    collapsed: "Sensoren standaard inklappen",
+    zoom: "Detailknop",
+    zoom_helper: "Knop rechtsboven die de minikaart omschakelt naar de volledige kaart en terug",
+    zoom_in: "Volledige kaart tonen",
+    zoom_out: "Terug naar de compacte weergave",
+    language: "Taal",
+    lang_auto: "Automatisch",
+    disarm_confirm: "Alarm uitschakelen?",
+  },
+  pt: {
+    title: "Alarme",
+    disarm: "Desarmar",
+    arm_home: "Casa",
+    arm_away: "Ausente",
+    arm_night: "Noite",
+    arm_vacation: "Férias",
+    arm_custom_bypass: "Personalizado",
+    cancel: "Cancelar",
+    ok: "OK",
+    arm_anyway: "Armar mesmo assim",
+    code_for: "Código para: {action}",
+    code_placeholder: "Código",
+    clear: "Limpar",
+    since: "há {d}",
+    just_now: "agora mesmo",
+    by: "por {name}",
+    arming_in: "Armado dentro de {d}",
+    pending_in: "Alarme dentro de {d}",
+    open_sensors: "Abertos: {list}",
+    unavailable_sensors: "Indisponíveis: {list}",
+    open_confirm: "Sensores abertos: {list}. Armar no modo {mode} mesmo assim?",
+    bypassed: "Excluídos: {list}",
+    last_triggered: "Último disparo {when}",
+    never_triggered: "Nunca disparado",
+    sensors: "Sensores",
+    all_closed: "Tudo fechado",
+    n_open: "Abertos: {n}",
+    open: "Aberto",
+    closed: "Fechado",
+    detected: "Detetado",
+    clear_state: "Livre",
+    alert: "Alerta",
+    ok_state: "OK",
+    min: "min",
+    h: "h",
+    d: "d",
+    no_alarm: "Nenhum painel de alarme encontrado.",
+    unknown_entity: "Painel de alarme não encontrado",
+    // States
+    s_disarmed: "Desarmado",
+    s_armed_home: "Armado em casa",
+    s_armed_away: "Armado ausente",
+    s_armed_night: "Armado noite",
+    s_armed_vacation: "Armado férias",
+    s_armed_custom_bypass: "Armado personalizado",
+    s_arming: "A armar",
+    s_disarming: "A desarmar",
+    s_pending: "Pendente",
+    s_triggered: "Disparado",
+    s_unavailable: "Indisponível",
+    s_unknown: "Desconhecido",
+    // Editor
+    entity: "Painel de alarme",
+    title_option: "Título (opcional, por predefinição o nome do painel)",
+    modes: "Modos de armar mostrados (todos os suportados se vazio)",
+    sensors_option: "Sensores a mostrar",
+    show_logo: "Mostrar o logótipo",
+    show_controls: "Mostrar os botões de armar / desarmar",
+    show_sensors: "Mostrar os sensores",
+    show_info: "Mostrar o último disparo e quem alterou o estado",
+    confirm_disarm: "Pedir confirmação antes de desarmar",
+    collapsed: "Recolher os sensores por predefinição",
+    zoom: "Botão de detalhe",
+    zoom_helper: "Botão no canto superior direito que alterna entre o mini cartão e o cartão completo",
+    zoom_in: "Mostrar o cartão completo",
+    zoom_out: "Voltar à vista compacta",
+    language: "Idioma",
+    lang_auto: "Automático",
+    disarm_confirm: "Desarmar o alarme?",
+  },
+  pl: {
+    title: "Alarm",
+    disarm: "Rozbrój",
+    arm_home: "W domu",
+    arm_away: "Poza domem",
+    arm_night: "Noc",
+    arm_vacation: "Urlop",
+    arm_custom_bypass: "Własny",
+    cancel: "Anuluj",
+    ok: "OK",
+    arm_anyway: "Uzbrój mimo to",
+    code_for: "Kod dla: {action}",
+    code_placeholder: "Kod",
+    clear: "Wyczyść",
+    since: "od {d}",
+    just_now: "przed chwilą",
+    by: "przez {name}",
+    arming_in: "Uzbrojenie za {d}",
+    pending_in: "Alarm za {d}",
+    open_sensors: "Otwarte: {list}",
+    unavailable_sensors: "Niedostępne: {list}",
+    open_confirm: "{list}: otwarte. Mimo to uzbroić w trybie „{mode}”?",
+    bypassed: "Pominięte: {list}",
+    last_triggered: "Ostatnie wyzwolenie {when}",
+    never_triggered: "Nigdy nie wyzwolono",
+    sensors: "Czujniki",
+    all_closed: "Wszystko zamknięte",
+    n_open: "Otwarte: {n}",
+    open: "Otwarte",
+    closed: "Zamknięte",
+    detected: "Wykryto",
+    clear_state: "Brak ruchu",
+    alert: "Alarm",
+    ok_state: "OK",
+    min: "min",
+    h: "godz.",
+    d: "d.",
+    no_alarm: "Nie znaleziono panelu alarmowego.",
+    unknown_entity: "Nie znaleziono panelu alarmowego",
+    // States
+    s_disarmed: "Rozbrojony",
+    s_armed_home: "Uzbrojony (w domu)",
+    s_armed_away: "Uzbrojony (poza domem)",
+    s_armed_night: "Uzbrojony (noc)",
+    s_armed_vacation: "Uzbrojony (urlop)",
+    s_armed_custom_bypass: "Uzbrojony (własny)",
+    s_arming: "Uzbrajanie",
+    s_disarming: "Rozbrajanie",
+    s_pending: "Oczekiwanie",
+    s_triggered: "Wyzwolony",
+    s_unavailable: "Niedostępny",
+    s_unknown: "Nieznany",
+    // Editor
+    entity: "Panel alarmowy",
+    title_option: "Tytuł (opcjonalny, domyślnie nazwa panelu)",
+    modes: "Wyświetlane tryby uzbrojenia (wszystkie obsługiwane, jeśli puste)",
+    sensors_option: "Czujniki do wyświetlenia",
+    show_logo: "Pokaż logo",
+    show_controls: "Pokaż przyciski uzbrajania / rozbrajania",
+    show_sensors: "Pokaż czujniki",
+    show_info: "Pokaż ostatnie wyzwolenie i kto zmienił stan",
+    confirm_disarm: "Pytaj o potwierdzenie przed rozbrojeniem",
+    collapsed: "Domyślnie zwijaj czujniki",
+    zoom: "Przycisk szczegółów",
+    zoom_helper: "Przycisk w prawym górnym rogu przełączający minikartę na pełną kartę i z powrotem",
+    zoom_in: "Pokaż pełną kartę",
+    zoom_out: "Wróć do widoku kompaktowego",
+    language: "Język",
+    lang_auto: "Automatyczny",
+    disarm_confirm: "Rozbroić alarm?",
+  },
 };
 
 // Arm modes: [mode, supported feature bit, icon]. Order of the buttons.
@@ -347,6 +776,17 @@ const esc = (v) =>
 const lang = (hass, config) => {
   const l = config?.language || (hass && (hass.locale?.language || hass.language)) || "en";
   return STRINGS[l] ? l : STRINGS[l.split("-")[0]] ? l.split("-")[0] : "en";
+};
+
+// Locale for Intl: Home Assistant's full locale when it is the card's language (pt-BR keeps Brazilian formats),
+// else the card's language. A bare "pt" is Home Assistant's European Portuguese: Intl reads it as Brazilian.
+const intlLang = (hass, config) => {
+  const l = lang(hass, config);
+  const full = config?.language ? "" : (hass && (hass.locale?.language || hass.language)) || "";
+  const base = l.split("-")[0];
+  let out = l;
+  if (full && full.split("-")[0] === base && !(l === "sr" && /-Latn\b/.test(full))) out = full;
+  return out === "pt" ? "pt-PT" : out;
 };
 
 const t = (hass, config, key, vars = {}) =>
@@ -442,7 +882,7 @@ const SENSOR_KIND = {
   motion: ["motion", ICONS.motion, ICONS.motion],
   occupancy: ["motion", ICONS.motion, ICONS.motion],
   presence: ["motion", ICONS.motion, ICONS.motion],
-  smoke: ["problem", ICONS.smoke, ICONS.smoke],
+  smoke: ["problem", ICONS.smoke, ICONS.smoke_alert],
   moisture: ["problem", ICONS.water, ICONS.water],
 };
 
@@ -526,9 +966,16 @@ const shield = (state) => `<div class="shield ${stateClass(state)}">${svgIcon(st
 // Styles
 // ---------------------------------------------------------------------------
 
+// Text in a state color: the color mixed with the theme's text color, which darkens it in a light theme and
+// lightens it in a dark one, so that it stays readable (WCAG AA 4.5:1, checked by test/contrast.test.mjs) on
+// the card and on the tinted chips, buttons and tiles. Dots, icons, borders and tints keep the pure color.
+const textColor = (c) => `color-mix(in srgb, ${c} 40%, var(--primary-text-color, #212121))`;
+
+// The mode colors follow HA's palette variables, so that a theme can change them.
 const BASE_STYLE = `
-  :host { --al-accent: #e5484d; --al-off: var(--success-color, #43a047); --al-home: #f59f00; --al-away: var(--error-color, #db4437);
-          --al-night: #7048e8; --al-vacation: #1098ad; --al-custom: #ae3ec9; --al-wait: var(--warning-color, #ffa600);
+  :host { --al-accent: #e5484d; --al-off: var(--success-color, #43a047); --al-home: var(--orange-color, #f59f00); --al-away: var(--error-color, #db4437);
+          --al-night: var(--deep-purple-color, #7048e8); --al-vacation: var(--cyan-color, #1098ad); --al-custom: var(--purple-color, #ae3ec9);
+          --al-wait: var(--warning-color, #ffa600);
           --al-alarm: var(--error-color, #db4437); --al-idle: var(--disabled-text-color, #9e9e9e); }
   ha-card { overflow: hidden; }
   .icon { width: 18px; height: 18px; fill: currentColor; flex: none; }
@@ -539,7 +986,7 @@ const BASE_STYLE = `
   .alarm { --c: var(--al-alarm); } .idle { --c: var(--al-idle); }
   .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c); flex: none; display: inline-block; }
   .chip { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 12px; font-size: 11px; font-weight: 500; white-space: nowrap;
-          background: color-mix(in srgb, var(--c, var(--al-off)) 15%, transparent); color: var(--c, var(--al-off)); flex: none; }
+          background: color-mix(in srgb, var(--c, var(--al-off)) 15%, transparent); color: ${textColor("var(--c, var(--al-off))")}; flex: none; }
   .header { display: flex; align-items: center; gap: 10px; padding: 12px 12px 0; }
   .badge { --c: var(--al-accent); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none;
            background: color-mix(in srgb, var(--c) 16%, transparent); color: var(--c); }
@@ -547,7 +994,7 @@ const BASE_STYLE = `
   .titles { flex: 1; min-width: 0; }
   .name { font-size: 16px; font-weight: 500; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sub { font-size: 12px; color: var(--secondary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .warning { padding: 16px; color: var(--al-wait); }
+  .warning { padding: 16px; color: ${textColor("var(--al-wait)")}; }
   .shield { flex: none; display: grid; place-items: center; border-radius: 50%; color: var(--c);
             background: color-mix(in srgb, var(--c) 14%, transparent); transition: color .4s ease, background .4s ease; }
   .shield.wait { animation: al-pulse 1.4s ease-in-out infinite; }
@@ -555,12 +1002,13 @@ const BASE_STYLE = `
   @keyframes al-pulse { 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--c) 0%, transparent), 0 0 0 0 color-mix(in srgb, var(--c) 35%, transparent);
                               background: color-mix(in srgb, var(--c) 26%, transparent); } }
   @keyframes al-flash { from { background: color-mix(in srgb, var(--c) 14%, transparent); } to { background: var(--c); color: #fff; } }
-  @media (prefers-reduced-motion: reduce) { .shield { animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .shield { animation: none !important; transition: none; } }
   .info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
   .line { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--secondary-text-color); min-width: 0; }
   .line span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .line .icon { width: 14px; height: 14px; }
-  .alert-line { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--c, var(--al-wait)); min-width: 0; }
+  .alert-line { display: flex; align-items: center; gap: 6px; font-size: 12px; color: ${textColor("var(--c, var(--al-wait))")}; min-width: 0; }
+  .alert-line .icon { color: var(--c, var(--al-wait)); }
   .alert-line span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .alert-line .icon { width: 14px; height: 14px; }
   .bar { height: 4px; border-radius: 3px; background: var(--divider-color, rgba(127,127,127,.25)); overflow: hidden; }
@@ -570,7 +1018,7 @@ const BASE_STYLE = `
          color: var(--primary-text-color); min-width: 0; }
   .btn:hover { background: color-mix(in srgb, var(--c, var(--al-accent)) 14%, var(--secondary-background-color, rgba(127,127,127,.12))); }
   .btn .icon { width: 18px; height: 18px; color: var(--c, var(--primary-text-color)); }
-  .btn.primary { background: color-mix(in srgb, var(--c, var(--al-accent)) 16%, transparent); color: var(--c, var(--al-accent)); }
+  .btn.primary { background: color-mix(in srgb, var(--c, var(--al-accent)) 16%, transparent); color: ${textColor("var(--c, var(--al-accent))")}; }
   .btn.primary:hover { background: color-mix(in srgb, var(--c, var(--al-accent)) 24%, transparent); }
   .btn.round { width: 36px; height: 36px; padding: 0; border-radius: 50%; }
   .btn.disabled { opacity: .45; cursor: default; }
@@ -1077,7 +1525,7 @@ const FULL_STYLE = `
   .hero { display: flex; align-items: center; gap: 14px; }
   .hero .shield { width: 72px; height: 72px; }
   .hero .shield .icon { width: 40px; height: 40px; }
-  .state { font-size: 22px; font-weight: 400; line-height: 1.2; color: var(--c); }
+  .state { font-size: 22px; font-weight: 400; line-height: 1.2; color: ${textColor("var(--c)")}; }
   .modes { display: flex; flex-wrap: wrap; gap: 6px; }
   .modes .btn { flex: 1 1 auto; }
   .section-title { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; text-transform: uppercase;
@@ -1088,13 +1536,14 @@ const FULL_STYLE = `
   .section-title.toggle[aria-expanded="false"] { margin-bottom: 0; }
   .section-title .chevron { margin-left: auto; width: 16px; height: 16px; transition: transform .2s ease; }
   .section-title.toggle[aria-expanded="false"] .chevron { transform: rotate(-90deg); }
+  @media (prefers-reduced-motion: reduce) { .section-title .chevron { transition: none; } }
   .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
   .tile { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 10px; min-width: 0;
           background: var(--secondary-background-color, rgba(127,127,127,.08)); }
   .tile .icon { width: 20px; height: 20px; color: var(--c, var(--secondary-text-color)); }
   .tile .tx { min-width: 0; display: flex; flex-direction: column; }
   .tile .k { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tile .v { font-size: 11px; color: var(--c, var(--secondary-text-color)); white-space: nowrap; }
+  .tile .v { font-size: 11px; color: ${textColor("var(--c, var(--secondary-text-color))")}; white-space: nowrap; }
   .tile.on { background: color-mix(in srgb, var(--c) 12%, var(--secondary-background-color, transparent)); }
 `;
 
@@ -1137,7 +1586,7 @@ class AlarmCard extends AlarmBase {
     if (this._config.show_info !== false) {
       const last = parseTime(st.attributes?.last_triggered);
       if (Number.isFinite(last))
-        lines.push(`<div class="line">${svgIcon(ICONS.history)}<span>${esc(this._t("last_triggered", { when: ago(this._lang(), last) }))}</span></div>`);
+        lines.push(`<div class="line">${svgIcon(ICONS.history)}<span>${esc(this._t("last_triggered", { when: ago(intlLang(this._hass, this._config), last) }))}</span></div>`);
       else if ("last_triggered" in (st.attributes || {})) lines.push(`<div class="line">${svgIcon(ICONS.history)}<span>${esc(this._t("never_triggered"))}</span></div>`);
     }
     return `<div class="hero ${cls}">
@@ -1173,7 +1622,7 @@ class AlarmCard extends AlarmBase {
     const open = this._openSensors().length;
     const closed = this._isCollapsed("sensors");
     return `<div>
-      <div class="section-title toggle" data-action="toggle_section" data-section="sensors" aria-expanded="${!closed}">${svgIcon(ICONS.door)}${esc(this._t("sensors"))}
+      <div class="section-title toggle" role="button" tabindex="0" data-action="toggle_section" data-section="sensors" aria-expanded="${!closed}">${svgIcon(ICONS.door)}${esc(this._t("sensors"))}
         <span class="chip ${open ? "away" : "off"}">${esc(open ? this._t("n_open", { n: open }) : this._t("all_closed"))}</span>${svgIcon(ICONS.chevron_down, "chevron")}</div>
       ${closed ? "" : `<div class="tiles">${tiles.join("")}</div>`}
     </div>`;
@@ -1190,7 +1639,7 @@ const MINI_STYLE = `
   .header .titles { margin-block: -2px; }
   .header .badge, .header .shield { width: 32px; height: 32px; }
   .header .badge .icon, .header .shield .icon { width: 20px; height: 20px; }
-  .sub .st { color: var(--c); font-weight: 500; }
+  .sub .st { color: ${textColor("var(--c)")}; font-weight: 500; }
   .sub .dot { margin-right: 4px; vertical-align: 1px; }
   .controls { display: flex; gap: 6px; flex: none; }
   .controls .btn.round { width: 32px; height: 32px; }
@@ -1328,6 +1777,12 @@ class AlarmEditorBase extends HTMLElement {
               { value: "fr", label: "Français" },
               { value: "de", label: "Deutsch" },
               { value: "es", label: "Español" },
+              { value: "sr", label: "Српски" },
+              { value: "sr-Latn", label: "Srpski (latinica)" },
+              { value: "it", label: "Italiano" },
+              { value: "nl", label: "Nederlands" },
+              { value: "pt", label: "Português (Portugal)" },
+              { value: "pl", label: "Polski" },
             ],
           },
         },

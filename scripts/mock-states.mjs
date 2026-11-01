@@ -3,7 +3,17 @@
 export const states = {};
 export const entities = {};
 
-const ago = (s) => new Date(Date.now() - s * 1000).toISOString();
+// Every timestamp is relative to one instant, NOW, which scripts/screenshots.mjs also gives the page as its
+// fixed clock: durations and countdowns render the same on every run.
+export const NOW = Date.now();
+const ago = (s) => new Date(NOW - s * 1000).toISOString();
+// Alarmo's last_triggered: local time as "YYYY-MM-DD HH:MM:SS". Relative to now like the other timestamps, so
+// the card always says "83 days ago" and the screenshots do not change from one day to the next.
+const localAgo = (s) => {
+  const d = new Date(NOW - s * 1000);
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+};
 const entity = (entity_id, state, attributes = {}, platform = null, changedAgo = 7500) => {
   states[entity_id] = { entity_id, state: String(state), attributes, last_changed: ago(changedAgo), last_updated: ago(changedAgo) };
   if (platform) entities[entity_id] = { entity_id, platform };
@@ -22,7 +32,7 @@ entity(
     open_sensors: null,
     bypassed_sensors: null,
     delay: null,
-    last_triggered: "2026-08-09 19:28:27",
+    last_triggered: localAgo(83 * 86400),
     supported_features: 11,
   },
   "alarmo",

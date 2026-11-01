@@ -245,9 +245,65 @@ test("I18N parity: every language has exactly the English keys and placeholders"
   const en = al.STRINGS.en;
   for (const [l, strings] of Object.entries(al.STRINGS)) {
     assert.deepEqual(Object.keys(strings).sort(), Object.keys(en).sort(), `${l}: keys differ from en`);
-    for (const k of Object.keys(en)) assert.deepEqual(ph(strings[k]), ph(en[k]), `${l}.${k}: placeholders differ from en`);
+    for (const k of Object.keys(en)) {
+      assert.deepEqual(ph(strings[k]), ph(en[k]), `${l}.${k}: placeholders differ from en`);
+      assert.ok(String(strings[k]).trim(), `${l}.${k}: empty value`);
+    }
   }
-  for (const l of ["en", "fr", "de", "es"]) assert.ok(al.STRINGS[l], `missing ${l}`);
+  for (const l of ["en", "fr", "de", "es", "sr", "sr-Latn", "it", "nl", "pt", "pl"]) assert.ok(al.STRINGS[l], `missing ${l}`);
+});
+
+test("I18N: Serbian Cyrillic has no Latin letters and Serbian Latin no Cyrillic (placeholders and units aside)", () => {
+  const units = new Set(["min", "h", "d"]);
+  const strip = (v) => String(v).replace(/\{\w+\}/g, "");
+  for (const [k, v] of Object.entries(al.STRINGS.sr))
+    if (!units.has(k)) assert.doesNotMatch(strip(v), /[A-Za-z]/, `sr.${k}: Latin letter in ${JSON.stringify(v)}`);
+  for (const [k, v] of Object.entries(al.STRINGS["sr-Latn"])) assert.doesNotMatch(strip(v), /[\u0400-\u04FF]/, `sr-Latn.${k}: Cyrillic letter in ${JSON.stringify(v)}`);
+});
+
+test("I18N: the full HA language when known, else the part before the dash, else English", () => {
+  const render = (language, config = {}) => newCard({ ...makeHass(arming), language, locale: { language } }, config).shadowRoot.innerHTML;
+  assert.match(render("fr-FR"), /Armement/);
+  assert.match(render("sr-Latn"), /Aktiviranje u toku/);
+  assert.match(render("sr"), /Активирање у току/);
+  assert.match(render("it-IT"), /In attivazione/);
+  assert.match(render("nl-BE"), /Schakelt in/);
+  assert.match(render("pt"), /A armar/);
+  // Brazilian Portuguese falls back to European Portuguese (assumed).
+  assert.match(render("pt-BR"), /A armar/);
+  assert.match(render("pl-PL"), /Uzbrajanie/);
+  assert.match(render("ja"), /Arming/);
+  // The card's language option still wins over Home Assistant's.
+  assert.match(render("sr-Latn", { language: "fr" }), /Armement/);
+});
+
+test("I18N: Intl gets pt-PT for Home Assistant's pt, keeps pt-BR, and follows the language option", () => {
+  const h = (language) => ({ language, locale: { language } });
+  assert.equal(al.intlLang(h("pt"), {}), "pt-PT");
+  assert.equal(al.intlLang(h("pt-BR"), {}), "pt-BR");
+  assert.equal(al.intlLang(h("fr-CA"), {}), "fr-CA");
+  assert.equal(al.intlLang(h("ja"), {}), "en");
+  assert.equal(al.intlLang(h("sr-Latn"), {}), "sr-Latn");
+  assert.equal(al.intlLang(h("en"), { language: "pt" }), "pt-PT");
+  assert.equal(al.intlLang(h("pt-BR"), { language: "pt" }), "pt-PT");
+  assert.equal(al.intlLang(h("pt"), { language: "fr" }), "fr");
+  // European wording ("dentro de"), not the Brazilian "em 3 horas".
+  assert.equal(al.ago(al.intlLang(h("pt"), {}), 3 * 3600000, 0), "dentro de 3 horas");
+});
+
+test("I18N: the editor offers every language of the card, Serbian, Italian, Dutch, Portuguese and Polish included", () => {
+  const editor = new al.AlarmCardEditor();
+  editor._hass = makeHass();
+  editor._config = { entity: PANEL };
+  const options = editor._schema().find((s) => s.name === "language").selector.select.options;
+  const values = options.map((o) => o.value).filter(Boolean);
+  assert.deepEqual([...values].sort(), Object.keys(al.STRINGS).sort());
+  assert.equal(options.find((o) => o.value === "sr").label, "Српски");
+  assert.equal(options.find((o) => o.value === "sr-Latn").label, "Srpski (latinica)");
+  assert.equal(options.find((o) => o.value === "it").label, "Italiano");
+  assert.equal(options.find((o) => o.value === "nl").label, "Nederlands");
+  assert.equal(options.find((o) => o.value === "pt").label, "Português (Portugal)");
+  assert.equal(options.find((o) => o.value === "pl").label, "Polski");
 });
 
 test("I18N: every editor toggle has a label in every language", () => {
@@ -329,4 +385,40 @@ test("the editor leaves a config without modes (or with an invalid one) as is", 
   assert.equal(none._form.data.modes, undefined);
   const str = newEditor(makeHass(), { entity: PANEL, modes: "away" });
   assert.equal(str._form.data.modes, "away");
+});
+
+test("the sensors section header is a keyboard button (Tab, then Enter or Space)", () => {
+  const card = newCard(makeHass());
+  const header = card.shadowRoot.innerHTML.match(/<div class="section-title toggle"[^>]*>/)[0];
+  assert.match(header, /role="button"/);
+  assert.match(header, /tabindex="0"/);
+  assert.match(header, /aria-expanded="true"/);
+  // The re-render after the toggle keeps the header (and its keyboard attributes) in place.
+  click(card, { action: "toggle_section", section: "sensors" });
+  const folded = card.shadowRoot.innerHTML.match(/<div class="section-title toggle"[^>]*>/)[0];
+  assert.match(folded, /role="button" tabindex="0"/);
+  assert.match(folded, /aria-expanded="false"/);
+});
+
+test("smoke detectors show a smoke detector icon, with its alert variant when smoke is detected", () => {
+  const SMOKE = "M12 4C16.41 4 20 7.59 20 12S16.41 20";
+  const SMOKE_ALERT = "M10 4C14.4 4 18 7.6 18 12S14.4 20";
+  const tile = (html) => html.match(/data-entity="binary_sensor\.kitchen_smoke">([\s\S]*?)<\/div>\s*<\/div>/)[1];
+  const ok = tile(newCard(makeHass()).shadowRoot.innerHTML);
+  assert.ok(ok.includes(SMOKE), "mdi:smoke-detector-variant when clear");
+  assert.ok(!ok.includes("M12,0A12,12") && !ok.includes("L15.5,18C14.97"), "no barred circle");
+  const smoke = { ...states["binary_sensor.kitchen_smoke"], state: "on" };
+  assert.ok(tile(newCard(makeHass({ "binary_sensor.kitchen_smoke": smoke })).shadowRoot.innerHTML).includes(SMOKE_ALERT));
+  // An unavailable detector keeps the plain icon.
+  const gone = { ...smoke, state: "unavailable" };
+  assert.ok(tile(newCard(makeHass({ "binary_sensor.kitchen_smoke": gone })).shadowRoot.innerHTML).includes(SMOKE));
+});
+
+test("the mock panel's last trigger is relative to now, so the screenshots do not change from day to day", () => {
+  const last = states[PANEL].attributes.last_triggered;
+  // Alarmo's format: local time, "YYYY-MM-DD HH:MM:SS".
+  assert.match(last, /^\d{4}-\d\d-\d\d \d\d:\d\d:\d\d$/);
+  const days = (Date.now() - al.parseTime(last)) / 86400e3;
+  assert.ok(Math.abs(days - 83) < 0.01, `last_triggered is ${days.toFixed(2)} days ago`);
+  assert.match(newCard(makeHass()).shadowRoot.innerHTML, /Last triggered 83 days ago/);
 });
