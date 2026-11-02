@@ -234,6 +234,12 @@ test("the mini card fits on one row: state, countdown and buttons in the header"
   assert.match(noLogo.shadowRoot.innerHTML, /class="shield off"/);
 });
 
+test("the mini card keeps the full card's header icon size (40 px)", () => {
+  const html = newCard(makeHass(), {}, al.AlarmMiniCard).shadowRoot.innerHTML;
+  assert.doesNotMatch(html, /\.header \.(badge|shield)[^{]*\{[^}]*\b32px/);
+  assert.match(html, /\.header \.shield \{ width: 40px; height: 40px; \}/);
+});
+
 test("French strings", () => {
   const card = newCard(makeHass(arming), { language: "fr" });
   assert.match(card.shadowRoot.innerHTML, /Armement/);

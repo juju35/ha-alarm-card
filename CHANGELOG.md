@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+### Fixes
+- Mini card: the header icon keeps its full size (40 px) in the compact view, like the full card.
+
 ## 1.4.6 — 2026-11-01
 ### Fixes
 - Mini card at its default size (6 columns) with every arm mode: the name, the state and the detail button disappeared behind the row of buttons, so the full card could no longer be opened. When the buttons do not fit beside the name, they now move to a second row under it, right-aligned, with the detail button; the name always keeps a few characters.

@@ -1709,8 +1709,9 @@ const MINI_STYLE = `
   .header.with-pad { padding-bottom: 0; }
   .header .titles { margin-block: -2px; flex: 1 1 0; min-width: 64px; }
   .actions { display: flex; align-items: center; gap: 10px; margin-left: auto; flex: 0 1 auto; min-width: 0; max-width: 100%; }
-  .header .badge, .header .shield { width: 32px; height: 32px; }
-  .header .badge .icon, .header .shield .icon { width: 20px; height: 20px; }
+  /* The header icon keeps the full card's size (the 40 px badge); the shield (show_logo: false) matches it. */
+  .header .shield { width: 40px; height: 40px; }
+  .header .shield .icon { width: 24px; height: 24px; }
   /* The state wraps (the line itself ends in an ellipsis for the time or the sensor after it): never cut at
      phone width (6 columns, ~156-178 px) in long languages ("Uzbrojony (poza domem)", "Aktiviran u odsustvu"). */
   .sub .st { color: ${textColor("var(--c)")}; font-weight: 500; white-space: normal; overflow-wrap: anywhere; }
