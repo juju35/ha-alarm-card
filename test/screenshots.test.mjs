@@ -26,3 +26,16 @@ test("the README shows every screenshot and animation, and nothing else from scr
   const rendered = new Set([...shots.map((s) => `${s.file}.png`), ...gifs.map((s) => `${s.file}.gif`)]);
   assert.deepEqual([...referenced].sort(), [...rendered].sort());
 });
+
+test("the screenshot script rewrites a file only when its decoded pixels changed", () => {
+  const script = readFileSync(new URL("../scripts/screenshots.mjs", import.meta.url), "utf8");
+  // Every render goes to a temporary file first, then through keep(), which compares the decoded frames.
+  assert.doesNotMatch(script, /path: `\$\{root\}screenshots\//, "page.screenshot writes straight into screenshots/");
+  assert.doesNotMatch(script, /const out = `\$\{root\}screenshots\//, "the GIF is encoded straight into screenshots/");
+  assert.match(script, /framemd5/);
+  assert.match(script, /const keep = \(fresh, name\) =>/);
+  assert.equal((script.match(/\bkeep\(/g) || []).length, 2, "keep() is used for the PNGs and the GIFs");
+  // Deterministic GIFs: ordered (Bayer) dithering, no random dither, bit-exact encoder.
+  assert.match(script, /dither=bayer/);
+  assert.match(script, /\+bitexact/);
+});

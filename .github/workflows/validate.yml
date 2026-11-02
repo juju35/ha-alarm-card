@@ -31,6 +31,18 @@ jobs:
       - name: Build and check the card
         run: npm run check
 
+      # Chromium for test/layout.test.mjs (measured layout at narrow widths); with CI=true that test fails instead
+      # of skipping when the browser is missing. The apt part is time-boxed and retried, as in Screenshots.
+      - name: Install Chromium for the layout tests
+        timeout-minutes: 12
+        run: |
+          npx playwright install chromium
+          for i in 1 2 3; do
+            timeout 300 npx playwright install-deps chromium && ok=1 && break
+            echo "install-deps attempt $i failed or timed out, retrying in 15s"; sleep 15
+          done
+          [ -n "$ok" ] || { echo "::error::playwright install-deps failed 3 times"; exit 1; }
+
       - name: Unit tests
         run: npm test
 
