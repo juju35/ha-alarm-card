@@ -60,6 +60,13 @@ jobs:
         if: steps.version.outputs.exists == 'false'
         run: |
           npm ci
+          # npm test runs the browser tests too (they fail instead of skipping when CI is set): Chromium, as in validate.yml.
+          npx playwright install chromium
+          for i in 1 2 3; do
+            timeout 300 npx playwright install-deps chromium && ok=1 && break
+            echo "install-deps attempt $i failed or timed out, retrying in 15s"; sleep 15
+          done
+          [ -n "$ok" ] || { echo "::error::playwright install-deps failed 3 times"; exit 1; }
           npm run check
           npm test
           .github/scripts/release-notes.sh "${{ steps.version.outputs.version }}" > notes.md
