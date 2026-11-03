@@ -33,6 +33,15 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 - Light and dark mode, 10 languages (see [Translations](#translations)), reduced-motion aware
 - Single file, no external dependency
 
+## Supported integrations
+
+The cards work with **any [alarm control panel](https://www.home-assistant.io/integrations/alarm_control_panel/)**: the arm modes come from the panel's supported features and the keypad from its code format.
+
+| Integration | What the cards show |
+|---|---|
+| [Alarmo](https://github.com/nielsfaber/alarmo) (HACS, recommended) | Everything: state, arm modes, keypad, exit and entry delays, open and bypassed sensors, last trigger, who changed the state, forced arming with a sensor open |
+| [Manual](https://www.home-assistant.io/integrations/manual/) (built in), Verisure, Ajax and any other panel | State, arm modes, keypad, delays (`expiration` attribute), the sensors you list |
+
 ## Prerequisites
 
 Home Assistant 2024.8 or later, with an alarm control panel (Alarmo recommended).
