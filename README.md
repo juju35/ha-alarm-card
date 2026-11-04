@@ -5,7 +5,7 @@
 [![Validate](https://github.com/juju35/ha-alarm-card/actions/workflows/validate.yml/badge.svg)](https://github.com/juju35/ha-alarm-card/actions/workflows/validate.yml)
 [![Lint](https://github.com/juju35/ha-alarm-card/actions/workflows/lint.yml/badge.svg)](https://github.com/juju35/ha-alarm-card/actions/workflows/lint.yml)
 [![Release](https://img.shields.io/github/v/release/juju35/ha-alarm-card)](https://github.com/juju35/ha-alarm-card/releases/latest)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/juju35/ha-alarm-card/blob/main/LICENSE)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/julienstep9)
 
 Lovelace cards for Home Assistant to arm and disarm an alarm: state, exit and entry delay countdown, code pad, open sensors and who changed it last.
@@ -146,32 +146,32 @@ The shield animates with the panel's state: it flashes while the alarm is trigge
 
 | | Light | Dark |
 |---|---|---|
-| Triggered (flashing) | ![shield flashing while triggered](screenshots/triggered.gif) | ![shield flashing while triggered dark](screenshots/triggered-dark.gif) |
-| Arming (pulsing) | ![shield pulsing while arming](screenshots/arming.gif) | ![shield pulsing while arming dark](screenshots/arming-dark.gif) |
+| Triggered (flashing) | ![shield flashing while triggered](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/triggered.gif) | ![shield flashing while triggered dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/triggered-dark.gif) |
+| Arming (pulsing) | ![shield pulsing while arming](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/arming.gif) | ![shield pulsing while arming dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/arming-dark.gif) |
 
 | Light | Dark |
 |---|---|
-| ![card](screenshots/card.png) | ![card dark](screenshots/card-dark.png) |
-| ![mini card](screenshots/mini-card.png) | ![mini card dark](screenshots/mini-card-dark.png) |
+| ![card](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card.png) | ![card dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-dark.png) |
+| ![mini card](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card.png) | ![mini card dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card-dark.png) |
 
 Armed away and triggered:
 
 | Light | Dark |
 |---|---|
-| ![card armed](screenshots/card-armed.png) | ![card armed dark](screenshots/card-armed-dark.png) |
-| ![card triggered light](screenshots/card-triggered-light.png) | ![card triggered](screenshots/card-triggered.png) |
+| ![card armed](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-armed.png) | ![card armed dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-armed-dark.png) |
+| ![card triggered light](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-triggered-light.png) | ![card triggered](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-triggered.png) |
 
 Code pad (panel with a number code):
 
 | Light | Dark |
 |---|---|
-| ![code pad](screenshots/card-code.png) | ![code pad dark](screenshots/card-code-dark.png) |
+| ![code pad](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-code.png) | ![code pad dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-code-dark.png) |
 
 Mini card zoomed in with its detail button (top right, click it again or anywhere outside the card to go back):
 
 | Light | Dark |
 |---|---|
-| ![mini card zoomed in](screenshots/mini-card-zoom.png) | ![mini card zoomed in dark](screenshots/mini-card-zoom-dark.png) |
+| ![mini card zoomed in](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card-zoom.png) | ![mini card zoomed in dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card-zoom-dark.png) |
 
 ## How it works
 
@@ -197,7 +197,7 @@ npm run screenshots  # renders the cards with mock data (scripts/mock-states.mjs
 ### Releasing
 
 1. Bump `version` in `package.json`
-2. Add a `## <version>` section at the top of [CHANGELOG.md](CHANGELOG.md)
+2. Add a `## <version>` section at the top of [CHANGELOG.md](https://github.com/juju35/ha-alarm-card/blob/main/CHANGELOG.md)
 3. Push to `main`: the **Release** workflow builds the card, creates the tag and the GitHub release with the changelog section as notes, and attaches `alarm-card.js`
 
 ## Translations
@@ -233,7 +233,7 @@ Brazilian Portuguese (`pt-BR`) falls back to European Portuguese. Contributions 
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/juju35/ha-alarm-card/blob/main/LICENSE)
 
 ## Support
 
