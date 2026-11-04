@@ -256,7 +256,7 @@ test("I18N parity: every language has exactly the English keys and placeholders"
       assert.ok(String(strings[k]).trim(), `${l}.${k}: empty value`);
     }
   }
-  for (const l of ["en", "fr", "de", "es", "sr", "sr-Latn", "it", "nl", "pt", "pl"]) assert.ok(al.STRINGS[l], `missing ${l}`);
+  for (const l of ["en", "fr", "de", "es", "sr", "sr-Latn", "it", "nl", "pt", "pl", "ro", "da", "sv", "bg", "ru", "uk", "hu", "ga", "sk", "cs", "sl", "mt", "lv", "el"]) assert.ok(al.STRINGS[l], `missing ${l}`);
 });
 
 test("I18N: Serbian Cyrillic has no Latin letters and Serbian Latin no Cyrillic (placeholders and units aside)", () => {
@@ -278,6 +278,20 @@ test("I18N: the full HA language when known, else the part before the dash, else
   // Brazilian Portuguese falls back to European Portuguese (assumed).
   assert.match(render("pt-BR"), /A armar/);
   assert.match(render("pl-PL"), /Uzbrajanie/);
+  assert.match(render("ro-RO"), /Se armează/);
+  assert.match(render("da-DK"), /Tilkobler/);
+  assert.match(render("sv-SE"), /Larmar på/);
+  assert.match(render("bg-BG"), /Включване/);
+  assert.match(render("ru-RU"), /Постановка на охрану/);
+  assert.match(render("uk-UA"), /Постановка на охорону/);
+  assert.match(render("hu-HU"), /Élesítés/);
+  assert.match(render("ga-IE"), /Ag armáil/);
+  assert.match(render("sk-SK"), /Zabezpečuje sa/);
+  assert.match(render("cs-CZ"), /Zajišťování/);
+  assert.match(render("sl-SI"), /Vklapljanje/);
+  assert.match(render("mt-MT"), /Qed jattiva/);
+  assert.match(render("lv-LV"), /Ieslēdzas/);
+  assert.match(render("el-GR"), /Όπλιση/);
   assert.match(render("ja"), /Arming/);
   // The card's language option still wins over Home Assistant's.
   assert.match(render("sr-Latn", { language: "fr" }), /Armement/);
@@ -297,7 +311,7 @@ test("I18N: Intl gets pt-PT for Home Assistant's pt, keeps pt-BR, and follows th
   assert.equal(al.ago(al.intlLang(h("pt"), {}), 3 * 3600000, 0), "dentro de 3 horas");
 });
 
-test("I18N: the editor offers every language of the card, Serbian, Italian, Dutch, Portuguese and Polish included", () => {
+test("I18N: the editor offers every language of the card, Serbian, Italian, Dutch, Portuguese, Polish and the 14 later languages included", () => {
   const editor = new al.AlarmCardEditor();
   editor._hass = makeHass();
   editor._config = { entity: PANEL };
@@ -310,6 +324,20 @@ test("I18N: the editor offers every language of the card, Serbian, Italian, Dutc
   assert.equal(options.find((o) => o.value === "nl").label, "Nederlands");
   assert.equal(options.find((o) => o.value === "pt").label, "Português (Portugal)");
   assert.equal(options.find((o) => o.value === "pl").label, "Polski");
+  assert.equal(options.find((o) => o.value === "ro").label, "Română");
+  assert.equal(options.find((o) => o.value === "da").label, "Dansk");
+  assert.equal(options.find((o) => o.value === "sv").label, "Svenska");
+  assert.equal(options.find((o) => o.value === "bg").label, "Български");
+  assert.equal(options.find((o) => o.value === "ru").label, "Русский");
+  assert.equal(options.find((o) => o.value === "uk").label, "Українська");
+  assert.equal(options.find((o) => o.value === "hu").label, "Magyar");
+  assert.equal(options.find((o) => o.value === "ga").label, "Gaeilge");
+  assert.equal(options.find((o) => o.value === "sk").label, "Slovenčina");
+  assert.equal(options.find((o) => o.value === "cs").label, "Čeština");
+  assert.equal(options.find((o) => o.value === "sl").label, "Slovenščina");
+  assert.equal(options.find((o) => o.value === "mt").label, "Malti");
+  assert.equal(options.find((o) => o.value === "lv").label, "Latviešu");
+  assert.equal(options.find((o) => o.value === "el").label, "Ελληνικά");
 });
 
 test("I18N: every editor toggle has a label in every language", () => {
