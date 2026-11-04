@@ -16,7 +16,7 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 
 | Alarm Card | Alarm Mini Card |
 |---|---|
-| ![alarm-card](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card.png) | ![alarm-mini-card](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card.png" alt="alarm-card" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card.png" alt="alarm-mini-card" width="400"> |
 
 ## Features
 
@@ -146,32 +146,32 @@ The shield animates with the panel's state: it flashes while the alarm is trigge
 
 | | Light | Dark |
 |---|---|---|
-| Triggered (flashing) | ![shield flashing while triggered](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/triggered.gif) | ![shield flashing while triggered dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/triggered-dark.gif) |
-| Arming (pulsing) | ![shield pulsing while arming](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/arming.gif) | ![shield pulsing while arming dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/arming-dark.gif) |
+| Triggered (flashing) | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/triggered.gif" alt="shield flashing while triggered" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/triggered-dark.gif" alt="shield flashing while triggered dark" width="400"> |
+| Arming (pulsing) | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/arming.gif" alt="shield pulsing while arming" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/arming-dark.gif" alt="shield pulsing while arming dark" width="400"> |
 
 | Light | Dark |
 |---|---|
-| ![card](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card.png) | ![card dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-dark.png) |
-| ![mini card](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card.png) | ![mini card dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card-dark.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card.png" alt="card" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-dark.png" alt="card dark" width="400"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card.png" alt="mini card" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card-dark.png" alt="mini card dark" width="400"> |
 
 Armed away and triggered:
 
 | Light | Dark |
 |---|---|
-| ![card armed](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-armed.png) | ![card armed dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-armed-dark.png) |
-| ![card triggered light](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-triggered-light.png) | ![card triggered](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-triggered.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-armed.png" alt="card armed" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-armed-dark.png" alt="card armed dark" width="400"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-triggered-light.png" alt="card triggered light" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-triggered.png" alt="card triggered" width="400"> |
 
 Code pad (panel with a number code):
 
 | Light | Dark |
 |---|---|
-| ![code pad](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-code.png) | ![code pad dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-code-dark.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-code.png" alt="code pad" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-code-dark.png" alt="code pad dark" width="400"> |
 
 Mini card zoomed in with its detail button (top right, click it again or anywhere outside the card to go back):
 
 | Light | Dark |
 |---|---|
-| ![mini card zoomed in](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card-zoom.png) | ![mini card zoomed in dark](https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card-zoom-dark.png) |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card-zoom.png" alt="mini card zoomed in" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card-zoom-dark.png" alt="mini card zoomed in dark" width="400"> |
 
 ## How it works
 
