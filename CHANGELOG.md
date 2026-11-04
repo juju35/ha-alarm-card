@@ -2,7 +2,7 @@
 
 ## 1.4.8 — 2026-11-04
 ### Changes
-- Added Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Irish, Slovak, Czech, Slovenian, Maltese, Latvian and Greek translations (`ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `ga`, `sk`, `cs`, `sl`, `mt`, `lv`, `el`), offered in the visual editor's language list ("Română", "Dansk", "Svenska", "Български", "Русский", "Українська", "Magyar", "Gaeilge", "Slovenčina", "Čeština", "Slovenščina", "Malti", "Latviešu", "Ελληνικά").
+- Added Romanian, Danish, Swedish, Bulgarian, Russian, Ukrainian, Hungarian, Slovak, Czech, Slovenian, Latvian and Greek translations (`ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv`, `el`), offered in the visual editor's language list ("Română", "Dansk", "Svenska", "Български", "Русский", "Українська", "Magyar", "Slovenčina", "Čeština", "Slovenščina", "Latviešu", "Ελληνικά").
 
 ### Maintenance
 - Tests: language resolution of the new languages (`ro-RO` → ro, `da-DK` → da, `sv-SE` → sv, `ru-RU` → ru, `uk-UA` → uk, `el-GR` → el, …), editor labels of the new languages; the Serbian script test still covers only `sr` and `sr-Latn`.
