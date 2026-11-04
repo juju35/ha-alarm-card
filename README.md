@@ -31,7 +31,7 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 - Collapsible sensors section
 - Click the state or a sensor to open its more-info dialog
 - Visual editor in the dashboard UI for both cards (no YAML needed)
-- Light and dark mode, 10 languages (see [Translations](#translations)), reduced-motion aware
+- Light and dark mode, 22 languages (see [Translations](#translations)), reduced-motion aware
 - Single file, no external dependency
 
 ## Supported integrations
@@ -137,7 +137,7 @@ zoom: true
 | `show_sensors` | both | `true` | Sensors section (on the mini card: in its zoomed view) |
 | `collapsed` | both | `false` | Fold the sensors section by default, click its title to unfold it (on the mini card: in its zoomed view) |
 | `zoom` | mini | `true` | Detail button at the top right of the mini card: it shows the full card's content (with the same options) and switches back; `false` removes it |
-| `language` | both | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt` or `pl` (auto-detects from HA settings) |
+| `language` | both | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 
 ## Screenshots
 
@@ -215,6 +215,18 @@ The cards auto-detect the language from your Home Assistant settings. Currently 
 | Nederlands | `nl` |
 | Português (Portugal) | `pt` |
 | Polski | `pl` |
+| Română | `ro` |
+| Dansk | `da` |
+| Svenska | `sv` |
+| Български | `bg` |
+| Русский | `ru` |
+| Українська | `uk` |
+| Magyar | `hu` |
+| Slovenčina | `sk` |
+| Čeština | `cs` |
+| Slovenščina | `sl` |
+| Latviešu | `lv` |
+| Ελληνικά | `el` |
 
 Brazilian Portuguese (`pt-BR`) falls back to European Portuguese. Contributions for additional languages are welcome!
 

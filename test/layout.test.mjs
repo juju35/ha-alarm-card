@@ -88,7 +88,7 @@ const inside = (m, b, what) => {
 
 test("mini card at its default width with every mode: the title stays readable and every button stays in the card", async (t) => {
   if (skip) return t.skip(skip);
-  for (const language of ["en", "pl", "sr-Latn"])
+  for (const language of ["en", "pl", "sr-Latn", "uk", "sk"])
     for (const [name, ov] of Object.entries(VARIANTS))
       for (const width of [240, 360]) {
         const m = await measure({ type: "alarm-mini-card", width, language, ov: allModes(ov) });
@@ -120,7 +120,7 @@ test("mini card with the mock's two modes keeps one row when it fits (360 px), a
 
 test("full card at min_columns: the title keeps several characters and the chip stays a dot in the card", async (t) => {
   if (skip) return t.skip(skip);
-  for (const language of ["en", "pl", "sr-Latn"])
+  for (const language of ["en", "pl", "sr-Latn", "uk", "sk"])
     for (const theme of ["light", "dark"])
       for (const [name, ov] of Object.entries(VARIANTS)) {
         const m = await measure({ type: "alarm-card", width: 240, language, theme, ov });
@@ -246,7 +246,7 @@ test("phone width (6 of 12 columns, 156, 168 and 178 px) and 245 px: nothing lea
     ["alarm-mini-card", {}, true],
   ];
   for (const [type, config, zoom] of kinds)
-    for (const language of ["en", "pl", "sr-Latn"])
+    for (const language of ["en", "pl", "sr-Latn", "uk", "sk"])
       for (const [name, ov] of Object.entries({ ...VARIANTS, unavailable }))
         for (const width of [156, 168, 178, 245]) {
           const theme = width === 168 ? "dark" : "light";
@@ -258,10 +258,10 @@ test("phone width (6 of 12 columns, 156, 168 and 178 px) and 245 px: nothing lea
         }
 });
 
-test("full card (and zoomed mini card) from 245 to 500 px: the header chip shows its whole label in English, Polish and Serbian", async (t) => {
+test("full card (and zoomed mini card) from 245 to 500 px: the header chip shows its whole label in English, Polish, Serbian, Ukrainian and Slovak", async (t) => {
   if (skip) return t.skip(skip);
   for (const [type, zoom] of [["alarm-card", false], ["alarm-mini-card", true]])
-    for (const language of ["en", "pl", "sr-Latn"])
+    for (const language of ["en", "pl", "sr-Latn", "uk", "sk"])
       for (const [name, ov] of Object.entries({ ...VARIANTS, unavailable }))
         for (const width of [245, 285, 320, 500]) {
           const m = await audit({ type, width, language, ov, zoom });
