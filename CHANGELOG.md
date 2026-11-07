@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.10 - 2026-11-07
+
+### Fixes
+- Behaviour change: on a panel that needs no code, disarming now asks for confirmation by default (popup at the top of the card), on the mini card and the full card, so one tap on the disarm button no longer disarms the alarm. `confirm_disarm: false` restores the immediate disarm; with a code, the code entry still protects it without an extra confirmation.
+
 ## 1.4.9 — 2026-11-04
 
 ### Documentation

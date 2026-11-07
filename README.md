@@ -108,7 +108,7 @@ show_logo: true
 show_controls: true
 show_sensors: true
 show_info: true
-confirm_disarm: false
+confirm_disarm: true
 collapsed: false
 language: fr
 ```
@@ -134,7 +134,7 @@ zoom: true
 | `show_logo` | both | `true` | Show the card logo |
 | `show_controls` | both | `true` | Arm / disarm buttons |
 | `show_info` | both | `true` | Who changed the state and the last trigger (Alarmo) |
-| `confirm_disarm` | both | `false` | Ask for confirmation before disarming |
+| `confirm_disarm` | both | `true` without a code, `false` with one | Ask for confirmation before disarming. On by default when the panel needs no code, so one tap cannot disarm it; `false` turns it off. With a code, the code entry already protects disarming; `true` asks first as well |
 | `show_sensors` | both | `true` | Sensors section (on the mini card: in its zoomed view) |
 | `collapsed` | both | `false` | Fold the sensors section by default, click its title to unfold it (on the mini card: in its zoomed view) |
 | `zoom` | mini | `true` | Detail button at the top right of the mini card: it shows the full card's content (with the same options) and switches back; `false` removes it |

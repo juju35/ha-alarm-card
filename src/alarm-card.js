@@ -115,6 +115,7 @@ const STRINGS = {
     collapsed: "Fold the sensors by default",
     zoom: "Detail button",
     zoom_helper: "Button at the top right that switches the mini card to the full card and back",
+    confirm_disarm_helper: "On by default when the panel needs no code; with a code, the code entry already protects disarming",
     zoom_in: "Show the full card",
     zoom_out: "Back to the compact view",
     language: "Language",
@@ -184,6 +185,7 @@ const STRINGS = {
     collapsed: "Replier les capteurs par défaut",
     zoom: "Bouton de détail",
     zoom_helper: "Bouton en haut à droite qui passe la mini-carte en carte complète et inversement",
+    confirm_disarm_helper: "Activé par défaut si l'alarme ne demande pas de code ; avec un code, la saisie du code protège déjà le désarmement",
     zoom_in: "Afficher la carte complète",
     zoom_out: "Revenir à la vue compacte",
     language: "Langue",
@@ -253,6 +255,7 @@ const STRINGS = {
     collapsed: "Sensoren standardmäßig einklappen",
     zoom: "Detail-Schaltfläche",
     zoom_helper: "Schaltfläche oben rechts, die die Mini-Karte zur vollständigen Karte umschaltet und zurück",
+    confirm_disarm_helper: "Standardmäßig an, wenn die Alarmanlage keinen Code verlangt; mit Code schützt bereits die Codeeingabe das Deaktivieren",
     zoom_in: "Vollständige Karte anzeigen",
     zoom_out: "Zurück zur Kompaktansicht",
     language: "Sprache",
@@ -322,6 +325,7 @@ const STRINGS = {
     collapsed: "Plegar los sensores por defecto",
     zoom: "Botón de detalle",
     zoom_helper: "Botón arriba a la derecha que cambia la minitarjeta a la tarjeta completa y viceversa",
+    confirm_disarm_helper: "Activado por defecto si la alarma no pide código; con código, introducirlo ya protege el desarmado",
     zoom_in: "Mostrar la tarjeta completa",
     zoom_out: "Volver a la vista compacta",
     language: "Idioma",
@@ -393,6 +397,7 @@ const STRINGS = {
     collapsed: "Подразумевано скупи приказ сензора",
     zoom: "Дугме за детаље",
     zoom_helper: "Дугме у горњем десном углу које пребацује мини картицу на пун приказ и назад",
+    confirm_disarm_helper: "Подразумевано укључено када аларм не тражи код; са кодом, унос кода већ штити деактивирање",
     zoom_in: "Прикажи целу картицу",
     zoom_out: "Назад на компактни приказ",
     language: "Језик",
@@ -464,6 +469,7 @@ const STRINGS = {
     collapsed: "Podrazumevano skupi prikaz senzora",
     zoom: "Dugme za detalje",
     zoom_helper: "Dugme u gornjem desnom uglu koje prebacuje mini karticu na pun prikaz i nazad",
+    confirm_disarm_helper: "Podrazumevano uključeno kada alarm ne traži kod; sa kodom, unos koda već štiti deaktiviranje",
     zoom_in: "Prikaži celu karticu",
     zoom_out: "Nazad na kompaktni prikaz",
     language: "Jezik",
@@ -535,6 +541,7 @@ const STRINGS = {
     collapsed: "Comprimi i sensori per impostazione predefinita",
     zoom: "Pulsante dettagli",
     zoom_helper: "Pulsante in alto a destra che passa dalla mini scheda alla scheda completa e viceversa",
+    confirm_disarm_helper: "Attivo per impostazione predefinita se l'allarme non richiede un codice; con un codice, l'inserimento del codice protegge già la disattivazione",
     zoom_in: "Mostra la scheda completa",
     zoom_out: "Torna alla vista compatta",
     language: "Lingua",
@@ -606,6 +613,7 @@ const STRINGS = {
     collapsed: "Sensoren standaard inklappen",
     zoom: "Detailknop",
     zoom_helper: "Knop rechtsboven die de minikaart omschakelt naar de volledige kaart en terug",
+    confirm_disarm_helper: "Standaard aan als het alarm geen code vraagt; met een code beschermt het invoeren van de code het uitschakelen al",
     zoom_in: "Volledige kaart tonen",
     zoom_out: "Terug naar de compacte weergave",
     language: "Taal",
@@ -677,6 +685,7 @@ const STRINGS = {
     collapsed: "Recolher os sensores por predefinição",
     zoom: "Botão de detalhe",
     zoom_helper: "Botão no canto superior direito que alterna entre o mini cartão e o cartão completo",
+    confirm_disarm_helper: "Ativado por predefinição se o alarme não pede código; com código, a introdução do código já protege o desarme",
     zoom_in: "Mostrar o cartão completo",
     zoom_out: "Voltar à vista compacta",
     language: "Idioma",
@@ -748,6 +757,7 @@ const STRINGS = {
     collapsed: "Domyślnie zwijaj czujniki",
     zoom: "Przycisk szczegółów",
     zoom_helper: "Przycisk w prawym górnym rogu przełączający minikartę na pełną kartę i z powrotem",
+    confirm_disarm_helper: "Domyślnie włączone, gdy alarm nie wymaga kodu; z kodem rozbrojenie chroni już wpisanie kodu",
     zoom_in: "Pokaż pełną kartę",
     zoom_out: "Wróć do widoku kompaktowego",
     language: "Język",
@@ -819,6 +829,7 @@ const STRINGS = {
     collapsed: "Restrânge senzorii în mod implicit",
     zoom: "Buton de detalii",
     zoom_helper: "Buton din dreapta sus care comută între mini-cardul și cardul complet",
+    confirm_disarm_helper: "Activat implicit când alarma nu cere cod; cu cod, introducerea codului protejează deja dezarmarea",
     zoom_in: "Afișează cardul complet",
     zoom_out: "Înapoi la vizualizarea compactă",
     language: "Limbă",
@@ -890,6 +901,7 @@ const STRINGS = {
     collapsed: "Fold sensorerne sammen som standard",
     zoom: "Detaljeknap",
     zoom_helper: "Knap øverst til højre, der skifter mellem minikortet og det fulde kort",
+    confirm_disarm_helper: "Slået til som standard, når alarmen ikke kræver kode; med kode beskytter indtastningen af koden allerede frakoblingen",
     zoom_in: "Vis det fulde kort",
     zoom_out: "Tilbage til kompakt visning",
     language: "Sprog",
@@ -961,6 +973,7 @@ const STRINGS = {
     collapsed: "Fäll ihop sensorerna som standard",
     zoom: "Detaljknapp",
     zoom_helper: "Knapp uppe till höger som växlar mellan minikortet och hela kortet",
+    confirm_disarm_helper: "På som standard när larmet inte kräver kod; med kod skyddar kodinmatningen redan avlarmningen",
     zoom_in: "Visa hela kortet",
     zoom_out: "Tillbaka till kompakt vy",
     language: "Språk",
@@ -1032,6 +1045,7 @@ const STRINGS = {
     collapsed: "Сензорите са свити по подразбиране",
     zoom: "Бутон за подробности",
     zoom_helper: "Бутон горе вдясно, който превключва между мини картата и пълната карта",
+    confirm_disarm_helper: "Включено по подразбиране, когато алармата не изисква код; с код въвеждането на кода вече защитава изключването",
     zoom_in: "Показване на пълната карта",
     zoom_out: "Обратно към компактния изглед",
     language: "Език",
@@ -1103,6 +1117,7 @@ const STRINGS = {
     collapsed: "Сворачивать датчики по умолчанию",
     zoom: "Кнопка подробностей",
     zoom_helper: "Кнопка в правом верхнем углу, переключающая мини-карточку на полную карточку и обратно",
+    confirm_disarm_helper: "Включено по умолчанию, если сигнализация не требует код; с кодом снятие с охраны уже защищает ввод кода",
     zoom_in: "Показать полную карточку",
     zoom_out: "Вернуться к компактному виду",
     language: "Язык",
@@ -1174,6 +1189,7 @@ const STRINGS = {
     collapsed: "Типово згортати датчики",
     zoom: "Кнопка деталей",
     zoom_helper: "Кнопка вгорі праворуч, що перемикає міні-картку на повну картку й назад",
+    confirm_disarm_helper: "Увімкнено типово, якщо сигналізація не вимагає коду; з кодом зняття з охорони вже захищає введення коду",
     zoom_in: "Показати повну картку",
     zoom_out: "Повернутися до компактного вигляду",
     language: "Мова",
@@ -1245,6 +1261,7 @@ const STRINGS = {
     collapsed: "Érzékelők alapértelmezett összecsukása",
     zoom: "Részletek gomb",
     zoom_helper: "Gomb a jobb felső sarokban, amely a minikártya és a teljes kártya között vált",
+    confirm_disarm_helper: "Alapértelmezetten be van kapcsolva, ha a riasztó nem kér kódot; kóddal a kód megadása már védi a hatástalanítást",
     zoom_in: "Teljes kártya megjelenítése",
     zoom_out: "Vissza a kompakt nézethez",
     language: "Nyelv",
@@ -1316,6 +1333,7 @@ const STRINGS = {
     collapsed: "Predvolene zbaliť senzory",
     zoom: "Tlačidlo podrobností",
     zoom_helper: "Tlačidlo vpravo hore, ktoré prepína medzi minikartou a celou kartou",
+    confirm_disarm_helper: "Predvolene zapnuté, keď alarm nevyžaduje kód; s kódom odistenie už chráni zadanie kódu",
     zoom_in: "Zobraziť celú kartu",
     zoom_out: "Späť na kompaktné zobrazenie",
     language: "Jazyk",
@@ -1387,6 +1405,7 @@ const STRINGS = {
     collapsed: "Ve výchozím stavu sbalit senzory",
     zoom: "Tlačítko podrobností",
     zoom_helper: "Tlačítko vpravo nahoře, které přepíná mezi minikartou a celou kartou",
+    confirm_disarm_helper: "Ve výchozím stavu zapnuto, když alarm nevyžaduje kód; s kódem odjištění už chrání zadání kódu",
     zoom_in: "Zobrazit celou kartu",
     zoom_out: "Zpět na kompaktní zobrazení",
     language: "Jazyk",
@@ -1458,6 +1477,7 @@ const STRINGS = {
     collapsed: "Privzeto strni senzorje",
     zoom: "Gumb za podrobnosti",
     zoom_helper: "Gumb zgoraj desno, ki preklaplja med mini kartico in celotno kartico",
+    confirm_disarm_helper: "Privzeto vklopljeno, ko alarm ne zahteva kode; s kodo izklop že ščiti vnos kode",
     zoom_in: "Prikaži celotno kartico",
     zoom_out: "Nazaj na kompaktni pogled",
     language: "Jezik",
@@ -1529,6 +1549,7 @@ const STRINGS = {
     collapsed: "Pēc noklusējuma sakļaut sensorus",
     zoom: "Detaļu poga",
     zoom_helper: "Poga augšējā labajā stūrī, kas pārslēdz starp mini karti un pilno karti",
+    confirm_disarm_helper: "Pēc noklusējuma ieslēgts, ja signalizācija neprasa kodu; ar kodu izslēgšanu jau aizsargā koda ievade",
     zoom_in: "Rādīt pilno karti",
     zoom_out: "Atpakaļ uz kompakto skatu",
     language: "Valoda",
@@ -1600,6 +1621,7 @@ const STRINGS = {
     collapsed: "Σύμπτυξη αισθητήρων από προεπιλογή",
     zoom: "Κουμπί λεπτομερειών",
     zoom_helper: "Κουμπί πάνω δεξιά που εναλλάσσει τη μίνι κάρτα με την πλήρη κάρτα",
+    confirm_disarm_helper: "Ενεργό από προεπιλογή όταν ο συναγερμός δεν ζητά κωδικό· με κωδικό, η εισαγωγή του κωδικού ήδη προστατεύει την αφόπλιση",
     zoom_in: "Εμφάνιση πλήρους κάρτας",
     zoom_out: "Επιστροφή στη συμπαγή προβολή",
     language: "Γλώσσα",
@@ -2166,7 +2188,9 @@ class AlarmBase extends HTMLElement {
   _request(mode) {
     if (mode === "disarm") {
       const go = () => this._withCode(mode);
-      if (this._config.confirm_disarm) return this._openConfirm({ text: this._t("disarm_confirm"), ok: this._t("disarm"), cls: "off", run: go });
+      // Without a code, one tap would disarm: confirm by default (`confirm_disarm: false` turns it off). With
+      // a code, the code entry already guards it: confirm only when asked.
+      if (this._config.confirm_disarm ?? !this._needsCode(mode)) return this._openConfirm({ text: this._t("disarm_confirm"), ok: this._t("disarm"), cls: "off", run: go });
       return go();
     }
     const open = this._openSensors();
@@ -2697,6 +2721,13 @@ class AlarmEditorBase extends HTMLElement {
     this._render();
   }
 
+  // The toggles and their defaults for this config: confirm_disarm is on by default for a panel without a code.
+  _toggles(config) {
+    const entity = config.entity || AlarmCard.getStubConfig(this._hass).entity;
+    const code = this._hass.states[entity]?.attributes?.code_format;
+    return this.constructor.toggles.map(([name, def]) => [name, name === "confirm_disarm" ? !code : def]);
+  }
+
   _schema() {
     const tr = (k) => t(this._hass, this._config, k);
     const entity = this._config.entity || AlarmCard.getStubConfig(this._hass).entity;
@@ -2746,16 +2777,16 @@ class AlarmEditorBase extends HTMLElement {
 
   _render() {
     if (!this._hass || !this._config) return;
-    const toggles = this.constructor.toggles;
     if (!this._form) {
       this._form = document.createElement("ha-form");
       this._form.computeLabel = (s) =>
         t(this._hass, this._config, s.name === "title" ? "title_option" : s.name === "sensors" ? "sensors_option" : s.name);
-      this._form.computeHelper = (s) => (s.name === "zoom" ? t(this._hass, this._config, "zoom_helper") : undefined);
+      this._form.computeHelper = (s) =>
+        s.name === "zoom" || s.name === "confirm_disarm" ? t(this._hass, this._config, `${s.name}_helper`) : undefined;
       this._form.addEventListener("value-changed", (ev) => {
         ev.stopPropagation();
         const config = { ...ev.detail.value };
-        const defaults = Object.fromEntries(toggles);
+        const defaults = Object.fromEntries(this._toggles(config));
         for (const [k, v] of Object.entries(config)) {
           // Keep the YAML minimal: drop empty values and options left at their default.
           const empty = v === "" || v === undefined || v === null || (Array.isArray(v) && !v.length);
@@ -2774,8 +2805,8 @@ class AlarmEditorBase extends HTMLElement {
     const data = { ...this._config, sensors: normalize(this._config.sensors).map((s) => s.entity) };
     // The selector's values carry the arm_ prefix, optional in YAML: without it nothing would be checked.
     if (data.modes !== undefined) data.modes = armModes(data.modes);
-    for (const [name, def] of toggles) if (data[name] === undefined) data[name] = def;
     if (!data.entity) data.entity = AlarmCard.getStubConfig(this._hass).entity;
+    for (const [name, def] of this._toggles(data)) if (data[name] === undefined) data[name] = def;
     this._form.hass = this._hass;
     // A new data or schema object re-renders the whole form: only on a config or language change.
     if (this._dataFor !== this._config) {
@@ -2797,7 +2828,7 @@ class AlarmCardEditor extends AlarmEditorBase {
       ["show_controls", true],
       ["show_sensors", true],
       ["show_info", true],
-      ["confirm_disarm", false],
+      ["confirm_disarm", true],
       ["collapsed", false],
     ];
   }
@@ -2811,7 +2842,7 @@ class AlarmMiniCardEditor extends AlarmEditorBase {
       // Both apply to the zoomed view, which renders the full card with the same options.
       ["show_sensors", true],
       ["show_info", true],
-      ["confirm_disarm", false],
+      ["confirm_disarm", true],
       ["collapsed", false],
       ["zoom", true],
     ];
