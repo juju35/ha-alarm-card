@@ -68,3 +68,24 @@ export const armedAway = { ...panel("armed_away", { arm_mode: "armed_away", next
 export const arming = { ...panel("arming", { arm_mode: "armed_away", next_state: "armed_away", delay: 60 }, 20), "binary_sensor.kitchen_window": { ...states["binary_sensor.kitchen_window"], state: "off" } };
 export const triggered = panel("triggered", { arm_mode: "armed_away", open_sensors: { "binary_sensor.kitchen_window": "on" } }, 40);
 export const withCode = panel("armed_home", { code_format: "number", code_arm_required: true, arm_mode: "armed_home" }, 900);
+
+// People (their user_id names who armed or disarmed in the activity) and the panel's logbook for the activity
+// section: Home Assistant's logbook/get_events entries, newest last. The newest one is the panel's current state.
+entity("person.alex", "home", { friendly_name: "Alex", user_id: "u-alex" });
+entity("person.sam", "not_home", { friendly_name: "Sam", user_id: "u-sam" });
+const at = (s) => (NOW - s * 1000) / 1000;
+export const logbook = [
+  { when: at(30 * 3600), state: "armed_night", context_name: "Night arming" },
+  { when: at(22 * 3600), state: "disarmed", context_user_id: "u-alex" },
+  { when: at(14 * 3600), state: "arming", context_user_id: "u-sam" },
+  { when: at(14 * 3600 - 60), state: "armed_away", context_user_id: "u-sam" },
+  { when: at(7500), state: "disarmed", context_user_id: "u-alex" },
+].map((e) => ({ entity_id: "alarm_control_panel.alarmo", ...e }));
+
+// Alarmo's event when it refuses to arm over open sensors.
+export const failedToArm = {
+  entity_id: "alarm_control_panel.alarmo",
+  command: "arm_away",
+  reason: "open_sensors",
+  sensors: ["binary_sensor.kitchen_window", "binary_sensor.patio_door"],
+};
