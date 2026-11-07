@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.0 - 2026-11-07
+
+### Changes
+- New optional activity section (`show_activity: true`) on the full card and the zoomed mini card: the panel's latest arm, disarm and trigger changes from the logbook, with when and who (the person linked to the user, or the automation), set with `activity_count` (default 5) and `activity_hours` (default 24, up to 168).
+- Alarmo: when Alarmo refuses to arm because sensors are open (`alarmo_failed_to_arm` event), the card lists them in a popup at the top of the card, and "Arm anyway" arms again with `alarmo.arm` and `force: true`, reusing the code just typed.
+
 ## 1.4.10 - 2026-11-07
 
 ### Fixes

@@ -28,6 +28,8 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 - Code pad when the panel needs a code: digits for a number code (the keyboard's digits, Backspace and Enter work too), a password field otherwise
 - Sensors of your choice (doors, windows, motion, smoke, leak) with their state; arming with a sensor open asks first ("Kitchen window: open. Arm away anyway?") and, with Alarmo, forces the arming
 - Open and bypassed sensors reported by Alarmo, last trigger, who changed the state and since when
+- Alarmo refusing to arm over open sensors: the card lists them in a popup and offers **Arm anyway** (forced arming)
+- Optional activity section: the latest arm, disarm and trigger changes from the logbook, with when and who
 - Optional confirmation before disarming
 - Collapsible sensors section
 - Click the state or a sensor to open its more-info dialog
@@ -41,7 +43,7 @@ The cards work with **any [alarm control panel](https://www.home-assistant.io/in
 
 | Integration | What the cards show |
 |---|---|
-| [Alarmo](https://github.com/nielsfaber/alarmo) (Marketplace, recommended) | Everything: state, arm modes, keypad, exit and entry delays, open and bypassed sensors, last trigger, who changed the state, forced arming with a sensor open |
+| [Alarmo](https://github.com/nielsfaber/alarmo) (Marketplace, recommended) | Everything: state, arm modes, keypad, exit and entry delays, open and bypassed sensors, last trigger, who changed the state, forced arming with a sensor open, "Arm anyway" when Alarmo refuses to arm |
 | [Manual](https://www.home-assistant.io/integrations/manual/) (built in), Verisure, Ajax and any other panel | State, arm modes, keypad, delays (`expiration` attribute), the sensors you list |
 
 ## Prerequisites
@@ -110,6 +112,9 @@ show_sensors: true
 show_info: true
 confirm_disarm: true
 collapsed: false
+show_activity: true
+activity_count: 5
+activity_hours: 24
 language: fr
 ```
 
@@ -137,6 +142,9 @@ zoom: true
 | `confirm_disarm` | both | `true` without a code, `false` with one | Ask for confirmation before disarming. On by default when the panel needs no code, so one tap cannot disarm it; `false` turns it off. With a code, the code entry already protects disarming; `true` asks first as well |
 | `show_sensors` | both | `true` | Sensors section (on the mini card: in its zoomed view) |
 | `collapsed` | both | `false` | Fold the sensors section by default, click its title to unfold it (on the mini card: in its zoomed view) |
+| `show_activity` | both | `false` | Activity section: the panel's latest arm, disarm and trigger changes from the logbook, with when (the exact time in the tooltip) and who (the person linked to the user, the user, or the automation) (on the mini card: in its zoomed view) |
+| `activity_count` | both | `5` | Number of changes in the activity section (1 to 50) |
+| `activity_hours` | both | `24` | Period of the activity section, in hours (1 to 168, i.e. 7 days) |
 | `zoom` | mini | `true` | Detail button at the top right of the mini card: it shows the full card's content (with the same options) and switches back; `false` removes it |
 | `language` | both | Auto | Force language: `en`, `fr`, `de`, `es`, `sr`, `sr-Latn`, `it`, `nl`, `pt`, `pl`, `ro`, `da`, `sv`, `bg`, `ru`, `uk`, `hu`, `sk`, `cs`, `sl`, `lv` or `el` (auto-detects from HA settings) |
 
@@ -167,6 +175,18 @@ Code pad (panel with a number code):
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-code.png" alt="code pad" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-code-dark.png" alt="code pad dark" width="400"> |
 
+Activity section (`show_activity: true`, here with `show_sensors: false`):
+
+| Light | Dark |
+|---|---|
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-activity.png" alt="activity" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-activity-dark.png" alt="activity dark" width="400"> |
+
+Alarmo refused to arm away over open sensors:
+
+| Light | Dark |
+|---|---|
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-failed-arm.png" alt="failed to arm" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-failed-arm-dark.png" alt="failed to arm dark" width="400"> |
+
 Mini card zoomed in with its detail button (top right, click it again or anywhere outside the card to go back):
 
 | Light | Dark |
@@ -178,6 +198,8 @@ Mini card zoomed in with its detail button (top right, click it again or anywher
 - **Modes**: the buttons follow the panel's `supported_features` (home, away, night, vacation, custom bypass), narrowed by `modes`.
 - **Code**: when the panel has a `code_format`, Disarm opens the code pad, and so do the arm buttons unless `code_arm_required` is `false`. The code is sent with the standard `alarm_control_panel.alarm_*` services; a wrong code is reported by Home Assistant.
 - **Open sensors**: before arming, the card checks the configured `sensors`. When one is open it asks for confirmation; once confirmed, an Alarmo panel is armed with `alarmo.arm` and `force: true` (the standard service would be refused), other panels with the standard service.
+- **Alarmo refusing to arm**: Alarmo checks its own sensors and, when one is open, does not arm and fires the `alarmo_failed_to_arm` event. The card listens to it for an Alarmo panel and shows the open sensors in a popup at the top of the card; **Arm anyway** arms again with `alarmo.arm` and `force: true`, with the code just typed (else the code pad asks for it). The popup shows on the card that sent the arming, or, when the event names the panel, to the user who tried to arm. Home Assistant only lets administrators subscribe to this event: for other users the card shows no popup.
+- **Activity**: with `show_activity`, the card reads the panel's changes over `activity_hours` from the logbook (`logbook/get_events`) and keeps the arm, disarm and trigger ones. Who made a change comes from its context: the person linked to that user, the user's name (administrators only, from Home Assistant's user list), or the automation or script that did it. The list is read again when the panel changes state and every 10 minutes.
 - **Unavailable sensors**: Alarmo also reports sensors that are unavailable, or that no longer exist under the entity_id it was set up with, among its open sensors (they block arming). The card lists them on a separate "Unavailable" line; if an entity_id is shown there, update that sensor in Alarmo's settings.
 - **Delays**: during `arming` (exit delay) and `pending` (entry delay), the card counts down from Alarmo's `delay` attribute and the last state change, or from an `expiration` attribute.
 - **Updates**: the card only redraws when the panel, its sensors or the countdown change, and patches the page in place (no flicker, the code field keeps what you typed).

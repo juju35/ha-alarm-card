@@ -584,3 +584,190 @@ test("the focus the card moves itself (code pad, confirm popup, detail button) n
     for (const [sel, opts] of seen) assert.equal(opts?.preventScroll, true, `${sel}: focus() without preventScroll`);
   }
 });
+
+// ----- Activity (logbook) ---------------------------------------------------
+
+const tick = () => new Promise((r) => setImmediate(r));
+const LOGBOOK = (now = Date.now()) => [
+  { when: (now - 3 * 3600000) / 1000, state: "armed_away", entity_id: PANEL, context_user_id: "u-alex" },
+  { when: (now - 2 * 3600000) / 1000, state: "arming", entity_id: PANEL },
+  { when: (now - 1 * 3600000) / 1000, state: "disarmed", entity_id: PANEL, context_user_id: "u-other", context_name: "Morning routine" },
+  { when: (now - 90 * 60000) / 1000, state: "triggered", entity_id: PANEL },
+];
+const activityHass = (list = LOGBOOK(), extra = {}) => {
+  const hass = makeHass({ "person.alex": { entity_id: "person.alex", state: "home", attributes: { friendly_name: "Alex", user_id: "u-alex" } }, ...extra });
+  hass.ws = [];
+  hass.callWS = (msg) => {
+    hass.ws.push(msg);
+    return Promise.resolve(msg.type === "logbook/get_events" ? list : []);
+  };
+  return hass;
+};
+
+test("Activity: off by default, no logbook request", () => {
+  const hass = activityHass();
+  const card = newCard(hass);
+  assert.equal(hass.ws.length, 0);
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /Activity/);
+});
+
+test("Activity: arm / disarm / trigger changes from the logbook, newest first, with who did it", async () => {
+  const hass = activityHass();
+  const card = newCard(hass, { show_activity: true });
+  assert.equal(hass.ws.length, 1);
+  const msg = hass.ws[0];
+  assert.equal(msg.type, "logbook/get_events");
+  assert.deepEqual([...msg.entity_ids], [PANEL]);
+  assert.ok(Math.abs(Date.now() - 24 * 3600000 - Date.parse(msg.start_time)) < 5000, "24 h window by default");
+  await tick();
+  const html = card.shadowRoot.innerHTML;
+  assert.match(html, /Activity/);
+  // The intermediate "arming" step is left out.
+  assert.doesNotMatch(html, /class="act-state">Arming</);
+  const states = [...html.matchAll(/class="act-state">([^<]+)</g)].map((m) => m[1]);
+  // The panel's own last change (disarmed, 2 h 05 ago) is missing from the mock logbook: it is added in its place.
+  assert.deepEqual(states, ["Disarmed", "Triggered", "Disarmed", "Armed away"]);
+  // A person's user resolves to the person's name; an unknown user falls back to the context's name.
+  assert.match(html, /by Alex/);
+  assert.match(html, /by Morning routine/);
+  assert.match(html, /class="act-time" title="[^"]+">1 hour ago</);
+});
+
+test("Activity: count and period options, and no refetch while nothing changes", async () => {
+  const hass = activityHass();
+  const card = newCard(hass, { show_activity: true, activity_count: 2, activity_hours: 168 });
+  assert.ok(Math.abs(Date.now() - 168 * 3600000 - Date.parse(hass.ws[0].start_time)) < 5000);
+  await tick();
+  assert.equal([...card.shadowRoot.innerHTML.matchAll(/class="act-state"/g)].length, 2);
+  card.hass = { ...hass };
+  assert.equal(hass.ws.length, 1);
+  // A new panel state fetches again.
+  card.hass = { ...hass, states: { ...hass.states, [PANEL]: { ...states[PANEL], state: "armed_home", last_changed: new Date().toISOString() } } };
+  assert.equal(hass.ws.length, 2);
+});
+
+test("Activity: an empty period says so", async () => {
+  const hass = activityHass([]);
+  const card = newCard(hass, { show_activity: true, activity_hours: 1 });
+  await tick();
+  // Last change 2 h 05 ago: out of a 1 h window.
+  assert.match(card.shadowRoot.innerHTML, /No activity/);
+  assert.equal(al.STRINGS.fr.no_activity, "Aucune activité");
+});
+
+test("Activity: an administrator's user list names users without a person", async () => {
+  const hass = activityHass([{ when: Date.now() / 1000 - 600, state: "armed_night", context_user_id: "u-bob" }]);
+  hass.user = { id: "u-admin", name: "Admin", is_admin: true };
+  const ws = hass.callWS;
+  hass.callWS = (msg) => (msg.type === "config/auth/list" ? (hass.ws.push(msg), Promise.resolve([{ id: "u-bob", name: "Bob" }])) : ws(msg));
+  const card = newCard(hass, { show_activity: true });
+  await tick();
+  await tick();
+  assert.ok(hass.ws.some((m) => m.type === "config/auth/list"));
+  assert.match(card.shadowRoot.innerHTML, /by Bob/);
+});
+
+test("Activity: the editor offers the toggle, and the count and period once it is on", () => {
+  for (const Editor of [al.AlarmCardEditor, al.AlarmMiniCardEditor]) assert.ok(Editor.toggles.some(([n, d]) => n === "show_activity" && d === false));
+  const editor = new al.AlarmCardEditor();
+  editor._hass = makeHass();
+  const names = (s) => s.flatMap((x) => (x.schema ? names(x.schema) : [x.name]));
+  editor._config = { entity: PANEL };
+  assert.ok(!names(editor._schema()).includes("activity_count"));
+  editor._config = { entity: PANEL, show_activity: true };
+  assert.ok(names(editor._schema()).includes("activity_count"));
+  assert.ok(names(editor._schema()).includes("activity_hours"));
+  for (const k of ["activity_count", "activity_hours"]) for (const [l, s] of Object.entries(al.STRINGS)) assert.ok(s[k], `${l}.${k}`);
+});
+
+// ----- Alarmo: alarmo_failed_to_arm ------------------------------------------
+
+const closed = { "binary_sensor.kitchen_window": { ...states["binary_sensor.kitchen_window"], state: "off" } };
+const eventHass = (overrides = closed) => {
+  const hass = makeHass(overrides);
+  hass.subs = [];
+  hass.unsubs = 0;
+  hass.user = { id: "u-alex", name: "Alex" };
+  hass.connection = {
+    subscribeEvents: (cb, type) => {
+      hass.subs.push({ cb, type });
+      return Promise.resolve(() => hass.unsubs++);
+    },
+  };
+  return hass;
+};
+const connected = (hass, config = {}, Cls = al.AlarmCard) => {
+  const card = new Cls();
+  card.isConnected = true;
+  card.setConfig({ entity: PANEL, sensors, ...config });
+  card.hass = hass;
+  card.connectedCallback();
+  return card;
+};
+const failed = (hass, data, context = {}) => hass.subs.at(-1).cb({ event_type: "alarmo_failed_to_arm", data, context });
+const FAIL = { command: "arm_away", reason: "open_sensors", sensors: ["binary_sensor.kitchen_window", "binary_sensor.front_door"], area_id: "1" };
+
+test("Alarmo: subscribes once to alarmo_failed_to_arm, and unsubscribes when removed", async () => {
+  const hass = eventHass();
+  const card = connected(hass);
+  card.hass = { ...hass, states: { ...hass.states } };
+  assert.equal(hass.subs.length, 1);
+  assert.equal(hass.subs[0].type, "alarmo_failed_to_arm");
+  card.disconnectedCallback();
+  await tick();
+  assert.equal(hass.unsubs, 1);
+});
+
+test("Alarmo: no subscription for another integration's panel", () => {
+  const hass = eventHass();
+  hass.entities = { ...entities, [PANEL]: { entity_id: PANEL, platform: "manual" } };
+  connected(hass);
+  assert.equal(hass.subs.length, 0);
+});
+
+test("Alarmo: arming refused over open sensors shows them in the popup, Arm anyway forces it", () => {
+  const hass = eventHass();
+  const card = connected(hass);
+  click(card, { action: "mode", mode: "arm_away" });
+  assert.deepEqual(plain(hass.calls), [["alarm_control_panel", "alarm_arm_away", { entity_id: PANEL }]]);
+  failed(hass, FAIL, { user_id: "u-alex" });
+  const html = card.shadowRoot.innerHTML;
+  assert.match(html, /dialog-open/);
+  assert.match(html, /Kitchen window, Front door: open\. Arm away anyway\?/);
+  assert.match(html, /Arm anyway/);
+  click(card, { action: "confirm_ok" });
+  assert.deepEqual(plain(hass.calls.slice(1)), [["alarmo", "arm", { entity_id: PANEL, mode: "away", force: true }]]);
+});
+
+test("Alarmo: Arm anyway reuses the code just typed", () => {
+  const hass = eventHass({ ...withCode, ...closed });
+  const card = connected(hass);
+  click(card, { action: "mode", mode: "arm_away" });
+  for (const d of ["1", "2", "3", "4"]) click(card, { action: "key", digit: d });
+  click(card, { action: "pad_ok" });
+  failed(hass, FAIL);
+  click(card, { action: "confirm_ok" });
+  assert.deepEqual(plain(hass.calls.at(-1)), ["alarmo", "arm", { entity_id: PANEL, mode: "away", force: true, code: "1234" }]);
+});
+
+test("Alarmo: events for another panel, another user, another reason, or not ours are ignored", () => {
+  const hass = eventHass();
+  const card = connected(hass);
+  failed(hass, FAIL); // no entity_id and the card did not arm
+  failed(hass, { ...FAIL, entity_id: "alarm_control_panel.other" });
+  failed(hass, { ...FAIL, entity_id: PANEL }, { user_id: "u-someone-else" });
+  failed(hass, { ...FAIL, entity_id: PANEL, reason: "not_allowed" });
+  failed(hass, { ...FAIL, entity_id: PANEL, command: "arm_x\" onclick=\"y" });
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /dialog-open/);
+  // Named panel, same user (armed from elsewhere): the popup shows, and Arm anyway asks nothing more.
+  failed(hass, { ...FAIL, entity_id: PANEL, command: "arm_night" }, { user_id: "u-alex" });
+  assert.match(card.shadowRoot.innerHTML, /Arm night anyway\?/);
+});
+
+test("Alarmo: the mini card listens too", () => {
+  const hass = eventHass();
+  const card = connected(hass, {}, al.AlarmMiniCard);
+  click(card, { action: "mode", mode: "arm_home" });
+  failed(hass, { ...FAIL, command: "arm_home" });
+  assert.match(card.shadowRoot.innerHTML, /Arm home anyway\?/);
+});
