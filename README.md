@@ -1,6 +1,6 @@
 # ha-alarm-card
 
-[![HACS](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
+[![Marketplace](https://img.shields.io/badge/Marketplace-Custom-41BDF5.svg)](https://www.home-assistant.io/integrations/marketplace/)
 [![HACS Validation](https://github.com/juju35/ha-alarm-card/actions/workflows/hacs.yml/badge.svg)](https://github.com/juju35/ha-alarm-card/actions/workflows/hacs.yml)
 [![Validate](https://github.com/juju35/ha-alarm-card/actions/workflows/validate.yml/badge.svg)](https://github.com/juju35/ha-alarm-card/actions/workflows/validate.yml)
 [![Lint](https://github.com/juju35/ha-alarm-card/actions/workflows/lint.yml/badge.svg)](https://github.com/juju35/ha-alarm-card/actions/workflows/lint.yml)
@@ -12,7 +12,7 @@ Lovelace cards for Home Assistant to arm and disarm an alarm: state, exit and en
 
 The cards work with any [alarm control panel](https://www.home-assistant.io/integrations/alarm_control_panel/) ([Alarmo](https://github.com/nielsfaber/alarmo), [Manual](https://www.home-assistant.io/integrations/manual/), Verisure, Ajax…): the arm modes come from the panel's supported features and the keypad from its code format. Alarmo's extra information (delays, open and bypassed sensors, last trigger, who changed it) is shown when the panel provides it.
 
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=juju35&repository=ha-alarm-card&category=plugin)
+[![Open your Home Assistant instance and open a repository inside the Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=juju35&repository=ha-alarm-card&category=plugin)
 
 | Alarm Card | Alarm Mini Card |
 |---|---|
@@ -41,7 +41,7 @@ The cards work with **any [alarm control panel](https://www.home-assistant.io/in
 
 | Integration | What the cards show |
 |---|---|
-| [Alarmo](https://github.com/nielsfaber/alarmo) (HACS, recommended) | Everything: state, arm modes, keypad, exit and entry delays, open and bypassed sensors, last trigger, who changed the state, forced arming with a sensor open |
+| [Alarmo](https://github.com/nielsfaber/alarmo) (Marketplace, recommended) | Everything: state, arm modes, keypad, exit and entry delays, open and bypassed sensors, last trigger, who changed the state, forced arming with a sensor open |
 | [Manual](https://www.home-assistant.io/integrations/manual/) (built in), Verisure, Ajax and any other panel | State, arm modes, keypad, delays (`expiration` attribute), the sensors you list |
 
 ## Prerequisites
@@ -50,19 +50,19 @@ Home Assistant 2024.8 or later, with an alarm control panel (Alarmo recommended)
 
 ## Installation
 
-### Via HACS (recommended)
+### Via the Marketplace (recommended)
 
 Click the button below to add the repository directly:
 
-[![Add to HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=juju35&repository=ha-alarm-card&category=plugin)
+[![Add to the Marketplace](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=juju35&repository=ha-alarm-card&category=plugin)
 
-Then click **Download**, and reload your browser when HACS asks you to.
+Then click **Install**, and reload your browser when the Marketplace asks you to.
 
 Or manually:
 
-1. Open HACS → **⋮** (top right) → **Custom repositories**
+1. Open **Settings → Marketplace → Add from link** (top right; this needs a GitHub account connected)
 2. Add `https://github.com/juju35/ha-alarm-card` — Type: **Dashboard**
-3. Search for **Alarm Card** and click **Download**
+3. Open **Alarm Card** and click **Install**
 4. Clear your browser cache and refresh
 
 ### Manual
@@ -192,7 +192,7 @@ npm test             # unit tests (node --test)
 npm run screenshots  # renders the cards with mock data (scripts/mock-states.mjs) into screenshots/ (and the triggered/arming GIFs, needs ffmpeg)
 ```
 
-`dist/` is not committed: `npm run build` creates it locally, CI builds it on every push, and the release workflow attaches the built file to the release, which is where HACS downloads it from.
+`dist/` is not committed: `npm run build` creates it locally, CI builds it on every push, and the release workflow attaches the built file to the release, which is where the Marketplace installs it from.
 
 ### Releasing
 
