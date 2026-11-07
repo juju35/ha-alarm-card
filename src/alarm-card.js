@@ -64,6 +64,7 @@ const STRINGS = {
     code_for: "Code to {action}",
     code_placeholder: "Code",
     clear: "Clear",
+    digits_entered: "Digits entered: {n}",
     since: "for {d}",
     just_now: "just now",
     by: "by {name}",
@@ -141,6 +142,7 @@ const STRINGS = {
     code_for: "Code pour {action}",
     code_placeholder: "Code",
     clear: "Effacer",
+    digits_entered: "Chiffres saisis : {n}",
     since: "depuis {d}",
     just_now: "à l'instant",
     by: "par {name}",
@@ -216,6 +218,7 @@ const STRINGS = {
     code_for: "Code für „{action}“",
     code_placeholder: "Code",
     clear: "Löschen",
+    digits_entered: "Eingegebene Ziffern: {n}",
     since: "seit {d}",
     just_now: "gerade eben",
     by: "von {name}",
@@ -291,6 +294,7 @@ const STRINGS = {
     code_for: "Código para «{action}»",
     code_placeholder: "Código",
     clear: "Borrar",
+    digits_entered: "Dígitos introducidos: {n}",
     since: "desde hace {d}",
     just_now: "ahora mismo",
     by: "por {name}",
@@ -366,6 +370,7 @@ const STRINGS = {
     code_for: "Код за: {action}",
     code_placeholder: "Код",
     clear: "Обриши",
+    digits_entered: "Унетих цифара: {n}",
     since: "већ {d}",
     just_now: "управо сада",
     by: "променио/ла {name}",
@@ -443,6 +448,7 @@ const STRINGS = {
     code_for: "Kod za: {action}",
     code_placeholder: "Kod",
     clear: "Obriši",
+    digits_entered: "Unetih cifara: {n}",
     since: "već {d}",
     just_now: "upravo sada",
     by: "promenio/la {name}",
@@ -520,6 +526,7 @@ const STRINGS = {
     code_for: "Codice per: {action}",
     code_placeholder: "Codice",
     clear: "Cancella",
+    digits_entered: "Cifre inserite: {n}",
     since: "da {d}",
     just_now: "proprio ora",
     by: "cambiato da {name}",
@@ -597,6 +604,7 @@ const STRINGS = {
     code_for: "Code voor: {action}",
     code_placeholder: "Code",
     clear: "Wissen",
+    digits_entered: "Ingevoerde cijfers: {n}",
     since: "al {d}",
     just_now: "zojuist",
     by: "door {name}",
@@ -674,6 +682,7 @@ const STRINGS = {
     code_for: "Código para: {action}",
     code_placeholder: "Código",
     clear: "Limpar",
+    digits_entered: "Dígitos introduzidos: {n}",
     since: "há {d}",
     just_now: "agora mesmo",
     by: "por {name}",
@@ -751,6 +760,7 @@ const STRINGS = {
     code_for: "Kod dla: {action}",
     code_placeholder: "Kod",
     clear: "Wyczyść",
+    digits_entered: "Wprowadzone cyfry: {n}",
     since: "od {d}",
     just_now: "przed chwilą",
     by: "przez {name}",
@@ -828,6 +838,7 @@ const STRINGS = {
     code_for: "Cod pentru: {action}",
     code_placeholder: "Cod",
     clear: "Șterge",
+    digits_entered: "Cifre introduse: {n}",
     since: "de {d}",
     just_now: "chiar acum",
     by: "de către {name}",
@@ -905,6 +916,7 @@ const STRINGS = {
     code_for: "Kode til: {action}",
     code_placeholder: "Kode",
     clear: "Ryd",
+    digits_entered: "Indtastede cifre: {n}",
     since: "i {d}",
     just_now: "lige nu",
     by: "af {name}",
@@ -982,6 +994,7 @@ const STRINGS = {
     code_for: "Kod för: {action}",
     code_placeholder: "Kod",
     clear: "Rensa",
+    digits_entered: "Inmatade siffror: {n}",
     since: "i {d}",
     just_now: "just nu",
     by: "av {name}",
@@ -1059,6 +1072,7 @@ const STRINGS = {
     code_for: "Код за: {action}",
     code_placeholder: "Код",
     clear: "Изчисти",
+    digits_entered: "Въведени цифри: {n}",
     since: "от {d}",
     just_now: "току-що",
     by: "от {name}",
@@ -1136,6 +1150,7 @@ const STRINGS = {
     code_for: "Код: {action}",
     code_placeholder: "Код",
     clear: "Стереть",
+    digits_entered: "Введено цифр: {n}",
     since: "уже {d}",
     just_now: "только что",
     by: "изменено: {name}",
@@ -1213,6 +1228,7 @@ const STRINGS = {
     code_for: "Код: {action}",
     code_placeholder: "Код",
     clear: "Стерти",
+    digits_entered: "Введено цифр: {n}",
     since: "вже {d}",
     just_now: "щойно",
     by: "змінено: {name}",
@@ -1290,6 +1306,7 @@ const STRINGS = {
     code_for: "Kód ehhez: {action}",
     code_placeholder: "Kód",
     clear: "Törlés",
+    digits_entered: "Beírt számjegyek: {n}",
     since: "{d} óta",
     just_now: "épp most",
     by: "módosította: {name}",
@@ -1367,6 +1384,7 @@ const STRINGS = {
     code_for: "Kód pre: {action}",
     code_placeholder: "Kód",
     clear: "Vymazať",
+    digits_entered: "Zadané číslice: {n}",
     since: "už {d}",
     just_now: "práve teraz",
     by: "zmenil(a) {name}",
@@ -1444,6 +1462,7 @@ const STRINGS = {
     code_for: "Kód pro: {action}",
     code_placeholder: "Kód",
     clear: "Vymazat",
+    digits_entered: "Zadané číslice: {n}",
     since: "už {d}",
     just_now: "právě teď",
     by: "změnil(a) {name}",
@@ -1521,6 +1540,7 @@ const STRINGS = {
     code_for: "Koda za: {action}",
     code_placeholder: "Koda",
     clear: "Počisti",
+    digits_entered: "Vnesene števke: {n}",
     since: "že {d}",
     just_now: "pravkar",
     by: "spremenil(a) {name}",
@@ -1598,6 +1618,7 @@ const STRINGS = {
     code_for: "Kods: {action}",
     code_placeholder: "Kods",
     clear: "Notīrīt",
+    digits_entered: "Ievadītie cipari: {n}",
     since: "jau {d}",
     just_now: "tikko",
     by: "mainīja {name}",
@@ -1675,6 +1696,7 @@ const STRINGS = {
     code_for: "Κωδικός για: {action}",
     code_placeholder: "Κωδικός",
     clear: "Διαγραφή",
+    digits_entered: "Ψηφία που εισήχθησαν: {n}",
     since: "εδώ και {d}",
     just_now: "μόλις τώρα",
     by: "από {name}",
@@ -1771,6 +1793,16 @@ const intlLang = (hass, config) => {
   let out = l;
   if (full && full.split("-")[0] === base && !(l === "sr" && /-Latn\b/.test(full))) out = full;
   return out === "pt" ? "pt-PT" : out;
+};
+
+// 12 / 24 h clock from the Home Assistant profile (time_format): "12", "24", "system" (the browser's own
+// locale) or "language" (the card's language, the Intl default: undefined).
+const hour12Of = (hass) => {
+  const tf = hass?.locale?.time_format;
+  if (tf === "12") return true;
+  if (tf === "24") return false;
+  if (tf === "system") return new Intl.DateTimeFormat(undefined, { hour: "numeric" }).resolvedOptions().hour12;
+  return undefined;
 };
 
 const t = (hass, config, key, vars = {}) =>
@@ -1959,7 +1991,7 @@ const morph = (root, html) => {
 
 // Card logo: a shield sending out radar waves, drawn in the accent color on a round tinted badge like the other
 // ha-* cards.
-const logo = () => `<div class="badge"><svg class="icon" viewBox="6 6 36 36" role="img" aria-label="Alarm">
+const logo = (label) => `<div class="badge"><svg class="icon" viewBox="6 6 36 36" role="img" aria-label="${esc(label)}">
   <path d="M24 8 11 13.5v9c0 8.3 5.5 15.4 13 17.5 7.5-2.1 13-9.2 13-17.5v-9Z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/>
   <circle cx="24" cy="24" r="2.6"/>
   <path d="M20.3 20.3a5.2 5.2 0 0 0 0 7.4M27.7 20.3a5.2 5.2 0 0 1 0 7.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -2049,6 +2081,8 @@ const BASE_STYLE = `
                border: 1px solid var(--divider-color, rgba(127,127,127,.35)); background: transparent; color: var(--primary-text-color); }
   .dots { display: flex; justify-content: center; gap: 8px; min-height: 14px; align-items: center; }
   .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--primary-text-color); }
+  /* Read by screen readers only (the dots' live region). */
+  .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .dots .hint { font-size: 13px; color: var(--secondary-text-color); }
   .keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 260px; width: 100%; margin: 0 auto; }
   .keys .btn { height: 42px; font-size: 18px; font-weight: 400; border-radius: 12px; }
@@ -2068,8 +2102,9 @@ const DIALOG_STYLE = `
               padding-top: 12px; box-sizing: border-box; z-index: 9; border-radius: inherit; }
   .modal { background: var(--card-background-color, #1c1c1c); color: var(--primary-text-color); width: min(92%, 340px); max-height: calc(100% - 24px);
            box-sizing: border-box; border-radius: 14px; padding: 16px; box-shadow: 0 8px 30px rgba(0,0,0,.4); display: flex; flex-direction: column; gap: 12px; }
-  .modal .msg { font-size: 14px; line-height: 1.4; }
-  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
+  .modal .msg { font-size: 14px; line-height: 1.4; min-height: 0; overflow: auto; overflow-wrap: anywhere; }
+  /* Past the card's height (see _fitConfirm), the message scrolls inside the popup: the buttons stay in view, on two rows if needed. */
+  .modal-actions { flex: none; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 `;
 
 // A click inside a dialog (more-info opened from the card, say) is not a click outside the card.
@@ -2259,13 +2294,13 @@ class AlarmBase extends HTMLElement {
     return normalize(this._config.sensors);
   }
 
-  // What the render depends on: language, the panel, the sensors (configured, open and bypassed ones) and
+  // What the render depends on: language (and clock format), the panel, the sensors (configured, open and bypassed ones) and
   // the clock (second while a delay runs, minute otherwise).
   _signature() {
     const h = this._hass;
     const panel = this._panel();
     const now = Date.now();
-    const sig = [h.language, h.locale?.language, h.entities, panel, remaining(panel) ? Math.floor(now / 1000) : Math.floor(now / 60000)];
+    const sig = [h.language, h.locale?.language, h.locale?.time_format, h.entities, panel, remaining(panel) ? Math.floor(now / 1000) : Math.floor(now / 60000)];
     const a = panel?.attributes || {};
     for (const id of [...this._sensors().map((s) => s.entity), ...entityList(a.open_sensors), ...entityList(a.bypassed_sensors)]) sig.push(h.states[id]);
     return sig;
@@ -2282,6 +2317,17 @@ class AlarmBase extends HTMLElement {
       this._html = html;
       morph(this.shadowRoot, html);
     }
+    this._fitConfirm();
+  }
+
+  // The popup lies over the card: a small card (the mini card) grows to the popup's full height, so that a long
+  // message (several open sensors) is read whole. 36 px: the backdrop's top padding and the popup's margin (see
+  // DIALOG_STYLE).
+  _fitConfirm() {
+    const card = this._confirm && this.shadowRoot.querySelector?.("ha-card.dialog-open");
+    const modal = card?.querySelector?.(".modal");
+    const msg = modal?.querySelector?.(".msg");
+    if (msg) card.style.minHeight = `${Math.ceil(modal.offsetHeight - msg.clientHeight + msg.scrollHeight) + 36}px`;
   }
 
   // ----- Actions -------------------------------------------------------------
@@ -2508,7 +2554,7 @@ class AlarmBase extends HTMLElement {
     const zoom = this._zoomButton();
     return `
       <div class="header${zoom ? " has-zoom" : ""}">
-        ${c.show_logo !== false ? logo() : ""}
+        ${c.show_logo !== false ? logo(this._t("title")) : ""}
         <div class="titles">
           <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
           <div class="sub">${esc(this._subtitle(st))}</div>
@@ -2587,7 +2633,11 @@ class AlarmBase extends HTMLElement {
     let body;
     if (st.attributes?.code_format === "number") {
       const keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((k) => `<button class="btn" data-action="key" data-key="k${k}" data-digit="${k}">${k}</button>`);
-      body = `<div class="dots" aria-live="polite">${code ? "<i></i>".repeat(code.length) : `<span class="hint">${esc(this._t("code_placeholder"))}</span>`}</div>
+      body = `<div class="dots" aria-live="polite">${
+        code
+          ? `${'<i aria-hidden="true"></i>'.repeat(code.length)}<span class="vh">${esc(this._t("digits_entered", { n: code.length }))}</span>`
+          : `<span class="hint">${esc(this._t("code_placeholder"))}</span>`
+      }</div>
         <div class="keys">${keys.join("")}
           <span></span><button class="btn" data-action="key" data-key="k0" data-digit="0">0</button>
           <button class="btn" data-action="key_back" title="${esc(this._t("clear"))}" aria-label="${esc(this._t("clear"))}">${svgIcon(ICONS.backspace)}</button>
@@ -2808,11 +2858,13 @@ class AlarmCard extends AlarmBase {
     return this._users?.[uid] || "";
   }
 
-  // When, as "3 hours ago" (like the last trigger), with the date and time in the tooltip.
+  // When, as "3 hours ago" (like the last trigger), with the date and time in the tooltip (12 / 24 h clock as in
+  // the user's profile).
   _activityTime(sec) {
     const l = intlLang(this._hass, this._config);
     const ms = sec * 1000;
-    const abs = new Intl.DateTimeFormat(l, { dateStyle: "medium", timeStyle: "short" }).format(new Date(ms));
+    const hour12 = hour12Of(this._hass);
+    const abs = new Intl.DateTimeFormat(l, { dateStyle: "medium", timeStyle: "short", ...(hour12 === undefined ? {} : { hour12 }) }).format(new Date(ms));
     return `<span class="act-time" title="${esc(abs)}">${esc(ago(l, ms))}</span>`;
   }
 
@@ -2935,7 +2987,7 @@ class AlarmMiniCard extends AlarmCard {
     return `<style>${BASE_STYLE}${MINI_STYLE}</style>${STRUT}
       <ha-card>
         <div class="header${this._pad ? " with-pad" : ""}">
-          ${c.show_logo !== false ? logo() : `<div class="clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}">${shield(st.state)}</div>`}
+          ${c.show_logo !== false ? logo(this._t("title")) : `<div class="clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}">${shield(st.state)}</div>`}
           <div class="titles">
             <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
             <div class="sub clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}"><span class="st ${cls}"><span class="dot"></span>${esc(

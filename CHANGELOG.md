@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.1 - 2026-11-07
+
+### Fixes
+- Confirmation popup: with several open sensors, the mini card grows to show the whole message, and the Cancel and OK buttons no longer fall outside the popup (they wrap to two rows when the card is narrow).
+- Accessibility: the code pad tells screen readers how many digits were typed (translated); the logo's spoken name follows the card's language; the activity tooltip uses the 12 / 24 h clock of the user's profile.
+
 ## 1.5.0 - 2026-11-07
 
 ### Changes

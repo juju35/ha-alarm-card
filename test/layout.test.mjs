@@ -458,3 +458,54 @@ test("opening the confirm popup or the code pad brings it on screen (phone, the 
     await page.close();
   }
 });
+
+test("mini card at 6 columns (240 px) with 3 open sensors: the arm confirmation shows its whole message and keeps its buttons in the card", async (t) => {
+  if (skip) return t.skip(skip);
+  const open = Object.fromEntries(
+    ["front_door", "patio_door", "kitchen_window"].map((id) => [`binary_sensor.${id}`, { ...states[`binary_sensor.${id}`], state: "on" }]),
+  );
+  const page = await browser.newPage({ viewport: { width: 1000, height: 1200 } });
+  try {
+    await page.clock.setFixedTime(NOW);
+    await page.setContent(`<!doctype html><html><head><meta charset="utf-8"><style>:root{${Object.entries(THEMES.light)
+      .map(([k, v]) => `${k}:${v};`)
+      .join("")}} body{margin:0;padding:16px;font-family:Roboto,Arial,sans-serif;font-size:14px}</style></head><body></body></html>`);
+    await page.addScriptTag({ content: HA_CARD });
+    await page.addScriptTag({ content: cardJs });
+    const rows = await page.evaluate(
+      async ({ states, entities, sensors, PANEL, open }) => {
+        const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+        const out = [];
+        for (const language of ["en", "fr", "pl", "el", "uk"]) {
+          document.body.innerHTML = "";
+          const el = document.createElement("alarm-mini-card");
+          el.style.cssText = "display:block;width:240px";
+          el.setConfig({ type: "alarm-mini-card", entity: PANEL, sensors });
+          el.hass = { states: { ...structuredClone(states), ...structuredClone(open) }, entities, language, callService: () => {} };
+          document.body.append(el);
+          await frame();
+          el.shadowRoot.querySelector('[data-action="mode"][data-mode="arm_away"]').dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true, detail: 1 }));
+          await frame();
+          const card = el.shadowRoot.querySelector("ha-card").getBoundingClientRect();
+          const modal = el.shadowRoot.querySelector(".modal").getBoundingClientRect();
+          const msg = el.shadowRoot.querySelector(".modal .msg");
+          const btns = [...el.shadowRoot.querySelectorAll(".modal-actions .btn")].map((b) => b.getBoundingClientRect());
+          out.push({ language, card: [card.left, card.right, card.top, card.bottom], modal: [modal.left, modal.right, modal.top, modal.bottom], btns: btns.map((b) => [b.left, b.right, b.top, b.bottom]), msgCut: msg.scrollHeight > msg.clientHeight + 1 });
+        }
+        return out;
+      },
+      { states, entities, sensors, PANEL, open },
+    );
+    for (const r of rows) {
+      assert.equal(r.btns.length, 2, `${r.language}: Cancel and OK`);
+      assert.ok(!r.msgCut, `${r.language}: the card did not grow to show the whole message`);
+      for (const [i, [l, rt, tp, bt]] of r.btns.entries()) {
+        const what = `${r.language}: button ${i} at ${Math.round(l)}–${Math.round(rt)} x ${Math.round(tp)}–${Math.round(bt)}`;
+        assert.ok(l >= r.card[0] - 0.5 && rt <= r.card[1] + 0.5 && tp >= r.card[2] - 0.5 && bt <= r.card[3] + 0.5, `${what} leaves the card ${r.card.map(Math.round)}`);
+        assert.ok(l >= r.modal[0] - 0.5 && rt <= r.modal[1] + 0.5 && tp >= r.modal[2] - 0.5 && bt <= r.modal[3] + 0.5, `${what} leaves the popup ${r.modal.map(Math.round)}`);
+      }
+    }
+  } finally {
+    await page.close();
+  }
+});
