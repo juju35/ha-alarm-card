@@ -132,6 +132,47 @@ test("confirm_disarm asks before disarming", () => {
   assert.match(card.shadowRoot.innerHTML, /Code to disarm/); // then the code
 });
 
+test("a panel without a code asks before disarming by default, on the full and the mini card", () => {
+  for (const Cls of [al.AlarmCard, al.AlarmMiniCard]) {
+    const hass = makeHass(armedAway);
+    const card = newCard(hass, {}, Cls);
+    click(card, { action: "mode", mode: "disarm" });
+    assert.equal(hass.calls.length, 0, `${Cls.name}: disarmed without confirmation`);
+    assert.match(card.shadowRoot.innerHTML, /Disarm the alarm\?/);
+    click(card, { action: "confirm_ok" });
+    assert.deepEqual(plain(hass.calls), [["alarm_control_panel", "alarm_disarm", { entity_id: PANEL }]]);
+  }
+});
+
+test("confirm_disarm: false disarms a panel without a code at once", () => {
+  for (const Cls of [al.AlarmCard, al.AlarmMiniCard]) {
+    const hass = makeHass(armedAway);
+    const card = newCard(hass, { confirm_disarm: false }, Cls);
+    click(card, { action: "mode", mode: "disarm" });
+    assert.doesNotMatch(card.shadowRoot.innerHTML, /Disarm the alarm\?/);
+    assert.deepEqual(plain(hass.calls), [["alarm_control_panel", "alarm_disarm", { entity_id: PANEL }]]);
+  }
+});
+
+test("a panel with a code asks for the code, without an extra confirmation by default", () => {
+  for (const Cls of [al.AlarmCard, al.AlarmMiniCard]) {
+    const card = newCard(makeHass(withCode), {}, Cls);
+    click(card, { action: "mode", mode: "disarm" });
+    assert.doesNotMatch(card.shadowRoot.innerHTML, /Disarm the alarm\?/);
+    assert.match(card.shadowRoot.innerHTML, /Code to disarm/);
+  }
+});
+
+test("the editor's confirm_disarm default follows the panel's code", () => {
+  const toggle = (editor) => editor._form.data.confirm_disarm;
+  for (const Editor of [al.AlarmCardEditor, al.AlarmMiniCardEditor]) {
+    assert.equal(toggle(newEditor(makeHass(), { entity: PANEL }, Editor)), true);
+    assert.equal(toggle(newEditor(makeHass(withCode), { entity: PANEL }, Editor)), false);
+    assert.equal(toggle(newEditor(makeHass(), { entity: PANEL, confirm_disarm: false }, Editor)), false);
+  }
+  for (const [l, strings] of Object.entries(al.STRINGS)) assert.ok(strings.confirm_disarm_helper, `${l}.confirm_disarm_helper: missing`);
+});
+
 test("the code pad takes taps right after the confirm popup closes", () => {
   const hass = makeHass(withCode);
   const card = newCard(hass, { confirm_disarm: true });
