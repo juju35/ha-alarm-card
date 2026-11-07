@@ -6,7 +6,7 @@ import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileS
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { NOW, states, entities, sensors } from "./mock-states.mjs";
+import { NOW, states, entities, sensors, logbook } from "./mock-states.mjs";
 import { shots, gifs } from "./screenshot-shots.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
@@ -90,16 +90,24 @@ async function openCard(browser, s) {
   await page.addScriptTag({ content: HA_CARD });
   await page.addScriptTag({ content: cardJs });
   await page.evaluate(
-    ({ type, config, states, entities, sensors, PANEL, overrides }) => {
+    ({ type, config, states, entities, sensors, PANEL, overrides, logbook, event }) => {
       for (const [id, o] of Object.entries(overrides || {})) states[id] = { ...states[id], ...o };
       const el = document.createElement(type);
       el.setConfig({ type: `custom:${type}`, entity: PANEL, sensors, ...config });
       el.hass = {
         states, entities, language: "en", locale: { language: "en" }, callService: () => {},
+        // The activity's logbook, and Alarmo's failed-to-arm event delivered right after the card subscribes.
+        callWS: async (msg) => (msg.type === "logbook/get_events" ? logbook : []),
+        connection: {
+          subscribeEvents: async (cb, type) => {
+            if (event && type === "alarmo_failed_to_arm") setTimeout(() => cb({ event_type: type, data: event, context: {} }), 0);
+            return () => {};
+          },
+        },
       };
       document.getElementById("root").appendChild(el);
     },
-    { type: s.type, config: s.config, states, entities, sensors, PANEL, overrides: s.overrides }
+    { type: s.type, config: s.config, states, entities, sensors, PANEL, overrides: s.overrides, logbook, event: s.event }
   );
   return page;
 }

@@ -121,6 +121,11 @@ const STRINGS = {
     language: "Language",
     lang_auto: "Automatic",
     disarm_confirm: "Disarm the alarm?",
+    activity: "Activity",
+    no_activity: "No activity",
+    show_activity: "Show recent activity (logbook)",
+    activity_count: "Events shown in the activity",
+    activity_hours: "Activity period (hours)",
   },
   fr: {
     title: "Alarme",
@@ -191,6 +196,11 @@ const STRINGS = {
     language: "Langue",
     lang_auto: "Automatique",
     disarm_confirm: "Désarmer l'alarme ?",
+    activity: "Activité",
+    no_activity: "Aucune activité",
+    show_activity: "Afficher l'activité récente (journal)",
+    activity_count: "Événements affichés dans l'activité",
+    activity_hours: "Période de l'activité (heures)",
   },
   de: {
     title: "Alarmanlage",
@@ -261,6 +271,11 @@ const STRINGS = {
     language: "Sprache",
     lang_auto: "Automatisch",
     disarm_confirm: "Alarmanlage deaktivieren?",
+    activity: "Aktivität",
+    no_activity: "Keine Aktivität",
+    show_activity: "Letzte Aktivität anzeigen (Logbuch)",
+    activity_count: "Angezeigte Ereignisse der Aktivität",
+    activity_hours: "Zeitraum der Aktivität (Stunden)",
   },
   es: {
     title: "Alarma",
@@ -331,6 +346,11 @@ const STRINGS = {
     language: "Idioma",
     lang_auto: "Automático",
     disarm_confirm: "¿Desarmar la alarma?",
+    activity: "Actividad",
+    no_activity: "Sin actividad",
+    show_activity: "Mostrar la actividad reciente (registro)",
+    activity_count: "Eventos mostrados en la actividad",
+    activity_hours: "Periodo de la actividad (horas)",
   },
   sr: {
     title: "Аларм",
@@ -403,6 +423,11 @@ const STRINGS = {
     language: "Језик",
     lang_auto: "Аутоматски",
     disarm_confirm: "Деактивирати аларм?",
+    activity: "Активност",
+    no_activity: "Нема активности",
+    show_activity: "Прикажи недавну активност (дневник)",
+    activity_count: "Број приказаних догађаја",
+    activity_hours: "Период активности (сати)",
   },
   "sr-Latn": {
     title: "Alarm",
@@ -475,6 +500,11 @@ const STRINGS = {
     language: "Jezik",
     lang_auto: "Automatski",
     disarm_confirm: "Deaktivirati alarm?",
+    activity: "Aktivnost",
+    no_activity: "Nema aktivnosti",
+    show_activity: "Prikaži nedavnu aktivnost (dnevnik)",
+    activity_count: "Broj prikazanih događaja",
+    activity_hours: "Period aktivnosti (sati)",
   },
   it: {
     title: "Allarme",
@@ -547,6 +577,11 @@ const STRINGS = {
     language: "Lingua",
     lang_auto: "Automatica",
     disarm_confirm: "Disattivare l'allarme?",
+    activity: "Attività",
+    no_activity: "Nessuna attività",
+    show_activity: "Mostra l'attività recente (registro)",
+    activity_count: "Eventi mostrati nell'attività",
+    activity_hours: "Periodo dell'attività (ore)",
   },
   nl: {
     title: "Alarm",
@@ -619,6 +654,11 @@ const STRINGS = {
     language: "Taal",
     lang_auto: "Automatisch",
     disarm_confirm: "Alarm uitschakelen?",
+    activity: "Activiteit",
+    no_activity: "Geen activiteit",
+    show_activity: "Recente activiteit tonen (logboek)",
+    activity_count: "Getoonde gebeurtenissen",
+    activity_hours: "Periode van de activiteit (uren)",
   },
   pt: {
     title: "Alarme",
@@ -691,6 +731,11 @@ const STRINGS = {
     language: "Idioma",
     lang_auto: "Automático",
     disarm_confirm: "Desarmar o alarme?",
+    activity: "Atividade",
+    no_activity: "Sem atividade",
+    show_activity: "Mostrar a atividade recente (registo)",
+    activity_count: "Eventos mostrados na atividade",
+    activity_hours: "Período da atividade (horas)",
   },
   pl: {
     title: "Alarm",
@@ -763,6 +808,11 @@ const STRINGS = {
     language: "Język",
     lang_auto: "Automatyczny",
     disarm_confirm: "Rozbroić alarm?",
+    activity: "Aktywność",
+    no_activity: "Brak aktywności",
+    show_activity: "Pokaż ostatnią aktywność (dziennik)",
+    activity_count: "Liczba wyświetlanych zdarzeń",
+    activity_hours: "Okres aktywności (godziny)",
   },
   ro: {
     title: "Alarmă",
@@ -835,6 +885,11 @@ const STRINGS = {
     language: "Limbă",
     lang_auto: "Automată",
     disarm_confirm: "Dezarmezi alarma?",
+    activity: "Activitate",
+    no_activity: "Nicio activitate",
+    show_activity: "Afișează activitatea recentă (jurnal)",
+    activity_count: "Evenimente afișate în activitate",
+    activity_hours: "Perioada activității (ore)",
   },
   da: {
     title: "Alarm",
@@ -907,6 +962,11 @@ const STRINGS = {
     language: "Sprog",
     lang_auto: "Automatisk",
     disarm_confirm: "Frakobl alarmen?",
+    activity: "Aktivitet",
+    no_activity: "Ingen aktivitet",
+    show_activity: "Vis seneste aktivitet (logbog)",
+    activity_count: "Viste hændelser",
+    activity_hours: "Aktivitetsperiode (timer)",
   },
   sv: {
     title: "Larm",
@@ -979,6 +1039,11 @@ const STRINGS = {
     language: "Språk",
     lang_auto: "Automatiskt",
     disarm_confirm: "Larma av larmet?",
+    activity: "Aktivitet",
+    no_activity: "Ingen aktivitet",
+    show_activity: "Visa senaste aktivitet (loggbok)",
+    activity_count: "Visade händelser",
+    activity_hours: "Aktivitetsperiod (timmar)",
   },
   bg: {
     title: "Аларма",
@@ -1051,6 +1116,11 @@ const STRINGS = {
     language: "Език",
     lang_auto: "Автоматично",
     disarm_confirm: "Изключване на алармата?",
+    activity: "Активност",
+    no_activity: "Няма активност",
+    show_activity: "Показване на скорошната активност (дневник)",
+    activity_count: "Брой показани събития",
+    activity_hours: "Период на активността (часове)",
   },
   ru: {
     title: "Сигнализация",
@@ -1123,6 +1193,11 @@ const STRINGS = {
     language: "Язык",
     lang_auto: "Автоматически",
     disarm_confirm: "Снять сигнализацию с охраны?",
+    activity: "Активность",
+    no_activity: "Нет активности",
+    show_activity: "Показывать недавнюю активность (журнал)",
+    activity_count: "Количество показанных событий",
+    activity_hours: "Период активности (часы)",
   },
   uk: {
     title: "Сигналізація",
@@ -1195,6 +1270,11 @@ const STRINGS = {
     language: "Мова",
     lang_auto: "Автоматично",
     disarm_confirm: "Зняти сигналізацію з охорони?",
+    activity: "Активність",
+    no_activity: "Немає активності",
+    show_activity: "Показувати нещодавню активність (журнал)",
+    activity_count: "Кількість показаних подій",
+    activity_hours: "Період активності (години)",
   },
   hu: {
     title: "Riasztó",
@@ -1267,6 +1347,11 @@ const STRINGS = {
     language: "Nyelv",
     lang_auto: "Automatikus",
     disarm_confirm: "Hatástalanítja a riasztót?",
+    activity: "Aktivitás",
+    no_activity: "Nincs aktivitás",
+    show_activity: "Legutóbbi aktivitás megjelenítése (napló)",
+    activity_count: "Megjelenített események száma",
+    activity_hours: "Aktivitás időszaka (óra)",
   },
   sk: {
     title: "Alarm",
@@ -1339,6 +1424,11 @@ const STRINGS = {
     language: "Jazyk",
     lang_auto: "Automaticky",
     disarm_confirm: "Odistiť alarm?",
+    activity: "Aktivita",
+    no_activity: "Žiadna aktivita",
+    show_activity: "Zobraziť nedávnu aktivitu (denník)",
+    activity_count: "Počet zobrazených udalostí",
+    activity_hours: "Obdobie aktivity (hodiny)",
   },
   cs: {
     title: "Alarm",
@@ -1411,6 +1501,11 @@ const STRINGS = {
     language: "Jazyk",
     lang_auto: "Automaticky",
     disarm_confirm: "Odjistit alarm?",
+    activity: "Aktivita",
+    no_activity: "Žádná aktivita",
+    show_activity: "Zobrazit nedávnou aktivitu (deník)",
+    activity_count: "Počet zobrazených událostí",
+    activity_hours: "Období aktivity (hodiny)",
   },
   sl: {
     title: "Alarm",
@@ -1483,6 +1578,11 @@ const STRINGS = {
     language: "Jezik",
     lang_auto: "Samodejno",
     disarm_confirm: "Izklopim alarm?",
+    activity: "Dejavnost",
+    no_activity: "Ni dejavnosti",
+    show_activity: "Prikaži nedavno dejavnost (dnevnik)",
+    activity_count: "Število prikazanih dogodkov",
+    activity_hours: "Obdobje dejavnosti (ure)",
   },
   lv: {
     title: "Signalizācija",
@@ -1555,6 +1655,11 @@ const STRINGS = {
     language: "Valoda",
     lang_auto: "Automātiski",
     disarm_confirm: "Izslēgt signalizāciju?",
+    activity: "Aktivitāte",
+    no_activity: "Nav aktivitātes",
+    show_activity: "Rādīt nesenās darbības (žurnāls)",
+    activity_count: "Parādīto notikumu skaits",
+    activity_hours: "Aktivitātes periods (stundas)",
   },
   el: {
     title: "Συναγερμός",
@@ -1627,6 +1732,11 @@ const STRINGS = {
     language: "Γλώσσα",
     lang_auto: "Αυτόματα",
     disarm_confirm: "Αφόπλιση του συναγερμού;",
+    activity: "Δραστηριότητα",
+    no_activity: "Καμία δραστηριότητα",
+    show_activity: "Εμφάνιση πρόσφατης δραστηριότητας (ημερολόγιο)",
+    activity_count: "Πλήθος εμφανιζόμενων συμβάντων",
+    activity_hours: "Περίοδος δραστηριότητας (ώρες)",
   },
 };
 
@@ -1777,6 +1887,28 @@ const firstPanel = (hass) =>
     : undefined;
 
 const entityList = (v) => (Array.isArray(v) ? v : v && typeof v === "object" ? Object.keys(v) : []);
+
+// The arm mode of an `alarmo_failed_to_arm` event: its `command` ("arm_away"), or its `mode` ("away"). null
+// when it names no known mode (the result goes into class attributes).
+const failedMode = (d) => {
+  const cmd = String(d?.command || "");
+  const m = cmd.startsWith("arm_") ? cmd : d?.mode ? `arm_${String(d.mode).replace(/^armed_/, "")}` : "";
+  const mode = m === "arm_custom" ? "arm_custom_bypass" : m;
+  return MODE_ICON[mode] ? mode : null;
+};
+
+// An `alarmo_failed_to_arm` event is answered with the code just typed only this long after the card sent
+// the arming: later, the code pad asks again.
+const FAILED_ARM_MS = 15000;
+
+// Activity: the panel's arm / disarm / trigger changes from the logbook, newest first. Entries are
+// { when (s), state, context_user_id, context_name }.
+const ACTIVITY_STATES = /^(armed_\w+|disarmed|triggered)$/;
+const activityEntries = (list, count) =>
+  (Array.isArray(list) ? list : [])
+    .filter((e) => ACTIVITY_STATES.test(String(e?.state ?? "")) && Number.isFinite(Number(e.when)))
+    .sort((a, b) => b.when - a.when)
+    .slice(0, count);
 
 // Same values, compared by identity: used to skip a render when nothing the card shows has changed.
 const sameSig = (a, b) => !!a && !!b && a.length === b.length && a.every((v, i) => v === b[i]);
@@ -2004,6 +2136,7 @@ class AlarmBase extends HTMLElement {
     this._startClock();
     document.addEventListener("click", this._onOutside, true);
     if (this._confirm || this._pad) window.addEventListener("keydown", this._onKey);
+    if (this._hass && this._config) this._syncAlarmoSub();
   }
 
   disconnectedCallback() {
@@ -2012,6 +2145,52 @@ class AlarmBase extends HTMLElement {
     this._timerPeriod = null;
     document.removeEventListener("click", this._onOutside, true);
     window.removeEventListener("keydown", this._onKey);
+    this._unsubAlarmo();
+    this._lastArm = null;
+  }
+
+  // Alarmo refuses to arm with a sensor open and fires `alarmo_failed_to_arm` instead: the card listens to it
+  // while it shows an Alarmo panel. Home Assistant lets only administrators subscribe to that event: for
+  // other users the subscription fails, quietly, and is not retried.
+  _syncAlarmoSub() {
+    const want = this.isConnected && this._hass?.connection?.subscribeEvents && this._isAlarmo() ? this._entityId() : null;
+    if (want === this._subFor) return;
+    this._unsubAlarmo();
+    if (!want) return;
+    this._subFor = want;
+    this._sub = Promise.resolve(this._hass.connection.subscribeEvents((ev) => this._onFailedToArm(ev), "alarmo_failed_to_arm")).catch(() => null);
+  }
+
+  _unsubAlarmo() {
+    const sub = this._sub;
+    this._sub = null;
+    this._subFor = null;
+    sub?.then((unsub) => unsub?.()).catch(() => {});
+  }
+
+  // The panel this card shows failed to arm because of open sensors: popup at the top of the card listing
+  // them, with "Arm anyway" re-arming through `alarmo.arm` with `force: true`. Shown when the event names this
+  // panel (to the user who tried to arm, when it says who), or, from an Alarmo that leaves the panel out of
+  // the event, when this card has just sent the arming.
+  _onFailedToArm(ev) {
+    const d = ev?.data || {};
+    if (d.reason && d.reason !== "open_sensors") return;
+    const open = entityList(d.sensors ?? d.open_sensors);
+    if (!open.length || !this._hass || !this._config) return;
+    const mine = !!this._lastArm && Date.now() - this._lastArm.at < FAILED_ARM_MS;
+    if (d.entity_id ? d.entity_id !== this._entityId() : !mine) return;
+    const uid = ev.context?.user_id;
+    if (!mine && uid && this._hass.user?.id && uid !== this._hass.user.id) return;
+    const mode = failedMode(d) || (mine ? this._lastArm.mode : null);
+    if (!mode) return;
+    const code = mine && this._lastArm.mode === mode ? this._lastArm.code : undefined;
+    this._lastArm = null;
+    this._openConfirm({
+      text: this._t("open_confirm", { list: open.map((id) => this._sensorName(id)).join(", "), mode: this._label(mode) }),
+      ok: this._t("arm_anyway"),
+      cls: stateClass(`armed_${mode.slice(4)}`),
+      run: () => (code ? this._send(mode, code, true) : this._withCode(mode, true)),
+    });
   }
 
   // (Re)arm the render clock at the pace the current state needs. State changes themselves arrive through
@@ -2095,6 +2274,7 @@ class AlarmBase extends HTMLElement {
   _update(sig) {
     if (!this._hass || !this._config) return;
     if (this.isConnected) this._startClock();
+    this._syncAlarmoSub();
     this._sig = sig ?? this._signature();
     let html = this._render();
     if (this._confirm) html = html.replace(/<ha-card([^>]*)>([\s\S]*)<\/ha-card>\s*$/, (_, _attrs, inner) => `<ha-card class="dialog-open">${inner}${this._confirmHtml()}</ha-card>`);
@@ -2254,6 +2434,8 @@ class AlarmBase extends HTMLElement {
   // service would be refused); other integrations decide for themselves.
   _send(mode, code, force = false) {
     const entity_id = this._entityId();
+    // Remembered briefly for Alarmo's "failed to arm" popup (see _onFailedToArm).
+    this._lastArm = !force && mode !== "disarm" ? { mode, code, at: Date.now() } : null;
     if (force && mode !== "disarm" && this._isAlarmo())
       return this._call("alarmo", "arm", { entity_id, mode: mode.slice(4).replace("custom_bypass", "custom"), force: true, ...(code ? { code } : {}) });
     return this._call("alarm_control_panel", `alarm_${mode}`, { entity_id, ...(code ? { code } : {}) });
@@ -2488,6 +2670,12 @@ const FULL_STYLE = `
   .tile .k { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tile .v { font-size: 11px; color: ${textColor("var(--c, var(--secondary-text-color))")}; white-space: nowrap; }
   .tile.on { background: color-mix(in srgb, var(--c) 12%, var(--secondary-background-color, transparent)); }
+  .acts { display: flex; flex-direction: column; gap: 6px; }
+  .act { display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 2px; font-size: 13px; min-width: 0; }
+  .act-state { color: ${textColor("var(--c)")}; font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
+  .act-by { flex: 1 1 auto; min-width: 0; color: var(--secondary-text-color); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .act-time { margin-left: auto; flex: none; color: var(--secondary-text-color); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .act-empty { font-size: 12px; color: var(--secondary-text-color); }
 `;
 
 class AlarmCard extends AlarmBase {
@@ -2502,7 +2690,7 @@ class AlarmCard extends AlarmBase {
 
   getCardSize() {
     // HA may ask before setConfig: no config yet, answer the bare card's size.
-    return this._config ? 5 + Math.ceil(this._sensors().length / 2) : 5;
+    return this._config ? 5 + Math.ceil(this._sensors().length / 2) + (this._config.show_activity === true ? 2 : 0) : 5;
   }
 
   getGridOptions() {
@@ -2516,6 +2704,7 @@ class AlarmCard extends AlarmBase {
     const parts = [this._hero(st)];
     if (c.show_controls !== false) parts.push(`<div class="modes">${this._modeButtons(st)}</div>`, this._padHtml(st));
     if (c.show_sensors !== false) parts.push(this._sensorSection());
+    if (c.show_activity === true) parts.push(this._activitySection(st));
     return `<style>${BASE_STYLE}${FULL_STYLE}</style>${STRUT}
       <ha-card>
         ${this._header(st)}
@@ -2568,6 +2757,83 @@ class AlarmCard extends AlarmBase {
       <div class="section-title toggle" role="button" tabindex="0" data-action="toggle_section" data-section="sensors" aria-expanded="${!closed}">${svgIcon(ICONS.door)}${esc(this._t("sensors"))}
         <span class="chip ${open ? "away" : "off"}">${esc(open ? this._t("n_open", { n: open }) : this._t("all_closed"))}</span>${svgIcon(ICONS.chevron_down, "chevron")}</div>
       ${closed ? "" : `<div class="tiles">${tiles.join("")}</div>`}
+    </div>`;
+  }
+
+  // ----- Activity (logbook) --------------------------------------------------
+
+  _activityHours() {
+    return Math.min(168, Math.max(1, Number(this._config.activity_hours) || 24));
+  }
+
+  // The panel's changes over the period, fetched again when its state changes, the period changes, and every
+  // 10 minutes (the window slides). A late answer for an older request is dropped.
+  _fetchActivity(st) {
+    const hours = this._activityHours();
+    const key = `${st.entity_id}|${st.last_changed}|${hours}|${Math.floor(Date.now() / 600000)}`;
+    if (key === this._activityKey || !this._hass.callWS) return;
+    this._activityKey = key;
+    const entity = st.entity_id;
+    const start_time = new Date(Date.now() - hours * 3600000).toISOString();
+    Promise.resolve(this._hass.callWS({ type: "logbook/get_events", start_time, entity_ids: [entity] }))
+      .then((list) => {
+        if (this._activityKey !== key) return;
+        this._activity = { entity, list: Array.isArray(list) ? list : [] };
+        this._update();
+        this._fetchUsers();
+      })
+      .catch(() => {});
+  }
+
+  // Users with no person entity: names from Home Assistant's user list, which only administrators may read.
+  _fetchUsers() {
+    if (this._users || !this._hass.user?.is_admin || !this._hass.callWS) return;
+    if (!(this._activity?.list || []).some((e) => e.context_user_id && !this._userName(e.context_user_id))) return;
+    this._users = {};
+    Promise.resolve(this._hass.callWS({ type: "config/auth/list" }))
+      .then((users) => {
+        this._users = Object.fromEntries((Array.isArray(users) ? users : []).map((u) => [u.id, u.name]));
+        this._update();
+      })
+      .catch(() => {});
+  }
+
+  // Who made a change: the person linked to the user, the user itself, else nothing.
+  _userName(uid) {
+    if (!uid) return "";
+    const states = this._hass.states;
+    const person = Object.keys(states).find((id) => id.startsWith("person.") && states[id].attributes?.user_id === uid);
+    if (person) return states[person].attributes.friendly_name || person;
+    if (this._hass.user?.id === uid) return this._hass.user.name || "";
+    return this._users?.[uid] || "";
+  }
+
+  // When, as "3 hours ago" (like the last trigger), with the date and time in the tooltip.
+  _activityTime(sec) {
+    const l = intlLang(this._hass, this._config);
+    const ms = sec * 1000;
+    const abs = new Intl.DateTimeFormat(l, { dateStyle: "medium", timeStyle: "short" }).format(new Date(ms));
+    return `<span class="act-time" title="${esc(abs)}">${esc(ago(l, ms))}</span>`;
+  }
+
+  _activitySection(st) {
+    this._fetchActivity(st);
+    const hours = this._activityHours();
+    const list = this._activity?.entity === st.entity_id ? [...this._activity.list] : [];
+    // The logbook may not have the change that just happened yet: the panel's own state stands in for it.
+    const when = Date.parse(st.last_changed) / 1000;
+    if (Number.isFinite(when) && when * 1000 >= Date.now() - hours * 3600000 && !list.some((e) => e.state === st.state && Math.abs(e.when - when) < 5))
+      list.push({ when, state: st.state, context_user_id: st.context?.user_id });
+    const count = Math.min(50, Math.max(1, Math.round(Number(this._config.activity_count) || 5)));
+    const rows = activityEntries(list, count).map((e) => {
+      const by = this._userName(e.context_user_id) || e.context_name || "";
+      return `<div class="act ${stateClass(e.state)}" data-key="act-${esc(e.when)}"><span class="dot"></span><span class="act-state">${esc(this._stateText({ state: e.state }))}</span>${
+        by ? `<span class="act-by">${esc(this._t("by", { name: by }))}</span>` : ""
+      }${this._activityTime(Number(e.when))}</div>`;
+    });
+    return `<div>
+      <div class="section-title">${svgIcon(ICONS.history)}${esc(this._t("activity"))}</div>
+      ${rows.length ? `<div class="acts">${rows.join("")}</div>` : `<div class="act-empty">${esc(this._t("no_activity"))}</div>`}
     </div>`;
   }
 }
@@ -2739,6 +3005,19 @@ class AlarmEditorBase extends HTMLElement {
       { name: "modes", selector: { select: { multiple: true, mode: "list", options: all.map((m) => ({ value: m, label: tr(m) })) } } },
       { name: "sensors", selector: { entity: { domain: "binary_sensor", multiple: true } } },
       { type: "grid", name: "", schema: this.constructor.toggles.map(([name]) => ({ name, selector: { boolean: {} } })) },
+      // The activity's size and period, offered once the activity is on.
+      ...(this._config.show_activity === true
+        ? [
+            {
+              type: "grid",
+              name: "",
+              schema: [
+                { name: "activity_count", selector: { number: { min: 1, max: 50, mode: "box" } } },
+                { name: "activity_hours", selector: { number: { min: 1, max: 168, mode: "box", unit_of_measurement: "h" } } },
+              ],
+            },
+          ]
+        : []),
       {
         name: "language",
         selector: {
@@ -2813,7 +3092,7 @@ class AlarmEditorBase extends HTMLElement {
       this._dataFor = this._config;
       this._form.data = data;
     }
-    const key = `${lang(this._hass, this._config)}|${data.entity}|${this._hass.states[data.entity]?.attributes?.supported_features}`;
+    const key = `${lang(this._hass, this._config)}|${data.entity}|${this._hass.states[data.entity]?.attributes?.supported_features}|${this._config.show_activity === true}`;
     if (this._schemaFor !== key) {
       this._schemaFor = key;
       this._form.schema = this._schema();
@@ -2830,22 +3109,16 @@ class AlarmCardEditor extends AlarmEditorBase {
       ["show_info", true],
       ["confirm_disarm", true],
       ["collapsed", false],
+      ["show_activity", false],
     ];
   }
 }
 
 class AlarmMiniCardEditor extends AlarmEditorBase {
+  // The full card's options (the sensors and the activity apply to the zoomed view, which renders the full
+  // card with the same options), and the detail button.
   static get toggles() {
-    return [
-      ["show_logo", true],
-      ["show_controls", true],
-      // Both apply to the zoomed view, which renders the full card with the same options.
-      ["show_sensors", true],
-      ["show_info", true],
-      ["confirm_disarm", true],
-      ["collapsed", false],
-      ["zoom", true],
-    ];
+    return [...AlarmCardEditor.toggles, ["zoom", true]];
   }
 }
 
