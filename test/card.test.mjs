@@ -771,3 +771,35 @@ test("Alarmo: the mini card listens too", () => {
   failed(hass, { ...FAIL, command: "arm_home" });
   assert.match(card.shadowRoot.innerHTML, /Arm home anyway\?/);
 });
+
+test("number pad: the live region reads how many digits were typed (translated), the dots are hidden from screen readers", () => {
+  const card = newCard(makeHass(withCode), { language: "fr" });
+  click(card, { action: "mode", mode: "disarm" });
+  const live = () => card.shadowRoot.innerHTML.match(/<div class="dots" aria-live="polite">([\s\S]*?)<\/div>/)[1];
+  assert.doesNotMatch(live(), /class="vh"/);
+  for (const d of ["1", "2", "3"]) click(card, { action: "key", digit: d });
+  assert.match(live(), /<span class="vh">Chiffres saisis : 3<\/span>/);
+  assert.equal((live().match(/<i aria-hidden="true"><\/i>/g) || []).length, 3);
+  click(card, { action: "key_back" });
+  assert.match(live(), /Chiffres saisis : 2</);
+});
+
+test("the logo's accessible name follows the card's language", () => {
+  for (const Cls of [al.AlarmCard, al.AlarmMiniCard]) {
+    assert.match(newCard(makeHass(), { language: "fr" }, Cls).shadowRoot.innerHTML, /role="img" aria-label="Alarme"/);
+    assert.match(newCard(makeHass(), { language: "de" }, Cls).shadowRoot.innerHTML, /role="img" aria-label="Alarmanlage"/);
+  }
+});
+
+test("Activity: the tooltip's time follows the profile's 12 / 24 h clock (time_format)", async () => {
+  const tip = async (time_format) => {
+    const hass = activityHass();
+    hass.locale = { language: "en", time_format };
+    const card = newCard(hass, { show_activity: true });
+    await tick();
+    return card.shadowRoot.innerHTML.match(/class="act-time" title="([^"]+)"/)[1];
+  };
+  assert.match(await tip("12"), /\d:\d\d\s?[AP]M$/);
+  assert.doesNotMatch(await tip("24"), /[AP]M/);
+  assert.match(await tip("24"), /\b\d\d:\d\d$/);
+});
