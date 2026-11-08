@@ -803,3 +803,68 @@ test("Activity: the tooltip's time follows the profile's 12 / 24 h clock (time_f
   assert.doesNotMatch(await tip("24"), /[AP]M/);
   assert.match(await tip("24"), /\b\d\d:\d\d$/);
 });
+
+test("confirm popup: described by its message, and the focus goes back to the button that opened it", () => {
+  const card = newCard(makeHass(armedAway));
+  const focused = [];
+  const opener = { isConnected: true, dataset: { key: "disarm" }, focus: (opts) => focused.push(opts) };
+  card.shadowRoot.activeElement = opener;
+  click(card, { action: "mode", mode: "disarm" });
+  assert.match(card.shadowRoot.innerHTML, /role="dialog" aria-modal="true" aria-describedby="confirm-msg">\s*<div class="msg" id="confirm-msg">/);
+  card.shadowRoot.activeElement = null; // the focus moved into the popup
+  click(card, { action: "confirm_cancel" });
+  assert.deepEqual(plain(focused), [{ preventScroll: true }]);
+  // Escape closes it too, and gives the focus back as well.
+  card._confirmClosedAt = 0; // past the double-click guard
+  card.shadowRoot.activeElement = opener;
+  click(card, { action: "mode", mode: "disarm" });
+  card._closeConfirm();
+  assert.equal(focused.length, 2);
+});
+
+test("code pad: the focus goes back to the mode button after OK or Cancel, found again if re-rendered", () => {
+  const card = newCard(makeHass(withCode));
+  const focused = [];
+  const button = { focus: (opts) => focused.push(["new", opts]) };
+  card.shadowRoot.activeElement = { isConnected: false, dataset: { key: "disarm" }, focus: () => focused.push(["old"]) };
+  card.shadowRoot.querySelector = (sel) => (sel === '[data-key="disarm"]' ? button : null);
+  click(card, { action: "mode", mode: "disarm" });
+  click(card, { action: "pad_cancel" });
+  assert.deepEqual(plain(focused), [["new", { preventScroll: true }]]);
+  click(card, { action: "mode", mode: "disarm" });
+  for (const d of ["1", "2", "3", "4"]) click(card, { action: "key", digit: d });
+  click(card, { action: "pad_ok" });
+  assert.equal(focused.length, 2);
+});
+
+test("cancelling the exit delay (arming) asks no disarm confirmation", () => {
+  for (const Cls of [al.AlarmCard, al.AlarmMiniCard]) {
+    const hass = makeHass(arming);
+    const card = newCard(hass, { confirm_disarm: true }, Cls);
+    click(card, { action: "mode", mode: "disarm" });
+    assert.doesNotMatch(card.shadowRoot.innerHTML, /Disarm the alarm\?/);
+    assert.deepEqual(plain(hass.calls), [["alarm_control_panel", "alarm_disarm", { entity_id: PANEL }]]);
+  }
+});
+
+test("Alarmo: one failed arming opens one popup, on the card that sent the arming", () => {
+  const hass = eventHass();
+  const other = connected(hass);
+  const otherCb = hass.subs.at(-1).cb;
+  const mine = connected(hass, {}, al.AlarmMiniCard);
+  const mineCb = hass.subs.at(-1).cb;
+  click(mine, { action: "mode", mode: "arm_away" });
+  const ev = (t) => ({ event_type: "alarmo_failed_to_arm", data: { ...FAIL, entity_id: PANEL }, context: { user_id: "u-alex" }, time_fired: t });
+  // The other card gets the event first: it shows it, until the card that armed gets it and takes it over.
+  otherCb(ev("2026-11-08T10:00:00Z"));
+  assert.match(other.shadowRoot.innerHTML, /dialog-open/);
+  mineCb(ev("2026-11-08T10:00:00Z"));
+  assert.match(mine.shadowRoot.innerHTML, /dialog-open/);
+  assert.doesNotMatch(other.shadowRoot.innerHTML, /dialog-open/);
+  // Armed from elsewhere (no card sent it): only the first card to get it shows it.
+  mine._closeConfirm();
+  mineCb(ev("2026-11-08T10:05:00Z"));
+  otherCb(ev("2026-11-08T10:05:00Z"));
+  assert.match(mine.shadowRoot.innerHTML, /dialog-open/);
+  assert.doesNotMatch(other.shadowRoot.innerHTML, /dialog-open/);
+});

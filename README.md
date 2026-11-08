@@ -139,7 +139,7 @@ zoom: true
 | `show_logo` | both | `true` | Show the card logo |
 | `show_controls` | both | `true` | Arm / disarm buttons |
 | `show_info` | both | `true` | Who changed the state and the last trigger (Alarmo) |
-| `confirm_disarm` | both | `true` without a code, `false` with one | Ask for confirmation before disarming. On by default when the panel needs no code, so one tap cannot disarm it; `false` turns it off. With a code, the code entry already protects disarming; `true` asks first as well |
+| `confirm_disarm` | both | `true` without a code, `false` with one | Ask for confirmation before disarming. On by default when the panel needs no code, so one tap cannot disarm it; `false` turns it off. With a code, the code entry already protects disarming; `true` asks first as well. Cancelling an exit delay never asks |
 | `show_sensors` | both | `true` | Sensors section (on the mini card: in its zoomed view) |
 | `collapsed` | both | `false` | Fold the sensors section by default, click its title to unfold it (on the mini card: in its zoomed view) |
 | `show_activity` | both | `false` | Activity section: the panel's latest arm, disarm and trigger changes from the logbook, with when (the exact time in the tooltip) and who (the person linked to the user, the user, or the automation) (on the mini card: in its zoomed view) |

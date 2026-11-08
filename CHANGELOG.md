@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.2 - 2026-11-08
+
+### Fixes
+- Cancelling an exit delay (panel arming) no longer asks "Disarm the alarm?": Cancel stops the arming at once (the code pad still opens when the panel needs a code).
+- Alarmo: when Alarmo refuses to arm, the "Arm anyway" popup opens on one card only, the one that sent the arming, instead of on every card showing the panel.
+- Accessibility: the confirmation popup is described by its message for screen readers, and closing the popup or the code pad gives the focus back to the button that opened it.
+
 ## 1.5.1 - 2026-11-07
 
 ### Fixes
