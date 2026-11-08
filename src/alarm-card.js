@@ -1933,6 +1933,21 @@ const failedMode = (d) => {
 // the arming: later, the code pad asks again.
 const FAILED_ARM_MS = 15000;
 
+// The same refusal reaches every card showing the panel: one card only shows its popup. The card that sent
+// the arming takes it (from another card that showed it first); else the first card to get it. Keyed on the
+// event's time (`time_fired`), the last few kept.
+const failedClaims = new Map();
+const claimFailure = (key, card, mine) => {
+  const other = failedClaims.get(key);
+  if (other && other !== card) {
+    if (!mine || other.mine) return false;
+    if (other.card._confirm?.failKey === key) other.card._closeConfirm(false);
+  }
+  failedClaims.set(key, { card, mine });
+  while (failedClaims.size > 20) failedClaims.delete(failedClaims.keys().next().value);
+  return true;
+};
+
 // Activity: the panel's arm / disarm / trigger changes from the logbook, newest first. Entries are
 // { when (s), state, context_user_id, context_name }.
 const ACTIVITY_STATES = /^(armed_\w+|disarmed|triggered)$/;
@@ -2219,8 +2234,11 @@ class AlarmBase extends HTMLElement {
     const mode = failedMode(d) || (mine ? this._lastArm.mode : null);
     if (!mode) return;
     const code = mine && this._lastArm.mode === mode ? this._lastArm.code : undefined;
+    const failKey = ev.time_fired;
+    if (failKey && !claimFailure(failKey, this, mine)) return;
     this._lastArm = null;
     this._openConfirm({
+      failKey,
       text: this._t("open_confirm", { list: open.map((id) => this._sensorName(id)).join(", "), mode: this._label(mode) }),
       ok: this._t("arm_anyway"),
       cls: stateClass(`armed_${mode.slice(4)}`),
@@ -2415,8 +2433,9 @@ class AlarmBase extends HTMLElement {
     if (mode === "disarm") {
       const go = () => this._withCode(mode);
       // Without a code, one tap would disarm: confirm by default (`confirm_disarm: false` turns it off). With
-      // a code, the code entry already guards it: confirm only when asked.
-      if (this._config.confirm_disarm ?? !this._needsCode(mode)) return this._openConfirm({ text: this._t("disarm_confirm"), ok: this._t("disarm"), cls: "off", run: go });
+      // a code, the code entry already guards it: confirm only when asked. Cancelling an exit delay (arming)
+      // is not a disarm of an armed panel: never asked.
+      if (this._panel()?.state !== "arming" && (this._config.confirm_disarm ?? !this._needsCode(mode))) return this._openConfirm({ text: this._t("disarm_confirm"), ok: this._t("disarm"), cls: "off", run: go });
       return go();
     }
     const open = this._openSensors();
@@ -2432,7 +2451,7 @@ class AlarmBase extends HTMLElement {
 
   _withCode(mode, force = false) {
     if (!this._needsCode(mode)) return this._send(mode, undefined, force);
-    this._pad = { mode, force };
+    this._pad = { mode, force, opener: this._opener() };
     this._code = "";
     window.addEventListener("keydown", this._onKey);
     this._update();
@@ -2470,10 +2489,26 @@ class AlarmBase extends HTMLElement {
   }
 
   _closePad() {
+    const opener = this._pad?.opener;
     this._pad = null;
     this._code = "";
     if (!this._confirm) window.removeEventListener("keydown", this._onKey);
     this._update();
+    this._restoreFocus(opener);
+  }
+
+  // The element that had the focus when the popup or the pad opened (a mode button): it gets the focus back
+  // when they close, found again by its data-key if the render replaced it.
+  _opener() {
+    const el = this.shadowRoot.activeElement;
+    return el ? { el, key: el.dataset?.key } : null;
+  }
+
+  _restoreFocus(opener) {
+    if (!opener) return;
+    const key = /^[\w-]+$/.test(opener.key || "") ? opener.key : null;
+    const el = opener.el?.isConnected ? opener.el : key && this.shadowRoot.querySelector?.(`[data-key="${key}"]`);
+    el?.focus?.({ preventScroll: true });
   }
 
   // Arm or disarm. Arming over open sensors goes through Alarmo's own service with `force` (the standard
@@ -2488,7 +2523,7 @@ class AlarmBase extends HTMLElement {
   }
 
   _openConfirm(confirm) {
-    this._confirm = confirm;
+    this._confirm = { ...confirm, opener: this._opener() };
     window.addEventListener("keydown", this._onKey);
     this._update();
     this.shadowRoot.querySelector?.(".modal .primary")?.focus({ preventScroll: true });
@@ -2502,18 +2537,20 @@ class AlarmBase extends HTMLElement {
     this.shadowRoot.querySelector?.(sel)?.scrollIntoView?.({ block: "nearest", inline: "nearest" });
   }
 
-  _closeConfirm() {
+  _closeConfirm(restore = true) {
+    const opener = this._confirm?.opener;
     this._confirm = null;
     this._confirmClosedAt = Date.now();
     if (!this._pad) window.removeEventListener("keydown", this._onKey);
     this._update();
+    if (restore) this._restoreFocus(opener);
   }
 
   _confirmHtml() {
     const c = this._confirm;
     return `<style>${DIALOG_STYLE}</style><div class="backdrop" data-action="confirm_backdrop">
-      <div class="modal" role="dialog" aria-modal="true">
-        <div class="msg">${esc(c.text)}</div>
+      <div class="modal" role="dialog" aria-modal="true" aria-describedby="confirm-msg">
+        <div class="msg" id="confirm-msg">${esc(c.text)}</div>
         <div class="modal-actions">
           <button class="btn" data-action="confirm_cancel"><span>${esc(this._t("cancel"))}</span></button>
           <button class="btn primary ${c.cls || ""}" data-action="confirm_ok"><span>${esc(c.ok)}</span></button>
