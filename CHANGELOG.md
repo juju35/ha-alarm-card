@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.0 - 2026-11-09
+
+### Features
+- **Cameras**: `cameras` lists camera entities whose latest snapshots show in a Cameras section while the alarm is triggered or its entry delay runs (`cameras_on_alarm: false` shows them always); a tap opens the camera's live view. Picked in the visual editor.
+
 ## 1.6.1 - 2026-11-09
 
 ### Fixes
