@@ -868,3 +868,19 @@ test("Alarmo: one failed arming opens one popup, on the card that sent the armin
   assert.match(mine.shadowRoot.innerHTML, /dialog-open/);
   assert.doesNotMatch(other.shadowRoot.innerHTML, /dialog-open/);
 });
+
+test("cameras: their snapshots while the alarm is triggered, always with cameras_on_alarm: false", () => {
+  const cam = { entity_id: "camera.hall", state: "idle", attributes: { friendly_name: "Hall", entity_picture: "/api/camera_proxy/camera.hall?token=abc" } };
+  const hass = makeHass({ "camera.hall": cam, "camera.gone": { entity_id: "camera.gone", state: "unavailable", attributes: {} } });
+  const card = newCard(hass, { cameras: ["camera.hall", "camera.gone", "sensor.not_a_camera"] });
+  const html = () => card._render();
+  // Disarmed: nothing.
+  assert.doesNotMatch(html(), /class="cams"/);
+  hass.states[PANEL] = { ...hass.states[PANEL], state: "triggered" };
+  assert.match(html(), /<div class="cam clickable" role="button" tabindex="0" data-entity="camera\.hall" title="Hall"><img src="\/api\/camera_proxy\/camera\.hall\?token=abc"/);
+  assert.match(html(), /data-entity="camera\.gone"[^>]*><div class="nocam">/);
+  assert.doesNotMatch(html(), /sensor\.not_a_camera/);
+  hass.states[PANEL] = { ...hass.states[PANEL], state: "disarmed" };
+  card.setConfig({ entity: PANEL, sensors, cameras: ["camera.hall"], cameras_on_alarm: false });
+  assert.match(html(), /class="cams"/);
+});

@@ -24,6 +24,8 @@ const ICONS = {
   unlock: "M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V10A2,2 0 0,1 6,8H15V6A3,3 0 0,0 12,3A3,3 0 0,0 9,6H7A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,17A2,2 0 0,0 14,15A2,2 0 0,0 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17Z",
   timer: "M12,20A7,7 0 0,1 5,13A7,7 0 0,1 12,6A7,7 0 0,1 19,13A7,7 0 0,1 12,20M19.03,7.39L20.45,5.97C20,5.46 19.55,5 19.04,4.56L17.62,6C16.07,4.74 14.12,4 12,4A9,9 0 0,0 3,13A9,9 0 0,0 12,22C17,22 21,17.97 21,13C21,10.88 20.26,8.93 19.03,7.39M11,14H13V8H11M15,1H9V3H15V1Z",
   alert: "M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z",
+  // mdi:cctv, the cameras section.
+  cctv: "M18.15,4.94C17.77,4.91 17.37,5 17,5.2L8.35,10.2C7.39,10.76 7.07,12 7.62,12.94L9.12,15.53C9.67,16.5 10.89,16.82 11.85,16.27L13.65,15.23C13.92,15.69 14.32,16.06 14.81,16.27V18.04C14.81,19.13 15.68,20 16.77,20H22V18.04H16.77V16.27C17.86,15.82 18.5,14.69 18.38,13.5L20.5,12.27C21.47,11.72 21.79,10.5 21.24,9.54L19.74,6.95C19.4,6.35 18.8,5 18.15,4.94M6.22,13.17L2,13.87L2.75,15.17L4.75,18.63L7.5,15.43L6.22,13.17Z",
   history:
     "M13.5,8H12V13L16.28,15.54L17,14.33L13.5,12.25V8M13,3A9,9 0 0,0 4,12H1L4.96,16.03L9,12H6A7,7 0 0,1 13,5A7,7 0 0,1 20,12A7,7 0 0,1 13,19C11.07,19 9.32,18.21 8.06,16.94L6.64,18.36C8.27,20 10.5,21 13,21A9,9 0 0,0 22,12A9,9 0 0,0 13,3",
   user: "M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z",
@@ -111,6 +113,10 @@ const STRINGS = {
     show_logo: "Show logo",
     show_controls: "Show arm / disarm buttons",
     show_sensors: "Show sensors",
+    cameras: "Cameras",
+    ed_cameras: "Cameras (shown while the alarm is triggered or counting down)",
+    cameras_on_alarm: "Show the cameras only while the alarm is triggered",
+    cameras_on_alarm_helper: "Off: always shown",
     show_info: "Show last trigger and who changed it",
     confirm_disarm: "Ask for confirmation before disarming",
     collapsed: "Fold the sensors by default",
@@ -187,6 +193,10 @@ const STRINGS = {
     show_logo: "Afficher le logo",
     show_controls: "Afficher les boutons d'armement",
     show_sensors: "Afficher les capteurs",
+    cameras: "Caméras",
+    ed_cameras: "Caméras (affichées pendant le déclenchement ou le compte à rebours)",
+    cameras_on_alarm: "Afficher les caméras seulement pendant un déclenchement",
+    cameras_on_alarm_helper: "Désactivé : toujours affichées",
     show_info: "Afficher le dernier déclenchement et l'auteur",
     confirm_disarm: "Demander confirmation avant de désarmer",
     collapsed: "Replier les capteurs par défaut",
@@ -263,6 +273,10 @@ const STRINGS = {
     show_logo: "Logo anzeigen",
     show_controls: "Schaltflächen zum Aktivieren/Deaktivieren anzeigen",
     show_sensors: "Sensoren anzeigen",
+    cameras: "Kameras",
+    ed_cameras: "Kameras (angezeigt bei Alarm oder Countdown)",
+    cameras_on_alarm: "Kameras nur bei ausgelöstem Alarm anzeigen",
+    cameras_on_alarm_helper: "Aus: immer angezeigt",
     show_info: "Letzte Auslösung und Urheber der Änderung anzeigen",
     confirm_disarm: "Vor dem Deaktivieren nachfragen",
     collapsed: "Sensoren standardmäßig einklappen",
@@ -339,6 +353,10 @@ const STRINGS = {
     show_logo: "Mostrar el logotipo",
     show_controls: "Mostrar los botones de armado",
     show_sensors: "Mostrar los sensores",
+    cameras: "Cámaras",
+    ed_cameras: "Cámaras (mostradas al dispararse o durante la cuenta atrás)",
+    cameras_on_alarm: "Mostrar las cámaras solo con la alarma disparada",
+    cameras_on_alarm_helper: "Desactivado: siempre visibles",
     show_info: "Mostrar el último disparo y quién cambió el estado",
     confirm_disarm: "Pedir confirmación antes de desarmar",
     collapsed: "Plegar los sensores por defecto",
@@ -417,6 +435,10 @@ const STRINGS = {
     show_logo: "Прикажи лого",
     show_controls: "Прикажи дугмад за активирање / деактивирање",
     show_sensors: "Прикажи сензоре",
+    cameras: "Камере",
+    ed_cameras: "Камере (приказане током узбуне или одбројавања)",
+    cameras_on_alarm: "Прикажи камере само током узбуне",
+    cameras_on_alarm_helper: "Искључено: увек приказане",
     show_info: "Прикажи последње окидање и ко је променио статус",
     confirm_disarm: "Тражи потврду пре деактивирања",
     collapsed: "Подразумевано скупи приказ сензора",
@@ -495,6 +517,10 @@ const STRINGS = {
     show_logo: "Prikaži logo",
     show_controls: "Prikaži dugmad za aktiviranje / deaktiviranje",
     show_sensors: "Prikaži senzore",
+    cameras: "Kamere",
+    ed_cameras: "Kamere (prikazane tokom uzbune ili odbrojavanja)",
+    cameras_on_alarm: "Prikaži kamere samo tokom uzbune",
+    cameras_on_alarm_helper: "Isključeno: uvek prikazane",
     show_info: "Prikaži poslednje okidanje i ko je promenio status",
     confirm_disarm: "Traži potvrdu pre deaktiviranja",
     collapsed: "Podrazumevano skupi prikaz senzora",
@@ -573,6 +599,10 @@ const STRINGS = {
     show_logo: "Mostra il logo",
     show_controls: "Mostra i pulsanti di attivazione / disattivazione",
     show_sensors: "Mostra i sensori",
+    cameras: "Telecamere",
+    ed_cameras: "Telecamere (mostrate durante l'allarme o il conto alla rovescia)",
+    cameras_on_alarm: "Mostra le telecamere solo con l'allarme scattato",
+    cameras_on_alarm_helper: "Disattivato: sempre visibili",
     show_info: "Mostra l'ultimo allarme e chi ha cambiato lo stato",
     confirm_disarm: "Chiedi conferma prima di disattivare",
     collapsed: "Comprimi i sensori per impostazione predefinita",
@@ -651,6 +681,10 @@ const STRINGS = {
     show_logo: "Logo tonen",
     show_controls: "Knoppen voor in- / uitschakelen tonen",
     show_sensors: "Sensoren tonen",
+    cameras: "Camera's",
+    ed_cameras: "Camera's (getoond bij alarm of tijdens het aftellen)",
+    cameras_on_alarm: "Camera's alleen tonen bij een alarm",
+    cameras_on_alarm_helper: "Uit: altijd getoond",
     show_info: "Laatste alarm en wie de status wijzigde tonen",
     confirm_disarm: "Om bevestiging vragen voor het uitschakelen",
     collapsed: "Sensoren standaard inklappen",
@@ -729,6 +763,10 @@ const STRINGS = {
     show_logo: "Mostrar o logótipo",
     show_controls: "Mostrar os botões de armar / desarmar",
     show_sensors: "Mostrar os sensores",
+    cameras: "Câmaras",
+    ed_cameras: "Câmaras (mostradas com o alarme disparado ou na contagem decrescente)",
+    cameras_on_alarm: "Mostrar as câmaras só com o alarme disparado",
+    cameras_on_alarm_helper: "Desligado: sempre visíveis",
     show_info: "Mostrar o último disparo e quem alterou o estado",
     confirm_disarm: "Pedir confirmação antes de desarmar",
     collapsed: "Recolher os sensores por predefinição",
@@ -807,6 +845,10 @@ const STRINGS = {
     show_logo: "Pokaż logo",
     show_controls: "Pokaż przyciski uzbrajania / rozbrajania",
     show_sensors: "Pokaż czujniki",
+    cameras: "Kamery",
+    ed_cameras: "Kamery (widoczne podczas alarmu lub odliczania)",
+    cameras_on_alarm: "Pokaż kamery tylko podczas alarmu",
+    cameras_on_alarm_helper: "Wyłączone: zawsze widoczne",
     show_info: "Pokaż ostatnie wyzwolenie i kto zmienił stan",
     confirm_disarm: "Pytaj o potwierdzenie przed rozbrojeniem",
     collapsed: "Domyślnie zwijaj czujniki",
@@ -885,6 +927,10 @@ const STRINGS = {
     show_logo: "Afișează logoul",
     show_controls: "Afișează butoanele de armare / dezarmare",
     show_sensors: "Afișează senzorii",
+    cameras: "Camere",
+    ed_cameras: "Camere (afișate în timpul alarmei sau al numărătorii inverse)",
+    cameras_on_alarm: "Afișează camerele doar când alarma e declanșată",
+    cameras_on_alarm_helper: "Dezactivat: mereu afișate",
     show_info: "Afișează ultima declanșare și cine a schimbat starea",
     confirm_disarm: "Cere confirmare înainte de dezarmare",
     collapsed: "Restrânge senzorii în mod implicit",
@@ -963,6 +1009,10 @@ const STRINGS = {
     show_logo: "Vis logo",
     show_controls: "Vis knapper til til- / frakobling",
     show_sensors: "Vis sensorer",
+    cameras: "Kameraer",
+    ed_cameras: "Kameraer (vist ved alarm eller nedtælling)",
+    cameras_on_alarm: "Vis kun kameraerne, når alarmen er udløst",
+    cameras_on_alarm_helper: "Fra: altid vist",
     show_info: "Vis sidste udløsning og hvem der ændrede tilstanden",
     confirm_disarm: "Bed om bekræftelse før frakobling",
     collapsed: "Fold sensorerne sammen som standard",
@@ -1041,6 +1091,10 @@ const STRINGS = {
     show_logo: "Visa logotyp",
     show_controls: "Visa knappar för på- / avlarmning",
     show_sensors: "Visa sensorer",
+    cameras: "Kameror",
+    ed_cameras: "Kameror (visas vid larm eller nedräkning)",
+    cameras_on_alarm: "Visa kamerorna endast när larmet har gått",
+    cameras_on_alarm_helper: "Av: visas alltid",
     show_info: "Visa senaste utlösning och vem som ändrade läget",
     confirm_disarm: "Be om bekräftelse innan avlarmning",
     collapsed: "Fäll ihop sensorerna som standard",
@@ -1119,6 +1173,10 @@ const STRINGS = {
     show_logo: "Показване на логото",
     show_controls: "Показване на бутоните за включване / изключване",
     show_sensors: "Показване на сензорите",
+    cameras: "Камери",
+    ed_cameras: "Камери (показвани при задействане или обратно броене)",
+    cameras_on_alarm: "Показване на камерите само при задействана аларма",
+    cameras_on_alarm_helper: "Изключено: винаги показвани",
     show_info: "Показване на последното задействане и кой е променил състоянието",
     confirm_disarm: "Искане на потвърждение преди изключване",
     collapsed: "Сензорите са свити по подразбиране",
@@ -1197,6 +1255,10 @@ const STRINGS = {
     show_logo: "Показывать логотип",
     show_controls: "Показывать кнопки постановки / снятия с охраны",
     show_sensors: "Показывать датчики",
+    cameras: "Камеры",
+    ed_cameras: "Камеры (видны при срабатывании или обратном отсчёте)",
+    cameras_on_alarm: "Показывать камеры только при сработавшей тревоге",
+    cameras_on_alarm_helper: "Выкл.: видны всегда",
     show_info: "Показывать последнюю тревогу и кто изменил состояние",
     confirm_disarm: "Запрашивать подтверждение перед снятием с охраны",
     collapsed: "Сворачивать датчики по умолчанию",
@@ -1275,6 +1337,10 @@ const STRINGS = {
     show_logo: "Показувати логотип",
     show_controls: "Показувати кнопки постановки / зняття з охорони",
     show_sensors: "Показувати датчики",
+    cameras: "Камери",
+    ed_cameras: "Камери (видно під час тривоги чи зворотного відліку)",
+    cameras_on_alarm: "Показувати камери лише під час тривоги",
+    cameras_on_alarm_helper: "Вимк.: видно завжди",
     show_info: "Показувати останню тривогу і хто змінив стан",
     confirm_disarm: "Запитувати підтвердження перед зняттям з охорони",
     collapsed: "Типово згортати датчики",
@@ -1353,6 +1419,10 @@ const STRINGS = {
     show_logo: "Logó megjelenítése",
     show_controls: "Élesítő / hatástalanító gombok megjelenítése",
     show_sensors: "Érzékelők megjelenítése",
+    cameras: "Kamerák",
+    ed_cameras: "Kamerák (riasztáskor vagy visszaszámláláskor láthatók)",
+    cameras_on_alarm: "Kamerák megjelenítése csak riasztáskor",
+    cameras_on_alarm_helper: "Ki: mindig láthatók",
     show_info: "Utolsó riasztás és az állapotot módosító személy megjelenítése",
     confirm_disarm: "Megerősítés kérése hatástalanítás előtt",
     collapsed: "Érzékelők alapértelmezett összecsukása",
@@ -1431,6 +1501,10 @@ const STRINGS = {
     show_logo: "Zobraziť logo",
     show_controls: "Zobraziť tlačidlá zabezpečenia / odistenia",
     show_sensors: "Zobraziť senzory",
+    cameras: "Kamery",
+    ed_cameras: "Kamery (zobrazené počas poplachu alebo odpočítavania)",
+    cameras_on_alarm: "Zobraziť kamery len počas poplachu",
+    cameras_on_alarm_helper: "Vypnuté: vždy zobrazené",
     show_info: "Zobraziť posledný poplach a kto zmenil stav",
     confirm_disarm: "Pred odistením požiadať o potvrdenie",
     collapsed: "Predvolene zbaliť senzory",
@@ -1509,6 +1583,10 @@ const STRINGS = {
     show_logo: "Zobrazit logo",
     show_controls: "Zobrazit tlačítka zajištění / odjištění",
     show_sensors: "Zobrazit senzory",
+    cameras: "Kamery",
+    ed_cameras: "Kamery (zobrazené během poplachu nebo odpočtu)",
+    cameras_on_alarm: "Zobrazit kamery jen během poplachu",
+    cameras_on_alarm_helper: "Vypnuto: vždy zobrazené",
     show_info: "Zobrazit poslední poplach a kdo změnil stav",
     confirm_disarm: "Před odjištěním žádat o potvrzení",
     collapsed: "Ve výchozím stavu sbalit senzory",
@@ -1587,6 +1665,10 @@ const STRINGS = {
     show_logo: "Prikaži logotip",
     show_controls: "Prikaži gumbe za vklop / izklop",
     show_sensors: "Prikaži senzorje",
+    cameras: "Kamere",
+    ed_cameras: "Kamere (prikazane med alarmom ali odštevanjem)",
+    cameras_on_alarm: "Prikaži kamere samo med alarmom",
+    cameras_on_alarm_helper: "Izklopljeno: vedno prikazane",
     show_info: "Prikaži zadnji alarm in kdo je spremenil stanje",
     confirm_disarm: "Pred izklopom zahtevaj potrditev",
     collapsed: "Privzeto strni senzorje",
@@ -1665,6 +1747,10 @@ const STRINGS = {
     show_logo: "Rādīt logotipu",
     show_controls: "Rādīt ieslēgšanas / izslēgšanas pogas",
     show_sensors: "Rādīt sensorus",
+    cameras: "Kameras",
+    ed_cameras: "Kameras (redzamas trauksmes vai atpakaļskaitīšanas laikā)",
+    cameras_on_alarm: "Rādīt kameras tikai trauksmes laikā",
+    cameras_on_alarm_helper: "Izslēgts: vienmēr redzamas",
     show_info: "Rādīt pēdējo trauksmi un to, kas mainīja stāvokli",
     confirm_disarm: "Pirms izslēgšanas lūgt apstiprinājumu",
     collapsed: "Pēc noklusējuma sakļaut sensorus",
@@ -1743,6 +1829,10 @@ const STRINGS = {
     show_logo: "Εμφάνιση λογότυπου",
     show_controls: "Εμφάνιση κουμπιών όπλισης / αφόπλισης",
     show_sensors: "Εμφάνιση αισθητήρων",
+    cameras: "Κάμερες",
+    ed_cameras: "Κάμερες (εμφανίζονται όταν ενεργοποιείται ο συναγερμός ή κατά την αντίστροφη μέτρηση)",
+    cameras_on_alarm: "Εμφάνιση των καμερών μόνο όταν ενεργοποιείται ο συναγερμός",
+    cameras_on_alarm_helper: "Ανενεργό: εμφανίζονται πάντα",
     show_info: "Εμφάνιση τελευταίας ενεργοποίησης και ποιος άλλαξε την κατάσταση",
     confirm_disarm: "Αίτημα επιβεβαίωσης πριν από την αφόπλιση",
     collapsed: "Σύμπτυξη αισθητήρων από προεπιλογή",
@@ -2321,6 +2411,7 @@ class AlarmBase extends HTMLElement {
     const sig = [h.language, h.locale?.language, h.locale?.time_format, h.entities, panel, remaining(panel) ? Math.floor(now / 1000) : Math.floor(now / 60000)];
     const a = panel?.attributes || {};
     for (const id of [...this._sensors().map((s) => s.entity), ...entityList(a.open_sensors), ...entityList(a.bypassed_sensors)]) sig.push(h.states[id]);
+    for (const id of this._cameras()) sig.push(h.states[id]?.attributes?.entity_picture, h.states[id]?.state);
     return sig;
   }
 
@@ -2750,6 +2841,12 @@ const FULL_STYLE = `
   .section-title.toggle[aria-expanded="false"] .chevron { transform: rotate(-90deg); }
   @media (prefers-reduced-motion: reduce) { .section-title .chevron { transition: none; } }
   .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(140px, 100%), 1fr)); gap: 6px; }
+  .cams { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr)); gap: 6px; }
+  .cam { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--secondary-background-color); }
+  .cam img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cam .nocam { display: grid; place-items: center; height: 100%; color: var(--secondary-text-color); }
+  .cam-name { position: absolute; left: 6px; bottom: 6px; padding: 2px 8px; border-radius: 999px; font-size: 11px;
+              background: rgba(0, 0, 0, 0.55); color: #fff; max-width: calc(100% - 12px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .tile { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 10px; min-width: 0;
           background: var(--secondary-background-color, rgba(127,127,127,.08)); }
   .tile .icon { width: 20px; height: 20px; color: var(--c, var(--secondary-text-color)); }
@@ -2791,6 +2888,7 @@ class AlarmCard extends AlarmBase {
     const parts = [this._hero(st)];
     if (c.show_controls !== false) parts.push(`<div class="modes">${this._modeButtons(st)}</div>`, this._padHtml(st));
     if (c.show_sensors !== false) parts.push(this._sensorSection());
+    parts.push(this._cameraSection(st));
     if (c.show_activity === true) parts.push(this._activitySection(st));
     return `<style>${BASE_STYLE}${FULL_STYLE}</style>${STRUT}
       <ha-card>
@@ -2844,6 +2942,31 @@ class AlarmCard extends AlarmBase {
       <div class="section-title toggle" role="button" tabindex="0" data-action="toggle_section" data-section="sensors" aria-expanded="${!closed}">${svgIcon(ICONS.door)}${esc(this._t("sensors"))}
         <span class="chip ${open ? "away" : "off"}">${esc(open ? this._t("n_open", { n: open }) : this._t("all_closed"))}</span>${svgIcon(ICONS.chevron_down, "chevron")}</div>
       ${closed ? "" : `<div class="tiles">${tiles.join("")}</div>`}
+    </div>`;
+  }
+
+  // ----- Cameras ----------------------------------------------------------------
+
+  _cameras() {
+    return (Array.isArray(this._config.cameras) ? this._config.cameras : []).filter((id) => typeof id === "string" && id.startsWith("camera."));
+  }
+
+  // The cameras' latest snapshots (their entity picture, which carries its access token), while the alarm is
+  // triggered or counting down to it (`cameras_on_alarm`, by default), else always. A tap opens the camera.
+  _cameraSection(st) {
+    const ids = this._cameras();
+    if (!ids.length) return "";
+    if (this._config.cameras_on_alarm !== false && !["triggered", "pending"].includes(st.state)) return "";
+    const tiles = ids.map((id) => {
+      const cam = this._hass.states[id];
+      const pic = cam?.attributes?.entity_picture;
+      const name = cam?.attributes?.friendly_name || id;
+      const img = pic && cam.state !== "unavailable" ? `<img src="${esc(pic)}" alt="${esc(name)}" loading="lazy">` : `<div class="nocam">${svgIcon(ICONS.cctv)}</div>`;
+      return `<div class="cam clickable" role="button" tabindex="0" data-entity="${esc(id)}" title="${esc(name)}">${img}<span class="cam-name">${esc(name)}</span></div>`;
+    });
+    return `<div>
+      <div class="section-title">${svgIcon(ICONS.cctv)}${esc(this._t("cameras"))}</div>
+      <div class="cams">${tiles.join("")}</div>
     </div>`;
   }
 
@@ -3093,6 +3216,7 @@ class AlarmEditorBase extends HTMLElement {
       { name: "title", selector: { text: {} } },
       { name: "modes", selector: { select: { multiple: true, mode: "list", options: all.map((m) => ({ value: m, label: tr(m) })) } } },
       { name: "sensors", selector: { entity: { domain: "binary_sensor", multiple: true } } },
+      { name: "cameras", selector: { entity: { domain: "camera", multiple: true } } },
       { type: "grid", name: "", schema: this.constructor.toggles.map(([name]) => ({ name, selector: { boolean: {} } })) },
       // The activity's size and period, offered once the activity is on.
       ...(this._config.show_activity === true
@@ -3148,9 +3272,9 @@ class AlarmEditorBase extends HTMLElement {
     if (!this._form) {
       this._form = document.createElement("ha-form");
       this._form.computeLabel = (s) =>
-        t(this._hass, this._config, s.name === "title" ? "title_option" : s.name === "sensors" ? "sensors_option" : s.name);
+        t(this._hass, this._config, s.name === "title" ? "title_option" : s.name === "sensors" ? "sensors_option" : s.name === "cameras" ? "ed_cameras" : s.name);
       this._form.computeHelper = (s) =>
-        s.name === "zoom" || s.name === "confirm_disarm" ? t(this._hass, this._config, `${s.name}_helper`) : undefined;
+        s.name === "zoom" || s.name === "confirm_disarm" || s.name === "cameras_on_alarm" ? t(this._hass, this._config, `${s.name}_helper`) : undefined;
       this._form.addEventListener("value-changed", (ev) => {
         ev.stopPropagation();
         const config = { ...ev.detail.value };
@@ -3199,6 +3323,7 @@ class AlarmCardEditor extends AlarmEditorBase {
       ["confirm_disarm", true],
       ["collapsed", false],
       ["show_activity", false],
+      ["cameras_on_alarm", true],
     ];
   }
 }
