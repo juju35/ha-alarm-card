@@ -1,6 +1,6 @@
 {
   "name": "ha-alarm-card",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "Lovelace cards for Home Assistant to arm and disarm alarm control panels (Alarmo or any other integration).",
   "private": true,
   "type": "module",
@@ -12,6 +12,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "acorn": "^8.19.0",
     "playwright": "^1.64.1"
   }
 }
