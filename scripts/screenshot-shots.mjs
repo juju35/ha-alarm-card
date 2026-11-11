@@ -1,6 +1,6 @@
 // The README screenshots and animations, as data: scripts/screenshots.mjs renders them and
 // test/screenshots.test.mjs checks that every light shot has a dark twin showing the same state.
-import { armedAway, arming, failedToArm, triggered, withCode } from "./mock-states.mjs";
+import { armedAway, arming, buttons, failedToArm, triggered, withCode } from "./mock-states.mjs";
 
 export const shots = [
   { file: "card", type: "alarm-card", theme: "light", width: 460, config: {} },
@@ -17,6 +17,9 @@ export const shots = [
   { file: "mini-card-zoom-dark", type: "alarm-mini-card", theme: "dark", width: 460, config: {}, clicks: [".zoom"] },
   { file: "card-activity", type: "alarm-card", theme: "light", width: 460, config: { show_activity: true, show_sensors: false } },
   { file: "card-activity-dark", type: "alarm-card", theme: "dark", width: 460, config: { show_activity: true, show_sensors: false } },
+  // The buttons section (#52), with the sensors folded.
+  { file: "card-buttons", type: "alarm-card", theme: "light", width: 460, config: { buttons, collapsed: true } },
+  { file: "card-buttons-dark", type: "alarm-card", theme: "dark", width: 460, config: { buttons, collapsed: true } },
   // Alarmo refused to arm away over open sensors: the popup at the top of the card, with "Arm anyway".
   { file: "card-failed-arm", type: "alarm-card", theme: "light", width: 460, config: {}, event: failedToArm },
   { file: "card-failed-arm-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, event: failedToArm },

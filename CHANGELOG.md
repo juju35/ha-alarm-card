@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.8.0 - 2026-11-11
+
+### Features
+- **Buttons**: `buttons` adds a Buttons section with switches, lights, fans, input booleans and sirens (their state shown, a tap on the icon toggles them) and buttons, scripts and scenes (a tap runs them); a tap on the name opens the entity. For example the smart plugs of the cameras, to turn them on while at home ([#52](https://github.com/juju35/ha-alarm-card/issues/52)).
+- **Display names in the visual editor**: a **Display names** fold lists the sensors, cameras and buttons picked, each with its name, empty for the entity's own; saved as `{ entity, name }` ([#53](https://github.com/juju35/ha-alarm-card/issues/53)). Cameras take a name too.
+
 ## 1.7.1 - 2026-11-09
 
 ### Maintenance

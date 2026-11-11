@@ -45,6 +45,12 @@ sensor("bedroom_window", "Bedroom window", "window", "off");
 sensor("hallway_motion", "Hallway motion", "motion", "off");
 sensor("kitchen_smoke", "Smoke detector", "smoke", "off");
 
+// The buttons section: the cameras' smart plugs (off), the porch light (on), a script.
+entity("switch.camera_plugs", "off", { friendly_name: "Camera plugs" }, "zha", 3600);
+entity("light.porch", "on", { friendly_name: "Porch light" }, "hue", 3600);
+entity("script.lights_off", "off", { friendly_name: "All lights off" }, "script", 3600);
+export const buttons = ["switch.camera_plugs", "light.porch", { entity: "script.lights_off", name: "Lights off" }];
+
 export const sensors = [
   "binary_sensor.front_door",
   "binary_sensor.patio_door",

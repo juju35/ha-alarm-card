@@ -884,3 +884,63 @@ test("cameras: their snapshots while the alarm is triggered, always with cameras
   card.setConfig({ entity: PANEL, sensors, cameras: ["camera.hall"], cameras_on_alarm: false });
   assert.match(html(), /class="cams"/);
 });
+
+const BUTTON_STATES = {
+  "switch.camera_plugs": { entity_id: "switch.camera_plugs", state: "off", attributes: { friendly_name: "Camera plugs" } },
+  "script.lights_off": { entity_id: "script.lights_off", state: "off", attributes: { friendly_name: "Lights off" } },
+  "scene.night": { entity_id: "scene.night", state: "unknown", attributes: { friendly_name: "Night" } },
+  "switch.gone": { entity_id: "switch.gone", state: "unavailable", attributes: {} },
+};
+
+test("buttons: switches toggle and show their state, scripts and scenes run, an unavailable one is disabled", () => {
+  const hass = makeHass(BUTTON_STATES);
+  const card = newCard(hass, { buttons: ["switch.camera_plugs", { entity: "script.lights_off", name: "All off" }, "scene.night", "switch.gone", "sensor.not_a_button"] });
+  const html = card.shadowRoot.innerHTML;
+  assert.match(html, /data-section="buttons"/);
+  assert.match(html, /Camera plugs<\/span><span class="v">Off/);
+  assert.match(html, /All off<\/span><span class="v">Run/);
+  assert.match(html, /Night<\/span><span class="v">Run/);
+  assert.match(html, /data-action="button" data-entity="switch\.gone"[^>]* disabled/);
+  assert.doesNotMatch(html, /sensor\.not_a_button/);
+  click(card, { action: "button", entity: "switch.camera_plugs" });
+  click(card, { action: "button", entity: "script.lights_off" });
+  click(card, { action: "button", entity: "scene.night" });
+  assert.deepEqual(plain(hass.calls), [
+    ["homeassistant", "toggle", { entity_id: "switch.camera_plugs" }],
+    ["script", "turn_on", { entity_id: "script.lights_off" }],
+    ["scene", "turn_on", { entity_id: "scene.night" }],
+  ]);
+  // On: its colour and its state
+  const on = newCard(makeHass({ ...BUTTON_STATES, "switch.camera_plugs": { ...BUTTON_STATES["switch.camera_plugs"], state: "on" } }), { buttons: ["switch.camera_plugs"] });
+  assert.match(on.shadowRoot.innerHTML, /class="tile btn home on"[\s\S]*?<span class="v">On</);
+});
+
+test("cameras take a name, as the sensors do", () => {
+  const cam = { "camera.garden": { entity_id: "camera.garden", state: "idle", attributes: { friendly_name: "Garden cam", entity_picture: "/api/camera_proxy/camera.garden?token=1" } } };
+  const card = newCard(makeHass(cam), { cameras: [{ entity: "camera.garden", name: "Back yard" }], cameras_on_alarm: false });
+  assert.match(card.shadowRoot.innerHTML, /<span class="cam-name">Back yard<\/span>/);
+});
+
+test("editor: a name field for each sensor, camera and button, saved as { entity, name }; emptied, back to the id", () => {
+  const editor = newEditor(makeHass(BUTTON_STATES), {
+    entity: PANEL,
+    sensors: [{ entity: "binary_sensor.kitchen_window", name: "Kitchen" }],
+    buttons: ["switch.camera_plugs"],
+  });
+  const names = editor._form.schema.find((s) => s.type === "expandable");
+  assert.ok(names.flatten);
+  assert.deepEqual(
+    [...names.schema.map((s) => s.name)],
+    ["name__binary_sensor.kitchen_window", "name__switch.camera_plugs"],
+  );
+  assert.equal(editor._form.data["name__binary_sensor.kitchen_window"], "Kitchen");
+  assert.deepEqual([...editor._form.data.sensors], ["binary_sensor.kitchen_window"]);
+  editor._changed({ ...editor._form.data, "name__binary_sensor.kitchen_window": "", "name__switch.camera_plugs": " Camera plugs on " });
+  const saved = plain(editor.events.at(-1).detail.config);
+  assert.deepEqual(saved.sensors, ["binary_sensor.kitchen_window"]);
+  assert.deepEqual(saved.buttons, [{ entity: "switch.camera_plugs", name: "Camera plugs on" }]);
+  assert.ok(!Object.keys(saved).some((k) => k.startsWith("name__")));
+  // A button added in the picker keeps no name until one is typed; the others keep theirs
+  editor._changed({ ...editor._form.data, buttons: ["switch.camera_plugs", "script.lights_off"], "name__switch.camera_plugs": "Plugs" });
+  assert.deepEqual(plain(editor.events.at(-1).detail.config).buttons, [{ entity: "switch.camera_plugs", name: "Plugs" }, "script.lights_off"]);
+});
