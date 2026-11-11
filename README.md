@@ -28,6 +28,8 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 - Code pad when the panel needs a code: digits for a number code (the keyboard's digits, Backspace and Enter work too), a password field otherwise
 - Sensors of your choice (doors, windows, motion, smoke, leak) with their state; arming with a sensor open asks first ("Kitchen window: open. Arm away anyway?") and, with Alarmo, forces the arming
 - Cameras of your choice: their latest snapshots show up while the alarm is triggered or counting down to it (or always), a tap opens the live view
+- Buttons of your choice: switches, lights and the like toggled with a tap (the smart plugs of the cameras, say), buttons, scripts and scenes run
+- Display names for the sensors, cameras and buttons, set in the visual editor or in YAML
 - Open and bypassed sensors reported by Alarmo, last trigger, who changed the state and since when
 - Alarmo refusing to arm over open sensors: the card lists them in a popup and offers **Arm anyway** (forced arming)
 - Optional activity section: the latest arm, disarm and trigger changes from the logbook, with when and who
@@ -107,6 +109,13 @@ sensors:
   - entity: binary_sensor.kitchen_window
     name: Kitchen
   - binary_sensor.hallway_motion
+buttons:
+  - switch.camera_plugs
+  - entity: script.lights_off
+    name: All lights off
+cameras:
+  - entity: camera.garden
+    name: Garden
 show_logo: true
 show_controls: true
 show_sensors: true
@@ -137,7 +146,8 @@ zoom: true
 | `title` | both | Panel name | Card title |
 | `modes` | both | All supported | Arm modes to show, among `home`, `away`, `night`, `vacation`, `custom_bypass` (`arm_` prefix optional); modes the panel does not support are ignored |
 | `sensors` | both | — | Binary sensors to display and to check before arming: entity ids, or `{ entity, name }` |
-| `cameras` | both | — | Camera entities whose snapshots show in a Cameras section, refreshed with Home Assistant's camera pictures; a tap opens the camera |
+| `buttons` | both | — | Buttons section: `switch`, `light`, `fan`, `input_boolean` and `siren` entities show their state and a tap on their icon toggles them; `button`, `input_button`, `script` and `scene` entities run. A tap on the name opens the entity. Entity ids, or `{ entity, name }` |
+| `cameras` | both | — | Camera entities whose snapshots show in a Cameras section, refreshed with Home Assistant's camera pictures; a tap opens the camera. Entity ids, or `{ entity, name }` |
 | `cameras_on_alarm` | both | `true` | Show the cameras only while the alarm is triggered or its entry delay runs (`pending`); `false`: always |
 | `show_logo` | both | `true` | Show the card logo |
 | `show_controls` | both | `true` | Arm / disarm buttons |
@@ -183,6 +193,12 @@ Activity section (`show_activity: true`, here with `show_sensors: false`):
 | Light | Dark |
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-activity.png" alt="activity" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-activity-dark.png" alt="activity dark" width="400"> |
+
+Buttons section (`buttons`, here with the sensors folded):
+
+| Light | Dark |
+|---|---|
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-buttons.png" alt="buttons" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card-buttons-dark.png" alt="buttons dark" width="400"> |
 
 Alarmo refused to arm away over open sensors:
 

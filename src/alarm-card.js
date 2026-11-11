@@ -46,6 +46,11 @@ const ICONS = {
   backspace:
     "M22,3H7C6.31,3 5.77,3.35 5.41,3.88L0,12L5.41,20.11C5.77,20.64 6.31,21 7,21H22A2,2 0 0,0 24,19V5A2,2 0 0,0 22,3M19,15.59L17.59,17L14,13.41L10.41,17L9,15.59L12.59,12L9,8.41L10.41,7L14,10.59L17.59,7L19,8.41L15.41,12",
   chevron_down: "M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z",
+  // mdi:power, mdi:lightbulb and mdi:play (the buttons section: what toggles, the lights, what runs)
+  power:
+    "M16.56,5.44L15.11,6.89C16.84,7.94 18,9.83 18,12A6,6 0 0,1 12,18A6,6 0 0,1 6,12C6,9.83 7.16,7.94 8.88,6.88L7.44,5.44C5.36,6.88 4,9.28 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12C20,9.28 18.64,6.88 16.56,5.44M13,3H11V13H13",
+  bulb: "M12,2A7,7 0 0,0 5,9C5,11.38 6.19,13.47 8,14.74V17A1,1 0 0,0 9,18H15A1,1 0 0,0 16,17V14.74C17.81,13.47 19,11.38 19,9A7,7 0 0,0 12,2M9,21A1,1 0 0,0 10,22H14A1,1 0 0,0 15,21V20H9V21Z",
+  play: "M8,5.14V19.14L19,12.14L8,5.14Z",
   // mdi:arrow-expand and mdi:arrow-collapse (mini card detail button)
   expand: "M10,21V19H6.41L10.91,14.5L9.5,13.09L5,17.59V14H3V21H10M14.5,10.91L19,6.41V10H21V3H14V5H17.59L13.09,9.5L14.5,10.91Z",
   collapse: "M19.5,3.09L15,7.59V4H13V11H20V9H16.41L20.91,4.5L19.5,3.09M4,13V15H7.59L3.09,19.5L4.5,20.91L9,16.41V20H11V13H4Z",
@@ -117,6 +122,13 @@ const STRINGS = {
     ed_cameras: "Cameras (shown while the alarm is triggered or counting down)",
     cameras_on_alarm: "Show the cameras only while the alarm is triggered",
     cameras_on_alarm_helper: "Off: always shown",
+    buttons: "Buttons",
+    ed_buttons: "Buttons (switches, lights, scripts, scenes, buttons: a tap toggles or runs them)",
+    names: "Display names",
+    names_helper: "Empty: the entity's name in Home Assistant",
+    on_state: "On",
+    off_state: "Off",
+    run: "Run",
     show_info: "Show last trigger and who changed it",
     confirm_disarm: "Ask for confirmation before disarming",
     collapsed: "Fold the sensors by default",
@@ -197,6 +209,13 @@ const STRINGS = {
     ed_cameras: "Caméras (affichées pendant le déclenchement ou le compte à rebours)",
     cameras_on_alarm: "Afficher les caméras seulement pendant un déclenchement",
     cameras_on_alarm_helper: "Désactivé : toujours affichées",
+    buttons: "Boutons",
+    ed_buttons: "Boutons (interrupteurs, lumières, scripts, scènes, boutons : un appui les bascule ou les lance)",
+    names: "Noms affichés",
+    names_helper: "Vide : le nom de l'entité dans Home Assistant",
+    on_state: "Allumé",
+    off_state: "Éteint",
+    run: "Lancer",
     show_info: "Afficher le dernier déclenchement et l'auteur",
     confirm_disarm: "Demander confirmation avant de désarmer",
     collapsed: "Replier les capteurs par défaut",
@@ -277,6 +296,13 @@ const STRINGS = {
     ed_cameras: "Kameras (angezeigt bei Alarm oder Countdown)",
     cameras_on_alarm: "Kameras nur bei ausgelöstem Alarm anzeigen",
     cameras_on_alarm_helper: "Aus: immer angezeigt",
+    buttons: "Schaltflächen",
+    ed_buttons: "Schaltflächen (Schalter, Lichter, Skripte, Szenen, Tasten: ein Tippen schaltet oder startet sie)",
+    names: "Angezeigte Namen",
+    names_helper: "Leer: der Name der Entität in Home Assistant",
+    on_state: "An",
+    off_state: "Aus",
+    run: "Ausführen",
     show_info: "Letzte Auslösung und Urheber der Änderung anzeigen",
     confirm_disarm: "Vor dem Deaktivieren nachfragen",
     collapsed: "Sensoren standardmäßig einklappen",
@@ -357,6 +383,13 @@ const STRINGS = {
     ed_cameras: "Cámaras (mostradas al dispararse o durante la cuenta atrás)",
     cameras_on_alarm: "Mostrar las cámaras solo con la alarma disparada",
     cameras_on_alarm_helper: "Desactivado: siempre visibles",
+    buttons: "Botones",
+    ed_buttons: "Botones (interruptores, luces, scripts, escenas, botones: un toque los conmuta o los ejecuta)",
+    names: "Nombres mostrados",
+    names_helper: "Vacío: el nombre de la entidad en Home Assistant",
+    on_state: "Encendido",
+    off_state: "Apagado",
+    run: "Ejecutar",
     show_info: "Mostrar el último disparo y quién cambió el estado",
     confirm_disarm: "Pedir confirmación antes de desarmar",
     collapsed: "Plegar los sensores por defecto",
@@ -439,6 +472,13 @@ const STRINGS = {
     ed_cameras: "Камере (приказане током узбуне или одбројавања)",
     cameras_on_alarm: "Прикажи камере само током узбуне",
     cameras_on_alarm_helper: "Искључено: увек приказане",
+    buttons: "Дугмад",
+    ed_buttons: "Дугмад (прекидачи, светла, скрипте, сцене, тастери: додир их пребацује или покреће)",
+    names: "Приказана имена",
+    names_helper: "Празно: изворно име ентитета",
+    on_state: "Укључено",
+    off_state: "Искључено",
+    run: "Покрени",
     show_info: "Прикажи последње окидање и ко је променио статус",
     confirm_disarm: "Тражи потврду пре деактивирања",
     collapsed: "Подразумевано скупи приказ сензора",
@@ -521,6 +561,13 @@ const STRINGS = {
     ed_cameras: "Kamere (prikazane tokom uzbune ili odbrojavanja)",
     cameras_on_alarm: "Prikaži kamere samo tokom uzbune",
     cameras_on_alarm_helper: "Isključeno: uvek prikazane",
+    buttons: "Dugmad",
+    ed_buttons: "Dugmad (prekidači, svetla, skripte, scene, tasteri: dodir ih prebacuje ili pokreće)",
+    names: "Prikazana imena",
+    names_helper: "Prazno: izvorno ime entiteta",
+    on_state: "Uključeno",
+    off_state: "Isključeno",
+    run: "Pokreni",
     show_info: "Prikaži poslednje okidanje i ko je promenio status",
     confirm_disarm: "Traži potvrdu pre deaktiviranja",
     collapsed: "Podrazumevano skupi prikaz senzora",
@@ -603,6 +650,13 @@ const STRINGS = {
     ed_cameras: "Telecamere (mostrate durante l'allarme o il conto alla rovescia)",
     cameras_on_alarm: "Mostra le telecamere solo con l'allarme scattato",
     cameras_on_alarm_helper: "Disattivato: sempre visibili",
+    buttons: "Pulsanti",
+    ed_buttons: "Pulsanti (interruttori, luci, script, scene, pulsanti: un tocco li commuta o li esegue)",
+    names: "Nomi visualizzati",
+    names_helper: "Vuoto: il nome dell'entità in Home Assistant",
+    on_state: "Acceso",
+    off_state: "Spento",
+    run: "Esegui",
     show_info: "Mostra l'ultimo allarme e chi ha cambiato lo stato",
     confirm_disarm: "Chiedi conferma prima di disattivare",
     collapsed: "Comprimi i sensori per impostazione predefinita",
@@ -685,6 +739,13 @@ const STRINGS = {
     ed_cameras: "Camera's (getoond bij alarm of tijdens het aftellen)",
     cameras_on_alarm: "Camera's alleen tonen bij een alarm",
     cameras_on_alarm_helper: "Uit: altijd getoond",
+    buttons: "Knoppen",
+    ed_buttons: "Knoppen (schakelaars, lampen, scripts, scènes, knoppen: een tik schakelt of start ze)",
+    names: "Weergavenamen",
+    names_helper: "Leeg: de naam van de entiteit in Home Assistant",
+    on_state: "Aan",
+    off_state: "Uit",
+    run: "Uitvoeren",
     show_info: "Laatste alarm en wie de status wijzigde tonen",
     confirm_disarm: "Om bevestiging vragen voor het uitschakelen",
     collapsed: "Sensoren standaard inklappen",
@@ -767,6 +828,13 @@ const STRINGS = {
     ed_cameras: "Câmaras (mostradas com o alarme disparado ou na contagem decrescente)",
     cameras_on_alarm: "Mostrar as câmaras só com o alarme disparado",
     cameras_on_alarm_helper: "Desligado: sempre visíveis",
+    buttons: "Botões",
+    ed_buttons: "Botões (interruptores, luzes, scripts, cenas, botões: um toque alterna-os ou executa-os)",
+    names: "Nomes apresentados",
+    names_helper: "Vazio: o nome da entidade no Home Assistant",
+    on_state: "Ligado",
+    off_state: "Desligado",
+    run: "Executar",
     show_info: "Mostrar o último disparo e quem alterou o estado",
     confirm_disarm: "Pedir confirmação antes de desarmar",
     collapsed: "Recolher os sensores por predefinição",
@@ -849,6 +917,13 @@ const STRINGS = {
     ed_cameras: "Kamery (widoczne podczas alarmu lub odliczania)",
     cameras_on_alarm: "Pokaż kamery tylko podczas alarmu",
     cameras_on_alarm_helper: "Wyłączone: zawsze widoczne",
+    buttons: "Przyciski",
+    ed_buttons: "Przyciski (przełączniki, światła, skrypty, sceny, przyciski: dotknięcie przełącza lub uruchamia)",
+    names: "Wyświetlane nazwy",
+    names_helper: "Puste: nazwa encji w Home Assistant",
+    on_state: "Włączone",
+    off_state: "Wyłączone",
+    run: "Uruchom",
     show_info: "Pokaż ostatnie wyzwolenie i kto zmienił stan",
     confirm_disarm: "Pytaj o potwierdzenie przed rozbrojeniem",
     collapsed: "Domyślnie zwijaj czujniki",
@@ -931,6 +1006,13 @@ const STRINGS = {
     ed_cameras: "Camere (afișate în timpul alarmei sau al numărătorii inverse)",
     cameras_on_alarm: "Afișează camerele doar când alarma e declanșată",
     cameras_on_alarm_helper: "Dezactivat: mereu afișate",
+    buttons: "Butoane",
+    ed_buttons: "Butoane (întrerupătoare, lumini, scripturi, scene, butoane: o atingere le comută sau le rulează)",
+    names: "Nume afișate",
+    names_helper: "Gol: numele entității în Home Assistant",
+    on_state: "Pornit",
+    off_state: "Oprit",
+    run: "Rulează",
     show_info: "Afișează ultima declanșare și cine a schimbat starea",
     confirm_disarm: "Cere confirmare înainte de dezarmare",
     collapsed: "Restrânge senzorii în mod implicit",
@@ -1013,6 +1095,13 @@ const STRINGS = {
     ed_cameras: "Kameraer (vist ved alarm eller nedtælling)",
     cameras_on_alarm: "Vis kun kameraerne, når alarmen er udløst",
     cameras_on_alarm_helper: "Fra: altid vist",
+    buttons: "Knapper",
+    ed_buttons: "Knapper (kontakter, lys, scripts, scener, knapper: et tryk skifter eller kører dem)",
+    names: "Viste navne",
+    names_helper: "Tom: enhedens navn i Home Assistant",
+    on_state: "Tændt",
+    off_state: "Slukket",
+    run: "Kør",
     show_info: "Vis sidste udløsning og hvem der ændrede tilstanden",
     confirm_disarm: "Bed om bekræftelse før frakobling",
     collapsed: "Fold sensorerne sammen som standard",
@@ -1095,6 +1184,13 @@ const STRINGS = {
     ed_cameras: "Kameror (visas vid larm eller nedräkning)",
     cameras_on_alarm: "Visa kamerorna endast när larmet har gått",
     cameras_on_alarm_helper: "Av: visas alltid",
+    buttons: "Knappar",
+    ed_buttons: "Knappar (brytare, lampor, skript, scener, knappar: ett tryck växlar eller kör dem)",
+    names: "Visade namn",
+    names_helper: "Tomt: entitetens namn i Home Assistant",
+    on_state: "På",
+    off_state: "Av",
+    run: "Kör",
     show_info: "Visa senaste utlösning och vem som ändrade läget",
     confirm_disarm: "Be om bekräftelse innan avlarmning",
     collapsed: "Fäll ihop sensorerna som standard",
@@ -1177,6 +1273,13 @@ const STRINGS = {
     ed_cameras: "Камери (показвани при задействане или обратно броене)",
     cameras_on_alarm: "Показване на камерите само при задействана аларма",
     cameras_on_alarm_helper: "Изключено: винаги показвани",
+    buttons: "Бутони",
+    ed_buttons: "Бутони (ключове, осветление, скриптове, сцени, бутони: докосване ги превключва или стартира)",
+    names: "Показвани имена",
+    names_helper: "Празно: името на обекта в Home Assistant",
+    on_state: "Вкл.",
+    off_state: "Изкл.",
+    run: "Изпълни",
     show_info: "Показване на последното задействане и кой е променил състоянието",
     confirm_disarm: "Искане на потвърждение преди изключване",
     collapsed: "Сензорите са свити по подразбиране",
@@ -1259,6 +1362,13 @@ const STRINGS = {
     ed_cameras: "Камеры (видны при срабатывании или обратном отсчёте)",
     cameras_on_alarm: "Показывать камеры только при сработавшей тревоге",
     cameras_on_alarm_helper: "Выкл.: видны всегда",
+    buttons: "Кнопки",
+    ed_buttons: "Кнопки (выключатели, свет, скрипты, сцены, кнопки: нажатие переключает или запускает их)",
+    names: "Отображаемые имена",
+    names_helper: "Пусто: имя объекта в Home Assistant",
+    on_state: "Вкл.",
+    off_state: "Выкл.",
+    run: "Запустить",
     show_info: "Показывать последнюю тревогу и кто изменил состояние",
     confirm_disarm: "Запрашивать подтверждение перед снятием с охраны",
     collapsed: "Сворачивать датчики по умолчанию",
@@ -1341,6 +1451,13 @@ const STRINGS = {
     ed_cameras: "Камери (видно під час тривоги чи зворотного відліку)",
     cameras_on_alarm: "Показувати камери лише під час тривоги",
     cameras_on_alarm_helper: "Вимк.: видно завжди",
+    buttons: "Кнопки",
+    ed_buttons: "Кнопки (вимикачі, світло, скрипти, сцени, кнопки: дотик перемикає або запускає їх)",
+    names: "Показані імена",
+    names_helper: "Порожньо: ім'я об'єкта в Home Assistant",
+    on_state: "Увімк.",
+    off_state: "Вимк.",
+    run: "Запустити",
     show_info: "Показувати останню тривогу і хто змінив стан",
     confirm_disarm: "Запитувати підтвердження перед зняттям з охорони",
     collapsed: "Типово згортати датчики",
@@ -1423,6 +1540,13 @@ const STRINGS = {
     ed_cameras: "Kamerák (riasztáskor vagy visszaszámláláskor láthatók)",
     cameras_on_alarm: "Kamerák megjelenítése csak riasztáskor",
     cameras_on_alarm_helper: "Ki: mindig láthatók",
+    buttons: "Gombok",
+    ed_buttons: "Gombok (kapcsolók, lámpák, szkriptek, jelenetek, gombok: egy érintés átkapcsolja vagy futtatja őket)",
+    names: "Megjelenített nevek",
+    names_helper: "Üres: az entitás neve a Home Assistantban",
+    on_state: "Be",
+    off_state: "Ki",
+    run: "Futtatás",
     show_info: "Utolsó riasztás és az állapotot módosító személy megjelenítése",
     confirm_disarm: "Megerősítés kérése hatástalanítás előtt",
     collapsed: "Érzékelők alapértelmezett összecsukása",
@@ -1505,6 +1629,13 @@ const STRINGS = {
     ed_cameras: "Kamery (zobrazené počas poplachu alebo odpočítavania)",
     cameras_on_alarm: "Zobraziť kamery len počas poplachu",
     cameras_on_alarm_helper: "Vypnuté: vždy zobrazené",
+    buttons: "Tlačidlá",
+    ed_buttons: "Tlačidlá (spínače, svetlá, skripty, scény, tlačidlá: ťuknutie ich prepne alebo spustí)",
+    names: "Zobrazené názvy",
+    names_helper: "Prázdne: názov entity v Home Assistante",
+    on_state: "Zap.",
+    off_state: "Vyp.",
+    run: "Spustiť",
     show_info: "Zobraziť posledný poplach a kto zmenil stav",
     confirm_disarm: "Pred odistením požiadať o potvrdenie",
     collapsed: "Predvolene zbaliť senzory",
@@ -1587,6 +1718,13 @@ const STRINGS = {
     ed_cameras: "Kamery (zobrazené během poplachu nebo odpočtu)",
     cameras_on_alarm: "Zobrazit kamery jen během poplachu",
     cameras_on_alarm_helper: "Vypnuto: vždy zobrazené",
+    buttons: "Tlačítka",
+    ed_buttons: "Tlačítka (spínače, světla, skripty, scény, tlačítka: klepnutí je přepne nebo spustí)",
+    names: "Zobrazené názvy",
+    names_helper: "Prázdné: název entity v Home Assistantu",
+    on_state: "Zap.",
+    off_state: "Vyp.",
+    run: "Spustit",
     show_info: "Zobrazit poslední poplach a kdo změnil stav",
     confirm_disarm: "Před odjištěním žádat o potvrzení",
     collapsed: "Ve výchozím stavu sbalit senzory",
@@ -1669,6 +1807,13 @@ const STRINGS = {
     ed_cameras: "Kamere (prikazane med alarmom ali odštevanjem)",
     cameras_on_alarm: "Prikaži kamere samo med alarmom",
     cameras_on_alarm_helper: "Izklopljeno: vedno prikazane",
+    buttons: "Gumbi",
+    ed_buttons: "Gumbi (stikala, luči, skripte, prizori, gumbi: dotik jih preklopi ali zažene)",
+    names: "Prikazana imena",
+    names_helper: "Prazno: ime entitete v Home Assistantu",
+    on_state: "Vklopljeno",
+    off_state: "Izklopljeno",
+    run: "Zaženi",
     show_info: "Prikaži zadnji alarm in kdo je spremenil stanje",
     confirm_disarm: "Pred izklopom zahtevaj potrditev",
     collapsed: "Privzeto strni senzorje",
@@ -1751,6 +1896,13 @@ const STRINGS = {
     ed_cameras: "Kameras (redzamas trauksmes vai atpakaļskaitīšanas laikā)",
     cameras_on_alarm: "Rādīt kameras tikai trauksmes laikā",
     cameras_on_alarm_helper: "Izslēgts: vienmēr redzamas",
+    buttons: "Pogas",
+    ed_buttons: "Pogas (slēdži, gaismas, skripti, ainas, pogas: pieskāriens tos pārslēdz vai palaiž)",
+    names: "Attēlotie nosaukumi",
+    names_helper: "Tukšs: entītijas nosaukums Home Assistant",
+    on_state: "Ieslēgts",
+    off_state: "Izslēgts",
+    run: "Palaist",
     show_info: "Rādīt pēdējo trauksmi un to, kas mainīja stāvokli",
     confirm_disarm: "Pirms izslēgšanas lūgt apstiprinājumu",
     collapsed: "Pēc noklusējuma sakļaut sensorus",
@@ -1833,6 +1985,13 @@ const STRINGS = {
     ed_cameras: "Κάμερες (εμφανίζονται όταν ενεργοποιείται ο συναγερμός ή κατά την αντίστροφη μέτρηση)",
     cameras_on_alarm: "Εμφάνιση των καμερών μόνο όταν ενεργοποιείται ο συναγερμός",
     cameras_on_alarm_helper: "Ανενεργό: εμφανίζονται πάντα",
+    buttons: "Κουμπιά",
+    ed_buttons: "Κουμπιά (διακόπτες, φώτα, σενάρια, σκηνές, κουμπιά: ένα πάτημα τα εναλλάσσει ή τα εκτελεί)",
+    names: "Εμφανιζόμενα ονόματα",
+    names_helper: "Κενό: το όνομα της οντότητας στο Home Assistant",
+    on_state: "Ανοιχτό",
+    off_state: "Κλειστό",
+    run: "Εκτέλεση",
     show_info: "Εμφάνιση τελευταίας ενεργοποίησης και ποιος άλλαξε την κατάσταση",
     confirm_disarm: "Αίτημα επιβεβαίωσης πριν από την αφόπλιση",
     collapsed: "Σύμπτυξη αισθητήρων από προεπιλογή",
@@ -1992,11 +2151,25 @@ const SENSOR_KIND = {
   moisture: ["problem", ICONS.water, ICONS.water],
 };
 
-// `sensors` items: "binary_sensor.x" or { entity, name }.
+// `sensors`, `cameras` and `buttons` items: "domain.x" or { entity, name }.
 const normalize = (items) =>
   (Array.isArray(items) ? items : [])
     .map((e) => (typeof e === "string" ? { entity: e } : e))
     .filter((e) => e?.entity);
+
+// The `buttons` a tap acts on: [service domain, service] per entity domain. The ones that toggle show their state.
+const BUTTON_ACTIONS = {
+  switch: ["homeassistant", "toggle"],
+  light: ["homeassistant", "toggle"],
+  fan: ["homeassistant", "toggle"],
+  input_boolean: ["homeassistant", "toggle"],
+  siren: ["homeassistant", "toggle"],
+  button: ["button", "press"],
+  input_button: ["input_button", "press"],
+  script: ["script", "turn_on"],
+  scene: ["scene", "turn_on"],
+};
+const BUTTON_RUNS = new Set(["button", "input_button", "script", "scene"]);
 
 // Alarmo's open_sensors / bypassed_sensors: { entity_id: state } or a list of entity ids.
 // The panel used when the config names none: the first alarm_control_panel alphabetically. Shared by the
@@ -2412,6 +2585,7 @@ class AlarmBase extends HTMLElement {
     const a = panel?.attributes || {};
     for (const id of [...this._sensors().map((s) => s.entity), ...entityList(a.open_sensors), ...entityList(a.bypassed_sensors)]) sig.push(h.states[id]);
     for (const id of this._cameras()) sig.push(h.states[id]?.attributes?.entity_picture, h.states[id]?.state);
+    for (const b of this._buttons()) sig.push(h.states[b.entity]);
     return sig;
   }
 
@@ -2479,6 +2653,8 @@ class AlarmBase extends HTMLElement {
         return this._submitCode();
       case "code_input":
         return;
+      case "button":
+        return this._pressButton(entity);
       case "toggle_section": {
         const k = el.dataset.section;
         this._toggled = new Set(this._toggled);
@@ -2854,6 +3030,14 @@ const FULL_STYLE = `
   .tile .k { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tile .v { font-size: 11px; color: ${textColor("var(--c, var(--secondary-text-color))")}; white-space: nowrap; }
   .tile.on { background: color-mix(in srgb, var(--c) 12%, var(--secondary-background-color, transparent)); }
+  .tile.btn { padding: 4px 10px 4px 4px; }
+  .tile.btn .tx { flex: 1 1 auto; }
+  .btn-act { flex: none; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: none; border-radius: 50%; cursor: pointer;
+             color: inherit; background: color-mix(in srgb, var(--c, var(--secondary-text-color)) 16%, transparent); }
+  .btn-act:hover { background: color-mix(in srgb, var(--c, var(--secondary-text-color)) 26%, transparent); }
+  .btn-act:focus-visible { outline: 2px solid var(--primary-color, #03a9f4); outline-offset: 1px; }
+  .btn-act[disabled] { cursor: default; opacity: .5; }
+  .btn-act .icon { width: 18px; height: 18px; }
   .acts { display: flex; flex-direction: column; gap: 6px; }
   .act { display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 2px; font-size: 13px; min-width: 0; }
   .act-state { color: ${textColor("var(--c)")}; font-weight: 500; min-width: 0; overflow-wrap: anywhere; }
@@ -2874,7 +3058,9 @@ class AlarmCard extends AlarmBase {
 
   getCardSize() {
     // HA may ask before setConfig: no config yet, answer the bare card's size.
-    return this._config ? 5 + Math.ceil(this._sensors().length / 2) + (this._config.show_activity === true ? 2 : 0) : 5;
+    return this._config
+      ? 5 + Math.ceil(this._sensors().length / 2) + Math.ceil(this._buttons().length / 2) + (this._config.show_activity === true ? 2 : 0)
+      : 5;
   }
 
   getGridOptions() {
@@ -2888,6 +3074,7 @@ class AlarmCard extends AlarmBase {
     const parts = [this._hero(st)];
     if (c.show_controls !== false) parts.push(`<div class="modes">${this._modeButtons(st)}</div>`, this._padHtml(st));
     if (c.show_sensors !== false) parts.push(this._sensorSection());
+    parts.push(this._buttonSection());
     parts.push(this._cameraSection(st));
     if (c.show_activity === true) parts.push(this._activitySection(st));
     return `<style>${BASE_STYLE}${FULL_STYLE}</style>${STRUT}
@@ -2945,22 +3132,65 @@ class AlarmCard extends AlarmBase {
     </div>`;
   }
 
+  // ----- Buttons ----------------------------------------------------------------
+
+  _buttons() {
+    return normalize(this._config.buttons).filter((b) => BUTTON_ACTIONS[String(b.entity).split(".")[0]]);
+  }
+
+  // Switches, lights and the like show their state and toggle; buttons, scripts and scenes run. The icon's
+  // tap acts, the name opens the entity's dialog (its history, its settings).
+  _buttonSection() {
+    const items = this._buttons();
+    if (!items.length) return "";
+    const tiles = items.map((item) => {
+      const s = this._hass.states[item.entity];
+      const domain = item.entity.split(".")[0];
+      const runs = BUTTON_RUNS.has(domain);
+      const on = !runs && s?.state === "on";
+      // A scene or a button is "unknown" until first used: only unavailable stops it
+      const unavailable = !s || s.state === "unavailable" || (!runs && s.state === "unknown");
+      const value = unavailable ? this._stateText(s || { state: "unavailable" }) : this._t(runs ? "run" : on ? "on_state" : "off_state");
+      const icon = runs ? ICONS.play : domain === "light" ? ICONS.bulb : ICONS.power;
+      const name = item.name || s?.attributes?.friendly_name || item.entity;
+      return `<div class="tile btn ${unavailable ? "idle" : runs ? "home" : on ? "home on" : "idle"}" data-key="${esc(item.entity)}">
+        <button class="btn-act" data-action="button" data-entity="${esc(item.entity)}" aria-label="${esc(`${name}: ${value}`)}"${unavailable ? " disabled" : ""}>${svgIcon(icon)}</button>
+        <div class="tx clickable" role="button" tabindex="0" data-entity="${esc(item.entity)}"><span class="k">${esc(name)}</span><span class="v">${esc(value)}</span></div>
+      </div>`;
+    });
+    // Open by default (`collapsed` folds the sensors only); its title folds it
+    const closed = this._toggled.has("buttons");
+    return `<div>
+      <div class="section-title toggle" role="button" tabindex="0" data-action="toggle_section" data-section="buttons" aria-expanded="${!closed}">${svgIcon(ICONS.power)}${esc(this._t("buttons"))}${svgIcon(ICONS.chevron_down, "chevron")}</div>
+      ${closed ? "" : `<div class="tiles">${tiles.join("")}</div>`}
+    </div>`;
+  }
+
+  _pressButton(entity) {
+    const action = BUTTON_ACTIONS[String(entity).split(".")[0]];
+    if (action) this._call(action[0], action[1], { entity_id: entity });
+  }
+
   // ----- Cameras ----------------------------------------------------------------
 
+  _cameraItems() {
+    return normalize(this._config.cameras).filter((c) => typeof c.entity === "string" && c.entity.startsWith("camera."));
+  }
+
   _cameras() {
-    return (Array.isArray(this._config.cameras) ? this._config.cameras : []).filter((id) => typeof id === "string" && id.startsWith("camera."));
+    return this._cameraItems().map((c) => c.entity);
   }
 
   // The cameras' latest snapshots (their entity picture, which carries its access token), while the alarm is
   // triggered or counting down to it (`cameras_on_alarm`, by default), else always. A tap opens the camera.
   _cameraSection(st) {
-    const ids = this._cameras();
-    if (!ids.length) return "";
+    const items = this._cameraItems();
+    if (!items.length) return "";
     if (this._config.cameras_on_alarm !== false && !["triggered", "pending"].includes(st.state)) return "";
-    const tiles = ids.map((id) => {
+    const tiles = items.map(({ entity: id, name: label }) => {
       const cam = this._hass.states[id];
       const pic = cam?.attributes?.entity_picture;
-      const name = cam?.attributes?.friendly_name || id;
+      const name = label || cam?.attributes?.friendly_name || id;
       const img = pic && cam.state !== "unavailable" ? `<img src="${esc(pic)}" alt="${esc(name)}" loading="lazy">` : `<div class="nocam">${svgIcon(ICONS.cctv)}</div>`;
       return `<div class="cam clickable" role="button" tabindex="0" data-entity="${esc(id)}" title="${esc(name)}">${img}<span class="cam-name">${esc(name)}</span></div>`;
     });
@@ -3184,6 +3414,10 @@ class AlarmMiniCard extends AlarmCard {
 // Visual editors (ha-form)
 // ---------------------------------------------------------------------------
 
+// The editor's name fields: name__<entity id>, folded back into { entity, name } items.
+const NAME_PREFIX = "name__";
+const NAMED_LISTS = ["sensors", "cameras", "buttons"];
+
 class AlarmEditorBase extends HTMLElement {
   static get toggles() {
     return [];
@@ -3206,6 +3440,11 @@ class AlarmEditorBase extends HTMLElement {
     return this.constructor.toggles.map(([name, def]) => [name, name === "confirm_disarm" ? !code : def]);
   }
 
+  // The entities of the sensors, cameras and buttons, in that order, once each.
+  _named() {
+    return [...new Set(NAMED_LISTS.flatMap((k) => normalize(this._config[k]).map((i) => i.entity)))];
+  }
+
   _schema() {
     const tr = (k) => t(this._hass, this._config, k);
     const entity = this._config.entity || AlarmCard.getStubConfig(this._hass).entity;
@@ -3217,6 +3456,11 @@ class AlarmEditorBase extends HTMLElement {
       { name: "modes", selector: { select: { multiple: true, mode: "list", options: all.map((m) => ({ value: m, label: tr(m) })) } } },
       { name: "sensors", selector: { entity: { domain: "binary_sensor", multiple: true } } },
       { name: "cameras", selector: { entity: { domain: "camera", multiple: true } } },
+      { name: "buttons", selector: { entity: { domain: Object.keys(BUTTON_ACTIONS), multiple: true } } },
+      // The name shown for each sensor, camera and button, the entity's own when left empty.
+      ...(this._named().length
+        ? [{ type: "expandable", name: "names", flatten: true, title: tr("names"), schema: this._named().map((id) => ({ name: `${NAME_PREFIX}${id}`, selector: { text: {} } })) }]
+        : []),
       { type: "grid", name: "", schema: this.constructor.toggles.map(([name]) => ({ name, selector: { boolean: {} } })) },
       // The activity's size and period, offered once the activity is on.
       ...(this._config.show_activity === true
@@ -3267,34 +3511,67 @@ class AlarmEditorBase extends HTMLElement {
     ];
   }
 
+  // A change in the form: the config to save, as small as it can be.
+  _changed(value) {
+      const config = { ...value };
+      // The name fields, read before the empty values go: an emptied name goes back to the entity's own.
+      const names = {};
+      for (const k of Object.keys(config)) {
+        if (!k.startsWith(NAME_PREFIX)) continue;
+        names[k.slice(NAME_PREFIX.length)] = String(config[k] ?? "").trim();
+        delete config[k];
+      }
+      const defaults = Object.fromEntries(this._toggles(config));
+      for (const [k, v] of Object.entries(config)) {
+        // Keep the YAML minimal: drop empty values and options left at their default.
+        const empty = v === "" || v === undefined || v === null || (Array.isArray(v) && !v.length);
+        if (empty || (k in defaults && v === defaults[k])) delete config[k];
+      }
+      // Each item keeps its name (the field's, else the one set before), as { entity, name }; a plain id without.
+      for (const list of NAMED_LISTS) {
+        if (!Array.isArray(config[list])) continue;
+        const old = new Map(normalize(this._config[list]).map((i) => [i.entity, i.name]));
+        config[list] = config[list].map((item) => {
+          const id = typeof item === "string" ? item : item?.entity;
+          const name = id in names ? names[id] : old.get(id);
+          return name ? { entity: id, name } : id;
+        });
+      }
+      this._config = config;
+      this.dispatchEvent(new CustomEvent("config-changed", { detail: { config }, bubbles: true, composed: true }));
+  }
+
   _render() {
     if (!this._hass || !this._config) return;
     if (!this._form) {
       this._form = document.createElement("ha-form");
+      const named = (s) => s.name?.startsWith(NAME_PREFIX) && s.name.slice(NAME_PREFIX.length);
       this._form.computeLabel = (s) =>
-        t(this._hass, this._config, s.name === "title" ? "title_option" : s.name === "sensors" ? "sensors_option" : s.name === "cameras" ? "ed_cameras" : s.name);
+        named(s)
+          ? this._hass.states[named(s)]?.attributes?.friendly_name || named(s)
+          : t(
+              this._hass,
+              this._config,
+              { title: "title_option", sensors: "sensors_option", cameras: "ed_cameras", buttons: "ed_buttons" }[s.name] || s.name,
+            );
       this._form.computeHelper = (s) =>
-        s.name === "zoom" || s.name === "confirm_disarm" || s.name === "cameras_on_alarm" ? t(this._hass, this._config, `${s.name}_helper`) : undefined;
+        named(s)
+          ? `${named(s)} · ${t(this._hass, this._config, "names_helper")}`
+          : s.name === "zoom" || s.name === "confirm_disarm" || s.name === "cameras_on_alarm"
+            ? t(this._hass, this._config, `${s.name}_helper`)
+            : undefined;
       this._form.addEventListener("value-changed", (ev) => {
         ev.stopPropagation();
-        const config = { ...ev.detail.value };
-        const defaults = Object.fromEntries(this._toggles(config));
-        for (const [k, v] of Object.entries(config)) {
-          // Keep the YAML minimal: drop empty values and options left at their default.
-          const empty = v === "" || v === undefined || v === null || (Array.isArray(v) && !v.length);
-          if (empty || (k in defaults && v === defaults[k])) delete config[k];
-        }
-        // Sensors keep the names set in YAML.
-        if (Array.isArray(config.sensors)) {
-          const old = new Map(normalize(this._config.sensors).map((s) => [s.entity, s]));
-          config.sensors = config.sensors.map((id) => (old.get(id)?.name ? old.get(id) : id));
-        }
-        this._config = config;
-        this.dispatchEvent(new CustomEvent("config-changed", { detail: { config }, bubbles: true, composed: true }));
+        this._changed(ev.detail.value);
       });
       this.appendChild(this._form);
     }
-    const data = { ...this._config, sensors: normalize(this._config.sensors).map((s) => s.entity) };
+    const data = { ...this._config };
+    for (const list of NAMED_LISTS) {
+      const items = normalize(this._config[list]);
+      if (this._config[list] !== undefined) data[list] = items.map((i) => i.entity);
+      for (const i of items) data[`${NAME_PREFIX}${i.entity}`] = i.name || "";
+    }
     // The selector's values carry the arm_ prefix, optional in YAML: without it nothing would be checked.
     if (data.modes !== undefined) data.modes = armModes(data.modes);
     if (!data.entity) data.entity = AlarmCard.getStubConfig(this._hass).entity;
@@ -3305,7 +3582,7 @@ class AlarmEditorBase extends HTMLElement {
       this._dataFor = this._config;
       this._form.data = data;
     }
-    const key = `${lang(this._hass, this._config)}|${data.entity}|${this._hass.states[data.entity]?.attributes?.supported_features}|${this._config.show_activity === true}`;
+    const key = `${lang(this._hass, this._config)}|${data.entity}|${this._hass.states[data.entity]?.attributes?.supported_features}|${this._config.show_activity === true}|${this._named().join(",")}`;
     if (this._schemaFor !== key) {
       this._schemaFor = key;
       this._form.schema = this._schema();
