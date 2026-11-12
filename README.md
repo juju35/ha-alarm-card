@@ -144,6 +144,8 @@ zoom: true
 |---|---|---|---|
 | `entity` | both | First alarm panel | `alarm_control_panel` entity |
 | `title` | both | Panel name | Card title |
+| `show_title` | both | `true` | Show the title in the header (e.g. `false` under a section heading of your own) |
+| `show_subtitle` | both | `true` | Show the subtitle under the title |
 | `modes` | both | All supported | Arm modes to show, among `home`, `away`, `night`, `vacation`, `custom_bypass` (`arm_` prefix optional); modes the panel does not support are ignored |
 | `sensors` | both | — | Binary sensors to display and to check before arming: entity ids, or `{ entity, name }` |
 | `buttons` | both | — | Buttons section: `switch`, `light`, `fan`, `input_boolean` and `siren` entities show their state and a tap on their icon toggles them; `button`, `input_button`, `script` and `scene` entities run. A tap on the name opens the entity. Entity ids, or `{ entity, name }` |
