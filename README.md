@@ -8,6 +8,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/juju35/ha-alarm-card/blob/main/LICENSE)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/julienstep9)
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/images/alarmo.png" alt="Alarmo" width="64">
+</p>
+
 Lovelace cards for Home Assistant to arm and disarm an alarm: state, exit and entry delay countdown, code pad, open sensors and who changed it last.
 
 The cards work with any [alarm control panel](https://www.home-assistant.io/integrations/alarm_control_panel/) ([Alarmo](https://github.com/nielsfaber/alarmo), [Manual](https://www.home-assistant.io/integrations/manual/), Verisure, Ajax…): the arm modes come from the panel's supported features and the keypad from its code format. Alarmo's extra information (delays, open and bypassed sensors, last trigger, who changed it) is shown when the panel provides it.
@@ -46,7 +50,7 @@ The cards work with **any [alarm control panel](https://www.home-assistant.io/in
 
 | Integration | What the cards show |
 |---|---|
-| [Alarmo](https://github.com/nielsfaber/alarmo) (Marketplace, recommended) | Everything: state, arm modes, keypad, exit and entry delays, open and bypassed sensors, last trigger, who changed the state, forced arming with a sensor open, "Arm anyway" when Alarmo refuses to arm |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/images/alarmo.png" alt="" width="16"> [Alarmo](https://github.com/nielsfaber/alarmo) (Marketplace, recommended) | Everything: state, arm modes, keypad, exit and entry delays, open and bypassed sensors, last trigger, who changed the state, forced arming with a sensor open, "Arm anyway" when Alarmo refuses to arm |
 | [Manual](https://www.home-assistant.io/integrations/manual/) (built in), Verisure, Ajax and any other panel | State, arm modes, keypad, delays (`expiration` attribute), the sensors you list |
 
 ## Prerequisites
