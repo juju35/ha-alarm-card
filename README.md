@@ -8,6 +8,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/juju35/ha-alarm-card/blob/main/LICENSE)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/julienstep9)
 
+<p align="center"><img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/images/icon.svg" alt="Alarm Card" width="120"></p>
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/images/alarmo.png" alt="Alarmo" width="64">
 </p>
