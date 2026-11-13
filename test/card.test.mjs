@@ -288,6 +288,27 @@ test("folding: a tap elsewhere (pointer), not a press inside released outside; l
   mini.disconnectedCallback();
 });
 
+test("no update under a press: the click renders at once, a release without a click draws what was held", async () => {
+  const card = newCard(makeHass(), { collapsed: true });
+  card.connectedCallback();
+  const before = card.shadowRoot.innerHTML;
+  card._pressing = true;
+  card.hass = makeHass(armedAway);
+  assert.equal(card.shadowRoot.innerHTML, before, "no update under the pointer");
+  click(card, { action: "toggle_section", section: "sensors" });
+  assert.notEqual(card.shadowRoot.innerHTML, before, "the click renders at once");
+  assert.match(card.shadowRoot.innerHTML, /class="tiles"/);
+  // Pressed and released elsewhere (no click): the held update is drawn after the release.
+  const held = card.shadowRoot.innerHTML;
+  card._pressing = true;
+  card.hass = makeHass();
+  assert.equal(card.shadowRoot.innerHTML, held);
+  card._onPressEnd();
+  await new Promise((r) => setTimeout(r, 0));
+  assert.notEqual(card.shadowRoot.innerHTML, held);
+  card.disconnectedCallback();
+});
+
 test("the sensors section folds and unfolds", () => {
   const card = newCard(makeHass(), { collapsed: true });
   assert.doesNotMatch(card.shadowRoot.innerHTML, /class="tiles"/);

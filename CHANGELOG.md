@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.9.2 - 2026-11-13
+
+### Fixes
+- **Clicks lost under an update**: Home Assistant updates the card several times a second. The card is patched in place, but an element appearing in front of the one pressed (a chip, a row) shifted its siblings between the press and the release, so that the click could land on another element or nowhere (a mode button, a section or a key of the code pad that did not react). The card is no longer updated while a press is in progress; the pending update is drawn right after the click, or after the release when no click follows.
+
 ## 1.9.1 - 2026-11-13
 
 ### Fixes
