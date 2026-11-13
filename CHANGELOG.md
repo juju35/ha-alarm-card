@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.9.1 - 2026-11-13
+
+### Fixes
+- Folding back on a tap elsewhere now works on iOS (Safari and the companion app): a tap on something that is not clickable sent no click to the page, so the unfolded sections, the confirmation popup, the code pad and the detailed view of the mini card stayed open. The press and the release are caught instead; a press in the card released outside of it and a scroll do not close anything.
+- Leaving the card (another dashboard view, a conditional card hidden) brings it back in its default state: sections folded as configured, popup and pad closed (the code typed is cleared), mini card compact.
+
 ## 1.9.0 - 2026-11-12
 
 ### Features

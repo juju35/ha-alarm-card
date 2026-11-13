@@ -255,6 +255,39 @@ test("the mini card zooms to the full card and back", () => {
   assert.doesNotMatch(noZoom.shadowRoot.innerHTML, /class="zoom"/);
 });
 
+test("folding: a tap elsewhere (pointer), not a press inside released outside; leaving the page folds back", () => {
+  const card = newCard(makeHass(), { collapsed: true });
+  card.connectedCallback();
+  click(card, { action: "toggle_section", section: "sensors" });
+  // Pressed in the card and released outside: nothing folds.
+  card._outside.tap({ composedPath: () => [card] });
+  assert.match(card.shadowRoot.innerHTML, /class="tiles"/);
+  // A tap in a Home Assistant dialog does not fold either.
+  card._outside.tap({ composedPath: () => [{ localName: "ha-more-info-dialog" }] });
+  assert.match(card.shadowRoot.innerHTML, /class="tiles"/);
+  // A tap on a spot that sends no click (iOS): the pointer alone folds it.
+  card._outside.tap({ composedPath: () => [] });
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /class="tiles"/);
+  // Left with the section open and back: folded.
+  click(card, { action: "toggle_section", section: "sensors" });
+  card.disconnectedCallback();
+  card.connectedCallback();
+  assert.doesNotMatch(card.shadowRoot.innerHTML, /class="tiles"/);
+  card.disconnectedCallback();
+  // The mini card comes back compact.
+  const mini = newCard(makeHass(), {}, al.AlarmMiniCard);
+  mini.connectedCallback();
+  click(mini, { action: "zoom" });
+  assert.match(mini.shadowRoot.innerHTML, /class="tiles"/);
+  mini._unzoom.tap({ composedPath: () => [] });
+  assert.doesNotMatch(mini.shadowRoot.innerHTML, /class="tiles"/);
+  click(mini, { action: "zoom" });
+  mini.disconnectedCallback();
+  mini.connectedCallback();
+  assert.doesNotMatch(mini.shadowRoot.innerHTML, /class="tiles"/);
+  mini.disconnectedCallback();
+});
+
 test("the sensors section folds and unfolds", () => {
   const card = newCard(makeHass(), { collapsed: true });
   assert.doesNotMatch(card.shadowRoot.innerHTML, /class="tiles"/);

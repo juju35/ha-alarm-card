@@ -2432,6 +2432,42 @@ const DIALOG_STYLE = `
 
 // A click inside a dialog (more-info opened from the card, say) is not a click outside the card.
 const inDialog = (ev) => ev.composedPath().some((n) => ["ha-more-info-dialog", "ha-dialog", "dialog"].includes(n.localName));
+const isOutside = (card, ev) => !ev.composedPath().includes(card) && !inDialog(ev);
+
+// "A click elsewhere" is caught on the pointer, not only on the click event: on iOS (Safari and the companion app)
+// a tap on something that is not clickable (the background, an empty spot, a card with no action) sends no click to
+// the page. It counts when the press and the release are both outside the card (a slider dragged out of the card
+// does not fold it), and a scroll does not count (the browser cancels the pointer). Keyboard clicks still go through
+// the click event. `tap(ev)` (press and release at the same spot) is for the tests.
+const watchOutside = (isOut, handler) => {
+  let downOutside = false;
+  const onDown = (ev) => {
+    downOutside = isOut(ev);
+  };
+  const onUp = (ev) => {
+    if (downOutside && isOut(ev)) handler(ev);
+    downOutside = false;
+  };
+  const onClick = (ev) => {
+    if (ev.detail === 0 && isOut(ev)) handler(ev);
+  };
+  return {
+    on() {
+      document.addEventListener("pointerdown", onDown, true);
+      document.addEventListener("pointerup", onUp, true);
+      document.addEventListener("click", onClick, true);
+    },
+    tap(ev) {
+      onDown(ev);
+      onUp(ev);
+    },
+    off() {
+      document.removeEventListener("pointerdown", onDown, true);
+      document.removeEventListener("pointerup", onUp, true);
+      document.removeEventListener("click", onClick, true);
+    },
+  };
+};
 
 // After the confirmation popup closes, clicks on the card are ignored for this long: the second click of a
 // double click on OK would otherwise land on what lies under the button.
@@ -2476,33 +2512,43 @@ class AlarmBase extends HTMLElement {
       else this._closePad();
     };
     // A click elsewhere on the page closes the popup and the pad, and folds the sections back.
-    this._onOutside = (ev) => {
-      if (ev.composedPath().includes(this) || inDialog(ev)) return;
-      if (!this._confirm && !this._pad && !this._toggled.size) return;
-      this._confirm = null;
-      this._pad = null;
-      this._code = "";
-      this._toggled = new Set();
-      window.removeEventListener("keydown", this._onKey);
-      this._update();
-    };
+    this._outside = watchOutside(
+      (ev) => isOutside(this, ev),
+      () => {
+        if (!this._confirm && !this._pad && !this._toggled.size) return;
+        this._resetUnfolded();
+        this._update();
+      },
+    );
+  }
+
+  // Popup and pad closed, sections folded back to their defaults (a click elsewhere, or the card left the page).
+  _resetUnfolded() {
+    this._confirm = null;
+    this._pad = null;
+    this._code = "";
+    this._toggled = new Set();
+    window.removeEventListener("keydown", this._onKey);
   }
 
   // Durations move with the clock: a render check every second while a delay counts down (the signature
   // changes on the second), every minute otherwise (it only changes on the minute).
   connectedCallback() {
     this._startClock();
-    document.addEventListener("click", this._onOutside, true);
+    this._outside.on();
     if (this._confirm || this._pad) window.addEventListener("keydown", this._onKey);
-    if (this._hass && this._config) this._syncAlarmoSub();
+    // Back on the page after leaving it: rendered again in its default state (and the Alarmo subscription resumed).
+    if (this._hass && this._config) this._update();
   }
 
   disconnectedCallback() {
     clearInterval(this._timer);
     this._timer = null;
     this._timerPeriod = null;
-    document.removeEventListener("click", this._onOutside, true);
-    window.removeEventListener("keydown", this._onKey);
+    this._outside.off();
+    // Left (another dashboard view, a conditional card hidden): back to the defaults, so that the card does not come
+    // back unfolded or with its popup or pad open.
+    this._resetUnfolded();
     this._unsubAlarmo();
     this._lastArm = null;
   }
@@ -3369,9 +3415,12 @@ class AlarmMiniCard extends AlarmCard {
   constructor() {
     super();
     this._zoomed = false;
-    this._onUnzoom = (ev) => {
-      if (this._zoomed && !ev.composedPath().includes(this) && !inDialog(ev)) this._setZoom(false);
-    };
+    this._unzoom = watchOutside(
+      (ev) => isOutside(this, ev),
+      () => {
+        if (this._zoomed) this._setZoom(false);
+      },
+    );
   }
 
   static getConfigElement() {
@@ -3380,12 +3429,14 @@ class AlarmMiniCard extends AlarmCard {
 
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener("click", this._onUnzoom, true);
+    this._unzoom.on();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener("click", this._onUnzoom, true);
+    this._unzoom.off();
+    // Back to the compact view once off the screen (see the full card).
+    this._zoomed = false;
   }
 
   getCardSize() {
