@@ -2488,6 +2488,24 @@ class AlarmBase extends HTMLElement {
     this._html = "";
     this._toggled = new Set();
     this.shadowRoot.addEventListener("click", (ev) => this._onClick(ev));
+    this.shadowRoot.addEventListener("pointerdown", () => {
+      // No update of the card between the press and the release: the patch keeps the nodes in place, but an element
+      // appearing in front of the one pressed (a chip, a row) shifts its siblings, so that the element under the
+      // pointer can change and the click land elsewhere or nowhere. The pending render is done once released (after
+      // the click).
+      this._pressing = true;
+      window.addEventListener("pointerup", this._onPressEnd, true);
+      window.addEventListener("pointercancel", this._onPressEnd, true);
+    });
+    this._onPressEnd = () => {
+      window.removeEventListener("pointerup", this._onPressEnd, true);
+      window.removeEventListener("pointercancel", this._onPressEnd, true);
+      // After the click (same task): a press with no click (released elsewhere) draws what it held back.
+      setTimeout(() => {
+        this._pressing = false;
+        if (this._dirty) this._update();
+      }, 0);
+    };
     this.shadowRoot.addEventListener("input", (ev) => {
       if (ev.target?.dataset?.action === "code_input") {
         this._code = ev.target.value;
@@ -2546,6 +2564,9 @@ class AlarmBase extends HTMLElement {
     this._timer = null;
     this._timerPeriod = null;
     this._outside.off();
+    this._pressing = false;
+    window.removeEventListener("pointerup", this._onPressEnd, true);
+    window.removeEventListener("pointercancel", this._onPressEnd, true);
     // Left (another dashboard view, a conditional card hidden): back to the defaults, so that the card does not come
     // back unfolded or with its popup or pad open.
     this._resetUnfolded();
@@ -2687,6 +2708,12 @@ class AlarmBase extends HTMLElement {
     if (!this._hass || !this._config) return;
     if (this.isConnected) this._startClock();
     this._syncAlarmoSub();
+    // Not under a press (see the pointerdown listener): drawn once released.
+    if (this._pressing) {
+      this._dirty = true;
+      return;
+    }
+    this._dirty = false;
     this._sig = sig ?? this._signature();
     let html = this._render();
     if (this._confirm) html = html.replace(/<ha-card([^>]*)>([\s\S]*)<\/ha-card>\s*$/, (_, _attrs, inner) => `<ha-card class="dialog-open">${inner}${this._confirmHtml()}</ha-card>`);
@@ -2710,6 +2737,7 @@ class AlarmBase extends HTMLElement {
   // ----- Actions -------------------------------------------------------------
 
   _onClick(ev) {
+    this._pressing = false;
     const path = ev.composedPath();
     const el = path.find((n) => n.dataset && (n.dataset.entity || n.dataset.action));
     if (!this._confirm && !PAD_ACTIONS.has(el?.dataset.action) && Date.now() - (this._confirmClosedAt ?? 0) < CONFIRM_GUARD_MS) {

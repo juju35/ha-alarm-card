@@ -35,6 +35,8 @@ export const load = () => {
     removeEventListener() {},
     setInterval: () => 0,
     clearInterval() {},
+    setTimeout,
+    clearTimeout,
   };
   sandbox.window = sandbox;
   vm.createContext(sandbox);
