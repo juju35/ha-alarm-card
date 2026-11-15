@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.10.0 - 2026-11-15
+
+### Features
+- **New state illustration**: the central shield is now a frosted-glass emblem in the state colour — a specular highlight glides across the glass and a padlock at its heart opens when disarmed and locks when armed. It reacts to the alarm's state: slow and quiet when disarmed, a faster gleam with a thin ring that draws itself while arming, a brighter glow and a soft "secured" halo that breathes out when armed, and a swelling glow with shockwaves bursting past the shield when triggered. Accent colours are set in CSS (the only gradients are plain white) for reliable WebKit/Safari rendering, and every animation is disabled under `prefers-reduced-motion`.
+
 ## 1.9.2 - 2026-11-13
 
 ### Fixes
