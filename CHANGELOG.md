@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.10.1 - 2026-11-15
+
+### Fixes
+- **Larger state emblem**: the frosted-glass shield sat small inside a wide view box; it is now scaled up (~45%) to fill its badge, while the trigger shockwaves stay contained within it.
+
 ## 1.10.0 - 2026-11-15
 
 ### Features

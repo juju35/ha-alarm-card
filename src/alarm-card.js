@@ -2322,7 +2322,7 @@ const shield = (state) => `<div class="shield ${stateClass(state)}"><svg class="
     <linearGradient id="sc-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".02"/></linearGradient>
     <linearGradient id="sc-gleam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
   </defs>
-  <g class="sc-glass">
+  <g transform="translate(60 56) scale(1.45) translate(-60 -56)"><g class="sc-glass">
     <path class="sc-tint" d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z"/>
     <path class="sc-sheen" d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z" fill="url(#sc-glass)"/>
     <g clip-path="url(#sc-clip)">
@@ -2336,7 +2336,7 @@ const shield = (state) => `<div class="shield ${stateClass(state)}"><svg class="
     <path class="sc-highlight" d="M37 31 60 22l23 9"/>
     <path class="sc-lock-shackle" d="M54 58a6 6 0 0 1 12 0M58 58v-5a2 2 0 0 1 4 0v5"/>
     <rect class="sc-lock" x="52.5" y="57" width="15" height="12" rx="2.5"/>
-  </g>
+  </g></g>
   <circle class="sc-shock s1" cx="60" cy="56" r="22"/>
   <circle class="sc-shock s2" cx="60" cy="56" r="22"/>
 </svg></div>`;
