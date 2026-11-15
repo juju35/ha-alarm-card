@@ -2395,7 +2395,10 @@ const BASE_STYLE = `
   .sc-guard.g1 { opacity: .3; } .sc-guard.g2 { opacity: .18; }
   .sc-highlight { fill: none; stroke: #fff; stroke-opacity: .4; stroke-width: 1.6; stroke-linecap: round; }
   .sc-lock { fill: var(--c); }
-  .sc-lock-shackle { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .sc-lock-shackle { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round;
+                     transform-box: view-box; transform-origin: 64px 58px; transition: transform .5s cubic-bezier(.4, 1.4, .5, 1); }
+  /* disarmed / idle: the padlock is open; every armed/arming/triggered state closes it */
+  .shield.off .sc-lock-shackle, .shield.idle .sc-lock-shackle { transform: rotate(-26deg) translateX(-4px); }
   .sc-secure, .sc-shock, .sc-ringdraw { fill: none; stroke: var(--c); opacity: 0; transform-box: view-box; transform-origin: 60px 56px; }
   .sc-secure { stroke-width: 2; } .sc-shock { stroke-width: 2.5; }
   .sc-ringdraw { stroke-width: 2.4; stroke-linecap: round; }
