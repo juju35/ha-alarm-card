@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.10.3 - 2026-11-15
+
+### Fixes
+- **Compact mini icon size**: the state shield on the compact mini card is shown a bit larger (50 px), to line up with the illustration size on the other ha-* mini cards. The logo badge (`show_logo: true`) keeps its 40 px.
+
 ## 1.10.2 - 2026-11-15
 
 ### Fixes
