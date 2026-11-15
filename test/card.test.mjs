@@ -840,8 +840,9 @@ test("number pad: the live region reads how many digits were typed (translated),
 
 test("the logo's accessible name follows the card's language", () => {
   for (const Cls of [al.AlarmCard, al.AlarmMiniCard]) {
-    assert.match(newCard(makeHass(), { language: "fr" }, Cls).shadowRoot.innerHTML, /role="img" aria-label="Alarme"/);
-    assert.match(newCard(makeHass(), { language: "de" }, Cls).shadowRoot.innerHTML, /role="img" aria-label="Alarmanlage"/);
+    // The mini shows the state shield by default, so ask for the logo explicitly to check its label.
+    assert.match(newCard(makeHass(), { language: "fr", show_logo: true }, Cls).shadowRoot.innerHTML, /role="img" aria-label="Alarme"/);
+    assert.match(newCard(makeHass(), { language: "de", show_logo: true }, Cls).shadowRoot.innerHTML, /role="img" aria-label="Alarmanlage"/);
   }
 });
 
