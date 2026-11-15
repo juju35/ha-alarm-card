@@ -2387,7 +2387,10 @@ const BASE_STYLE = `
   /* The state "shield" is a frosted-glass emblem. The box only sizes it (72/52/40 px set elsewhere); the SVG
      fills it. Accent colours come from var(--c); the two gradients are literal white (WebKit/Safari-safe). */
   .shield { flex: none; display: grid; place-items: center; color: var(--c); }
-  .shield .sc { width: 100%; height: 100%; display: block; overflow: visible;
+  /* overflow: hidden clips the enlarged emblem's off-shield geometry to the badge (so nothing leaves the card);
+     the shield and the trigger shockwaves live inside the view box, and the glow is the element's own filter,
+     so neither is lost. */
+  .shield .sc { width: 100%; height: 100%; display: block; overflow: hidden;
                 filter: drop-shadow(0 0 4px color-mix(in srgb, var(--c) 26%, transparent)); transition: filter .4s ease; }
   .sc-tint { fill: var(--c); fill-opacity: .14; }
   .sc-ring { fill: none; stroke: var(--c); stroke-width: 3; stroke-linejoin: round; }
