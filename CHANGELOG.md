@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.10.0 - 2026-11-15
+
+### Features
+- **New state illustration**: the central shield is now a radar scope drawn in the state colour — range rings, a ticked bezel, a sweeping beam with a trailing afterglow and contacts that ping as it passes. It reacts to the alarm's state: a calm, slow sweep when disarmed, a fast sweep with a halo while arming, a brighter glow and a "secured" ring that breathes out when armed, and a pulsing red glow with shockwaves bursting past the shield when triggered. All colours are set in CSS (no SVG gradients) and every animation is disabled under `prefers-reduced-motion`.
+
 ## 1.9.2 - 2026-11-13
 
 ### Fixes

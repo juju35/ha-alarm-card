@@ -2146,15 +2146,6 @@ const stateClass = (state) => {
   return /^(home|away|night|vacation|custom)$/.test(mode) ? mode : "idle";
 };
 
-const stateIcon = (state) => {
-  const c = stateClass(state);
-  if (c === "off") return ICONS.shield_off;
-  if (c === "alarm") return ICONS.shield_alert;
-  if (c === "wait") return ICONS.shield;
-  if (c === "idle") return ICONS.shield_off;
-  return ICONS.shield_check;
-};
-
 // The `modes` option with the optional arm_ prefix added and duplicates removed ("away" and "arm_away" are one
 // mode). Anything but a list is returned as is.
 const armModes = (modes) =>
@@ -2320,9 +2311,33 @@ const logo = (label) => `<div class="badge"><svg class="icon" viewBox="6 6 36 36
   <path d="M17.2 17.2a9.6 9.6 0 0 0 0 13.6M30.8 17.2a9.6 9.6 0 0 1 0 13.6" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>
 </svg></div>`;
 
-// Big state shield of the full card (and the small one of the mini card): pulses while a delay runs, flashes
-// when the alarm goes off.
-const shield = (state) => `<div class="shield ${stateClass(state)}">${svgIcon(stateIcon(state))}</div>`;
+// Big state shield of the full card (and the small one of the mini card): a radar scope drawn in the accent
+// colour, echoing the card logo. The beam sweeps continuously; while a delay runs it sweeps fast with a halo,
+// when armed a "secured" ring breathes out, and when the alarm goes off the glow pulses red and shockwaves
+// burst past the shield. All colours and fills are set in CSS (no SVG gradients) for WebKit/Safari. The
+// clipPath id is unique per card instance (each card has its own shadow root).
+const shield = (state) => `<div class="shield ${stateClass(state)}"><svg class="sc" viewBox="0 0 120 120" aria-hidden="true">
+  <clipPath id="sc-clip"><path d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z"/></clipPath>
+  <path class="sc-plate" d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z"/>
+  <g clip-path="url(#sc-clip)">
+    <g class="sc-grid"><circle cx="60" cy="56" r="10"/><circle cx="60" cy="56" r="20"/><line x1="60" y1="26" x2="60" y2="86"/><line x1="30" y1="56" x2="90" y2="56"/></g>
+    <circle class="sc-bezel" cx="60" cy="56" r="29"/>
+    <circle class="sc-halo" cx="60" cy="56" r="26"/>
+    <circle class="sc-secure" cx="60" cy="56" r="22"/>
+    <g class="sc-blip b1"><circle class="sc-rip" cx="76" cy="47" r="3"/><circle class="sc-dot" cx="76" cy="47" r="2.3"/></g>
+    <g class="sc-blip b2"><circle class="sc-rip" cx="49" cy="69" r="3"/><circle class="sc-dot" cx="49" cy="69" r="2.3"/></g>
+    <g class="sc-sweep">
+      <path class="sc-trail t1" d="M60 56 L60 22 A34 34 0 0 0 33 35 Z"/>
+      <path class="sc-trail t2" d="M60 56 L60 22 A34 34 0 0 0 42 28 Z"/>
+      <line class="sc-beam" x1="60" y1="56" x2="60" y2="22"/>
+      <circle class="sc-tip" cx="60" cy="22" r="2.4"/>
+    </g>
+  </g>
+  <path class="sc-ring" d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z"/>
+  <circle class="sc-core" cx="60" cy="56" r="4"/>
+  <circle class="sc-shock s1" cx="60" cy="56" r="20"/>
+  <circle class="sc-shock s2" cx="60" cy="56" r="20"/>
+</svg></div>`;
 
 // ---------------------------------------------------------------------------
 // Styles
@@ -2367,14 +2382,57 @@ const BASE_STYLE = `
   .name { font-size: 16px; font-weight: 500; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sub { font-size: 12px; color: var(--secondary-text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .warning { padding: 16px; color: ${textColor("var(--al-wait)")}; }
-  .shield { flex: none; display: grid; place-items: center; border-radius: 50%; color: var(--c);
-            background: color-mix(in srgb, var(--c) 14%, transparent); transition: color .4s ease, background .4s ease; }
-  .shield.wait { animation: al-pulse 1.4s ease-in-out infinite; }
-  .shield.alarm { animation: al-flash .7s steps(2, jump-none) infinite; }
-  @keyframes al-pulse { 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--c) 0%, transparent), 0 0 0 0 color-mix(in srgb, var(--c) 35%, transparent);
-                              background: color-mix(in srgb, var(--c) 26%, transparent); } }
-  @keyframes al-flash { from { background: color-mix(in srgb, var(--c) 14%, transparent); } to { background: var(--c); color: #fff; } }
-  @media (prefers-reduced-motion: reduce) { .shield { animation: none !important; transition: none; } }
+  /* The state "shield" is a radar scope. The box only sizes it (72/52/40 px set elsewhere); the SVG fills it. */
+  .shield { flex: none; display: grid; place-items: center; color: var(--c); }
+  .shield .sc { width: 100%; height: 100%; display: block; overflow: visible;
+                filter: drop-shadow(0 0 4px color-mix(in srgb, var(--c) 28%, transparent)); transition: filter .4s ease; }
+  .sc-plate { fill: color-mix(in srgb, var(--c) 16%, transparent); }
+  .sc-grid { fill: none; stroke: var(--c); stroke-width: 1; opacity: .22; }
+  .sc-bezel { fill: none; stroke: var(--c); stroke-width: 3; stroke-dasharray: 1 6; opacity: .4; }
+  .sc-ring { fill: none; stroke: var(--c); stroke-width: 3.2; stroke-linejoin: round; }
+  .sc-core, .sc-tip, .sc-dot { fill: var(--c); }
+  .sc-beam { stroke: var(--c); stroke-width: 2.2; stroke-linecap: round; }
+  .sc-trail { fill: var(--c); }
+  .sc-trail.t1 { opacity: .16; } .sc-trail.t2 { opacity: .14; }
+  .sc-rip { fill: none; stroke: var(--c); stroke-width: 1.4; transform-box: view-box; }
+  .sc-halo, .sc-secure, .sc-shock { fill: none; stroke: var(--c); opacity: 0; transform-box: view-box; transform-origin: 60px 56px; }
+  .sc-halo, .sc-secure { stroke-width: 2; } .sc-shock { stroke-width: 2.5; }
+  .b1 .sc-rip { transform-origin: 76px 47px; } .b2 .sc-rip { transform-origin: 49px 69px; }
+  /* motion: the beam sweeps, the contacts ping */
+  .sc-sweep { transform-box: view-box; transform-origin: 60px 56px; animation: al-spin 3.4s linear infinite; }
+  .sc-blip .sc-rip { animation: al-ping 3.4s ease-out infinite; }
+  .sc-blip .sc-dot { animation: al-blip 3.4s ease-out infinite; }
+  .b2 .sc-rip, .b2 .sc-dot { animation-delay: 1.7s; }
+  /* disarmed / idle: calm and slow */
+  .shield.off .sc-sweep, .shield.idle .sc-sweep { animation-duration: 6s; opacity: .65; }
+  .shield.off .sc-blip .sc-rip, .shield.off .sc-blip .sc-dot,
+  .shield.idle .sc-blip .sc-rip, .shield.idle .sc-blip .sc-dot { animation-duration: 6s; }
+  /* arming / pending: fast sweep + halo */
+  .shield.wait .sc-sweep { animation-duration: 1.1s; }
+  .shield.wait .sc-halo { animation: al-halo 1.1s ease-out infinite; }
+  .shield.wait .sc-blip .sc-rip, .shield.wait .sc-blip .sc-dot { animation-duration: 1.1s; }
+  .shield.wait .b2 .sc-rip, .shield.wait .b2 .sc-dot { animation-delay: .55s; }
+  /* armed (home/away/night/vacation/custom): stronger glow + a secured ring that breathes out */
+  .shield.home .sc, .shield.away .sc, .shield.night .sc, .shield.vacation .sc, .shield.custom .sc {
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--c) 48%, transparent)); }
+  .shield.home .sc-secure, .shield.away .sc-secure, .shield.night .sc-secure,
+  .shield.vacation .sc-secure, .shield.custom .sc-secure { animation: al-secure 3s ease-out infinite; }
+  /* triggered: pulsing red glow, fast beam, shockwaves bursting past the shield */
+  .shield.alarm .sc { animation: al-glow .6s ease-in-out infinite; }
+  .shield.alarm .sc-sweep { animation-duration: .55s; }
+  .shield.alarm .sc-shock { animation: al-shock 1s ease-out infinite; }
+  .shield.alarm .s2 { animation-delay: .5s; }
+  .shield.alarm .sc-blip .sc-rip, .shield.alarm .sc-blip .sc-dot { animation-duration: .7s; }
+  .shield.alarm .b2 .sc-rip, .shield.alarm .b2 .sc-dot { animation-delay: .35s; }
+  @keyframes al-spin { to { transform: rotate(360deg); } }
+  @keyframes al-ping { 0% { opacity: 0; transform: scale(.5); } 6% { opacity: .85; transform: scale(1); } 24% { opacity: 0; transform: scale(2.6); } 100% { opacity: 0; transform: scale(2.6); } }
+  @keyframes al-blip { 0% { opacity: 0; } 5% { opacity: 1; } 30% { opacity: .15; } 100% { opacity: 0; } }
+  @keyframes al-halo { 0% { opacity: .5; transform: scale(.7); } 100% { opacity: 0; transform: scale(1.3); } }
+  @keyframes al-secure { 0% { opacity: .55; transform: scale(.8); } 70%, 100% { opacity: 0; transform: scale(1.35); } }
+  @keyframes al-shock { 0% { opacity: .85; transform: scale(.55); } 100% { opacity: 0; transform: scale(2.3); } }
+  @keyframes al-glow { 0%, 100% { filter: drop-shadow(0 0 5px color-mix(in srgb, var(--c) 40%, transparent)); }
+                       50% { filter: drop-shadow(0 0 15px color-mix(in srgb, var(--c) 90%, transparent)); } }
+  @media (prefers-reduced-motion: reduce) { .shield .sc, .shield .sc * { animation: none !important; } }
   .info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
   .line { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--secondary-text-color); min-width: 0; }
   .line span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
