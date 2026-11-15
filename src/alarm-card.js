@@ -3557,7 +3557,7 @@ class AlarmMiniCard extends AlarmCard {
     return `<style>${BASE_STYLE}${MINI_STYLE}</style>${STRUT}
       <ha-card>
         <div class="header${this._pad ? " with-pad" : ""}">
-          ${c.show_logo !== false ? logo(this._t("title")) : `<div class="clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}">${shield(st.state)}</div>`}
+          ${c.show_logo === true ? logo(this._t("title")) : `<div class="clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}">${shield(st.state)}</div>`}
           <div class="titles">
             <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
             <div class="sub clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}"><span class="st ${cls}"><span class="dot"></span>${esc(
@@ -3789,9 +3789,10 @@ class AlarmCardEditor extends AlarmEditorBase {
 
 class AlarmMiniCardEditor extends AlarmEditorBase {
   // The full card's options (the sensors and the activity apply to the zoomed view, which renders the full
-  // card with the same options), and the detail button.
+  // card with the same options), and the detail button. The logo is off by default here: the compact mini
+  // shows the state shield as its icon unless show_logo is turned on.
   static get toggles() {
-    return [...AlarmCardEditor.toggles, ["zoom", true]];
+    return [...AlarmCardEditor.toggles.map((t) => (t[0] === "show_logo" ? ["show_logo", false] : t)), ["zoom", true]];
   }
 }
 

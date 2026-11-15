@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.10.2 - 2026-11-15
+
+### Fixes
+- **Compact mini card icon**: the mini card now shows the state shield (in the state colour, with its animations) as its header icon instead of the fixed-red brand logo, so a glance already tells you the alarm's state. Set `show_logo: true` to keep the brand logo there.
+
 ## 1.10.1 - 2026-11-15
 
 ### Fixes

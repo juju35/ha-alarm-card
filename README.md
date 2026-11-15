@@ -157,7 +157,7 @@ zoom: true
 | `buttons` | both | — | Buttons section: `switch`, `light`, `fan`, `input_boolean` and `siren` entities show their state and a tap on their icon toggles them; `button`, `input_button`, `script` and `scene` entities run. A tap on the name opens the entity. Entity ids, or `{ entity, name }` |
 | `cameras` | both | — | Camera entities whose snapshots show in a Cameras section, refreshed with Home Assistant's camera pictures; a tap opens the camera. Entity ids, or `{ entity, name }` |
 | `cameras_on_alarm` | both | `true` | Show the cameras only while the alarm is triggered or its entry delay runs (`pending`); `false`: always |
-| `show_logo` | both | `true` | Show the card logo |
+| `show_logo` | both | `true` (full) / `false` (mini) | Show the brand logo as the header icon. Off on the compact mini card, which then shows the state shield as its icon |
 | `show_controls` | both | `true` | Arm / disarm buttons |
 | `show_info` | both | `true` | Who changed the state and the last trigger (Alarmo) |
 | `confirm_disarm` | both | `true` without a code, `false` with one | Ask for confirmation before disarming. On by default when the panel needs no code, so one tap cannot disarm it; `false` turns it off. With a code, the code entry already protects disarming; `true` asks first as well. Cancelling an exit delay never asks |
