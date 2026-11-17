@@ -2539,7 +2539,7 @@ const AL_STARS = [
 const alarmScene = (uid) => {
   const stars = AL_STARS.map(([x, y, r], i) => `<circle class="al-star${i % 3 ? "" : " tw"}" cx="${x}" cy="${y}" r="${r}"/>`).join("");
   return `<svg class="al-scene" viewBox="0 0 190 80" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
-    <defs><clipPath id="al-dome-clip-${uid}"><path d="M42 80A60 66 0 0 1 162 80Z"/></clipPath></defs>
+    <defs><clipPath id="al-dome-clip-${uid}"><path d="M61 80A42 62 0 0 1 145 80Z"/></clipPath></defs>
     <g class="al-day"><circle class="al-sun-halo" cx="20" cy="16" r="10"/><circle class="al-sun" cx="20" cy="16" r="6.5"/>
       <path class="al-cloud" d="M40 20a4 4 0 0 1 6-3.4 5 5 0 0 1 9.4 1.4 3 3 0 0 1 .6 6H42a3 3 0 0 1-2-4Z"/>
       <path class="al-cloud c2" d="M66 8a3.4 3.4 0 0 1 5-2.8 4.2 4.2 0 0 1 8 1.2 2.6 2.6 0 0 1 .4 5H68a2.6 2.6 0 0 1-2-3.4Z"/></g>
@@ -2547,7 +2547,7 @@ const alarmScene = (uid) => {
     <path class="al-hill far" d="M0 80C26 66 54 60 88 64C122 68 156 58 190 60C206 61 222 62 240 61V80Z"/>
     <path class="al-hill" d="M0 80C40 72 92 73 190 70L240 69V80Z"/>
     <g class="al-tree"><rect class="al-trunk" x="27" y="62" width="2.4" height="18"/><circle class="al-crown" cx="28.2" cy="58" r="9"/><circle class="al-crown" cx="22" cy="64" r="5.5"/></g>
-    <g class="al-dome"><path class="al-dome-fill" d="M42 80A60 66 0 0 1 162 80Z"/><path class="al-dome-line" d="M42 80A60 66 0 0 1 162 80" pathLength="100"/>
+    <g class="al-dome"><path class="al-dome-fill" d="M61 80A42 62 0 0 1 145 80Z"/><path class="al-dome-line" d="M61 80A42 62 0 0 1 145 80" pathLength="100"/>
       <g clip-path="url(#al-dome-clip-${uid})"><path class="al-dome-sweep" d="M30 14H50L40 80H20Z"/></g></g>
     <g class="al-house">
       <rect class="al-chimney" x="114" y="27" width="7" height="14"/>
@@ -2572,6 +2572,16 @@ const SCENE_STYLE = `
   .dark .al-ground { background: repeating-linear-gradient(90deg, #1f4a2a 0 22px, #245433 22px 44px); box-shadow: inset 0 2px 0 #2c6139; }
   /* The hills run on past the picture's right edge (the banner clips them), under the mini card's detail button. */
   .al-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: var(--al-scene-w); overflow: hidden; }
+  /* The house and its dome stand left of the shield, never behind it: moved 32 px to the left of the drawing (the
+     picture keeps its scale, 1 px per unit). A picture too narrow for the whole house (or its dome, or the tree)
+     leaves it out: the sky and the hills stay. */
+  .al-house, .al-dome { transform: translateX(-32px); }
+  @container al-card (max-width: 399px) { .banner:not(.has-zoom) .al-house { display: none; } }
+  @container al-card (max-width: 410px) { .banner:not(.has-zoom) .al-dome { display: none; } }
+  @container al-card (max-width: 423px) { .banner:not(.has-zoom) .al-tree { display: none; } }
+  @container al-card (max-width: 377px) { .banner.has-zoom .al-house { display: none; } }
+  @container al-card (max-width: 388px) { .banner.has-zoom .al-dome { display: none; } }
+  @container al-card (max-width: 401px) { .banner.has-zoom .al-tree { display: none; } }
   .al-nightsky, .dark .al-day { display: none; }
   .dark .al-nightsky { display: inline; }
   .al-sun { fill: #ffd65a; } .al-sun-halo { fill: #ffd65a; opacity: .28; }
@@ -2623,7 +2633,7 @@ const SCENE_STYLE = `
   .banner.dark.alarm .al-win { animation: al-win-alarm-dark 1.4s ease-in-out infinite; }
   @keyframes al-win-alarm-dark { 0%, 100% { fill: #ffcf6e; } 50% { fill: #ff6b6f; } }
   /* The big state shield stands in front of the house, at the right. */
-  .banner .al-shield { position: absolute; top: 3px; right: -4px; width: 82px; height: 82px; z-index: 1; }
+  .banner .al-shield { position: absolute; top: 4px; right: 4px; width: 72px; height: 72px; z-index: 1; }
   .banner .al-shield .shield { width: 100%; height: 100%; }
   .banner.has-zoom .al-shield { right: 20px; }
   .banner.has-zoom .al-scene { right: 26px; }
@@ -2631,8 +2641,8 @@ const SCENE_STYLE = `
   .banner .htext { position: absolute; z-index: 2; left: 12px; top: 0; bottom: 10px; right: calc(var(--al-scene-w) + 4px);
                    display: flex; align-items: center; gap: 10px; padding: 0; min-width: 0; flex-wrap: nowrap; }
   .banner.has-zoom .htext { right: calc(var(--al-scene-w) + 30px); }
-  /* Mini card: a slightly narrower picture beside the detail button, so that a short title keeps its pill beside it. */
-  .banner.has-zoom { --al-scene-w: min(190px, 100cqw - 268px); }
+  /* Mini card: the picture beside the detail button, wide enough for the whole house from 378 px (380 px with its border). */
+  .banner.has-zoom { --al-scene-w: min(190px, 100cqw - 228px); }
   .banner .htext .titles { container: al-titles / inline-size; flex: 1 1 0; align-self: stretch; min-width: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; row-gap: 2px; }
   .banner .chip { box-sizing: border-box;
                   background: color-mix(in srgb, var(--c) 18%, rgba(255,255,255,.78)); color: color-mix(in srgb, var(--c) 45%, #0d2a45); }
@@ -2655,7 +2665,7 @@ const SCENE_STYLE = `
   /* Narrower card: the house gives its room to the text, the shield stays; narrower still, the sky alone. */
   @container (max-width: 300px) {
     .al-scene { display: none; }
-    .banner .htext { right: 84px; } .banner.has-zoom .htext { right: 98px; }
+    .banner .htext { right: 78px; } .banner.has-zoom .htext { right: 98px; }
   }
   @container (max-width: 230px) {
     .banner .al-shield { display: none; }
