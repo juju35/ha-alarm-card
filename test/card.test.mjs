@@ -317,15 +317,16 @@ test("the sensors section folds and unfolds", () => {
 });
 
 test("the mini card fits on one row: state, countdown and buttons in the header", () => {
-  const card = newCard(makeHass(arming), { language: "fr" }, al.AlarmMiniCard);
+  const classic = { illustration: false };
+  const card = newCard(makeHass(arming), { language: "fr", ...classic }, al.AlarmMiniCard);
   const html = card.shadowRoot.innerHTML;
   assert.equal((html.match(/class="header"/g) || []).length, 1);
   assert.doesNotMatch(html, /class="content/);
   assert.match(html, /Armement<\/span> · [34]\d s/);
   assert.match(html, /class="controls"/);
-  const trig = newCard(makeHass(triggered), {}, al.AlarmMiniCard);
+  const trig = newCard(makeHass(triggered), classic, al.AlarmMiniCard);
   assert.match(trig.shadowRoot.innerHTML, /Triggered<\/span> · Kitchen window/);
-  const noLogo = newCard(makeHass(), { show_logo: false }, al.AlarmMiniCard);
+  const noLogo = newCard(makeHass(), { show_logo: false, ...classic }, al.AlarmMiniCard);
   assert.match(noLogo.shadowRoot.innerHTML, /class="shield off"/);
 });
 
@@ -841,8 +842,8 @@ test("number pad: the live region reads how many digits were typed (translated),
 test("the logo's accessible name follows the card's language", () => {
   for (const Cls of [al.AlarmCard, al.AlarmMiniCard]) {
     // The mini shows the state shield by default, so ask for the logo explicitly to check its label.
-    assert.match(newCard(makeHass(), { language: "fr", show_logo: true }, Cls).shadowRoot.innerHTML, /role="img" aria-label="Alarme"/);
-    assert.match(newCard(makeHass(), { language: "de", show_logo: true }, Cls).shadowRoot.innerHTML, /role="img" aria-label="Alarmanlage"/);
+    assert.match(newCard(makeHass(), { language: "fr", show_logo: true, illustration: false }, Cls).shadowRoot.innerHTML, /role="img" aria-label="Alarme"/);
+    assert.match(newCard(makeHass(), { language: "de", show_logo: true, illustration: false }, Cls).shadowRoot.innerHTML, /role="img" aria-label="Alarmanlage"/);
   }
 });
 
@@ -998,4 +999,84 @@ test("editor: a name field for each sensor, camera and button, saved as { entity
   // A button added in the picker keeps no name until one is typed; the others keep theirs
   editor._changed({ ...editor._form.data, buttons: ["switch.camera_plugs", "script.lights_off"], "name__switch.camera_plugs": "Plugs" });
   assert.deepEqual(plain(editor.events.at(-1).detail.config).buttons, [{ entity: "switch.camera_plugs", name: "Plugs" }, "script.lights_off"]);
+});
+
+test("illustrated header: the house, the big state shield, the lawn strip and the state icon in the state colour", () => {
+  for (const Cls of [al.AlarmCard, al.AlarmMiniCard]) {
+    const html = newCard(makeHass(armedAway), {}, Cls).shadowRoot.innerHTML;
+    assert.match(html, /class="banner away[ "]/);
+    assert.match(html, /class="al-ground"/);
+    assert.match(html, /class="al-scene"/);
+    assert.match(html, /class="al-house"/);
+    assert.match(html, /class="al-shield clickable"[^>]*><div class="shield away">/);
+    assert.match(html, /class="ibadge"><svg class="icon "/);
+    assert.match(html, /\.banner \{[^}]*height: 90px/);
+    assert.match(html, /prefers-reduced-motion/);
+    // One state icon per state, Home Assistant's own.
+    const icon = (ov) => newCard(makeHass(ov), {}, Cls).shadowRoot.innerHTML.match(/class="ibadge">(<svg[\s\S]*?<\/svg>)/)[1];
+    assert.notEqual(icon({}), icon(armedAway));
+    assert.notEqual(icon(triggered), icon(armedAway));
+    // illustration: false keeps the classic header.
+    assert.doesNotMatch(newCard(makeHass(), { illustration: false }, Cls).shadowRoot.innerHTML, /class="banner/);
+  }
+});
+
+test("illustrated header: night follows illustration_theme, else sun.sun below the horizon or the dark theme", () => {
+  const night = (hassExtra, config = {}) => {
+    const hass = { ...makeHass(), ...hassExtra };
+    return /class="banner [^"]*\bdark\b/.test(newCard(hass, config).shadowRoot.innerHTML);
+  };
+  assert.equal(night({}), false);
+  assert.equal(night({ themes: { darkMode: true } }), true);
+  assert.equal(night({ themes: { darkMode: true } }, { illustration_theme: "day" }), false);
+  assert.equal(night({}, { illustration_theme: "night" }), true);
+  const sun = (state) => ({ states: { ...states, "sun.sun": { entity_id: "sun.sun", state } } });
+  assert.equal(night({ ...sun("below_horizon") }), true);
+  assert.equal(night({ ...sun("above_horizon"), themes: { darkMode: true } }), true, "dark theme while the sun is up: night");
+  assert.equal(night({ ...sun("above_horizon"), themes: { darkMode: false } }), false, "light theme while the sun is up: day");
+  assert.equal(night({ ...sun("above_horizon"), themes: { darkMode: true } }, { illustration_theme: "day" }), false);
+  assert.equal(night({ ...sun("above_horizon") }, { illustration_theme: "night" }), true);
+  assert.equal(night({ ...sun("unavailable"), themes: { darkMode: true } }), true);
+});
+
+test("illustrated header: each card numbers its SVG ids", () => {
+  const ids = (card) => [...card.shadowRoot.innerHTML.matchAll(/id="([^"]+)"/g)].map((m) => m[1]);
+  const a = ids(newCard(makeHass(), {}));
+  const b = ids(newCard(makeHass(), {}));
+  assert.ok(a.length >= 2);
+  assert.equal(new Set(a).size, a.length, "an id repeats inside one card");
+  for (const id of a) assert.ok(!b.includes(id), `${id} shared by two cards`);
+});
+
+test("illustrated header: the full card's state and shield move to the banner, the hero keeps its lines", () => {
+  const html = newCard(makeHass(triggered), {}).shadowRoot.innerHTML;
+  assert.doesNotMatch(html, /class="state"/);
+  assert.match(html, /class="hero alarm"><div class="info"><div class="alert-line/);
+  // The state in the status pill right after the title.
+  assert.match(html, /<div class="tline">\s*<div class="name">[^<]*<\/div>\s*<span class="chip clickable alarm"[^>]*><span class="dot"><\/span><span class="chip-text">Triggered<\/span>/);
+  // The mini card's countdown / open sensor goes on the subtitle under the title.
+  assert.match(newCard(makeHass(triggered), {}, al.AlarmMiniCard).shadowRoot.innerHTML, /<div class="sub">Kitchen window<\/div>/);
+});
+
+test("illustrated header: the editors offer the illustration and its theme, saved only when changed", () => {
+  for (const Editor of [al.AlarmCardEditor, al.AlarmMiniCardEditor]) {
+    assert.ok(Editor.toggles.some(([n, d]) => n === "illustration" && d === true));
+    const editor = newEditor(makeHass(), { entity: PANEL }, Editor);
+    assert.ok(editor._schema().some((s) => s.name === "illustration_theme"));
+    assert.equal(editor._form.data.illustration_theme, "auto");
+    editor._changed({ ...editor._form.data, illustration_theme: "auto" });
+    let saved = editor.events.at(-1).detail.config;
+    assert.equal("illustration_theme" in saved, false);
+    assert.equal("illustration" in saved, false);
+    editor._changed({ ...editor._form.data, illustration_theme: "night" });
+    saved = editor.events.at(-1).detail.config;
+    assert.equal(saved.illustration_theme, "night");
+    const off = newEditor(makeHass(), { entity: PANEL, illustration: false }, Editor);
+    assert.ok(!off._schema().some((s) => s.name === "illustration_theme"));
+  }
+  // The mini card's badge: on by default with the illustration, off (the shield) on the classic header.
+  assert.equal(newEditor(makeHass(), { entity: PANEL }, al.AlarmMiniCardEditor)._form.data.show_logo, true);
+  assert.equal(newEditor(makeHass(), { entity: PANEL, illustration: false }, al.AlarmMiniCardEditor)._form.data.show_logo, false);
+  for (const [l, strings] of Object.entries(al.STRINGS))
+    for (const k of ["illustration_theme", "theme_auto", "theme_day", "theme_night", "illustration_helper"]) assert.ok(strings[k], `${l}.${k}: missing`);
 });

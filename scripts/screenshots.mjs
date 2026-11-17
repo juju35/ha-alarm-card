@@ -90,12 +90,14 @@ async function openCard(browser, s) {
   await page.addScriptTag({ content: HA_CARD });
   await page.addScriptTag({ content: cardJs });
   await page.evaluate(
-    ({ type, config, states, entities, sensors, PANEL, overrides, logbook, event }) => {
+    ({ type, config, states, entities, sensors, PANEL, overrides, logbook, event, dark }) => {
       for (const [id, o] of Object.entries(overrides || {})) states[id] = { ...states[id], ...o };
       const el = document.createElement(type);
       el.setConfig({ type: `custom:${type}`, entity: PANEL, sensors, ...config });
       el.hass = {
         states, entities, language: "en", locale: { language: "en" }, callService: () => {},
+        // The illustrated header's night picture follows the dark theme (no sun.sun in the mock).
+        themes: { darkMode: dark },
         // The activity's logbook, and Alarmo's failed-to-arm event delivered right after the card subscribes.
         callWS: async (msg) => (msg.type === "logbook/get_events" ? logbook : []),
         connection: {
@@ -107,7 +109,7 @@ async function openCard(browser, s) {
       };
       document.getElementById("root").appendChild(el);
     },
-    { type: s.type, config: s.config, states, entities, sensors, PANEL, overrides: s.overrides, logbook, event: s.event }
+    { type: s.type, config: s.config, states, entities, sensors, PANEL, overrides: s.overrides, logbook, event: s.event, dark: s.theme === "dark" }
   );
   return page;
 }

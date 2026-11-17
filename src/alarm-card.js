@@ -16,6 +16,20 @@ const ICONS = {
     "M1,4.27L2.28,3L21,21.72L19.73,23L17.08,20.35C15.65,21.62 13.9,22.53 12,23C6.84,21.74 3,16.55 3,11V6.27L1,4.27M12,1L21,5V11C21,13.28 20.34,15.5 19.26,17.42L5.23,3.39L12,1Z",
   shield_check: "M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1Z",
   shield_alert: "M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M11,7H13V13H11V7M11,15H13V17H11V15Z",
+  // mdi:shield-home, shield-lock, shield-moon, shield-airplane, shield-sync, security and bell-ring: Home
+  // Assistant's own icons for the alarm panel states, shown in the illustrated header's round badge.
+  shield_home: "M11,13H13V16H16V11H18L12,6L6,11H8V16H11V13M12,1L21,5V11C21,16.55 17.16,21.74 12,23C6.84,21.74 3,16.55 3,11V5L12,1Z",
+  shield_lock:
+    "M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.1 14.8,9.5V11C15.4,11 16,11.6 16,12.3V15.8C16,16.4 15.4,17 14.7,17H9.2C8.6,17 8,16.4 8,15.7V12.2C8,11.6 8.6,11 9.2,11V9.5C9.2,8.1 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,9.5V11H13.5V9.5C13.5,8.7 12.8,8.2 12,8.2Z",
+  shield_moon:
+    "M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1M15.97 14.41C14.13 16.58 10.76 16.5 9 14.34C6.82 11.62 8.36 7.62 11.7 7C12.04 6.95 12.33 7.28 12.21 7.61C11.75 8.84 11.82 10.25 12.53 11.47C13.24 12.69 14.42 13.46 15.71 13.67C16.05 13.72 16.2 14.14 15.97 14.41Z",
+  shield_airplane:
+    "M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5.68C12.5,5.68 12.95,6.11 12.95,6.63V10.11L18,13.26V14.53L12.95,12.95V16.42L14.21,17.37V18.32L12,17.68L9.79,18.32V17.37L11.05,16.42V12.95L6,14.53V13.26L11.05,10.11V6.63C11.05,6.11 11.5,5.68 12,5.68Z",
+  shield_sync:
+    "M18 12A6.41 6.41 0 0 1 20.87 12.67A11.63 11.63 0 0 0 21 11V5L12 1L3 5V11C3 16.55 6.84 21.74 12 23C12.35 22.91 12.7 22.8 13 22.68A6.42 6.42 0 0 1 11.5 18.5A6.5 6.5 0 0 1 18 12M18 14.5V13L15.75 15.25L18 17.5V16A2.5 2.5 0 0 1 20.24 19.62L21.33 20.71A4 4 0 0 0 18 14.5M18 21A2.5 2.5 0 0 1 15.76 17.38L14.67 16.29A4 4 0 0 0 18 22.5V24L20.25 21.75L18 19.5Z",
+  security: "M12,12H19C18.47,16.11 15.72,19.78 12,20.92V12H5V6.3L12,3.19M12,1L3,5V11C3,16.55 6.84,21.73 12,23C17.16,21.73 21,16.55 21,11V5L12,1Z",
+  bell_ring:
+    "M21,19V20H3V19L5,17V11C5,7.9 7.03,5.17 10,4.29C10,4.19 10,4.1 10,4A2,2 0 0,1 12,2A2,2 0 0,1 14,4C14,4.1 14,4.19 14,4.29C16.97,5.17 19,7.9 19,11V17L21,19M14,21A2,2 0 0,1 12,23A2,2 0 0,1 10,21M19.75,3.19L18.33,4.61C20.04,6.3 21,8.6 21,11H23C23,8.07 21.84,5.25 19.75,3.19M1,11H3C3,8.6 3.96,6.3 5.67,4.61L4.25,3.19C2.16,5.25 1,8.07 1,11Z",
   home: "M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z",
   away: "M12,2A3,3 0 0,1 15,5A3,3 0 0,1 12,8A3,3 0 0,1 9,5A3,3 0 0,1 12,2M10.5,9H13.5L16,15.5L14.5,16L13,13V22H11V17H10V22H8V13L6.5,16L5,15.5L7.5,9.5Z",
   night: "M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95Z",
@@ -124,6 +138,12 @@ const STRINGS = {
     ed_cameras: "Cameras (shown while the alarm is triggered or counting down)",
     cameras_on_alarm: "Show the cameras only while the alarm is triggered",
     cameras_on_alarm_helper: "Off: always shown",
+    illustration: "Illustrated header",
+    illustration_helper: "House, shield and sky that follow the alarm state; off: the classic header",
+    illustration_theme: "Illustration theme",
+    theme_auto: "Automatic (sun or dark theme)",
+    theme_day: "Day",
+    theme_night: "Night",
     buttons: "Buttons",
     ed_buttons: "Buttons (switches, lights, scripts, scenes, buttons: a tap toggles or runs them)",
     names: "Display names",
@@ -213,6 +233,12 @@ const STRINGS = {
     ed_cameras: "Caméras (affichées pendant le déclenchement ou le compte à rebours)",
     cameras_on_alarm: "Afficher les caméras seulement pendant un déclenchement",
     cameras_on_alarm_helper: "Désactivé : toujours affichées",
+    illustration: "En-tête illustré",
+    illustration_helper: "Maison, bouclier et ciel qui suivent l'état de l'alarme ; désactivé : l'en-tête classique",
+    illustration_theme: "Thème de l'illustration",
+    theme_auto: "Automatique (soleil ou thème sombre)",
+    theme_day: "Jour",
+    theme_night: "Nuit",
     buttons: "Boutons",
     ed_buttons: "Boutons (interrupteurs, lumières, scripts, scènes, boutons : un appui les bascule ou les lance)",
     names: "Noms affichés",
@@ -302,6 +328,12 @@ const STRINGS = {
     ed_cameras: "Kameras (angezeigt bei Alarm oder Countdown)",
     cameras_on_alarm: "Kameras nur bei ausgelöstem Alarm anzeigen",
     cameras_on_alarm_helper: "Aus: immer angezeigt",
+    illustration: "Illustrierte Kopfzeile",
+    illustration_helper: "Haus, Schild und Himmel folgen dem Alarmstatus; aus: die klassische Kopfzeile",
+    illustration_theme: "Thema der Illustration",
+    theme_auto: "Automatisch (Sonne oder dunkles Design)",
+    theme_day: "Tag",
+    theme_night: "Nacht",
     buttons: "Schaltflächen",
     ed_buttons: "Schaltflächen (Schalter, Lichter, Skripte, Szenen, Tasten: ein Tippen schaltet oder startet sie)",
     names: "Angezeigte Namen",
@@ -391,6 +423,12 @@ const STRINGS = {
     ed_cameras: "Cámaras (mostradas al dispararse o durante la cuenta atrás)",
     cameras_on_alarm: "Mostrar las cámaras solo con la alarma disparada",
     cameras_on_alarm_helper: "Desactivado: siempre visibles",
+    illustration: "Encabezado ilustrado",
+    illustration_helper: "Casa, escudo y cielo que siguen el estado de la alarma; desactivado: el encabezado clásico",
+    illustration_theme: "Tema de la ilustración",
+    theme_auto: "Automático (sol o tema oscuro)",
+    theme_day: "Día",
+    theme_night: "Noche",
     buttons: "Botones",
     ed_buttons: "Botones (interruptores, luces, scripts, escenas, botones: un toque los conmuta o los ejecuta)",
     names: "Nombres mostrados",
@@ -482,6 +520,12 @@ const STRINGS = {
     ed_cameras: "Камере (приказане током узбуне или одбројавања)",
     cameras_on_alarm: "Прикажи камере само током узбуне",
     cameras_on_alarm_helper: "Искључено: увек приказане",
+    illustration: "Илустровано заглавље",
+    illustration_helper: "Кућа, штит и небо прате стање аларма; искључено: класично заглавље",
+    illustration_theme: "Тема илустрације",
+    theme_auto: "Аутоматски (сунце или тамна тема)",
+    theme_day: "Дан",
+    theme_night: "Ноћ",
     buttons: "Дугмад",
     ed_buttons: "Дугмад (прекидачи, светла, скрипте, сцене, тастери: додир их пребацује или покреће)",
     names: "Приказана имена",
@@ -573,6 +617,12 @@ const STRINGS = {
     ed_cameras: "Kamere (prikazane tokom uzbune ili odbrojavanja)",
     cameras_on_alarm: "Prikaži kamere samo tokom uzbune",
     cameras_on_alarm_helper: "Isključeno: uvek prikazane",
+    illustration: "Ilustrovano zaglavlje",
+    illustration_helper: "Kuća, štit i nebo prate stanje alarma; isključeno: klasično zaglavlje",
+    illustration_theme: "Tema ilustracije",
+    theme_auto: "Automatski (sunce ili tamna tema)",
+    theme_day: "Dan",
+    theme_night: "Noć",
     buttons: "Dugmad",
     ed_buttons: "Dugmad (prekidači, svetla, skripte, scene, tasteri: dodir ih prebacuje ili pokreće)",
     names: "Prikazana imena",
@@ -664,6 +714,12 @@ const STRINGS = {
     ed_cameras: "Telecamere (mostrate durante l'allarme o il conto alla rovescia)",
     cameras_on_alarm: "Mostra le telecamere solo con l'allarme scattato",
     cameras_on_alarm_helper: "Disattivato: sempre visibili",
+    illustration: "Intestazione illustrata",
+    illustration_helper: "Casa, scudo e cielo che seguono lo stato dell'allarme; disattivato: l'intestazione classica",
+    illustration_theme: "Tema dell'illustrazione",
+    theme_auto: "Automatico (sole o tema scuro)",
+    theme_day: "Giorno",
+    theme_night: "Notte",
     buttons: "Pulsanti",
     ed_buttons: "Pulsanti (interruttori, luci, script, scene, pulsanti: un tocco li commuta o li esegue)",
     names: "Nomi visualizzati",
@@ -755,6 +811,12 @@ const STRINGS = {
     ed_cameras: "Camera's (getoond bij alarm of tijdens het aftellen)",
     cameras_on_alarm: "Camera's alleen tonen bij een alarm",
     cameras_on_alarm_helper: "Uit: altijd getoond",
+    illustration: "Geïllustreerde koptekst",
+    illustration_helper: "Huis, schild en lucht volgen de alarmstatus; uit: de klassieke koptekst",
+    illustration_theme: "Thema van de illustratie",
+    theme_auto: "Automatisch (zon of donker thema)",
+    theme_day: "Dag",
+    theme_night: "Nacht",
     buttons: "Knoppen",
     ed_buttons: "Knoppen (schakelaars, lampen, scripts, scènes, knoppen: een tik schakelt of start ze)",
     names: "Weergavenamen",
@@ -846,6 +908,12 @@ const STRINGS = {
     ed_cameras: "Câmaras (mostradas com o alarme disparado ou na contagem decrescente)",
     cameras_on_alarm: "Mostrar as câmaras só com o alarme disparado",
     cameras_on_alarm_helper: "Desligado: sempre visíveis",
+    illustration: "Cabeçalho ilustrado",
+    illustration_helper: "Casa, escudo e céu que acompanham o estado do alarme; desligado: o cabeçalho clássico",
+    illustration_theme: "Tema da ilustração",
+    theme_auto: "Automático (sol ou tema escuro)",
+    theme_day: "Dia",
+    theme_night: "Noite",
     buttons: "Botões",
     ed_buttons: "Botões (interruptores, luzes, scripts, cenas, botões: um toque alterna-os ou executa-os)",
     names: "Nomes apresentados",
@@ -937,6 +1005,12 @@ const STRINGS = {
     ed_cameras: "Kamery (widoczne podczas alarmu lub odliczania)",
     cameras_on_alarm: "Pokaż kamery tylko podczas alarmu",
     cameras_on_alarm_helper: "Wyłączone: zawsze widoczne",
+    illustration: "Ilustrowany nagłówek",
+    illustration_helper: "Dom, tarcza i niebo zgodne ze stanem alarmu; wyłączone: klasyczny nagłówek",
+    illustration_theme: "Motyw ilustracji",
+    theme_auto: "Automatycznie (słońce lub ciemny motyw)",
+    theme_day: "Dzień",
+    theme_night: "Noc",
     buttons: "Przyciski",
     ed_buttons: "Przyciski (przełączniki, światła, skrypty, sceny, przyciski: dotknięcie przełącza lub uruchamia)",
     names: "Wyświetlane nazwy",
@@ -1028,6 +1102,12 @@ const STRINGS = {
     ed_cameras: "Camere (afișate în timpul alarmei sau al numărătorii inverse)",
     cameras_on_alarm: "Afișează camerele doar când alarma e declanșată",
     cameras_on_alarm_helper: "Dezactivat: mereu afișate",
+    illustration: "Antet ilustrat",
+    illustration_helper: "Casă, scut și cer care urmează starea alarmei; dezactivat: antetul clasic",
+    illustration_theme: "Tema ilustrației",
+    theme_auto: "Automat (soare sau temă întunecată)",
+    theme_day: "Zi",
+    theme_night: "Noapte",
     buttons: "Butoane",
     ed_buttons: "Butoane (întrerupătoare, lumini, scripturi, scene, butoane: o atingere le comută sau le rulează)",
     names: "Nume afișate",
@@ -1119,6 +1199,12 @@ const STRINGS = {
     ed_cameras: "Kameraer (vist ved alarm eller nedtælling)",
     cameras_on_alarm: "Vis kun kameraerne, når alarmen er udløst",
     cameras_on_alarm_helper: "Fra: altid vist",
+    illustration: "Illustreret overskrift",
+    illustration_helper: "Hus, skjold og himmel følger alarmens tilstand; fra: den klassiske overskrift",
+    illustration_theme: "Illustrationens tema",
+    theme_auto: "Automatisk (sol eller mørkt tema)",
+    theme_day: "Dag",
+    theme_night: "Nat",
     buttons: "Knapper",
     ed_buttons: "Knapper (kontakter, lys, scripts, scener, knapper: et tryk skifter eller kører dem)",
     names: "Viste navne",
@@ -1210,6 +1296,12 @@ const STRINGS = {
     ed_cameras: "Kameror (visas vid larm eller nedräkning)",
     cameras_on_alarm: "Visa kamerorna endast när larmet har gått",
     cameras_on_alarm_helper: "Av: visas alltid",
+    illustration: "Illustrerad rubrik",
+    illustration_helper: "Hus, sköld och himmel som följer larmets läge; av: den klassiska rubriken",
+    illustration_theme: "Illustrationens tema",
+    theme_auto: "Automatiskt (sol eller mörkt tema)",
+    theme_day: "Dag",
+    theme_night: "Natt",
     buttons: "Knappar",
     ed_buttons: "Knappar (brytare, lampor, skript, scener, knappar: ett tryck växlar eller kör dem)",
     names: "Visade namn",
@@ -1301,6 +1393,12 @@ const STRINGS = {
     ed_cameras: "Камери (показвани при задействане или обратно броене)",
     cameras_on_alarm: "Показване на камерите само при задействана аларма",
     cameras_on_alarm_helper: "Изключено: винаги показвани",
+    illustration: "Илюстрирано заглавие",
+    illustration_helper: "Къща, щит и небе следват състоянието на алармата; изключено: класическото заглавие",
+    illustration_theme: "Тема на илюстрацията",
+    theme_auto: "Автоматично (слънце или тъмна тема)",
+    theme_day: "Ден",
+    theme_night: "Нощ",
     buttons: "Бутони",
     ed_buttons: "Бутони (ключове, осветление, скриптове, сцени, бутони: докосване ги превключва или стартира)",
     names: "Показвани имена",
@@ -1392,6 +1490,12 @@ const STRINGS = {
     ed_cameras: "Камеры (видны при срабатывании или обратном отсчёте)",
     cameras_on_alarm: "Показывать камеры только при сработавшей тревоге",
     cameras_on_alarm_helper: "Выкл.: видны всегда",
+    illustration: "Иллюстрированный заголовок",
+    illustration_helper: "Дом, щит и небо следуют состоянию сигнализации; выкл.: классический заголовок",
+    illustration_theme: "Тема иллюстрации",
+    theme_auto: "Автоматически (солнце или тёмная тема)",
+    theme_day: "День",
+    theme_night: "Ночь",
     buttons: "Кнопки",
     ed_buttons: "Кнопки (выключатели, свет, скрипты, сцены, кнопки: нажатие переключает или запускает их)",
     names: "Отображаемые имена",
@@ -1483,6 +1587,12 @@ const STRINGS = {
     ed_cameras: "Камери (видно під час тривоги чи зворотного відліку)",
     cameras_on_alarm: "Показувати камери лише під час тривоги",
     cameras_on_alarm_helper: "Вимк.: видно завжди",
+    illustration: "Ілюстрований заголовок",
+    illustration_helper: "Будинок, щит і небо відповідають стану сигналізації; вимкнено: класичний заголовок",
+    illustration_theme: "Тема ілюстрації",
+    theme_auto: "Автоматично (сонце або темна тема)",
+    theme_day: "День",
+    theme_night: "Ніч",
     buttons: "Кнопки",
     ed_buttons: "Кнопки (вимикачі, світло, скрипти, сцени, кнопки: дотик перемикає або запускає їх)",
     names: "Показані імена",
@@ -1574,6 +1684,12 @@ const STRINGS = {
     ed_cameras: "Kamerák (riasztáskor vagy visszaszámláláskor láthatók)",
     cameras_on_alarm: "Kamerák megjelenítése csak riasztáskor",
     cameras_on_alarm_helper: "Ki: mindig láthatók",
+    illustration: "Illusztrált fejléc",
+    illustration_helper: "A riasztó állapotát követő ház, pajzs és ég; ki: a klasszikus fejléc",
+    illustration_theme: "Az illusztráció témája",
+    theme_auto: "Automatikus (nap vagy sötét téma)",
+    theme_day: "Nappal",
+    theme_night: "Éjszaka",
     buttons: "Gombok",
     ed_buttons: "Gombok (kapcsolók, lámpák, szkriptek, jelenetek, gombok: egy érintés átkapcsolja vagy futtatja őket)",
     names: "Megjelenített nevek",
@@ -1665,6 +1781,12 @@ const STRINGS = {
     ed_cameras: "Kamery (zobrazené počas poplachu alebo odpočítavania)",
     cameras_on_alarm: "Zobraziť kamery len počas poplachu",
     cameras_on_alarm_helper: "Vypnuté: vždy zobrazené",
+    illustration: "Ilustrovaná hlavička",
+    illustration_helper: "Dom, štít a obloha podľa stavu alarmu; vypnuté: klasická hlavička",
+    illustration_theme: "Téma ilustrácie",
+    theme_auto: "Automaticky (slnko alebo tmavá téma)",
+    theme_day: "Deň",
+    theme_night: "Noc",
     buttons: "Tlačidlá",
     ed_buttons: "Tlačidlá (spínače, svetlá, skripty, scény, tlačidlá: ťuknutie ich prepne alebo spustí)",
     names: "Zobrazené názvy",
@@ -1756,6 +1878,12 @@ const STRINGS = {
     ed_cameras: "Kamery (zobrazené během poplachu nebo odpočtu)",
     cameras_on_alarm: "Zobrazit kamery jen během poplachu",
     cameras_on_alarm_helper: "Vypnuto: vždy zobrazené",
+    illustration: "Ilustrované záhlaví",
+    illustration_helper: "Dům, štít a obloha podle stavu alarmu; vypnuto: klasické záhlaví",
+    illustration_theme: "Motiv ilustrace",
+    theme_auto: "Automaticky (slunce nebo tmavý motiv)",
+    theme_day: "Den",
+    theme_night: "Noc",
     buttons: "Tlačítka",
     ed_buttons: "Tlačítka (spínače, světla, skripty, scény, tlačítka: klepnutí je přepne nebo spustí)",
     names: "Zobrazené názvy",
@@ -1847,6 +1975,12 @@ const STRINGS = {
     ed_cameras: "Kamere (prikazane med alarmom ali odštevanjem)",
     cameras_on_alarm: "Prikaži kamere samo med alarmom",
     cameras_on_alarm_helper: "Izklopljeno: vedno prikazane",
+    illustration: "Ilustrirana glava",
+    illustration_helper: "Hiša, ščit in nebo sledijo stanju alarma; izklopljeno: klasična glava",
+    illustration_theme: "Tema ilustracije",
+    theme_auto: "Samodejno (sonce ali temna tema)",
+    theme_day: "Dan",
+    theme_night: "Noč",
     buttons: "Gumbi",
     ed_buttons: "Gumbi (stikala, luči, skripte, prizori, gumbi: dotik jih preklopi ali zažene)",
     names: "Prikazana imena",
@@ -1938,6 +2072,12 @@ const STRINGS = {
     ed_cameras: "Kameras (redzamas trauksmes vai atpakaļskaitīšanas laikā)",
     cameras_on_alarm: "Rādīt kameras tikai trauksmes laikā",
     cameras_on_alarm_helper: "Izslēgts: vienmēr redzamas",
+    illustration: "Ilustrēta galvene",
+    illustration_helper: "Māja, vairogs un debesis atbilst signalizācijas stāvoklim; izslēgts: klasiskā galvene",
+    illustration_theme: "Ilustrācijas tēma",
+    theme_auto: "Automātiski (saule vai tumšā tēma)",
+    theme_day: "Diena",
+    theme_night: "Nakts",
     buttons: "Pogas",
     ed_buttons: "Pogas (slēdži, gaismas, skripti, ainas, pogas: pieskāriens tos pārslēdz vai palaiž)",
     names: "Attēlotie nosaukumi",
@@ -2029,6 +2169,12 @@ const STRINGS = {
     ed_cameras: "Κάμερες (εμφανίζονται όταν ενεργοποιείται ο συναγερμός ή κατά την αντίστροφη μέτρηση)",
     cameras_on_alarm: "Εμφάνιση των καμερών μόνο όταν ενεργοποιείται ο συναγερμός",
     cameras_on_alarm_helper: "Ανενεργό: εμφανίζονται πάντα",
+    illustration: "Εικονογραφημένη κεφαλίδα",
+    illustration_helper: "Σπίτι, ασπίδα και ουρανός ακολουθούν την κατάσταση του συναγερμού· ανενεργό: η κλασική κεφαλίδα",
+    illustration_theme: "Θέμα εικονογράφησης",
+    theme_auto: "Αυτόματο (ήλιος ή σκούρο θέμα)",
+    theme_day: "Ημέρα",
+    theme_night: "Νύχτα",
     buttons: "Κουμπιά",
     ed_buttons: "Κουμπιά (διακόπτες, φώτα, σενάρια, σκηνές, κουμπιά: ένα πάτημα τα εναλλάσσει ή τα εκτελεί)",
     names: "Εμφανιζόμενα ονόματα",
@@ -2296,6 +2442,13 @@ const patchChildren = (cur, next) => {
 };
 // See .strut in BASE_STYLE: sizes the card in parents sized by their content.
 const STRUT = `<div class="strut" aria-hidden="true">${"<i></i>".repeat(10)}</div>`;
+// The width of an element's whole text in fractional pixels, even while an ellipsis cuts it.
+const textWidth = (el) => {
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  return range.getBoundingClientRect().width || el.scrollWidth;
+};
+
 const morph = (root, html) => {
   const tpl = document.createElement("template");
   tpl.innerHTML = html;
@@ -2315,22 +2468,22 @@ const logo = (label) => `<div class="badge"><svg class="icon" viewBox="6 6 36 36
 // accent colour. A specular highlight glides across; while a delay runs a thin ring draws itself, when armed a
 // soft "secured" halo breathes out, and when the alarm goes off the glow swells and shockwaves burst past the
 // shield. Accent colours are set in CSS (WebKit/Safari-safe); the two gradients use literal white only. The
-// gradient/clip ids are unique per card instance (each card has its own shadow root).
-const shield = (state) => `<div class="shield ${stateClass(state)}"><svg class="sc" viewBox="0 0 120 120" aria-hidden="true">
+// gradient/clip ids carry `uid` (the card instance), so that they stay unique even outside a shadow root.
+const shield = (state, uid = 0) => `<div class="shield ${stateClass(state)}"><svg class="sc" viewBox="0 0 120 120" aria-hidden="true">
   <defs>
-    <clipPath id="sc-clip"><path d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z"/></clipPath>
-    <linearGradient id="sc-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".02"/></linearGradient>
-    <linearGradient id="sc-gleam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <clipPath id="sc-clip-${uid}"><path d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z"/></clipPath>
+    <linearGradient id="sc-glass-${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".02"/></linearGradient>
+    <linearGradient id="sc-gleam-${uid}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
   </defs>
   <g transform="translate(60 56) scale(1.45) translate(-60 -56)"><g class="sc-glass">
     <path class="sc-tint" d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z"/>
-    <path class="sc-sheen" d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z" fill="url(#sc-glass)"/>
-    <g clip-path="url(#sc-clip)">
+    <path class="sc-sheen" d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z" fill="url(#sc-glass-${uid})"/>
+    <g clip-path="url(#sc-clip-${uid})">
       <circle class="sc-secure" cx="60" cy="56" r="22"/>
       <circle class="sc-ringdraw" cx="60" cy="56" r="27" stroke-dasharray="170" pathLength="170" transform="rotate(-90 60 56)"/>
       <circle class="sc-guard g1" cx="60" cy="54" r="12"/>
       <circle class="sc-guard g2" cx="60" cy="54" r="21"/>
-      <rect class="sc-gleam" x="40" y="14" width="16" height="92" fill="url(#sc-gleam)" transform="skewX(-16)"/>
+      <rect class="sc-gleam" x="40" y="14" width="16" height="92" fill="url(#sc-gleam-${uid})" transform="skewX(-16)"/>
     </g>
     <path class="sc-ring" d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z"/>
     <path class="sc-highlight" d="M37 31 60 22l23 9"/>
@@ -2340,6 +2493,194 @@ const shield = (state) => `<div class="shield ${stateClass(state)}"><svg class="
   <circle class="sc-shock s1" cx="60" cy="56" r="22"/>
   <circle class="sc-shock s2" cx="60" cy="56" r="22"/>
 </svg></div>`;
+
+// ---------------------------------------------------------------------------
+// Illustrated header: a house on a lawn, at the right of a 90 px banner, with the big
+// state shield standing in front of it. The left of the banner is open sky: the card's text sits there.
+// The scene is drawn in a 190 × 80 picture (the 10 px lawn strip under it is CSS, edge to edge); its colours
+// follow the state through var(--c), set in CSS only (WebKit/Safari-safe).
+// ---------------------------------------------------------------------------
+
+// The badge's MDI icon for each state (Home Assistant's own alarm icons).
+const STATE_ICON = {
+  off: ICONS.shield_off,
+  home: ICONS.shield_home,
+  away: ICONS.shield_lock,
+  night: ICONS.shield_moon,
+  vacation: ICONS.shield_airplane,
+  custom: ICONS.security,
+  wait: ICONS.shield_sync,
+  alarm: ICONS.bell_ring,
+  idle: ICONS.shield_off,
+};
+
+// Night picture: forced by illustration_theme, else the sun below the horizon or Home Assistant's dark mode
+// (the dark theme shows the night picture even while the sun is up; an unavailable sun leaves the dark mode alone).
+const isNight = (hass, config) => {
+  const theme = config?.illustration_theme;
+  if (theme === "night") return true;
+  if (theme === "day") return false;
+  return hass?.states?.["sun.sun"]?.state === "below_horizon" || !!hass?.themes?.darkMode;
+};
+
+const AL_STARS = [
+  [8, 8, 0.6],
+  [30, 26, 0.5],
+  [46, 6, 0.7],
+  [64, 18, 0.45],
+  [118, 6, 0.6],
+  [150, 12, 0.5],
+  [176, 4, 0.6],
+  [184, 22, 0.45],
+];
+
+// The banner picture: sky (sun and clouds, or moon and stars), hills, a tree and the house, whose lights tell the state.
+// Windows are lit while someone is home (disarmed, armed home / night) and dark when the house is empty.
+const alarmScene = (uid) => {
+  const stars = AL_STARS.map(([x, y, r], i) => `<circle class="al-star${i % 3 ? "" : " tw"}" cx="${x}" cy="${y}" r="${r}"/>`).join("");
+  return `<svg class="al-scene" viewBox="0 0 190 80" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
+    <g class="al-day"><circle class="al-sun-halo" cx="20" cy="16" r="10"/><circle class="al-sun" cx="20" cy="16" r="6.5"/>
+      <path class="al-cloud" d="M40 20a4 4 0 0 1 6-3.4 5 5 0 0 1 9.4 1.4 3 3 0 0 1 .6 6H42a3 3 0 0 1-2-4Z"/>
+      <path class="al-cloud c2" d="M66 8a3.4 3.4 0 0 1 5-2.8 4.2 4.2 0 0 1 8 1.2 2.6 2.6 0 0 1 .4 5H68a2.6 2.6 0 0 1-2-3.4Z"/></g>
+    <g class="al-nightsky">${stars}<path class="al-moon" d="M20 9.4a6.4 6.4 0 1 0 5.6 9.6 5.2 5.2 0 1 1-5.6-9.6Z"/></g>
+    <path class="al-hill far" d="M0 80C26 66 54 60 88 64C122 68 156 58 190 60C206 61 222 62 240 61V80Z"/>
+    <path class="al-hill" d="M0 80C40 72 92 73 190 70L240 69V80Z"/>
+    <g class="al-tree"><rect class="al-trunk" x="27" y="62" width="2.4" height="18"/><circle class="al-crown" cx="28.2" cy="58" r="9"/><circle class="al-crown" cx="22" cy="64" r="5.5"/></g>
+    <g class="al-house">
+      <rect class="al-chimney" x="114" y="27" width="7" height="14"/>
+      <rect class="al-wall" x="78" y="45" width="50" height="35"/>
+      <path class="al-roof" d="M72 47 103 23 134 47Z"/>
+      <rect class="al-win" x="83" y="53" width="11" height="10" rx="1"/><rect class="al-win" x="112" y="53" width="11" height="10" rx="1"/>
+      <path class="al-mullion" d="M88.5 53v10M83 58h11M117.5 53v10M112 58h11"/>
+      <rect class="al-door" x="97" y="61" width="12" height="19" rx="1"/><circle class="al-knob" cx="106.6" cy="71" r=".9"/>
+      <rect class="al-vent" x="99" y="33" width="8" height="7" rx="1.5"/>
+      <g class="al-beacon"><rect class="al-beacon-base" x="100.5" y="21.5" width="5" height="2" rx=".6"/><path class="al-beacon-light" d="M101 21.5a2 2.2 0 0 1 4 0Z"/></g>
+      <circle class="al-lamp" cx="112.5" cy="66" r="1.7"/>
+    </g>
+  </svg>`;
+};
+
+// The banner's colours and animations, day and night. Calm: a steady light while armed, a blinking one
+// during a delay, a soft red pulse when the alarm goes off.
+const SCENE_STYLE = `
+  .banner { position: relative; overflow: hidden; height: 90px; flex: none; color: #10283f; --al-scene-w: min(190px, 100cqw - 232px);
+            background: linear-gradient(90deg, #f3f9ff 0%, #e2f0fc 38%, #c4e1f7 100%); }
+  .banner.dark { color: #fff; background: linear-gradient(90deg, #2c4068 0%, #1b2b4e 42%, #0f1a34 100%); }
+  .al-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
+               background: repeating-linear-gradient(90deg, #5aa83d 0 22px, #6cbb4c 22px 44px); box-shadow: inset 0 2px 0 #4f9a35; }
+  .dark .al-ground { background: repeating-linear-gradient(90deg, #1f4a2a 0 22px, #245433 22px 44px); box-shadow: inset 0 2px 0 #2c6139; }
+  /* The hills run on past the picture's right edge (the banner clips them), under the mini card's detail button. */
+  .al-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: var(--al-scene-w); overflow: hidden; }
+  /* The house stands left of the shield, never behind it: moved 26 px to the left of the drawing (the picture keeps
+     its scale, 1 px per unit). A picture too narrow for the whole house (or the tree) leaves it out: the sky and the
+     hills stay. */
+  .al-house { transform: translateX(-26px); }
+  @container al-card (max-width: 375px) { .banner:not(.has-zoom) .al-house { display: none; } }
+  @container al-card (max-width: 405px) { .banner:not(.has-zoom) .al-tree { display: none; } }
+  @container al-card (max-width: 371px) { .banner.has-zoom .al-house { display: none; } }
+  @container al-card (max-width: 401px) { .banner.has-zoom .al-tree { display: none; } }
+  .al-nightsky, .dark .al-day { display: none; }
+  .dark .al-nightsky { display: inline; }
+  .al-sun { fill: #ffd65a; } .al-sun-halo { fill: #ffd65a; opacity: .28; }
+  .al-cloud { fill: #fff; opacity: .92; animation: al-drift 7s ease-in-out infinite alternate; }
+  .al-cloud.c2 { animation-delay: -3s; }
+  .al-star { fill: #fff; opacity: .8; } .al-star.tw { animation: al-twinkle 3.2s ease-in-out infinite alternate; }
+  .al-moon { fill: #f4f1dc; }
+  .al-hill { fill: #86c27f; } .al-hill.far { fill: #a7d39f; }
+  .dark .al-hill { fill: #17303d; } .dark .al-hill.far { fill: #1d3a4a; }
+  .al-trunk { fill: #6b4a2a; } .al-crown { fill: #5aa83d; } .dark .al-crown { fill: #1a3a2a; } .dark .al-trunk { fill: #3e2c1c; }
+  .al-wall { fill: #f3e6d3; } .dark .al-wall { fill: #3a4658; }
+  .al-roof { fill: #c0603a; } .dark .al-roof { fill: #5a3530; }
+  .al-chimney { fill: #9a4c30; } .dark .al-chimney { fill: #4a2c28; }
+  .al-door { fill: #8a5a3a; } .dark .al-door { fill: #5b3d29; } .al-knob { fill: #e2c27a; }
+  .al-mullion { stroke: #f3e6d3; stroke-width: .8; fill: none; } .dark .al-mullion { stroke: #3a4658; }
+  /* Windows: glass by day; warm light at night while someone is home, dark when the house is empty. */
+  .al-win { fill: #86b9de; } .dark .al-win { fill: #2a3546; }
+  .banner.dark.off .al-win, .banner.dark.home .al-win, .banner.dark.night .al-win, .banner.dark.idle .al-win, .banner.dark.custom .al-win { fill: #ffcf6e; }
+  .al-vent { fill: #fff; stroke: #9aa3ae; stroke-width: .6; } .dark .al-vent { fill: #4a5568; stroke: #6b778a; }
+  /* The house tells the state with its lights, the shield beside it carries the protection: disarmed, a plain house;
+     armed, a small steady light by the door in the state colour; arming / pending, that light blinks amber;
+     triggered, the windows glow red with a slow pulse and a red beacon lights up on the roof. */
+  .al-lamp, .al-beacon { display: none; }
+  .al-beacon-base { fill: #6b7380; } .dark .al-beacon-base { fill: #4a5568; }
+  .al-beacon-light { fill: #e5484d; }
+  .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-lamp { display: inline; fill: var(--c); filter: drop-shadow(0 0 1.2px var(--c)); }
+  .banner.wait .al-lamp { fill: #ffa600; filter: drop-shadow(0 0 1.2px #ffa600); animation: al-blink 1.2s ease-in-out infinite; }
+  .banner.alarm .al-lamp { fill: #e5484d; filter: drop-shadow(0 0 1.2px #e5484d); }
+  .banner.alarm .al-beacon { display: inline; }
+  .banner.alarm .al-beacon-light { filter: drop-shadow(0 0 2px #ff3b3f); animation: al-pulse 2.4s ease-in-out infinite; }
+  .banner.alarm .al-win { fill: #f08a8d; animation: al-pulse 2.4s ease-in-out infinite; }
+  .banner.dark.alarm .al-win { fill: #ff6b6f; filter: drop-shadow(0 0 2px #ff3b3f); }
+  @keyframes al-drift { to { transform: translateX(4px); } }
+  @keyframes al-twinkle { from { opacity: .3; } to { opacity: 1; } }
+  @keyframes al-blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+  @keyframes al-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+  /* The big state shield stands in front of the house, at the right. */
+  .banner .al-shield { position: absolute; top: 4px; right: 4px; width: 72px; height: 72px; z-index: 1; }
+  .banner .al-shield .shield { width: 100%; height: 100%; }
+  .banner.has-zoom .al-shield { right: 20px; }
+  .banner.has-zoom .al-scene { right: 26px; }
+  /* The text on the sky at the left: the round state icon, the title and the state. */
+  .banner .htext { position: absolute; z-index: 2; left: 12px; top: 0; bottom: 10px; right: calc(var(--al-scene-w) + 4px);
+                   display: flex; align-items: center; gap: 10px; padding: 0; min-width: 0; flex-wrap: nowrap; }
+  .banner.has-zoom .htext { right: calc(var(--al-scene-w) + 30px); }
+  /* Mini card: the picture beside the detail button, wide enough for the whole house from 374 px (376 px with its border). */
+  .banner.has-zoom { --al-scene-w: min(190px, 100cqw - 228px); }
+  .banner .htext .titles { container: al-titles / inline-size; flex: 1 1 0; align-self: stretch; min-width: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; row-gap: 2px; }
+  .banner .chip { box-sizing: border-box;
+                  background: color-mix(in srgb, var(--c) 18%, rgba(255,255,255,.78)); color: color-mix(in srgb, var(--c) 45%, #0d2a45); }
+  .banner.dark .chip { background: color-mix(in srgb, var(--c) 30%, rgba(8,18,38,.55)); color: color-mix(in srgb, var(--c) 35%, #ffffff); }
+  .banner .chip .dot { width: 7px; height: 7px; }
+  .banner .ibadge { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none; color: var(--c);
+                    background: rgba(255,255,255,.62); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent); }
+  .banner.dark .ibadge { color: color-mix(in srgb, var(--c) 72%, #ffffff); background: rgba(255,255,255,.12);
+                         box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
+  .banner .ibadge .icon { width: 24px; height: 24px; }
+  .banner .name { color: inherit; }
+  .banner .sub { color: #3d5670; font-size: 13px; line-height: 16px; }
+  .banner.dark .sub { color: rgba(255,255,255,.8); }
+  /* The mini card's expand / collapse button: a 24 px glass disc in the banner's top-right corner. */
+  .banner .zoom { position: absolute; z-index: 3; top: 5px; right: 5px; margin: 0; width: 24px; height: 24px; color: #33506b;
+                  background: rgba(255,255,255,.55); box-shadow: inset 0 0 0 1px rgba(255,255,255,.7); backdrop-filter: blur(4px); }
+  .banner.dark .zoom { color: #fff; background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+  .banner .zoom:hover { background: rgba(255,255,255,.75); }
+  .banner.dark .zoom:hover { background: rgba(255,255,255,.22); }
+  /* Narrower card: the house gives its room to the text, the shield stays; narrower still, the sky alone. */
+  @container (max-width: 300px) {
+    .al-scene { display: none; }
+    .banner .htext { right: 78px; } .banner.has-zoom .htext { right: 98px; }
+  }
+  @container (max-width: 230px) {
+    .banner .al-shield { display: none; }
+    .banner .htext { right: 12px; } .banner.has-zoom .htext { right: 36px; }
+  }
+  /* Phone width: the title keeps its room, the state is already in the text. */
+  @container (max-width: 180px) { .banner .ibadge { display: none; } }
+  /* The status pill right after the title, its whole label on one line, while the title stays whole beside it
+     (measured by the card, see _fitPill); otherwise on its own line under a one-line subtitle, and with its dot alone
+     when even that does not fit the header. */
+  .tline { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .tline > .name { flex: 0 1 auto; min-width: 0; }
+  .tline > .chip { flex: none; max-width: none; }
+  .tline > .chip .chip-text { white-space: nowrap; overflow: visible; }
+  .banner .titles.below { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; }
+  .banner .titles.below > .tline { display: contents; }
+  .banner .titles.below > .tline > .chip { order: 3; justify-self: start; align-self: start; margin-top: 3px; }
+  .banner .titles.below > .sub { order: 2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .banner .titles.dot-only > .tline { display: flex; }
+  .banner .titles.dot-only > .tline > .chip { order: 0; margin-top: 0; align-self: center; padding: 4px; }
+  .banner .titles.dot-only > .tline > .chip .chip-text { display: none; }
+  /* Narrow card: a smaller icon; below 200 px, the pill keeps its dot alone. */
+  @container (max-width: 300px) {
+    .banner .htext { gap: 6px; }
+    .banner .ibadge { width: 32px; height: 32px; }
+    .banner .ibadge .icon { width: 20px; height: 20px; }
+    /* Mini card: a smaller shield next to the detail button leaves the pill its whole label. */
+    .banner.has-zoom .al-shield { width: 70px; height: 70px; top: 9px; }
+  }
+  @container al-card (max-width: 200px) { .banner .chip { padding: 4px; } .banner .chip .chip-text { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .banner, .banner * { animation: none !important; transition: none !important; } }
+`;
 
 // ---------------------------------------------------------------------------
 // Styles
@@ -2534,10 +2875,14 @@ const PAD_ACTIONS = new Set(["key", "key_back", "pad_cancel", "pad_ok", "code_in
 // Base
 // ---------------------------------------------------------------------------
 
+// Each card instance numbers its SVG ids, so that several cards never share one.
+let cardUid = 0;
+
 class AlarmBase extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
+    this._uid = ++cardUid;
     this._html = "";
     this._toggled = new Set();
     this.shadowRoot.addEventListener("click", (ev) => this._onClick(ev));
@@ -2607,6 +2952,18 @@ class AlarmBase extends HTMLElement {
   connectedCallback() {
     this._startClock();
     this._outside.on();
+    // A new width (or the web font loaded): the status pill is fitted again, in the next frame.
+    if (typeof ResizeObserver === "function") {
+      this._resize ??= new ResizeObserver((entries) => {
+        const w = Math.round(entries.at(-1).contentRect.width);
+        if (w === this._fitWidth) return;
+        this._fitWidth = w;
+        cancelAnimationFrame(this._fitFrame);
+        this._fitFrame = requestAnimationFrame(() => this._fitPill());
+      });
+      this._resize.observe(this);
+    }
+    document.fonts?.ready?.then(() => this._fitPill());
     if (this._confirm || this._pad) window.addEventListener("keydown", this._onKey);
     // Back on the page after leaving it: rendered again in its default state (and the Alarmo subscription resumed).
     if (this._hass && this._config) this._update();
@@ -2614,6 +2971,8 @@ class AlarmBase extends HTMLElement {
 
   disconnectedCallback() {
     clearInterval(this._timer);
+    this._resize?.disconnect();
+    this._fitWidth = null;
     this._timer = null;
     this._timerPeriod = null;
     this._outside.off();
@@ -2750,6 +3109,8 @@ class AlarmBase extends HTMLElement {
     const panel = this._panel();
     const now = Date.now();
     const sig = [h.language, h.locale?.language, h.locale?.time_format, h.entities, panel, remaining(panel) ? Math.floor(now / 1000) : Math.floor(now / 60000)];
+    // The illustration's day / night picture.
+    sig.push(h.themes?.darkMode, h.states?.["sun.sun"]?.state);
     const a = panel?.attributes || {};
     for (const id of [...this._sensors().map((s) => s.entity), ...entityList(a.open_sensors), ...entityList(a.bypassed_sensors)]) sig.push(h.states[id]);
     for (const id of this._cameras()) sig.push(h.states[id]?.attributes?.entity_picture, h.states[id]?.state);
@@ -2774,7 +3135,54 @@ class AlarmBase extends HTMLElement {
       this._html = html;
       morph(this.shadowRoot, html);
     }
+    this._fitPill();
     this._fitConfirm();
+  }
+
+  // The header's status pill goes right after the title, on its row, only while the title stays whole and the
+  // pill's whole label fits beside it; otherwise it takes a line of its own under the subtitle (.below), the title
+  // whole on its row (cut only when it does not fit alone). There, in the banner, the subtitle keeps one line; if the
+  // text still does not fit above the ground strip, the pill keeps its dot alone (.dot-only, its label in its tooltip
+  // and for screen readers). Measured after each render and on each new width, whatever the language: no fixed
+  // width threshold.
+  _fitPill() {
+    if (!this.isConnected) return;
+    for (const t of this.shadowRoot?.querySelectorAll?.(".titles") || []) {
+      const row = t.querySelector(".tline");
+      const pills = row ? [...row.children].filter((n) => n.matches(".chip")) : [];
+      if (!pills.length || !pills[0].getBoundingClientRect) continue;
+      t.classList.remove("below", "dot-only");
+      const name = row.querySelector(".name");
+      const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+      const title = name && getComputedStyle(name).display !== "none" ? textWidth(name) + gap : 0;
+      const need = pills.reduce((w, p) => w + p.getBoundingClientRect().width + gap, title - gap);
+      if (need > t.getBoundingClientRect().width - 0.5) {
+        t.classList.add("below");
+        const banner = t.closest(".banner");
+        if (banner) {
+          const b = banner.getBoundingClientRect();
+          // Each element as it shows: its box cut by its ancestors that hide their overflow (a clamped line).
+          const out = [...t.querySelectorAll("*")].some((n) => {
+            let { top, bottom } = n.getBoundingClientRect();
+            for (let p = n.parentElement; p && p !== t; p = p.parentElement) {
+              if (getComputedStyle(p).overflowY === "visible") continue;
+              top = Math.max(top, p.getBoundingClientRect().top);
+              bottom = Math.min(bottom, p.getBoundingClientRect().bottom);
+            }
+            return bottom - top > 0.5 && (top < b.top - 0.5 || bottom > b.bottom - 10 + 0.5);
+          });
+          if (out) t.classList.add("dot-only");
+        }
+      }
+      // A subtitle cut by its ellipsis keeps its whole text in its tooltip.
+      const s = t.querySelector(".sub");
+      if (s && (!s.hasAttribute("title") || s.dataset.fit)) {
+        const cut = s.scrollWidth > s.clientWidth + 1;
+        s.toggleAttribute("data-fit", cut);
+        if (cut) s.title = s.textContent.trim();
+        else s.removeAttribute("title");
+      }
+    }
   }
 
   // The popup lies over the card: a small card (the mini card) grows to the popup's full height, so that a long
@@ -3035,10 +3443,44 @@ class AlarmBase extends HTMLElement {
       <div class="header${zoom ? " has-zoom" : ""}">
         ${c.show_logo !== false ? logo(this._t("title")) : ""}
         <div class="titles">
-          <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
+          <div class="tline">
+            <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
+            <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${esc(st.entity_id)}" title="${esc(this._stateText(st))}" aria-label="${esc(this._stateText(st))}"><span class="dot"></span><span class="chip-text">${esc(this._stateText(st))}</span></span>
+          </div>
           <div class="sub">${esc(this._subtitle(st))}</div>
         </div>
-        <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${esc(st.entity_id)}" title="${esc(this._stateText(st))}" aria-label="${esc(this._stateText(st))}"><span class="dot"></span><span class="chip-text">${esc(this._stateText(st))}</span></span>
+        ${zoom}
+      </div>`;
+  }
+
+  // The illustrated header (illustration: false keeps the classic one): the round state icon, the title and
+  // the state (with `detail` after it) on the sky, the house and the big state shield at the right.
+  _illustrated() {
+    return this._config.illustration !== false;
+  }
+
+  _banner(st, detail, showBadge) {
+    const c = this._config;
+    const cls = stateClass(st.state);
+    const zoom = this._zoomButton();
+    const name = esc(c.title || st.attributes?.friendly_name || this._t("title"));
+    const ent = esc(st.entity_id);
+    return `<div class="banner ${cls}${isNight(this._hass, c) ? " dark" : ""}${zoom ? " has-zoom" : ""}">
+        <div class="al-ground" aria-hidden="true"></div>
+        ${alarmScene(this._uid)}
+        <div class="al-shield clickable" role="button" tabindex="0" aria-label="${esc(this._stateText(st))}" data-entity="${ent}">${shield(st.state, this._uid)}</div>
+        <div class="header htext">
+          ${showBadge ? `<div class="ibadge">${svgIcon(STATE_ICON[cls] || ICONS.shield)}</div>` : ""}
+          <div class="titles">
+            <div class="tline">
+              <div class="name">${name}</div>
+              <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${ent}" title="${esc(this._stateText(st))}" aria-label="${esc(
+                this._stateText(st),
+              )}"><span class="dot"></span><span class="chip-text">${esc(this._stateText(st))}</span></span>
+            </div>
+            ${detail ? `<div class="sub">${esc(detail)}</div>` : ""}
+          </div>
+        </div>
         ${zoom}
       </div>`;
   }
@@ -3152,18 +3594,26 @@ class AlarmBase extends HTMLElement {
 
 const FULL_STYLE = `
   .content { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 12px; }
-  ha-card { container-type: inline-size; }
+  ha-card { container: al-card / inline-size; }
   .strut > i { width: 40px; }
-  /* The title takes the room the chip leaves (flex-basis 0, so it does not claim its full text first) and
-     always keeps a few characters; the chip shows its whole label, on two lines when one is too long for the
-     room left (long Polish or German labels on a narrow card), and a single word is cut with an ellipsis only
-     when even that does not fit. The chip sits on the title's line, not across title and subtitle. */
   .header .titles { flex: 1 1 0; min-width: 64px; }
-  .header > .chip { flex: 0 1 auto; min-width: 0; align-self: flex-start; margin-top: 4px; white-space: normal; }
-  .header .chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; text-wrap: balance; }
-  /* Phone width (6 columns of a Sections view, ~156-180 px): the hero below already names the state, the chip
+  /* The status pill right after the title, its whole label on one line, while the title stays whole beside it
+     (measured by the card, see _fitPill); otherwise on its own line under a one-line subtitle, and with its dot alone
+     when even that does not fit the header. */
+  .tline { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .tline > .name { flex: 0 1 auto; min-width: 0; }
+  .tline > .chip { flex: none; max-width: none; }
+  .tline > .chip .chip-text { white-space: nowrap; overflow: visible; }
+  .header .titles.below { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; }
+  .header .titles.below > .tline { display: contents; }
+  .header .titles.below > .tline > .chip { order: 3; justify-self: start; align-self: start; margin-top: 3px; }
+  .header .titles.below > .sub { order: 2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .header .titles.dot-only > .tline { display: flex; }
+  .header .titles.dot-only > .tline > .chip { order: 0; margin-top: 0; align-self: center; padding: 4px; }
+  .header .titles.dot-only > .tline > .chip .chip-text { display: none; }
+  /* Phone width (6 columns of a Sections view, up to 200 px): the hero below already names the state, the chip
      keeps only its dot (the text stays in its title and aria-label). */
-  @container (max-width: 240px) { .header > .chip { padding: 4px 6px; } .header > .chip .chip-text { display: none; } }
+  @container al-card (max-width: 200px) { .header .chip { padding: 4px 6px; } .header .chip .chip-text { display: none; } }
   /* Narrow card with the zoomed mini card's detail button in the header (up to 280 px): the logo gives its room
      to the title and the chip, so that the button stays in the card and the chip's label stays whole (the
      shield below already shows the state). */
@@ -3252,9 +3702,10 @@ class AlarmCard extends AlarmBase {
     parts.push(this._buttonSection());
     parts.push(this._cameraSection(st));
     if (c.show_activity === true) parts.push(this._activitySection(st));
-    return `<style>${BASE_STYLE}${FULL_STYLE}</style>${STRUT}
+    const pic = this._illustrated();
+    return `<style>${BASE_STYLE}${FULL_STYLE}${pic ? SCENE_STYLE : ""}</style>${STRUT}
       <ha-card>
-        ${this._header(st)}
+        ${pic ? this._banner(st, this._subtitle(st), c.show_logo !== false) : this._header(st)}
         <div class="content">${parts.filter(Boolean).join("")}</div>
       </ha-card>`;
   }
@@ -3268,8 +3719,13 @@ class AlarmCard extends AlarmBase {
         lines.push(`<div class="line">${svgIcon(ICONS.history)}<span>${esc(this._t("last_triggered", { when: ago(intlLang(this._hass, this._config), last) }))}</span></div>`);
       else if ("last_triggered" in (st.attributes || {})) lines.push(`<div class="line">${svgIcon(ICONS.history)}<span>${esc(this._t("never_triggered"))}</span></div>`);
     }
+    // Illustrated header: the shield and the state are in the banner, only the lines stay here.
+    if (this._illustrated()) {
+      const html = lines.join("");
+      return html ? `<div class="hero ${cls}"><div class="info">${html}</div></div>` : "";
+    }
     return `<div class="hero ${cls}">
-      <div class="clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}">${shield(st.state)}</div>
+      <div class="clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}">${shield(st.state, this._uid)}</div>
       <div class="info">
         <div class="state">${esc(this._stateText(st))}</div>
         ${lines.join("")}
@@ -3481,7 +3937,7 @@ const MINI_STYLE = `
   .controls .btn .icon { width: 16px; height: 16px; }
   /* Default size (6 columns, ~240 px) and narrower: always two rows, the detail button on the name's row and
      the buttons on their own full row, closer together so that every mode (6 buttons) fits on it. */
-  ha-card { container-type: inline-size; }
+  ha-card { container: al-card / inline-size; }
   .strut > i { width: 36px; }
   @container (max-width: 300px) {
     .actions { display: contents; }
@@ -3489,6 +3945,10 @@ const MINI_STYLE = `
     .controls { order: 2; flex: 1 1 100%; gap: 4px; }
   }
   .pad-wrap { padding: 8px 12px 12px; }
+  /* Illustrated header: the round arm / disarm buttons on their own row under the banner. */
+  .mini-row { display: flex; justify-content: flex-end; padding: 8px 12px; }
+  .mini-row .controls { flex: 1 1 auto; justify-content: flex-end; }
+  .mini-row + .pad-wrap { padding-top: 0; }
 `;
 
 // The mini card is a full card drawn compact: its detail button (top right, `zoom: false` removes it) switches
@@ -3555,10 +4015,19 @@ class AlarmMiniCard extends AlarmCard {
     if (error) return error;
     const c = this._config;
     const cls = stateClass(st.state);
+    if (this._illustrated()) {
+      const controls = c.show_controls !== false ? `<div class="mini-row"><div class="controls">${this._modeButtons(st, true)}</div></div>` : "";
+      return `<style>${BASE_STYLE}${MINI_STYLE}${SCENE_STYLE}</style>${STRUT}
+      <ha-card>
+        ${this._banner(st, this._miniDetail(st).replace(/^ · /, ""), c.show_logo !== false)}
+        ${controls}
+        ${this._pad ? `<div class="pad-wrap">${this._padHtml(st)}</div>` : ""}
+      </ha-card>`;
+    }
     return `<style>${BASE_STYLE}${MINI_STYLE}</style>${STRUT}
       <ha-card>
         <div class="header${this._pad ? " with-pad" : ""}">
-          ${c.show_logo === true ? logo(this._t("title")) : `<div class="clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}">${shield(st.state)}</div>`}
+          ${c.show_logo === true ? logo(this._t("title")) : `<div class="clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}">${shield(st.state, this._uid)}</div>`}
           <div class="titles">
             <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
             <div class="sub clickable" role="button" tabindex="0" data-entity="${esc(st.entity_id)}"><span class="st ${cls}"><span class="dot"></span>${esc(
@@ -3618,7 +4087,12 @@ class AlarmEditorBase extends HTMLElement {
   _toggles(config) {
     const entity = config.entity || AlarmCard.getStubConfig(this._hass).entity;
     const code = this._hass.states[entity]?.attributes?.code_format;
-    return this.constructor.toggles.map(([name, def]) => [name, name === "confirm_disarm" ? !code : def]);
+    // The mini card's badge: shown by default on the illustrated header, off on the classic one (the shield).
+    const mini = this instanceof AlarmMiniCardEditor;
+    return this.constructor.toggles.map(([name, def]) => [
+      name,
+      name === "confirm_disarm" ? !code : mini && name === "show_logo" ? config.illustration !== false : def,
+    ]);
   }
 
   // The entities of the sensors, cameras and buttons, in that order, once each.
@@ -3643,6 +4117,15 @@ class AlarmEditorBase extends HTMLElement {
         ? [{ type: "expandable", name: "names", flatten: true, title: tr("names"), schema: this._named().map((id) => ({ name: `${NAME_PREFIX}${id}`, selector: { text: {} } })) }]
         : []),
       { type: "grid", name: "", schema: this.constructor.toggles.map(([name]) => ({ name, selector: { boolean: {} } })) },
+      // The illustration's day / night picture, offered while it is shown.
+      ...(this._config.illustration !== false
+        ? [
+            {
+              name: "illustration_theme",
+              selector: { select: { mode: "dropdown", options: ["auto", "day", "night"].map((v) => ({ value: v, label: tr(`theme_${v}`) })) } },
+            },
+          ]
+        : []),
       // The activity's size and period, offered once the activity is on.
       ...(this._config.show_activity === true
         ? [
@@ -3706,7 +4189,7 @@ class AlarmEditorBase extends HTMLElement {
       for (const [k, v] of Object.entries(config)) {
         // Keep the YAML minimal: drop empty values and options left at their default.
         const empty = v === "" || v === undefined || v === null || (Array.isArray(v) && !v.length);
-        if (empty || (k in defaults && v === defaults[k])) delete config[k];
+        if (empty || (k in defaults && v === defaults[k]) || (k === "illustration_theme" && v === "auto")) delete config[k];
       }
       // Each item keeps its name (the field's, else the one set before), as { entity, name }; a plain id without.
       for (const list of NAMED_LISTS) {
@@ -3738,7 +4221,7 @@ class AlarmEditorBase extends HTMLElement {
       this._form.computeHelper = (s) =>
         named(s)
           ? `${named(s)} · ${t(this._hass, this._config, "names_helper")}`
-          : s.name === "zoom" || s.name === "confirm_disarm" || s.name === "cameras_on_alarm"
+          : s.name === "zoom" || s.name === "confirm_disarm" || s.name === "cameras_on_alarm" || s.name === "illustration"
             ? t(this._hass, this._config, `${s.name}_helper`)
             : undefined;
       this._form.addEventListener("value-changed", (ev) => {
@@ -3757,13 +4240,14 @@ class AlarmEditorBase extends HTMLElement {
     if (data.modes !== undefined) data.modes = armModes(data.modes);
     if (!data.entity) data.entity = AlarmCard.getStubConfig(this._hass).entity;
     for (const [name, def] of this._toggles(data)) if (data[name] === undefined) data[name] = def;
+    if (data.illustration_theme === undefined) data.illustration_theme = "auto";
     this._form.hass = this._hass;
     // A new data or schema object re-renders the whole form: only on a config or language change.
     if (this._dataFor !== this._config) {
       this._dataFor = this._config;
       this._form.data = data;
     }
-    const key = `${lang(this._hass, this._config)}|${data.entity}|${this._hass.states[data.entity]?.attributes?.supported_features}|${this._config.show_activity === true}|${this._named().join(",")}`;
+    const key = `${lang(this._hass, this._config)}|${data.entity}|${this._hass.states[data.entity]?.attributes?.supported_features}|${this._config.show_activity === true}|${this._config.illustration !== false}|${this._named().join(",")}`;
     if (this._schemaFor !== key) {
       this._schemaFor = key;
       this._form.schema = this._schema();
@@ -3774,6 +4258,7 @@ class AlarmEditorBase extends HTMLElement {
 class AlarmCardEditor extends AlarmEditorBase {
   static get toggles() {
     return [
+      ["illustration", true],
       ["show_title", true],
       ["show_subtitle", true],
       ["show_logo", true],
