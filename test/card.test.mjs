@@ -1043,7 +1043,7 @@ test("illustrated header: each card numbers its SVG ids", () => {
   const ids = (card) => [...card.shadowRoot.innerHTML.matchAll(/id="([^"]+)"/g)].map((m) => m[1]);
   const a = ids(newCard(makeHass(), {}));
   const b = ids(newCard(makeHass(), {}));
-  assert.ok(a.length >= 4);
+  assert.ok(a.length >= 2);
   assert.equal(new Set(a).size, a.length, "an id repeats inside one card");
   for (const id of a) assert.ok(!b.includes(id), `${id} shared by two cards`);
 });

@@ -2495,7 +2495,7 @@ const shield = (state, uid = 0) => `<div class="shield ${stateClass(state)}"><sv
 </svg></div>`;
 
 // ---------------------------------------------------------------------------
-// Illustrated header: a house under a protective dome on a lawn, at the right of a 90 px banner, with the big
+// Illustrated header: a house on a lawn, at the right of a 90 px banner, with the big
 // state shield standing in front of it. The left of the banner is open sky: the card's text sits there.
 // The scene is drawn in a 190 × 80 picture (the 10 px lawn strip under it is CSS, edge to edge); its colours
 // follow the state through var(--c), set in CSS only (WebKit/Safari-safe).
@@ -2534,12 +2534,11 @@ const AL_STARS = [
   [184, 22, 0.45],
 ];
 
-// The banner picture: sky (sun and clouds, or moon and stars), hills, a tree, the house and its dome.
+// The banner picture: sky (sun and clouds, or moon and stars), hills, a tree and the house, whose lights tell the state.
 // Windows are lit while someone is home (disarmed, armed home / night) and dark when the house is empty.
 const alarmScene = (uid) => {
   const stars = AL_STARS.map(([x, y, r], i) => `<circle class="al-star${i % 3 ? "" : " tw"}" cx="${x}" cy="${y}" r="${r}"/>`).join("");
   return `<svg class="al-scene" viewBox="0 0 190 80" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
-    <defs><clipPath id="al-dome-clip-${uid}"><path d="M61 80A42 62 0 0 1 145 80Z"/></clipPath></defs>
     <g class="al-day"><circle class="al-sun-halo" cx="20" cy="16" r="10"/><circle class="al-sun" cx="20" cy="16" r="6.5"/>
       <path class="al-cloud" d="M40 20a4 4 0 0 1 6-3.4 5 5 0 0 1 9.4 1.4 3 3 0 0 1 .6 6H42a3 3 0 0 1-2-4Z"/>
       <path class="al-cloud c2" d="M66 8a3.4 3.4 0 0 1 5-2.8 4.2 4.2 0 0 1 8 1.2 2.6 2.6 0 0 1 .4 5H68a2.6 2.6 0 0 1-2-3.4Z"/></g>
@@ -2547,8 +2546,6 @@ const alarmScene = (uid) => {
     <path class="al-hill far" d="M0 80C26 66 54 60 88 64C122 68 156 58 190 60C206 61 222 62 240 61V80Z"/>
     <path class="al-hill" d="M0 80C40 72 92 73 190 70L240 69V80Z"/>
     <g class="al-tree"><rect class="al-trunk" x="27" y="62" width="2.4" height="18"/><circle class="al-crown" cx="28.2" cy="58" r="9"/><circle class="al-crown" cx="22" cy="64" r="5.5"/></g>
-    <g class="al-dome"><path class="al-dome-fill" d="M61 80A42 62 0 0 1 145 80Z"/><path class="al-dome-line" d="M61 80A42 62 0 0 1 145 80" pathLength="100"/>
-      <g clip-path="url(#al-dome-clip-${uid})"><path class="al-dome-sweep" d="M30 14H50L40 80H20Z"/></g></g>
     <g class="al-house">
       <rect class="al-chimney" x="114" y="27" width="7" height="14"/>
       <rect class="al-wall" x="78" y="45" width="50" height="35"/>
@@ -2556,15 +2553,17 @@ const alarmScene = (uid) => {
       <rect class="al-win" x="83" y="53" width="11" height="10" rx="1"/><rect class="al-win" x="112" y="53" width="11" height="10" rx="1"/>
       <path class="al-mullion" d="M88.5 53v10M83 58h11M117.5 53v10M112 58h11"/>
       <rect class="al-door" x="97" y="61" width="12" height="19" rx="1"/><circle class="al-knob" cx="106.6" cy="71" r=".9"/>
-      <rect class="al-siren-box" x="99" y="33" width="8" height="7" rx="1.5"/><circle class="al-siren" cx="103" cy="36.5" r="2"/>
+      <rect class="al-vent" x="99" y="33" width="8" height="7" rx="1.5"/>
+      <g class="al-beacon"><rect class="al-beacon-base" x="100.5" y="21.5" width="5" height="2" rx=".6"/><path class="al-beacon-light" d="M101 21.5a2 2.2 0 0 1 4 0Z"/></g>
+      <circle class="al-lamp" cx="112.5" cy="66" r="1.7"/>
     </g>
   </svg>`;
 };
 
-// The banner's colours and animations, day and night. Calm: a slow halo while armed, a dome that draws itself
+// The banner's colours and animations, day and night. Calm: a steady light while armed, a blinking one
 // during a delay, a soft red pulse when the alarm goes off.
 const SCENE_STYLE = `
-  .banner { position: relative; overflow: hidden; height: 90px; flex: none; color: #10283f; --al-scene-w: min(190px, 100cqw - 250px);
+  .banner { position: relative; overflow: hidden; height: 90px; flex: none; color: #10283f; --al-scene-w: min(190px, 100cqw - 232px);
             background: linear-gradient(90deg, #f3f9ff 0%, #e2f0fc 38%, #c4e1f7 100%); }
   .banner.dark { color: #fff; background: linear-gradient(90deg, #2c4068 0%, #1b2b4e 42%, #0f1a34 100%); }
   .al-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
@@ -2572,15 +2571,13 @@ const SCENE_STYLE = `
   .dark .al-ground { background: repeating-linear-gradient(90deg, #1f4a2a 0 22px, #245433 22px 44px); box-shadow: inset 0 2px 0 #2c6139; }
   /* The hills run on past the picture's right edge (the banner clips them), under the mini card's detail button. */
   .al-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: var(--al-scene-w); overflow: hidden; }
-  /* The house and its dome stand left of the shield, never behind it: moved 32 px to the left of the drawing (the
-     picture keeps its scale, 1 px per unit). A picture too narrow for the whole house (or its dome, or the tree)
-     leaves it out: the sky and the hills stay. */
-  .al-house, .al-dome { transform: translateX(-32px); }
-  @container al-card (max-width: 399px) { .banner:not(.has-zoom) .al-house { display: none; } }
-  @container al-card (max-width: 410px) { .banner:not(.has-zoom) .al-dome { display: none; } }
-  @container al-card (max-width: 423px) { .banner:not(.has-zoom) .al-tree { display: none; } }
-  @container al-card (max-width: 377px) { .banner.has-zoom .al-house { display: none; } }
-  @container al-card (max-width: 388px) { .banner.has-zoom .al-dome { display: none; } }
+  /* The house stands left of the shield, never behind it: moved 26 px to the left of the drawing (the picture keeps
+     its scale, 1 px per unit). A picture too narrow for the whole house (or the tree) leaves it out: the sky and the
+     hills stay. */
+  .al-house { transform: translateX(-26px); }
+  @container al-card (max-width: 375px) { .banner:not(.has-zoom) .al-house { display: none; } }
+  @container al-card (max-width: 405px) { .banner:not(.has-zoom) .al-tree { display: none; } }
+  @container al-card (max-width: 371px) { .banner.has-zoom .al-house { display: none; } }
   @container al-card (max-width: 401px) { .banner.has-zoom .al-tree { display: none; } }
   .al-nightsky, .dark .al-day { display: none; }
   .dark .al-nightsky { display: inline; }
@@ -2600,38 +2597,24 @@ const SCENE_STYLE = `
   /* Windows: glass by day; warm light at night while someone is home, dark when the house is empty. */
   .al-win { fill: #86b9de; } .dark .al-win { fill: #2a3546; }
   .banner.dark.off .al-win, .banner.dark.home .al-win, .banner.dark.night .al-win, .banner.dark.idle .al-win, .banner.dark.custom .al-win { fill: #ffcf6e; }
-  .al-siren-box { fill: #fff; stroke: #9aa3ae; stroke-width: .6; } .dark .al-siren-box { fill: #4a5568; stroke: #6b778a; }
-  .al-siren { fill: var(--c); }
-  .banner.off .al-siren, .banner.idle .al-siren { fill: #9aa3ae; }
-  /* The protective dome over the house, in the state colour: only once armed (or arming / triggered). */
-  .al-dome { opacity: 0; transition: opacity .6s ease; }
-  .al-dome-fill { fill: var(--c); fill-opacity: .1; }
-  .al-dome-line { fill: none; stroke: var(--c); stroke-width: 1.4; stroke-opacity: .7; }
-  .al-dome-sweep { fill: #fff; opacity: 0; }
-  .banner.home .al-dome, .banner.away .al-dome, .banner.night .al-dome, .banner.vacation .al-dome, .banner.custom .al-dome,
-  .banner.wait .al-dome, .banner.alarm .al-dome { opacity: 1; }
-  .banner.home .al-dome-fill, .banner.away .al-dome-fill, .banner.night .al-dome-fill, .banner.vacation .al-dome-fill,
-  .banner.custom .al-dome-fill { animation: al-breathe 4s ease-in-out infinite; }
-  .banner.home .al-dome-sweep, .banner.away .al-dome-sweep, .banner.night .al-dome-sweep, .banner.vacation .al-dome-sweep,
-  .banner.custom .al-dome-sweep { animation: al-sweep 6s ease-in-out infinite; }
-  .banner.home .al-siren, .banner.away .al-siren, .banner.night .al-siren, .banner.vacation .al-siren, .banner.custom .al-siren {
-    filter: drop-shadow(0 0 1.5px var(--c)); }
-  .banner.wait .al-dome-fill { fill-opacity: .06; }
-  .banner.wait .al-dome-line { stroke-dasharray: 100; animation: al-draw 1.6s ease-in-out infinite; }
-  .banner.wait .al-siren { animation: al-blink 1.6s ease-in-out infinite; }
-  .banner.alarm .al-dome-fill { animation: al-alarm-fill 1.4s ease-in-out infinite; }
-  .banner.alarm .al-siren { filter: drop-shadow(0 0 2.5px var(--c)); animation: al-blink 1s ease-in-out infinite; }
-  .banner.alarm .al-win { animation: al-win-alarm 1.4s ease-in-out infinite; }
+  .al-vent { fill: #fff; stroke: #9aa3ae; stroke-width: .6; } .dark .al-vent { fill: #4a5568; stroke: #6b778a; }
+  /* The house tells the state with its lights, the shield beside it carries the protection: disarmed, a plain house;
+     armed, a small steady light by the door in the state colour; arming / pending, that light blinks amber;
+     triggered, the windows glow red with a slow pulse and a red beacon lights up on the roof. */
+  .al-lamp, .al-beacon { display: none; }
+  .al-beacon-base { fill: #6b7380; } .dark .al-beacon-base { fill: #4a5568; }
+  .al-beacon-light { fill: #e5484d; }
+  .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-lamp { display: inline; fill: var(--c); filter: drop-shadow(0 0 1.2px var(--c)); }
+  .banner.wait .al-lamp { fill: #ffa600; filter: drop-shadow(0 0 1.2px #ffa600); animation: al-blink 1.2s ease-in-out infinite; }
+  .banner.alarm .al-lamp { fill: #e5484d; filter: drop-shadow(0 0 1.2px #e5484d); }
+  .banner.alarm .al-beacon { display: inline; }
+  .banner.alarm .al-beacon-light { filter: drop-shadow(0 0 2px #ff3b3f); animation: al-pulse 2.4s ease-in-out infinite; }
+  .banner.alarm .al-win { fill: #f08a8d; animation: al-pulse 2.4s ease-in-out infinite; }
+  .banner.dark.alarm .al-win { fill: #ff6b6f; filter: drop-shadow(0 0 2px #ff3b3f); }
   @keyframes al-drift { to { transform: translateX(4px); } }
   @keyframes al-twinkle { from { opacity: .3; } to { opacity: 1; } }
-  @keyframes al-breathe { 0%, 100% { fill-opacity: .07; } 50% { fill-opacity: .16; } }
-  @keyframes al-sweep { 0%, 15% { transform: translateX(0); opacity: 0; } 25% { opacity: .25; } 55% { opacity: .25; } 65%, 100% { transform: translateX(130px); opacity: 0; } }
-  @keyframes al-draw { 0% { stroke-dashoffset: 100; } 70%, 100% { stroke-dashoffset: 0; } }
   @keyframes al-blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
-  @keyframes al-alarm-fill { 0%, 100% { fill-opacity: .08; } 50% { fill-opacity: .24; } }
-  @keyframes al-win-alarm { 0%, 100% { fill: #86b9de; } 50% { fill: #f08a8d; } }
-  .banner.dark.alarm .al-win { animation: al-win-alarm-dark 1.4s ease-in-out infinite; }
-  @keyframes al-win-alarm-dark { 0%, 100% { fill: #ffcf6e; } 50% { fill: #ff6b6f; } }
+  @keyframes al-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
   /* The big state shield stands in front of the house, at the right. */
   .banner .al-shield { position: absolute; top: 4px; right: 4px; width: 72px; height: 72px; z-index: 1; }
   .banner .al-shield .shield { width: 100%; height: 100%; }
@@ -2641,7 +2624,7 @@ const SCENE_STYLE = `
   .banner .htext { position: absolute; z-index: 2; left: 12px; top: 0; bottom: 10px; right: calc(var(--al-scene-w) + 4px);
                    display: flex; align-items: center; gap: 10px; padding: 0; min-width: 0; flex-wrap: nowrap; }
   .banner.has-zoom .htext { right: calc(var(--al-scene-w) + 30px); }
-  /* Mini card: the picture beside the detail button, wide enough for the whole house from 378 px (380 px with its border). */
+  /* Mini card: the picture beside the detail button, wide enough for the whole house from 374 px (376 px with its border). */
   .banner.has-zoom { --al-scene-w: min(190px, 100cqw - 228px); }
   .banner .htext .titles { container: al-titles / inline-size; flex: 1 1 0; align-self: stretch; min-width: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; row-gap: 2px; }
   .banner .chip { box-sizing: border-box;
@@ -3471,7 +3454,7 @@ class AlarmBase extends HTMLElement {
   }
 
   // The illustrated header (illustration: false keeps the classic one): the round state icon, the title and
-  // the state (with `detail` after it) on the sky, the house, its dome and the big state shield at the right.
+  // the state (with `detail` after it) on the sky, the house and the big state shield at the right.
   _illustrated() {
     return this._config.illustration !== false;
   }

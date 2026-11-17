@@ -25,7 +25,7 @@ export const shots = [
   { file: "card-failed-arm-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, event: failedToArm },
 ];
 
-// One looping GIF per distinct animation: triggered, arming and armed (the dome over the house) — each in light and dark.
+// One looping GIF per distinct animation: triggered, arming and armed (the door light) — each in light and dark.
 export const gifs = [
   { file: "triggered", type: "alarm-card", theme: "light", width: 460, config: {}, overrides: triggered },
   { file: "triggered-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, overrides: triggered },

@@ -664,10 +664,10 @@ test("illustrated header: 90 px banner, a 10 px lawn strip edge to edge, the shi
   }
 });
 
-// The banner's picture: the shield never covers the house, its dome or the tree, none of them is ever cut by
+// The banner's picture: the shield never covers the house or the tree, neither is ever cut by
 // the picture's left edge (left out instead), from 190 to 500 px, on the full card and the mini card (compact and
 // zoomed), in every state, day and night.
-test("illustrated header from 190 to 500 px: the shield stands beside the house and its dome, never over them", async (t) => {
+test("illustrated header from 190 to 500 px: the shield stands beside the house, never over it", async (t) => {
   if (skip) return t.skip(skip);
   const panelIn = (state, extra = {}) => ({ [PANEL]: { ...states[PANEL], state, attributes: { ...states[PANEL].attributes, ...extra } } });
   const STATES = {
@@ -710,7 +710,7 @@ test("illustrated header from 190 to 500 px: the shield stands beside the house 
                 const scene = sr.querySelector(".banner .al-scene");
                 const what = `${type}${zoom ? " zoomed" : ""} ${name} ${dark ? "night" : "day"} ${width}px`;
                 const problems = [];
-                for (const sel of [".al-house", ".al-dome-line", ".al-tree"]) {
+                for (const sel of [".al-house", ".al-tree"]) {
                   const part = sr.querySelector(`.banner ${sel}`);
                   if (!shown(scene) || !shown(part)) continue;
                   if (shown(shield) && meet(rect(shield), rect(part))) problems.push(`${sel} under the shield`);
