@@ -2442,6 +2442,16 @@ const patchChildren = (cur, next) => {
 };
 // See .strut in BASE_STYLE: sizes the card in parents sized by their content.
 const STRUT = `<div class="strut" aria-hidden="true">${"<i></i>".repeat(10)}</div>`;
+// The width of an element's first four characters and an ellipsis, in its own font: the least a cut title keeps.
+let fourCtx;
+const fourChars = (el) => {
+  const cs = getComputedStyle(el);
+  fourCtx ??= document.createElement("canvas").getContext?.("2d");
+  if (!fourCtx) return 0;
+  fourCtx.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+  return fourCtx.measureText(`${[...el.textContent.trim()].slice(0, 4).join("")}\u2026`).width;
+};
+
 const morph = (root, html) => {
   const tpl = document.createElement("template");
   tpl.innerHTML = html;
@@ -3139,7 +3149,7 @@ class AlarmBase extends HTMLElement {
   }
 
   // The banner's status pill goes right after the title when its whole label fits there beside a title cut down to
-  // four characters (the title's min-width); otherwise it takes a line of its own under the subtitle. Measured, so
+  // four characters (in the title's own font); otherwise it takes a line of its own under the subtitle. Measured, so
   // that a short title keeps its pill beside it whatever the room the picture leaves.
   _fitPill() {
     for (const t of this.shadowRoot.querySelectorAll?.(".banner .titles") || []) {
@@ -3149,7 +3159,7 @@ class AlarmBase extends HTMLElement {
       t.classList.remove("below");
       const row = chip.parentElement;
       const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
-      const title = Math.min(name.scrollWidth, parseFloat(getComputedStyle(name).minWidth) || 0);
+      const title = Math.min(name.scrollWidth, Math.max(parseFloat(getComputedStyle(name).minWidth) || 0, fourChars(name)));
       const need = title + gap + chip.getBoundingClientRect().width;
       if (need > row.getBoundingClientRect().width + 0.5) t.classList.add("below");
     }
