@@ -2532,7 +2532,7 @@ const AL_STARS = [
 // Windows are lit while someone is home (disarmed, armed home / night) and dark when the house is empty.
 const alarmScene = (uid) => {
   const stars = AL_STARS.map(([x, y, r], i) => `<circle class="al-star${i % 3 ? "" : " tw"}" cx="${x}" cy="${y}" r="${r}"/>`).join("");
-  return `<svg class="al-scene" viewBox="0 0 190 80" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false">
+  return `<svg class="al-scene" viewBox="0 0 190 80" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
     <defs><clipPath id="al-dome-clip-${uid}"><path d="M42 80A60 66 0 0 1 162 80Z"/></clipPath></defs>
     <g class="al-day"><circle class="al-sun-halo" cx="20" cy="16" r="10"/><circle class="al-sun" cx="20" cy="16" r="6.5"/>
       <path class="al-cloud" d="M40 20a4 4 0 0 1 6-3.4 5 5 0 0 1 9.4 1.4 3 3 0 0 1 .6 6H42a3 3 0 0 1-2-4Z"/>
@@ -2558,14 +2558,14 @@ const alarmScene = (uid) => {
 // The banner's colours and animations, day and night. Calm: a slow halo while armed, a dome that draws itself
 // during a delay, a soft red pulse when the alarm goes off.
 const SCENE_STYLE = `
-  .banner { position: relative; overflow: hidden; height: 90px; flex: none; color: #10283f;
+  .banner { position: relative; overflow: hidden; height: 90px; flex: none; color: #10283f; --al-scene-w: min(190px, 100cqw - 250px);
             background: linear-gradient(90deg, #f3f9ff 0%, #e2f0fc 38%, #c4e1f7 100%); }
   .banner.dark { color: #fff; background: linear-gradient(90deg, #2c4068 0%, #1b2b4e 42%, #0f1a34 100%); }
   .al-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
                background: repeating-linear-gradient(90deg, #5aa83d 0 22px, #6cbb4c 22px 44px); box-shadow: inset 0 2px 0 #4f9a35; }
   .dark .al-ground { background: repeating-linear-gradient(90deg, #1f4a2a 0 22px, #245433 22px 44px); box-shadow: inset 0 2px 0 #2c6139; }
   /* The hills run on past the picture's right edge (the banner clips them), under the mini card's detail button. */
-  .al-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: min(190px, 58cqw); overflow: visible; }
+  .al-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: var(--al-scene-w); overflow: hidden; }
   .al-nightsky, .dark .al-day { display: none; }
   .dark .al-nightsky { display: inline; }
   .al-sun { fill: #ffd65a; } .al-sun-halo { fill: #ffd65a; opacity: .28; }
@@ -2622,10 +2622,20 @@ const SCENE_STYLE = `
   .banner.has-zoom .al-shield { right: 20px; }
   .banner.has-zoom .al-scene { right: 26px; }
   /* The text on the sky at the left: the round state icon, the title and the state. */
-  .banner .htext { position: absolute; z-index: 2; left: 12px; top: 0; bottom: 10px; right: calc(min(190px, 58cqw) + 4px);
+  .banner .htext { position: absolute; z-index: 2; left: 12px; top: 0; bottom: 10px; right: calc(var(--al-scene-w) + 4px);
                    display: flex; align-items: center; gap: 10px; padding: 0; min-width: 0; flex-wrap: nowrap; }
-  .banner.has-zoom .htext { right: calc(min(190px, 58cqw) + 30px); }
-  .banner .htext .titles { flex: 1 1 auto; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
+  .banner.has-zoom .htext { right: calc(var(--al-scene-w) + 30px); }
+  .banner .htext .titles { container: al-titles / inline-size; flex: 1 1 0; align-self: stretch; min-width: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; row-gap: 2px; }
+  /* The status pill right after the title, centred on it, in the icon's color; the title ellipsises first and keeps
+     4 characters. A narrow card puts the pill on its own line under the subtitle, and keeps only its dot below 200 px. */
+  .banner .tline { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .banner .tline .name { flex: 0 100 auto; min-width: 56px; }
+  .banner .chip { flex: 0 1 auto; min-width: 0; white-space: normal; max-width: calc(100% - 64px); overflow: hidden; box-sizing: border-box;
+                  background: color-mix(in srgb, var(--c) 18%, rgba(255,255,255,.78)); color: color-mix(in srgb, var(--c) 45%, #0d2a45); }
+  .banner.dark .chip { background: color-mix(in srgb, var(--c) 30%, rgba(8,18,38,.55)); color: color-mix(in srgb, var(--c) 35%, #ffffff); }
+  .banner .chip .dot { width: 7px; height: 7px; }
+  /* A label too long for the room left goes on two lines (long German or Polish modes); one word too long is cut. */
+  .banner .chip .chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; text-wrap: balance; }
   .banner .ibadge { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none; color: var(--c);
                     background: rgba(255,255,255,.62); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent); }
   .banner.dark .ibadge { color: color-mix(in srgb, var(--c) 72%, #ffffff); background: rgba(255,255,255,.12);
@@ -2634,17 +2644,16 @@ const SCENE_STYLE = `
   .banner .name { color: inherit; }
   .banner .sub { color: #3d5670; font-size: 13px; line-height: 16px; }
   .banner.dark .sub { color: rgba(255,255,255,.8); }
-  .banner .sub .st { color: color-mix(in srgb, var(--c) 38%, #10283f); font-weight: 500; white-space: normal; overflow-wrap: anywhere; }
-  .banner.dark .sub .st { color: color-mix(in srgb, var(--c) 45%, #ffffff); }
-  .banner .sub .dot { margin-right: 4px; vertical-align: 1px; }
-  /* The detail (since when, who) on its own line under the state. */
-  .banner .sub .dt { display: block; overflow: hidden; text-overflow: ellipsis; }
-  .banner .zoom { position: absolute; z-index: 3; top: 6px; right: 6px; margin: 0; color: #10283f; background: rgba(255,255,255,.55); }
-  .banner.dark .zoom { color: #fff; background: rgba(10,20,40,.45); }
+  /* The mini card's expand / collapse button: a 24 px glass disc in the banner's top-right corner. */
+  .banner .zoom { position: absolute; z-index: 3; top: 5px; right: 5px; margin: 0; width: 24px; height: 24px; color: #33506b;
+                  background: rgba(255,255,255,.55); box-shadow: inset 0 0 0 1px rgba(255,255,255,.7); backdrop-filter: blur(4px); }
+  .banner.dark .zoom { color: #fff; background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+  .banner .zoom:hover { background: rgba(255,255,255,.75); }
+  .banner.dark .zoom:hover { background: rgba(255,255,255,.22); }
   /* Narrower card: the house gives its room to the text, the shield stays; narrower still, the sky alone. */
   @container (max-width: 300px) {
     .al-scene { display: none; }
-    .banner .htext { right: 84px; } .banner.has-zoom .htext { right: 110px; }
+    .banner .htext { right: 84px; } .banner.has-zoom .htext { right: 98px; }
   }
   @container (max-width: 230px) {
     .banner .al-shield { display: none; }
@@ -2652,6 +2661,21 @@ const SCENE_STYLE = `
   }
   /* Phone width: the title keeps its room, the state is already in the text. */
   @container (max-width: 180px) { .banner .ibadge { display: none; } }
+  /* Not enough room beside the title (a narrow card, or the picture taking its share): the pill on its own line
+     under the subtitle. */
+  @container al-titles (max-width: 230px) {
+    .banner .tline { display: contents; }
+    .banner .chip { grid-row: 3; justify-self: start; max-width: 100%; margin-top: 1px; }
+  }
+  /* Narrow card: a smaller icon; below 200 px, the pill keeps its dot alone. */
+  @container (max-width: 300px) {
+    .banner .htext { gap: 6px; }
+    .banner .ibadge { width: 32px; height: 32px; }
+    .banner .ibadge .icon { width: 20px; height: 20px; }
+    /* Mini card: a smaller shield next to the detail button leaves the pill its whole label. */
+    .banner.has-zoom .al-shield { width: 70px; height: 70px; top: 9px; }
+  }
+  @container al-card (max-width: 200px) { .banner .chip { padding: 4px; } .banner .chip .chip-text { display: none; } }
   @media (prefers-reduced-motion: reduce) { .banner, .banner * { animation: none !important; transition: none !important; } }
 `;
 
@@ -3382,10 +3406,13 @@ class AlarmBase extends HTMLElement {
         <div class="header htext">
           ${showBadge ? `<div class="ibadge">${svgIcon(STATE_ICON[cls] || ICONS.shield)}</div>` : ""}
           <div class="titles">
-            <div class="name">${name}</div>
-            <div class="sub clickable" role="button" tabindex="0" data-entity="${ent}"><span class="st ${cls}"><span class="dot"></span>${esc(
-              this._stateText(st),
-            )}</span>${detail ? `<span class="dt">${esc(detail)}</span>` : ""}</div>
+            <div class="tline">
+              <div class="name">${name}</div>
+              <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${ent}" title="${esc(this._stateText(st))}" aria-label="${esc(
+                this._stateText(st),
+              )}"><span class="dot"></span><span class="chip-text">${esc(this._stateText(st))}</span></span>
+            </div>
+            ${detail ? `<div class="sub">${esc(detail)}</div>` : ""}
           </div>
         </div>
         ${zoom}
@@ -3501,7 +3528,7 @@ class AlarmBase extends HTMLElement {
 
 const FULL_STYLE = `
   .content { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 12px; }
-  ha-card { container-type: inline-size; }
+  ha-card { container: al-card / inline-size; }
   .strut > i { width: 40px; }
   /* The title takes the room the chip leaves (flex-basis 0, so it does not claim its full text first) and
      always keeps a few characters; the chip shows its whole label, on two lines when one is too long for the
@@ -3836,7 +3863,7 @@ const MINI_STYLE = `
   .controls .btn .icon { width: 16px; height: 16px; }
   /* Default size (6 columns, ~240 px) and narrower: always two rows, the detail button on the name's row and
      the buttons on their own full row, closer together so that every mode (6 buttons) fits on it. */
-  ha-card { container-type: inline-size; }
+  ha-card { container: al-card / inline-size; }
   .strut > i { width: 36px; }
   @container (max-width: 300px) {
     .actions { display: contents; }

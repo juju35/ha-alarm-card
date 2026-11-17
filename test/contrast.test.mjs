@@ -152,8 +152,15 @@ test("text in a state color on the illustrated header's sky reaches 4.5:1, day a
     for (const [cls, cExpr] of Object.entries(stateColors)) {
       const vars = { ...THEMES.light, ...palette, ...hostVars, "--c": cExpr };
       for (const { sel, color } of bannerRules) {
-        const sky = /\.dark\b/.test(sel) ? SKY.night : SKY.day;
-        const r = ratio(resolve(color, vars), hex(sky));
+        const night = /\.dark\b/.test(sel);
+        const sky = night ? SKY.night : SKY.day;
+        // The status pill has its own frosted background: the state color over white (day) or deep blue (night) glass.
+        const bg = /\.chip\b/.test(sel)
+          ? night
+            ? mix(resolve(cExpr, vars), mix([8, 18, 38], hex(sky), 0.55), 0.3)
+            : mix(resolve(cExpr, vars), mix([255, 255, 255], hex(sky), 0.78), 0.18)
+          : hex(sky);
+        const r = ratio(resolve(color, vars), bg);
         if (r < 4.5) failures.push(`${sel} .${cls} on ${sky}: ${r.toFixed(2)}:1`);
       }
     }

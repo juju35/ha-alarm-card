@@ -1048,9 +1048,10 @@ test("illustrated header: the full card's state and shield move to the banner, t
   const html = newCard(makeHass(triggered), {}).shadowRoot.innerHTML;
   assert.doesNotMatch(html, /class="state"/);
   assert.match(html, /class="hero alarm"><div class="info"><div class="alert-line/);
-  assert.match(html, /class="st alarm"><span class="dot"><\/span>Triggered<\/span>/);
-  // The mini card's countdown / open sensor goes on the line under the state.
-  assert.match(newCard(makeHass(triggered), {}, al.AlarmMiniCard).shadowRoot.innerHTML, /<span class="dt">Kitchen window<\/span>/);
+  // The state in the status pill right after the title.
+  assert.match(html, /<div class="tline">\s*<div class="name">[^<]*<\/div>\s*<span class="chip clickable alarm"[^>]*><span class="dot"><\/span><span class="chip-text">Triggered<\/span>/);
+  // The mini card's countdown / open sensor goes on the subtitle under the title.
+  assert.match(newCard(makeHass(triggered), {}, al.AlarmMiniCard).shadowRoot.innerHTML, /<div class="sub">Kitchen window<\/div>/);
 });
 
 test("illustrated header: the editors offer the illustration and its theme, saved only when changed", () => {

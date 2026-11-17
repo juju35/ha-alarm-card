@@ -210,7 +210,7 @@ const audit = async ({ type, width, language = "en", theme = "light", ov = {}, c
             outside.push(`${n.localName}.${[...n.classList].join(".")} ${Math.round(left - card.left)}–${Math.round(right - card.left)} px`);
         }
         const cut = [];
-        for (const sel of [".state", ".header > .chip .chip-text", ".modes .btn", ".tile .v", ".section-title .chip"])
+        for (const sel of [".state", ".header .chip .chip-text", ".modes .btn", ".tile .v", ".section-title .chip"])
           for (const n of sr.querySelectorAll(sel)) if (getComputedStyle(n).display !== "none" && n.scrollWidth > n.clientWidth + 1) cut.push(n.textContent.trim());
         // The mini card's state under its name is inline in a line that ends in an ellipsis: it is cut when one of
         // its line boxes goes past that line's right edge.
@@ -222,7 +222,9 @@ const audit = async ({ type, width, language = "en", theme = "light", ov = {}, c
         const ctx = document.createElement("canvas").getContext("2d");
         const cs = getComputedStyle(name);
         ctx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
-        const chip = sr.querySelector(".header > .chip .chip-text");
+        const chip = sr.querySelector(".header .chip .chip-text");
+        const pill = sr.querySelector(".header .chip");
+        const titles = sr.querySelector(".header .titles");
         return {
           card: card.width,
           outside,
@@ -230,6 +232,9 @@ const audit = async ({ type, width, language = "en", theme = "light", ov = {}, c
           name: name.getBoundingClientRect().width,
           fourChars: ctx.measureText(`${name.textContent.trim().slice(0, 4)}…`).width,
           chip: chip && { text: chip.textContent, shown: getComputedStyle(chip).display !== "none", whole: chip.scrollWidth <= chip.clientWidth + 1 },
+          pill: pill && (({ top, bottom, width }) => ({ top, bottom, width }))(pill.getBoundingClientRect()),
+          nameBox: (({ top, bottom }) => ({ top, bottom }))(name.getBoundingClientRect()),
+          titles: titles.getBoundingClientRect().width,
         };
       },
       { type, states, entities, sensors, ov, language, config, PANEL, zoom },
@@ -273,6 +278,24 @@ test("full card (and zoomed mini card) from 245 to 500 px: the header chip shows
           const what = `${type}${zoom ? " zoomed" : ""} ${language} ${name} ${width}px`;
           assert.ok(m.chip.shown && m.chip.whole, `${what}: chip "${m.chip.text}" ${m.chip.shown ? "cut" : "hidden"}`);
           assert.deepEqual(m.outside, [], `${what}: leaves the card`);
+        }
+});
+
+test("illustrated header from 245 to 500 px (full card, mini card compact and zoomed): the status pill shows its whole label, the title keeps 4 characters, the pill is centred on the title when beside it", async (t) => {
+  if (skip) return t.skip(skip);
+  for (const [type, zoom] of [["alarm-card", false], ["alarm-mini-card", false], ["alarm-mini-card", true]])
+    for (const language of ["en", "fr", "de", "pl"])
+      for (const [name, ov] of Object.entries({ ...VARIANTS, unavailable }))
+        for (const width of [245, 285, 320, 400, 500]) {
+          const m = await audit({ type, width, language, ov, zoom });
+          const what = `${type}${zoom ? " zoomed" : ""} ${language} ${name} ${width}px`;
+          assert.ok(m.chip.shown && m.chip.whole, `${what}: pill "${m.chip.text}" ${m.chip.shown ? "cut" : "hidden"}`);
+          assert.ok(m.name + 0.5 >= m.fourChars, `${what}: title ${Math.round(m.name)} px < 4 characters`);
+          assert.deepEqual(m.outside, [], `${what}: leaves the card`);
+          if (m.pill.top < m.nameBox.bottom) {
+            const mid = (b) => (b.top + b.bottom) / 2;
+            assert.ok(Math.abs(mid(m.pill) - mid(m.nameBox)) <= 2, `${what}: pill not centred on the title`);
+          }
         }
 });
 
