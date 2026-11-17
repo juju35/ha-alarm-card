@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.11.0 - 2026-11-17
+
+### Features
+- **Illustrated header**: both cards open on a 90 px banner: a house on a lawn with the big state shield standing in front of it, and the title, the state and a round state icon (Home Assistant's alarm icons, in the state colour) on the sky. The scene follows the state: a protective dome breathes over the house once armed, draws itself during the exit / entry delay and pulses red with the siren light while the alarm is triggered; the windows are lit while someone is home and dark when the house is empty. Day and night skies follow `sun.sun` or the dark theme, `illustration_theme: day | night` forces one, `illustration: false` keeps the classic header. Honours `prefers-reduced-motion`. New options in both visual editors, in the 22 languages.
+
 ## 1.10.3 - 2026-11-15
 
 ### Fixes

@@ -28,6 +28,7 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 
 - Two cards: a full **Alarm Card** and a compact, single-row **Alarm Mini Card** (state, countdown and one-tap buttons)
 - Detail button at the top right of the mini card: it switches to the full card and back; a click anywhere outside the card brings the compact view back. When the card is too narrow for all its buttons (every arm mode at the default 6 columns), they move to a second row under the name
+- Illustrated header: a house on a lawn under the big state shield, a protective dome that appears once armed, lit or dark windows, a siren light, day and night skies (following `sun.sun` or the dark theme), and a round state icon in the state colour
 - State shield colored by state and mode (disarmed, home, away, night, vacation, custom), pulsing during the exit / entry delay, flashing when the alarm goes off
 - One button per supported arm mode, and Disarm (Cancel during the exit delay)
 - Exit and entry delay countdown with a progress bar (Alarmo's `delay`, or the `expiration` attribute)
@@ -122,6 +123,8 @@ buttons:
 cameras:
   - entity: camera.garden
     name: Garden
+illustration: true
+illustration_theme: auto
 show_logo: true
 show_controls: true
 show_sensors: true
@@ -157,7 +160,9 @@ zoom: true
 | `buttons` | both | — | Buttons section: `switch`, `light`, `fan`, `input_boolean` and `siren` entities show their state and a tap on their icon toggles them; `button`, `input_button`, `script` and `scene` entities run. A tap on the name opens the entity. Entity ids, or `{ entity, name }` |
 | `cameras` | both | — | Camera entities whose snapshots show in a Cameras section, refreshed with Home Assistant's camera pictures; a tap opens the camera. Entity ids, or `{ entity, name }` |
 | `cameras_on_alarm` | both | `true` | Show the cameras only while the alarm is triggered or its entry delay runs (`pending`); `false`: always |
-| `show_logo` | both | `true` (full) / `false` (mini) | Show the brand logo as the header icon. Off on the compact mini card, which then shows the state shield as its icon |
+| `illustration` | both | `true` | Illustrated header (90 px): the house, its dome and the big state shield on the sky, the round state icon, the title and the state. `false` keeps the classic header |
+| `illustration_theme` | both | `auto` | Day or night picture of the illustrated header: `auto` (night when `sun.sun` is below the horizon, else with Home Assistant's dark theme), `day` or `night` |
+| `show_logo` | both | `true` (full) / `true` illustrated, `false` classic (mini) | Show the round header icon: the state icon in the state colour on the illustrated header, the brand logo on the classic one. Off by default on the classic compact mini card, which then shows the state shield as its icon |
 | `show_controls` | both | `true` | Arm / disarm buttons |
 | `show_info` | both | `true` | Who changed the state and the last trigger (Alarmo) |
 | `confirm_disarm` | both | `true` without a code, `false` with one | Ask for confirmation before disarming. On by default when the panel needs no code, so one tap cannot disarm it; `false` turns it off. With a code, the code entry already protects disarming; `true` asks first as well. Cancelling an exit delay never asks |
@@ -171,12 +176,13 @@ zoom: true
 
 ## Screenshots
 
-The shield animates with the panel's state: it flashes while the alarm is triggered and pulses while arming (and during the entry delay). It settles to a still card once disarmed, and honours `prefers-reduced-motion`.
+The header's house and shield animate with the panel's state: a dome breathes over the house once armed, draws itself while arming (and during the entry delay), and pulses red with the siren light while the alarm is triggered. It settles to a still card once disarmed, and honours `prefers-reduced-motion`.
 
 | | Light | Dark |
 |---|---|---|
 | Triggered (flashing) | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/triggered.gif" alt="shield flashing while triggered" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/triggered-dark.gif" alt="shield flashing while triggered dark" width="400"> |
 | Arming (pulsing) | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/arming.gif" alt="shield pulsing while arming" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/arming-dark.gif" alt="shield pulsing while arming dark" width="400"> |
+| Armed (dome breathing) | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/armed.gif" alt="house under its dome while armed" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/armed-dark.gif" alt="house under its dome while armed dark" width="400"> |
 
 | Light | Dark |
 |---|---|

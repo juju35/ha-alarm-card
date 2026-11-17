@@ -37,6 +37,9 @@ const allModes = (ov) => {
   return { ...ov, [PANEL]: { ...p, attributes: { ...p.attributes, supported_features: 63 } } };
 };
 const VARIANTS = { disarmed: {}, armedAway, arming, triggered, withCode };
+// The classic header (illustration: false), for the tests that measure its chip and its in-header buttons.
+const CLASSIC = { illustration: false };
+
 
 // Mounts a card at `width` px and returns the measured boxes, relative to the card.
 const measure = async ({ type, width, language = "en", theme = "light", ov = {}, config = {} }) => {
@@ -91,7 +94,7 @@ test("mini card at its default width with every mode: the title stays readable a
   for (const language of ["en", "pl", "sr-Latn", "uk", "sk"])
     for (const [name, ov] of Object.entries(VARIANTS))
       for (const width of [240, 360]) {
-        const m = await measure({ type: "alarm-mini-card", width, language, ov: allModes(ov) });
+        const m = await measure({ type: "alarm-mini-card", width, language, ov: allModes(ov), config: CLASSIC });
         const what = `${language} ${name} ${width}px`;
         assert.ok(m.titles.width >= 60, `${what}: titles ${Math.round(m.titles.width)} px`);
         inside(m, m.zoom, `${what}: detail button`);
@@ -111,10 +114,10 @@ test("mini card at its default width with every mode: the title stays readable a
 test("mini card with the mock's two modes keeps one row when it fits (360 px), and its title readable at 240 px", async (t) => {
   if (skip) return t.skip(skip);
   for (const [name, ov] of Object.entries({ arming, triggered })) {
-    const m = await measure({ type: "alarm-mini-card", width: 240, ov });
+    const m = await measure({ type: "alarm-mini-card", width: 240, ov, config: CLASSIC });
     assert.ok(m.titles.width >= 60, `${name}: titles ${Math.round(m.titles.width)} px`);
   }
-  const wide = await measure({ type: "alarm-mini-card", width: 360, ov: arming });
+  const wide = await measure({ type: "alarm-mini-card", width: 360, ov: arming, config: CLASSIC });
   for (const b of wide.buttons) assert.ok(b.top < wide.titles.bottom, "the buttons stay on the title's row when there is room");
 });
 
@@ -123,21 +126,21 @@ test("full card at min_columns: the title keeps several characters and the chip 
   for (const language of ["en", "pl", "sr-Latn", "uk", "sk"])
     for (const theme of ["light", "dark"])
       for (const [name, ov] of Object.entries(VARIANTS)) {
-        const m = await measure({ type: "alarm-card", width: 240, language, theme, ov });
+        const m = await measure({ type: "alarm-card", width: 240, language, theme, ov, config: CLASSIC });
         const what = `${language} ${theme} ${name}`;
         assert.ok(m.name.width >= 100, `${what}: title ${Math.round(m.name.width)} px`);
         inside(m, m.chip, `${what}: chip`);
         assert.equal(m.chipText.width, 0, `${what}: the hero already shows the state, the chip shows only its dot`);
       }
   // With room, the chip shows its text again.
-  const wide = await measure({ type: "alarm-card", width: 400 });
+  const wide = await measure({ type: "alarm-card", width: 400, config: CLASSIC });
   assert.ok(wide.chipText.width > 20);
 });
 
 test("full card: the header chip sits on the title's line, not across title and subtitle", async (t) => {
   if (skip) return t.skip(skip);
   for (const width of [460, 360]) {
-    const m = await measure({ type: "alarm-card", width });
+    const m = await measure({ type: "alarm-card", width, config: CLASSIC });
     const nameMid = (m.name.top + m.name.bottom) / 2;
     const chipMid = (m.chip.top + m.chip.bottom) / 2;
     assert.ok(Math.abs(nameMid - chipMid) <= 3, `${width}px: name centred at ${nameMid}, chip at ${chipMid}`);
@@ -244,6 +247,8 @@ test("phone width (6 of 12 columns, 156, 168 and 178 px) and 245 px: nothing lea
     ["alarm-card", {}, false],
     ["alarm-mini-card", {}, false],
     ["alarm-mini-card", {}, true],
+    ["alarm-card", CLASSIC, false],
+    ["alarm-mini-card", CLASSIC, false],
   ];
   for (const [type, config, zoom] of kinds)
     for (const language of ["en", "pl", "sr-Latn", "uk", "sk"])
@@ -251,7 +256,7 @@ test("phone width (6 of 12 columns, 156, 168 and 178 px) and 245 px: nothing lea
         for (const width of [156, 168, 178, 245]) {
           const theme = width === 168 ? "dark" : "light";
           const m = await audit({ type, width, language, theme, ov: allModes(ov), config, zoom });
-          const what = `${type}${zoom ? " zoomed" : ""} ${language} ${theme} ${name} ${width}px`;
+          const what = `${type}${zoom ? " zoomed" : ""}${config.illustration === false ? " classic" : ""} ${language} ${theme} ${name} ${width}px`;
           assert.deepEqual(m.outside, [], `${what}: leaves the card`);
           assert.deepEqual(m.cut, [], `${what}: cut`);
           assert.ok(m.name + 0.5 >= m.fourChars, `${what}: title ${Math.round(m.name)} px < 4 characters (${Math.round(m.fourChars)} px)`);
@@ -264,7 +269,7 @@ test("full card (and zoomed mini card) from 245 to 500 px: the header chip shows
     for (const language of ["en", "pl", "sr-Latn", "uk", "sk"])
       for (const [name, ov] of Object.entries({ ...VARIANTS, unavailable }))
         for (const width of [245, 285, 320, 500]) {
-          const m = await audit({ type, width, language, ov, zoom });
+          const m = await audit({ type, width, language, ov, zoom, config: CLASSIC });
           const what = `${type}${zoom ? " zoomed" : ""} ${language} ${name} ${width}px`;
           assert.ok(m.chip.shown && m.chip.whole, `${what}: chip "${m.chip.text}" ${m.chip.shown ? "cut" : "hidden"}`);
           assert.deepEqual(m.outside, [], `${what}: leaves the card`);
@@ -504,6 +509,64 @@ test("mini card at 6 columns (240 px) with 3 open sensors: the arm confirmation 
         assert.ok(l >= r.card[0] - 0.5 && rt <= r.card[1] + 0.5 && tp >= r.card[2] - 0.5 && bt <= r.card[3] + 0.5, `${what} leaves the card ${r.card.map(Math.round)}`);
         assert.ok(l >= r.modal[0] - 0.5 && rt <= r.modal[1] + 0.5 && tp >= r.modal[2] - 0.5 && bt <= r.modal[3] + 0.5, `${what} leaves the popup ${r.modal.map(Math.round)}`);
       }
+    }
+  } finally {
+    await page.close();
+  }
+});
+
+test("illustrated header: 90 px banner, a 10 px lawn strip edge to edge, the shield whole and the house on the strip", async (t) => {
+  if (skip) return t.skip(skip);
+  const page = await openPage();
+  try {
+    const out = await page.evaluate(
+      ({ states, entities, sensors, PANEL }) => {
+        const res = [];
+        for (const [type, width] of [
+          ["alarm-card", 460],
+          ["alarm-mini-card", 380],
+          ["alarm-card", 280],
+        ]) {
+          const box = document.createElement("div");
+          box.style.width = `${width}px`;
+          document.body.appendChild(box);
+          const el = document.createElement(type);
+          el.setConfig({ type, entity: PANEL, sensors });
+          el.hass = { states, entities, language: "en", callService: () => {} };
+          box.appendChild(el);
+          const sr = el.shadowRoot;
+          const r = (sel) => sr.querySelector(sel)?.getBoundingClientRect();
+          const banner = r(".banner");
+          const ground = r(".al-ground");
+          const shieldPath = r(".al-shield .sc-ring");
+          const wall = sr.querySelector(".al-wall");
+          const text = r(".htext .titles");
+          const scene = r(".al-scene");
+          res.push({
+            type,
+            width,
+            banner: { h: banner.height, w: banner.width },
+            ground: { h: ground.height, left: ground.left - banner.left, right: banner.right - ground.right, bottom: banner.bottom - ground.bottom },
+            shield: { top: shieldPath.top - banner.top, bottom: banner.bottom - shieldPath.bottom, h: shieldPath.height },
+            wallGap: wall && getComputedStyle(sr.querySelector(".al-scene")).display !== "none" ? ground.top - wall.getBoundingClientRect().bottom : null,
+            textRight: text.right,
+            sceneLeft: scene && getComputedStyle(sr.querySelector(".al-scene")).display !== "none" ? scene.left : null,
+          });
+        }
+        return res;
+      },
+      { states, entities, sensors, PANEL },
+    );
+    for (const m of out) {
+      const what = `${m.type} ${m.width}px`;
+      assert.equal(m.banner.h, 90, `${what}: banner height`);
+      assert.equal(m.ground.h, 10, `${what}: strip height`);
+      assert.deepEqual([m.ground.left, m.ground.right, m.ground.bottom], [0, 0, 0], `${what}: strip not edge to edge`);
+      assert.ok(m.shield.top >= 1, `${what}: the shield touches the top (${m.shield.top} px)`);
+      assert.ok(m.shield.bottom >= 10, `${what}: the shield goes into the strip`);
+      assert.ok(m.shield.h >= 64, `${what}: the shield is small (${m.shield.h} px)`);
+      if (m.wallGap !== null) assert.ok(Math.abs(m.wallGap) <= 0.5, `${what}: the house floats ${m.wallGap} px above the strip`);
+      if (m.sceneLeft !== null) assert.ok(m.textRight <= m.sceneLeft + 0.5, `${what}: the text runs into the scene`);
     }
   } finally {
     await page.close();

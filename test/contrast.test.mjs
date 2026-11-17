@@ -99,8 +99,14 @@ const stateColors = Object.fromEntries([...css.matchAll(/\.(\w+)\s*\{\s*--c:\s*(
 // Rules that color text (not an icon, a dot or a shield) with a state color.
 const textRules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
   .map((m) => ({ sel: m[1].trim(), color: m[2].match(/(?:^|;)\s*color:\s*([^;]+)/)?.[1]?.trim() }))
-  .filter((r) => r.color && /var\(--(c|al-)/.test(r.color) && !/\.icon|\.shield|\.badge|\.dot|^(from|to|\d+%)/.test(r.sel))
+  .filter((r) => r.color && /var\(--(c|al-)/.test(r.color) && !/\.icon|\.shield|\.badge|\.ibadge|\.dot|^(from|to|\d+%)/.test(r.sel))
   .filter((r, i, all) => all.findIndex((o) => o.sel === r.sel && o.color === r.color) === i);
+
+// The illustrated header's text sits on its sky, not on the card: checked against the sky's darkest day stop and
+// its lightest night stop below.
+const bannerRules = textRules.filter((r) => r.sel.startsWith(".banner"));
+const cardRules = textRules.filter((r) => !r.sel.startsWith(".banner"));
+const SKY = { day: "#c4e1f7", night: "#2c4068" };
 
 test("the card's CSS was found", () => {
   assert.ok(Object.keys(stateColors).length >= 9, Object.keys(stateColors).join());
@@ -124,7 +130,7 @@ for (const [themeName, theme] of Object.entries(THEMES)) {
           "chip/button tint 24%": mix(c, card, 0.24),
           "tile tint 12%": mix(c, resolve("var(--secondary-background-color)", vars), 0.12),
         };
-        for (const { sel, color } of textRules) {
+        for (const { sel, color } of cardRules) {
           const fg = resolve(color, vars);
           // A text that does not follow --c (the config warning) sits on the bare card only.
           const bgs = /var\(--c\b/.test(color) ? Object.entries(backgrounds) : [["card", card]];
@@ -138,3 +144,18 @@ for (const [themeName, theme] of Object.entries(THEMES)) {
     });
   }
 }
+
+test("text in a state color on the illustrated header's sky reaches 4.5:1, day and night", () => {
+  assert.ok(bannerRules.length >= 2, bannerRules.map((r) => r.sel).join(" | "));
+  const failures = [];
+  for (const palette of [HA_PALETTE, {}])
+    for (const [cls, cExpr] of Object.entries(stateColors)) {
+      const vars = { ...THEMES.light, ...palette, ...hostVars, "--c": cExpr };
+      for (const { sel, color } of bannerRules) {
+        const sky = /\.dark\b/.test(sel) ? SKY.night : SKY.day;
+        const r = ratio(resolve(color, vars), hex(sky));
+        if (r < 4.5) failures.push(`${sel} .${cls} on ${sky}: ${r.toFixed(2)}:1`);
+      }
+    }
+  assert.deepEqual(failures, []);
+});
