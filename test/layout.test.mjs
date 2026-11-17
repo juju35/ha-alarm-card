@@ -52,13 +52,15 @@ const measure = async ({ type, width, language = "en", theme = "light", ov = {},
     await page.addScriptTag({ content: HA_CARD });
     await page.addScriptTag({ content: cardJs });
     return await page.evaluate(
-      ({ type, states, entities, sensors, ov, language, config, PANEL }) => {
+      async ({ type, states, entities, sensors, ov, language, config, PANEL }) => {
         const all = structuredClone(states);
         for (const [id, o] of Object.entries(ov)) all[id] = { ...all[id], ...o };
         const el = document.createElement(type);
         el.setConfig({ type, entity: PANEL, sensors, ...config });
         el.hass = { states: all, entities, language, locale: { language }, callService: () => {} };
         document.getElementById("root").appendChild(el);
+        // Measured two frames after it is mounted, as Home Assistant shows it (the pill is fitted on the first).
+        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
         const sr = el.shadowRoot;
         const card = sr.querySelector("ha-card").getBoundingClientRect();
         const box = (n) => {
@@ -71,8 +73,8 @@ const measure = async ({ type, width, language = "en", theme = "light", ov = {},
           card: { width: card.width },
           titles: box(sr.querySelector(".header .titles")),
           name: box(sr.querySelector(".header .name")),
-          chip: box(sr.querySelector(".header > .chip")),
-          chipText: box(sr.querySelector(".header > .chip .chip-text")),
+          chip: box(sr.querySelector(".header .tline > .chip")),
+          chipText: box(sr.querySelector(".header .tline > .chip .chip-text")),
           zoom: box(sr.querySelector(".zoom")),
           buttons: [...sr.querySelectorAll(".header .btn")].map(box),
           alert: span && { text: span.textContent, clipped: span.scrollHeight > span.clientHeight + 1 || span.scrollWidth > span.clientWidth + 1 },
@@ -121,14 +123,14 @@ test("mini card with the mock's two modes keeps one row when it fits (360 px), a
   for (const b of wide.buttons) assert.ok(b.top < wide.titles.bottom, "the buttons stay on the title's row when there is room");
 });
 
-test("full card at min_columns: the title keeps several characters and the chip stays a dot in the card", async (t) => {
+test("full card at 200 px: the title keeps several characters and the chip stays a dot in the card", async (t) => {
   if (skip) return t.skip(skip);
   for (const language of ["en", "pl", "sr-Latn", "uk", "sk"])
     for (const theme of ["light", "dark"])
       for (const [name, ov] of Object.entries(VARIANTS)) {
-        const m = await measure({ type: "alarm-card", width: 240, language, theme, ov, config: CLASSIC });
+        const m = await measure({ type: "alarm-card", width: 200, language, theme, ov, config: CLASSIC });
         const what = `${language} ${theme} ${name}`;
-        assert.ok(m.name.width >= 100, `${what}: title ${Math.round(m.name.width)} px`);
+        assert.ok(m.name.width >= 70, `${what}: title ${Math.round(m.name.width)} px`);
         inside(m, m.chip, `${what}: chip`);
         assert.equal(m.chipText.width, 0, `${what}: the hero already shows the state, the chip shows only its dot`);
       }
@@ -225,7 +227,33 @@ const audit = async ({ type, width, language = "en", theme = "light", ov = {}, c
         const chip = sr.querySelector(".header .chip .chip-text");
         const pill = sr.querySelector(".header .chip");
         const titles = sr.querySelector(".header .titles");
+        // The title's whole text against its box (an ellipsis cuts it), and the banner's text against its ground strip.
+        const range = document.createRange();
+        range.selectNodeContents(name);
+        const banner = sr.querySelector(".banner");
+        const b = banner?.getBoundingClientRect();
+        // What shows of an element vertically: its box cut by its ancestors that hide their overflow.
+        const seen = (n) => {
+          let { top, bottom } = n.getBoundingClientRect();
+          for (let p = n.parentElement; p && p !== banner; p = p.parentElement)
+            if (getComputedStyle(p).overflowY !== "visible") {
+              top = Math.max(top, p.getBoundingClientRect().top);
+              bottom = Math.min(bottom, p.getBoundingClientRect().bottom);
+            }
+          return { top, bottom };
+        };
+        const low = banner
+          ? [...banner.querySelectorAll(".htext *")]
+              .filter((n) => n.getBoundingClientRect().height > 0 && getComputedStyle(n).display !== "none")
+              .filter((n) => {
+                const v = seen(n);
+                return v.bottom - v.top > 0.5 && (v.bottom > b.bottom - 10 + 0.5 || v.top < b.top - 0.5);
+              })
+              .map((n) => n.className)
+          : [];
         return {
+          nameWhole: range.getBoundingClientRect().width <= name.getBoundingClientRect().width + 0.05,
+          low,
           card: card.width,
           outside,
           cut,
@@ -281,11 +309,11 @@ test("full card (and zoomed mini card) from 245 to 500 px: the header chip shows
         }
 });
 
-test("illustrated header from 300 to 500 px: a short title keeps the status pill beside it (measured, not a fixed width)", async (t) => {
+test("illustrated header at 460 and 500 px: a short title keeps the status pill beside it (measured, not a fixed width)", async (t) => {
   if (skip) return t.skip(skip);
   for (const [type, zoom] of [["alarm-card", false], ["alarm-mini-card", false], ["alarm-mini-card", true]])
     for (const theme of ["light", "dark"])
-      for (const width of [300, 400, 460, 500]) {
+      for (const width of [460, 500]) {
         const m = await audit({ type, width, theme, language: "en", ov: {}, zoom });
         const what = `${type}${zoom ? " zoomed" : ""} ${theme} ${width}px`;
         assert.ok(m.pill.top < m.nameBox.bottom, `${what}: the pill drops under the subtitle although it fits beside the title`);
@@ -293,22 +321,49 @@ test("illustrated header from 300 to 500 px: a short title keeps the status pill
       }
 });
 
-test("illustrated header from 245 to 500 px (full card, mini card compact and zoomed): the status pill shows its whole label, the title keeps 4 characters, the pill is centred on the title when beside it", async (t) => {
+test("header from 245 to 500 px (full card, mini card compact and zoomed, banner and classic) in long languages: the title stays whole beside the pill, the pill shows its whole label or its dot alone, nothing goes under the ground strip", async (t) => {
   if (skip) return t.skip(skip);
-  for (const [type, zoom] of [["alarm-card", false], ["alarm-mini-card", false], ["alarm-mini-card", true]])
-    for (const language of ["en", "fr", "de", "pl"])
-      for (const [name, ov] of Object.entries({ ...VARIANTS, unavailable }))
-        for (const width of [245, 285, 320, 400, 500]) {
-          const m = await audit({ type, width, language, ov, zoom });
-          const what = `${type}${zoom ? " zoomed" : ""} ${language} ${name} ${width}px`;
-          assert.ok(m.chip.shown && m.chip.whole, `${what}: pill "${m.chip.text}" ${m.chip.shown ? "cut" : "hidden"}`);
-          assert.ok(m.name + 0.5 >= m.fourChars, `${what}: title ${Math.round(m.name)} px < 4 characters`);
-          assert.deepEqual(m.outside, [], `${what}: leaves the card`);
-          if (m.pill.top < m.nameBox.bottom) {
-            const mid = (b) => (b.top + b.bottom) / 2;
-            assert.ok(Math.abs(mid(m.pill) - mid(m.nameBox)) <= 2, `${what}: pill not centred on the title`);
-          }
-        }
+  const mid = (b) => (b.top + b.bottom) / 2;
+  const cases = [];
+  for (const [type, zoom, config] of [
+    ["alarm-card", false, {}],
+    ["alarm-mini-card", false, {}],
+    ["alarm-mini-card", true, {}],
+    ["alarm-card", false, CLASSIC],
+  ])
+    for (const language of ["en", "fr", "de", "hu", "el", "ru"])
+      for (const [name, ov] of Object.entries({ disarmed: {}, armedAway, triggered }))
+        for (const width of [245, 300, 400, 460, 500]) cases.push({ type, zoom, config, language, name, ov, width });
+  // Six pages at a time.
+  const results = [];
+  for (let i = 0; i < cases.length; i += 6) results.push(...(await Promise.all(cases.slice(i, i + 6).map((c) => audit(c)))));
+  results.forEach((m, i) => {
+    const { type, zoom, config, language, name, width } = cases[i];
+    const what = `${type}${zoom ? " zoomed" : ""}${config.illustration === false ? " classic" : ""} ${language} ${name} ${width}px`;
+    assert.ok(!m.chip.shown || m.chip.whole, `${what}: pill "${m.chip.text}" cut`);
+    assert.ok(m.name + 0.5 >= m.fourChars, `${what}: title ${Math.round(m.name)} px < 4 characters`);
+    assert.deepEqual(m.outside, [], `${what}: leaves the card`);
+    assert.deepEqual(m.low, [], `${what}: under the ground strip or above the banner`);
+    if (m.pill.top < m.nameBox.bottom) {
+      assert.ok(m.nameWhole, `${what}: title cut beside the pill`);
+      assert.ok(Math.abs(mid(m.pill) - mid(m.nameBox)) <= 2, `${what}: pill not centred on the title`);
+    }
+  });
+});
+
+test("at 190 px the header pill keeps its dot alone", async (t) => {
+  if (skip) return t.skip(skip);
+  for (const [type, zoom, config] of [
+    ["alarm-card", false, {}],
+    ["alarm-mini-card", false, {}],
+    ["alarm-mini-card", true, {}],
+    ["alarm-card", false, CLASSIC],
+  ])
+    for (const language of ["en", "de", "el"]) {
+      const m = await audit({ type, width: 190, language, ov: {}, zoom, config });
+      assert.ok(!m.chip.shown, `${type}${zoom ? " zoomed" : ""} ${language}: label shown at 190 px`);
+      assert.deepEqual(m.low, [], `${type} ${language}: under the ground strip`);
+    }
 });
 
 test("in a parent sized by its content (inline-block, grid auto column, flex row) the cards keep a usable width", async (t) => {

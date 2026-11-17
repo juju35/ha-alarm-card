@@ -2442,14 +2442,11 @@ const patchChildren = (cur, next) => {
 };
 // See .strut in BASE_STYLE: sizes the card in parents sized by their content.
 const STRUT = `<div class="strut" aria-hidden="true">${"<i></i>".repeat(10)}</div>`;
-// The width of an element's first four characters and an ellipsis, in its own font: the least a cut title keeps.
-let fourCtx;
-const fourChars = (el) => {
-  const cs = getComputedStyle(el);
-  fourCtx ??= document.createElement("canvas").getContext?.("2d");
-  if (!fourCtx) return 0;
-  fourCtx.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
-  return fourCtx.measureText(`${[...el.textContent.trim()].slice(0, 4).join("")}\u2026`).width;
+// The width of an element's whole text in fractional pixels, even while an ellipsis cuts it.
+const textWidth = (el) => {
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  return range.getBoundingClientRect().width || el.scrollWidth;
 };
 
 const morph = (root, html) => {
@@ -2637,16 +2634,10 @@ const SCENE_STYLE = `
   /* Mini card: a slightly narrower picture beside the detail button, so that a short title keeps its pill beside it. */
   .banner.has-zoom { --al-scene-w: min(190px, 100cqw - 268px); }
   .banner .htext .titles { container: al-titles / inline-size; flex: 1 1 0; align-self: stretch; min-width: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; row-gap: 2px; }
-  /* The status pill right after the title, centred on it, in the icon's color; the title ellipsises first and keeps
-     4 characters. A narrow card puts the pill on its own line under the subtitle, and keeps only its dot below 200 px. */
-  .banner .tline { display: flex; align-items: center; gap: 8px; min-width: 0; }
-  .banner .tline .name { flex: 0 100 auto; min-width: 56px; }
-  .banner .chip { flex: 0 1 auto; min-width: 0; white-space: normal; max-width: calc(100% - 64px); overflow: hidden; box-sizing: border-box;
+  .banner .chip { box-sizing: border-box;
                   background: color-mix(in srgb, var(--c) 18%, rgba(255,255,255,.78)); color: color-mix(in srgb, var(--c) 45%, #0d2a45); }
   .banner.dark .chip { background: color-mix(in srgb, var(--c) 30%, rgba(8,18,38,.55)); color: color-mix(in srgb, var(--c) 35%, #ffffff); }
   .banner .chip .dot { width: 7px; height: 7px; }
-  /* A label too long for the room left goes on two lines (long German or Polish modes); one word too long is cut. */
-  .banner .chip .chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; text-wrap: balance; }
   .banner .ibadge { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none; color: var(--c);
                     background: rgba(255,255,255,.62); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 22%, transparent); }
   .banner.dark .ibadge { color: color-mix(in srgb, var(--c) 72%, #ffffff); background: rgba(255,255,255,.12);
@@ -2672,13 +2663,20 @@ const SCENE_STYLE = `
   }
   /* Phone width: the title keeps its room, the state is already in the text. */
   @container (max-width: 180px) { .banner .ibadge { display: none; } }
-  /* Beside the title, the pill keeps its whole label on one line (the title gives way). Not enough room for it there
-     (measured by the card, see _fitPill): the pill on its own line under the subtitle. */
-  .banner .tline .chip { flex: none; max-width: none; }
-  .banner .tline .chip .chip-text { white-space: nowrap; }
-  .banner .titles.below .tline { display: contents; }
-  .banner .titles.below .tline .chip { grid-row: 3; justify-self: start; max-width: 100%; margin-top: 1px; }
-  .banner .titles.below .tline .chip .chip-text { white-space: normal; }
+  /* The status pill right after the title, its whole label on one line, while the title stays whole beside it
+     (measured by the card, see _fitPill); otherwise on its own line under a one-line subtitle, and with its dot alone
+     when even that does not fit the header. */
+  .tline { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .tline > .name { flex: 0 1 auto; min-width: 0; }
+  .tline > .chip { flex: none; max-width: none; }
+  .tline > .chip .chip-text { white-space: nowrap; overflow: visible; }
+  .banner .titles.below { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; }
+  .banner .titles.below > .tline { display: contents; }
+  .banner .titles.below > .tline > .chip { order: 3; justify-self: start; align-self: start; margin-top: 3px; }
+  .banner .titles.below > .sub { order: 2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .banner .titles.dot-only > .tline { display: flex; }
+  .banner .titles.dot-only > .tline > .chip { order: 0; margin-top: 0; align-self: center; padding: 4px; }
+  .banner .titles.dot-only > .tline > .chip .chip-text { display: none; }
   /* Narrow card: a smaller icon; below 200 px, the pill keeps its dot alone. */
   @container (max-width: 300px) {
     .banner .htext { gap: 6px; }
@@ -3148,20 +3146,49 @@ class AlarmBase extends HTMLElement {
     this._fitConfirm();
   }
 
-  // The banner's status pill goes right after the title when its whole label fits there beside a title cut down to
-  // four characters (in the title's own font); otherwise it takes a line of its own under the subtitle. Measured, so
-  // that a short title keeps its pill beside it whatever the room the picture leaves.
+  // The header's status pill goes right after the title, on its row, only while the title stays whole and the
+  // pill's whole label fits beside it; otherwise it takes a line of its own under the subtitle (.below), the title
+  // whole on its row (cut only when it does not fit alone). There, in the banner, the subtitle keeps one line; if the
+  // text still does not fit above the ground strip, the pill keeps its dot alone (.dot-only, its label in its tooltip
+  // and for screen readers). Measured after each render and on each new width, whatever the language: no fixed
+  // width threshold.
   _fitPill() {
-    for (const t of this.shadowRoot.querySelectorAll?.(".banner .titles") || []) {
-      const chip = t.querySelector(".tline > .chip");
-      const name = t.querySelector(".tline > .name");
-      if (!chip?.getBoundingClientRect || !name) continue;
-      t.classList.remove("below");
-      const row = chip.parentElement;
+    if (!this.isConnected) return;
+    for (const t of this.shadowRoot?.querySelectorAll?.(".titles") || []) {
+      const row = t.querySelector(".tline");
+      const pills = row ? [...row.children].filter((n) => n.matches(".chip")) : [];
+      if (!pills.length || !pills[0].getBoundingClientRect) continue;
+      t.classList.remove("below", "dot-only");
+      const name = row.querySelector(".name");
       const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
-      const title = Math.min(name.scrollWidth, Math.max(parseFloat(getComputedStyle(name).minWidth) || 0, fourChars(name)));
-      const need = title + gap + chip.getBoundingClientRect().width;
-      if (need > row.getBoundingClientRect().width + 0.5) t.classList.add("below");
+      const title = name && getComputedStyle(name).display !== "none" ? textWidth(name) + gap : 0;
+      const need = pills.reduce((w, p) => w + p.getBoundingClientRect().width + gap, title - gap);
+      if (need > t.getBoundingClientRect().width - 0.5) {
+        t.classList.add("below");
+        const banner = t.closest(".banner");
+        if (banner) {
+          const b = banner.getBoundingClientRect();
+          // Each element as it shows: its box cut by its ancestors that hide their overflow (a clamped line).
+          const out = [...t.querySelectorAll("*")].some((n) => {
+            let { top, bottom } = n.getBoundingClientRect();
+            for (let p = n.parentElement; p && p !== t; p = p.parentElement) {
+              if (getComputedStyle(p).overflowY === "visible") continue;
+              top = Math.max(top, p.getBoundingClientRect().top);
+              bottom = Math.min(bottom, p.getBoundingClientRect().bottom);
+            }
+            return bottom - top > 0.5 && (top < b.top - 0.5 || bottom > b.bottom - 10 + 0.5);
+          });
+          if (out) t.classList.add("dot-only");
+        }
+      }
+      // A subtitle cut by its ellipsis keeps its whole text in its tooltip.
+      const s = t.querySelector(".sub");
+      if (s && (!s.hasAttribute("title") || s.dataset.fit)) {
+        const cut = s.scrollWidth > s.clientWidth + 1;
+        s.toggleAttribute("data-fit", cut);
+        if (cut) s.title = s.textContent.trim();
+        else s.removeAttribute("title");
+      }
     }
   }
 
@@ -3423,10 +3450,12 @@ class AlarmBase extends HTMLElement {
       <div class="header${zoom ? " has-zoom" : ""}">
         ${c.show_logo !== false ? logo(this._t("title")) : ""}
         <div class="titles">
-          <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
+          <div class="tline">
+            <div class="name">${esc(c.title || st.attributes?.friendly_name || this._t("title"))}</div>
+            <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${esc(st.entity_id)}" title="${esc(this._stateText(st))}" aria-label="${esc(this._stateText(st))}"><span class="dot"></span><span class="chip-text">${esc(this._stateText(st))}</span></span>
+          </div>
           <div class="sub">${esc(this._subtitle(st))}</div>
         </div>
-        <span class="chip clickable ${cls}" role="button" tabindex="0" data-entity="${esc(st.entity_id)}" title="${esc(this._stateText(st))}" aria-label="${esc(this._stateText(st))}"><span class="dot"></span><span class="chip-text">${esc(this._stateText(st))}</span></span>
         ${zoom}
       </div>`;
   }
@@ -3574,16 +3603,24 @@ const FULL_STYLE = `
   .content { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 12px; }
   ha-card { container: al-card / inline-size; }
   .strut > i { width: 40px; }
-  /* The title takes the room the chip leaves (flex-basis 0, so it does not claim its full text first) and
-     always keeps a few characters; the chip shows its whole label, on two lines when one is too long for the
-     room left (long Polish or German labels on a narrow card), and a single word is cut with an ellipsis only
-     when even that does not fit. The chip sits on the title's line, not across title and subtitle. */
   .header .titles { flex: 1 1 0; min-width: 64px; }
-  .header > .chip { flex: 0 1 auto; min-width: 0; align-self: flex-start; margin-top: 4px; white-space: normal; }
-  .header .chip-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; text-wrap: balance; }
-  /* Phone width (6 columns of a Sections view, ~156-180 px): the hero below already names the state, the chip
+  /* The status pill right after the title, its whole label on one line, while the title stays whole beside it
+     (measured by the card, see _fitPill); otherwise on its own line under a one-line subtitle, and with its dot alone
+     when even that does not fit the header. */
+  .tline { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .tline > .name { flex: 0 1 auto; min-width: 0; }
+  .tline > .chip { flex: none; max-width: none; }
+  .tline > .chip .chip-text { white-space: nowrap; overflow: visible; }
+  .header .titles.below { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; }
+  .header .titles.below > .tline { display: contents; }
+  .header .titles.below > .tline > .chip { order: 3; justify-self: start; align-self: start; margin-top: 3px; }
+  .header .titles.below > .sub { order: 2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .header .titles.dot-only > .tline { display: flex; }
+  .header .titles.dot-only > .tline > .chip { order: 0; margin-top: 0; align-self: center; padding: 4px; }
+  .header .titles.dot-only > .tline > .chip .chip-text { display: none; }
+  /* Phone width (6 columns of a Sections view, up to 200 px): the hero below already names the state, the chip
      keeps only its dot (the text stays in its title and aria-label). */
-  @container (max-width: 240px) { .header > .chip { padding: 4px 6px; } .header > .chip .chip-text { display: none; } }
+  @container al-card (max-width: 200px) { .header .chip { padding: 4px 6px; } .header .chip .chip-text { display: none; } }
   /* Narrow card with the zoomed mini card's detail button in the header (up to 280 px): the logo gives its room
      to the title and the chip, so that the button stays in the card and the chip's label stays whole (the
      shield below already shows the state). */
