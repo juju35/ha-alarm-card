@@ -161,7 +161,7 @@ zoom: true
 | `cameras` | both | — | Camera entities whose snapshots show in a Cameras section, refreshed with Home Assistant's camera pictures; a tap opens the camera. Entity ids, or `{ entity, name }` |
 | `cameras_on_alarm` | both | `true` | Show the cameras only while the alarm is triggered or its entry delay runs (`pending`); `false`: always |
 | `illustration` | both | `true` | Illustrated header (90 px): the house and the big state shield on the sky, the round state icon, the title and the state. `false` keeps the classic header |
-| `illustration_theme` | both | `auto` | Day or night picture of the illustrated header: `auto` (night when `sun.sun` is below the horizon or with Home Assistant's dark theme, even while the sun is up), `day` or `night` |
+| `illustration_theme` | both | `auto` | Day or night picture of the illustrated header: `auto` (follows the Home Assistant theme: night with a dark theme, day with a light theme), `day` or `night` |
 | `show_logo` | both | `true` (full) / `true` illustrated, `false` classic (mini) | Show the round header icon: the state icon in the state colour on the illustrated header, the brand logo on the classic one. Off by default on the classic compact mini card, which then shows the state shield as its icon |
 | `show_controls` | both | `true` | Arm / disarm buttons |
 | `show_info` | both | `true` | Who changed the state and the last trigger (Alarmo) |

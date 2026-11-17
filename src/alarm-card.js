@@ -141,7 +141,7 @@ const STRINGS = {
     illustration: "Illustrated header",
     illustration_helper: "House, shield and sky that follow the alarm state; off: the classic header",
     illustration_theme: "Illustration theme",
-    theme_auto: "Automatic (sun or dark theme)",
+    theme_auto: "Automatic (follows the theme)",
     theme_day: "Day",
     theme_night: "Night",
     buttons: "Buttons",
@@ -236,7 +236,7 @@ const STRINGS = {
     illustration: "En-tête illustré",
     illustration_helper: "Maison, bouclier et ciel qui suivent l'état de l'alarme ; désactivé : l'en-tête classique",
     illustration_theme: "Thème de l'illustration",
-    theme_auto: "Automatique (soleil ou thème sombre)",
+    theme_auto: "Automatique (suit le thème)",
     theme_day: "Jour",
     theme_night: "Nuit",
     buttons: "Boutons",
@@ -331,7 +331,7 @@ const STRINGS = {
     illustration: "Illustrierte Kopfzeile",
     illustration_helper: "Haus, Schild und Himmel folgen dem Alarmstatus; aus: die klassische Kopfzeile",
     illustration_theme: "Thema der Illustration",
-    theme_auto: "Automatisch (Sonne oder dunkles Design)",
+    theme_auto: "Automatisch (folgt dem Design)",
     theme_day: "Tag",
     theme_night: "Nacht",
     buttons: "Schaltflächen",
@@ -426,7 +426,7 @@ const STRINGS = {
     illustration: "Encabezado ilustrado",
     illustration_helper: "Casa, escudo y cielo que siguen el estado de la alarma; desactivado: el encabezado clásico",
     illustration_theme: "Tema de la ilustración",
-    theme_auto: "Automático (sol o tema oscuro)",
+    theme_auto: "Automático (sigue el tema)",
     theme_day: "Día",
     theme_night: "Noche",
     buttons: "Botones",
@@ -523,7 +523,7 @@ const STRINGS = {
     illustration: "Илустровано заглавље",
     illustration_helper: "Кућа, штит и небо прате стање аларма; искључено: класично заглавље",
     illustration_theme: "Тема илустрације",
-    theme_auto: "Аутоматски (сунце или тамна тема)",
+    theme_auto: "Аутоматски (прати тему)",
     theme_day: "Дан",
     theme_night: "Ноћ",
     buttons: "Дугмад",
@@ -620,7 +620,7 @@ const STRINGS = {
     illustration: "Ilustrovano zaglavlje",
     illustration_helper: "Kuća, štit i nebo prate stanje alarma; isključeno: klasično zaglavlje",
     illustration_theme: "Tema ilustracije",
-    theme_auto: "Automatski (sunce ili tamna tema)",
+    theme_auto: "Automatski (prati temu)",
     theme_day: "Dan",
     theme_night: "Noć",
     buttons: "Dugmad",
@@ -717,7 +717,7 @@ const STRINGS = {
     illustration: "Intestazione illustrata",
     illustration_helper: "Casa, scudo e cielo che seguono lo stato dell'allarme; disattivato: l'intestazione classica",
     illustration_theme: "Tema dell'illustrazione",
-    theme_auto: "Automatico (sole o tema scuro)",
+    theme_auto: "Automatico (segue il tema)",
     theme_day: "Giorno",
     theme_night: "Notte",
     buttons: "Pulsanti",
@@ -814,7 +814,7 @@ const STRINGS = {
     illustration: "Geïllustreerde koptekst",
     illustration_helper: "Huis, schild en lucht volgen de alarmstatus; uit: de klassieke koptekst",
     illustration_theme: "Thema van de illustratie",
-    theme_auto: "Automatisch (zon of donker thema)",
+    theme_auto: "Automatisch (volgt het thema)",
     theme_day: "Dag",
     theme_night: "Nacht",
     buttons: "Knoppen",
@@ -911,7 +911,7 @@ const STRINGS = {
     illustration: "Cabeçalho ilustrado",
     illustration_helper: "Casa, escudo e céu que acompanham o estado do alarme; desligado: o cabeçalho clássico",
     illustration_theme: "Tema da ilustração",
-    theme_auto: "Automático (sol ou tema escuro)",
+    theme_auto: "Automático (segue o tema)",
     theme_day: "Dia",
     theme_night: "Noite",
     buttons: "Botões",
@@ -1008,7 +1008,7 @@ const STRINGS = {
     illustration: "Ilustrowany nagłówek",
     illustration_helper: "Dom, tarcza i niebo zgodne ze stanem alarmu; wyłączone: klasyczny nagłówek",
     illustration_theme: "Motyw ilustracji",
-    theme_auto: "Automatycznie (słońce lub ciemny motyw)",
+    theme_auto: "Automatycznie (według motywu)",
     theme_day: "Dzień",
     theme_night: "Noc",
     buttons: "Przyciski",
@@ -1105,7 +1105,7 @@ const STRINGS = {
     illustration: "Antet ilustrat",
     illustration_helper: "Casă, scut și cer care urmează starea alarmei; dezactivat: antetul clasic",
     illustration_theme: "Tema ilustrației",
-    theme_auto: "Automat (soare sau temă întunecată)",
+    theme_auto: "Automat (urmează tema)",
     theme_day: "Zi",
     theme_night: "Noapte",
     buttons: "Butoane",
@@ -1202,7 +1202,7 @@ const STRINGS = {
     illustration: "Illustreret overskrift",
     illustration_helper: "Hus, skjold og himmel følger alarmens tilstand; fra: den klassiske overskrift",
     illustration_theme: "Illustrationens tema",
-    theme_auto: "Automatisk (sol eller mørkt tema)",
+    theme_auto: "Automatisk (følger temaet)",
     theme_day: "Dag",
     theme_night: "Nat",
     buttons: "Knapper",
@@ -1299,7 +1299,7 @@ const STRINGS = {
     illustration: "Illustrerad rubrik",
     illustration_helper: "Hus, sköld och himmel som följer larmets läge; av: den klassiska rubriken",
     illustration_theme: "Illustrationens tema",
-    theme_auto: "Automatiskt (sol eller mörkt tema)",
+    theme_auto: "Automatiskt (följer temat)",
     theme_day: "Dag",
     theme_night: "Natt",
     buttons: "Knappar",
@@ -1396,7 +1396,7 @@ const STRINGS = {
     illustration: "Илюстрирано заглавие",
     illustration_helper: "Къща, щит и небе следват състоянието на алармата; изключено: класическото заглавие",
     illustration_theme: "Тема на илюстрацията",
-    theme_auto: "Автоматично (слънце или тъмна тема)",
+    theme_auto: "Автоматично (следва темата)",
     theme_day: "Ден",
     theme_night: "Нощ",
     buttons: "Бутони",
@@ -1493,7 +1493,7 @@ const STRINGS = {
     illustration: "Иллюстрированный заголовок",
     illustration_helper: "Дом, щит и небо следуют состоянию сигнализации; выкл.: классический заголовок",
     illustration_theme: "Тема иллюстрации",
-    theme_auto: "Автоматически (солнце или тёмная тема)",
+    theme_auto: "Автоматически (по теме)",
     theme_day: "День",
     theme_night: "Ночь",
     buttons: "Кнопки",
@@ -1590,7 +1590,7 @@ const STRINGS = {
     illustration: "Ілюстрований заголовок",
     illustration_helper: "Будинок, щит і небо відповідають стану сигналізації; вимкнено: класичний заголовок",
     illustration_theme: "Тема ілюстрації",
-    theme_auto: "Автоматично (сонце або темна тема)",
+    theme_auto: "Автоматично (за темою)",
     theme_day: "День",
     theme_night: "Ніч",
     buttons: "Кнопки",
@@ -1687,7 +1687,7 @@ const STRINGS = {
     illustration: "Illusztrált fejléc",
     illustration_helper: "A riasztó állapotát követő ház, pajzs és ég; ki: a klasszikus fejléc",
     illustration_theme: "Az illusztráció témája",
-    theme_auto: "Automatikus (nap vagy sötét téma)",
+    theme_auto: "Automatikus (a témát követi)",
     theme_day: "Nappal",
     theme_night: "Éjszaka",
     buttons: "Gombok",
@@ -1784,7 +1784,7 @@ const STRINGS = {
     illustration: "Ilustrovaná hlavička",
     illustration_helper: "Dom, štít a obloha podľa stavu alarmu; vypnuté: klasická hlavička",
     illustration_theme: "Téma ilustrácie",
-    theme_auto: "Automaticky (slnko alebo tmavá téma)",
+    theme_auto: "Automaticky (podľa témy)",
     theme_day: "Deň",
     theme_night: "Noc",
     buttons: "Tlačidlá",
@@ -1881,7 +1881,7 @@ const STRINGS = {
     illustration: "Ilustrované záhlaví",
     illustration_helper: "Dům, štít a obloha podle stavu alarmu; vypnuto: klasické záhlaví",
     illustration_theme: "Motiv ilustrace",
-    theme_auto: "Automaticky (slunce nebo tmavý motiv)",
+    theme_auto: "Automaticky (podle motivu)",
     theme_day: "Den",
     theme_night: "Noc",
     buttons: "Tlačítka",
@@ -1978,7 +1978,7 @@ const STRINGS = {
     illustration: "Ilustrirana glava",
     illustration_helper: "Hiša, ščit in nebo sledijo stanju alarma; izklopljeno: klasična glava",
     illustration_theme: "Tema ilustracije",
-    theme_auto: "Samodejno (sonce ali temna tema)",
+    theme_auto: "Samodejno (sledi temi)",
     theme_day: "Dan",
     theme_night: "Noč",
     buttons: "Gumbi",
@@ -2075,7 +2075,7 @@ const STRINGS = {
     illustration: "Ilustrēta galvene",
     illustration_helper: "Māja, vairogs un debesis atbilst signalizācijas stāvoklim; izslēgts: klasiskā galvene",
     illustration_theme: "Ilustrācijas tēma",
-    theme_auto: "Automātiski (saule vai tumšā tēma)",
+    theme_auto: "Automātiski (atbilstoši tēmai)",
     theme_day: "Diena",
     theme_night: "Nakts",
     buttons: "Pogas",
@@ -2172,7 +2172,7 @@ const STRINGS = {
     illustration: "Εικονογραφημένη κεφαλίδα",
     illustration_helper: "Σπίτι, ασπίδα και ουρανός ακολουθούν την κατάσταση του συναγερμού· ανενεργό: η κλασική κεφαλίδα",
     illustration_theme: "Θέμα εικονογράφησης",
-    theme_auto: "Αυτόματο (ήλιος ή σκούρο θέμα)",
+    theme_auto: "Αυτόματο (ακολουθεί το θέμα)",
     theme_day: "Ημέρα",
     theme_night: "Νύχτα",
     buttons: "Κουμπιά",
@@ -2514,13 +2514,13 @@ const STATE_ICON = {
   idle: ICONS.shield_off,
 };
 
-// Night picture: forced by illustration_theme, else the sun below the horizon or Home Assistant's dark mode
-// (the dark theme shows the night picture even while the sun is up; an unavailable sun leaves the dark mode alone).
+// Night picture: forced by illustration_theme, else Home Assistant's dark mode alone (a light theme keeps the day
+// picture after sunset).
 const isNight = (hass, config) => {
   const theme = config?.illustration_theme;
   if (theme === "night") return true;
   if (theme === "day") return false;
-  return hass?.states?.["sun.sun"]?.state === "below_horizon" || !!hass?.themes?.darkMode;
+  return !!hass?.themes?.darkMode;
 };
 
 const AL_STARS = [
@@ -3110,7 +3110,7 @@ class AlarmBase extends HTMLElement {
     const now = Date.now();
     const sig = [h.language, h.locale?.language, h.locale?.time_format, h.entities, panel, remaining(panel) ? Math.floor(now / 1000) : Math.floor(now / 60000)];
     // The illustration's day / night picture.
-    sig.push(h.themes?.darkMode, h.states?.["sun.sun"]?.state);
+    sig.push(h.themes?.darkMode);
     const a = panel?.attributes || {};
     for (const id of [...this._sensors().map((s) => s.entity), ...entityList(a.open_sensors), ...entityList(a.bypassed_sensors)]) sig.push(h.states[id]);
     for (const id of this._cameras()) sig.push(h.states[id]?.attributes?.entity_picture, h.states[id]?.state);
