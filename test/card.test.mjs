@@ -1021,7 +1021,7 @@ test("illustrated header: the house, the big state shield, the lawn strip and th
   }
 });
 
-test("illustrated header: night follows illustration_theme, then sun.sun, then the dark theme", () => {
+test("illustrated header: night follows illustration_theme, else sun.sun below the horizon or the dark theme", () => {
   const night = (hassExtra, config = {}) => {
     const hass = { ...makeHass(), ...hassExtra };
     return /class="banner [^"]*\bdark\b/.test(newCard(hass, config).shadowRoot.innerHTML);
@@ -1032,7 +1032,11 @@ test("illustrated header: night follows illustration_theme, then sun.sun, then t
   assert.equal(night({}, { illustration_theme: "night" }), true);
   const sun = (state) => ({ states: { ...states, "sun.sun": { entity_id: "sun.sun", state } } });
   assert.equal(night({ ...sun("below_horizon") }), true);
-  assert.equal(night({ ...sun("above_horizon"), themes: { darkMode: true } }), false);
+  assert.equal(night({ ...sun("above_horizon"), themes: { darkMode: true } }), true, "dark theme while the sun is up: night");
+  assert.equal(night({ ...sun("above_horizon"), themes: { darkMode: false } }), false, "light theme while the sun is up: day");
+  assert.equal(night({ ...sun("above_horizon"), themes: { darkMode: true } }, { illustration_theme: "day" }), false);
+  assert.equal(night({ ...sun("above_horizon") }, { illustration_theme: "night" }), true);
+  assert.equal(night({ ...sun("unavailable"), themes: { darkMode: true } }), true);
 });
 
 test("illustrated header: each card numbers its SVG ids", () => {

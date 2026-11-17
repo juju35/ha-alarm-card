@@ -2507,14 +2507,13 @@ const STATE_ICON = {
   idle: ICONS.shield_off,
 };
 
-// Night picture: forced by illustration_theme, else the sun below the horizon, else Home Assistant's dark mode.
+// Night picture: forced by illustration_theme, else the sun below the horizon or Home Assistant's dark mode
+// (the dark theme shows the night picture even while the sun is up; an unavailable sun leaves the dark mode alone).
 const isNight = (hass, config) => {
   const theme = config?.illustration_theme;
   if (theme === "night") return true;
   if (theme === "day") return false;
-  const sun = hass?.states?.["sun.sun"];
-  if (sun && !/^(unavailable|unknown)$/.test(String(sun.state))) return sun.state === "below_horizon";
-  return !!hass?.themes?.darkMode;
+  return hass?.states?.["sun.sun"]?.state === "below_horizon" || !!hass?.themes?.darkMode;
 };
 
 const AL_STARS = [

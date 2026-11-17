@@ -28,7 +28,7 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 
 - Two cards: a full **Alarm Card** and a compact, single-row **Alarm Mini Card** (state, countdown and one-tap buttons)
 - Detail button at the top right of the mini card: it switches to the full card and back; a click anywhere outside the card brings the compact view back. When the card is too narrow for all its buttons (every arm mode at the default 6 columns), they move to a second row under the name
-- Illustrated header: a house on a lawn under the big state shield, a protective dome that appears once armed, lit or dark windows, a siren light, day and night skies (following `sun.sun` or the dark theme), and a round state icon in the state colour
+- Illustrated header: a house on a lawn under the big state shield, a protective dome that appears once armed, lit or dark windows, a siren light, day and night skies (night after sunset or with the dark theme, even while the sun is up), and a round state icon in the state colour
 - State shield colored by state and mode (disarmed, home, away, night, vacation, custom), pulsing during the exit / entry delay, flashing when the alarm goes off
 - One button per supported arm mode, and Disarm (Cancel during the exit delay)
 - Exit and entry delay countdown with a progress bar (Alarmo's `delay`, or the `expiration` attribute)
@@ -161,7 +161,7 @@ zoom: true
 | `cameras` | both | — | Camera entities whose snapshots show in a Cameras section, refreshed with Home Assistant's camera pictures; a tap opens the camera. Entity ids, or `{ entity, name }` |
 | `cameras_on_alarm` | both | `true` | Show the cameras only while the alarm is triggered or its entry delay runs (`pending`); `false`: always |
 | `illustration` | both | `true` | Illustrated header (90 px): the house, its dome and the big state shield on the sky, the round state icon, the title and the state. `false` keeps the classic header |
-| `illustration_theme` | both | `auto` | Day or night picture of the illustrated header: `auto` (night when `sun.sun` is below the horizon, else with Home Assistant's dark theme), `day` or `night` |
+| `illustration_theme` | both | `auto` | Day or night picture of the illustrated header: `auto` (night when `sun.sun` is below the horizon or with Home Assistant's dark theme, even while the sun is up), `day` or `night` |
 | `show_logo` | both | `true` (full) / `true` illustrated, `false` classic (mini) | Show the round header icon: the state icon in the state colour on the illustrated header, the brand logo on the classic one. Off by default on the classic compact mini card, which then shows the state shield as its icon |
 | `show_controls` | both | `true` | Arm / disarm buttons |
 | `show_info` | both | `true` | Who changed the state and the last trigger (Alarmo) |
