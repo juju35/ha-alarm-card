@@ -281,6 +281,18 @@ test("full card (and zoomed mini card) from 245 to 500 px: the header chip shows
         }
 });
 
+test("illustrated header from 300 to 500 px: a short title keeps the status pill beside it (measured, not a fixed width)", async (t) => {
+  if (skip) return t.skip(skip);
+  for (const [type, zoom] of [["alarm-card", false], ["alarm-mini-card", false], ["alarm-mini-card", true]])
+    for (const theme of ["light", "dark"])
+      for (const width of [300, 400, 460, 500]) {
+        const m = await audit({ type, width, theme, language: "en", ov: {}, zoom });
+        const what = `${type}${zoom ? " zoomed" : ""} ${theme} ${width}px`;
+        assert.ok(m.pill.top < m.nameBox.bottom, `${what}: the pill drops under the subtitle although it fits beside the title`);
+        assert.ok(m.chip.whole, `${what}: pill "${m.chip.text}" cut`);
+      }
+});
+
 test("illustrated header from 245 to 500 px (full card, mini card compact and zoomed): the status pill shows its whole label, the title keeps 4 characters, the pill is centred on the title when beside it", async (t) => {
   if (skip) return t.skip(skip);
   for (const [type, zoom] of [["alarm-card", false], ["alarm-mini-card", false], ["alarm-mini-card", true]])

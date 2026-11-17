@@ -2624,6 +2624,8 @@ const SCENE_STYLE = `
   .banner .htext { position: absolute; z-index: 2; left: 12px; top: 0; bottom: 10px; right: calc(var(--al-scene-w) + 4px);
                    display: flex; align-items: center; gap: 10px; padding: 0; min-width: 0; flex-wrap: nowrap; }
   .banner.has-zoom .htext { right: calc(var(--al-scene-w) + 30px); }
+  /* Mini card: a slightly narrower picture beside the detail button, so that a short title keeps its pill beside it. */
+  .banner.has-zoom { --al-scene-w: min(190px, 100cqw - 268px); }
   .banner .htext .titles { container: al-titles / inline-size; flex: 1 1 0; align-self: stretch; min-width: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; row-gap: 2px; }
   /* The status pill right after the title, centred on it, in the icon's color; the title ellipsises first and keeps
      4 characters. A narrow card puts the pill on its own line under the subtitle, and keeps only its dot below 200 px. */
@@ -2660,12 +2662,13 @@ const SCENE_STYLE = `
   }
   /* Phone width: the title keeps its room, the state is already in the text. */
   @container (max-width: 180px) { .banner .ibadge { display: none; } }
-  /* Not enough room beside the title (a narrow card, or the picture taking its share): the pill on its own line
-     under the subtitle. */
-  @container al-titles (max-width: 230px) {
-    .banner .tline { display: contents; }
-    .banner .chip { grid-row: 3; justify-self: start; max-width: 100%; margin-top: 1px; }
-  }
+  /* Beside the title, the pill keeps its whole label on one line (the title gives way). Not enough room for it there
+     (measured by the card, see _fitPill): the pill on its own line under the subtitle. */
+  .banner .tline .chip { flex: none; max-width: none; }
+  .banner .tline .chip .chip-text { white-space: nowrap; }
+  .banner .titles.below .tline { display: contents; }
+  .banner .titles.below .tline .chip { grid-row: 3; justify-self: start; max-width: 100%; margin-top: 1px; }
+  .banner .titles.below .tline .chip .chip-text { white-space: normal; }
   /* Narrow card: a smaller icon; below 200 px, the pill keeps its dot alone. */
   @container (max-width: 300px) {
     .banner .htext { gap: 6px; }
@@ -2948,6 +2951,18 @@ class AlarmBase extends HTMLElement {
   connectedCallback() {
     this._startClock();
     this._outside.on();
+    // A new width (or the web font loaded): the status pill is fitted again, in the next frame.
+    if (typeof ResizeObserver === "function") {
+      this._resize ??= new ResizeObserver((entries) => {
+        const w = Math.round(entries.at(-1).contentRect.width);
+        if (w === this._fitWidth) return;
+        this._fitWidth = w;
+        cancelAnimationFrame(this._fitFrame);
+        this._fitFrame = requestAnimationFrame(() => this._fitPill());
+      });
+      this._resize.observe(this);
+    }
+    document.fonts?.ready?.then(() => this._fitPill());
     if (this._confirm || this._pad) window.addEventListener("keydown", this._onKey);
     // Back on the page after leaving it: rendered again in its default state (and the Alarmo subscription resumed).
     if (this._hass && this._config) this._update();
@@ -2955,6 +2970,8 @@ class AlarmBase extends HTMLElement {
 
   disconnectedCallback() {
     clearInterval(this._timer);
+    this._resize?.disconnect();
+    this._fitWidth = null;
     this._timer = null;
     this._timerPeriod = null;
     this._outside.off();
@@ -3117,7 +3134,25 @@ class AlarmBase extends HTMLElement {
       this._html = html;
       morph(this.shadowRoot, html);
     }
+    this._fitPill();
     this._fitConfirm();
+  }
+
+  // The banner's status pill goes right after the title when its whole label fits there beside a title cut down to
+  // four characters (the title's min-width); otherwise it takes a line of its own under the subtitle. Measured, so
+  // that a short title keeps its pill beside it whatever the room the picture leaves.
+  _fitPill() {
+    for (const t of this.shadowRoot.querySelectorAll?.(".banner .titles") || []) {
+      const chip = t.querySelector(".tline > .chip");
+      const name = t.querySelector(".tline > .name");
+      if (!chip?.getBoundingClientRect || !name) continue;
+      t.classList.remove("below");
+      const row = chip.parentElement;
+      const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+      const title = Math.min(name.scrollWidth, parseFloat(getComputedStyle(name).minWidth) || 0);
+      const need = title + gap + chip.getBoundingClientRect().width;
+      if (need > row.getBoundingClientRect().width + 0.5) t.classList.add("below");
+    }
   }
 
   // The popup lies over the card: a small card (the mini card) grows to the popup's full height, so that a long
