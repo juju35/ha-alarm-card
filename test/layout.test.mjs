@@ -605,7 +605,7 @@ test("mini card at 6 columns (240 px) with 3 open sensors: the arm confirmation 
   }
 });
 
-test("illustrated header: 90 px banner, a 10 px lawn strip edge to edge, the shield whole and the house on the strip", async (t) => {
+test("illustrated header: 90 px banner, a 10 px ground strip edge to edge, the shield whole and the house on the strip", async (t) => {
   if (skip) return t.skip(skip);
   const page = await openPage();
   try {

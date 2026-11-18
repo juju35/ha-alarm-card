@@ -1001,7 +1001,7 @@ test("editor: a name field for each sensor, camera and button, saved as { entity
   assert.deepEqual(plain(editor.events.at(-1).detail.config).buttons, [{ entity: "switch.camera_plugs", name: "Plugs" }, "script.lights_off"]);
 });
 
-test("illustrated header: the house, the big state shield, the lawn strip and the state icon in the state colour", () => {
+test("illustrated header: the house, the big state shield, the ground strip and the state icon in the state colour", () => {
   for (const Cls of [al.AlarmCard, al.AlarmMiniCard]) {
     const html = newCard(makeHass(armedAway), {}, Cls).shadowRoot.innerHTML;
     assert.match(html, /class="banner away[ "]/);
