@@ -2473,7 +2473,7 @@ const shield = (state, uid = 0) => `<div class="shield ${stateClass(state)}"><sv
   <defs>
     <clipPath id="sc-clip-${uid}"><path d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z"/></clipPath>
     <linearGradient id="sc-glass-${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity=".02"/></linearGradient>
-    <linearGradient id="sc-gleam-${uid}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="sc-gleam-${uid}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
   </defs>
   <g transform="translate(60 56) scale(1.45) translate(-60 -56)"><g class="sc-glass">
     <path class="sc-tint" d="M60 20 32 32v20c0 18.4 12 34.2 28 38.8 16-4.6 28-20.4 28-38.8V32Z"/>
@@ -2495,9 +2495,9 @@ const shield = (state, uid = 0) => `<div class="shield ${stateClass(state)}"><sv
 </svg></div>`;
 
 // ---------------------------------------------------------------------------
-// Illustrated header: a house at the right of a 90 px frosted-glass banner, with the big
-// state shield standing in front of it. The left of the banner is calm glass: the card's text sits there.
-// The scene is drawn in a 190 × 80 picture (the 10 px glass strip under it is CSS, edge to edge); its colours
+// Illustrated header: a house behind a guarded stone wall, at the right of a 90 px banner, with the big
+// state shield standing in front of it. The left of the banner is open sky: the card's text sits there.
+// The scene is drawn in a 190 × 80 picture (the 10 px sidewalk strip under it is CSS, edge to edge); its colours
 // follow the state through var(--c), set in CSS only (WebKit/Safari-safe).
 // ---------------------------------------------------------------------------
 
@@ -2539,6 +2539,9 @@ const AL_STARS = [
 const alarmScene = (uid) => {
   const stars = AL_STARS.map(([x, y, r], i) => `<circle class="al-star${i % 3 ? "" : " tw"}" cx="${x}" cy="${y}" r="${r}"/>`).join("");
   return `<svg class="al-scene" viewBox="0 0 190 80" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
+    <g class="al-day"><circle class="al-sun-halo" cx="20" cy="16" r="10"/><circle class="al-sun" cx="20" cy="16" r="6.5"/>
+      <path class="al-cloud" d="M40 20a4 4 0 0 1 6-3.4 5 5 0 0 1 9.4 1.4 3 3 0 0 1 .6 6H42a3 3 0 0 1-2-4Z"/>
+      <path class="al-cloud c2" d="M66 8a3.4 3.4 0 0 1 5-2.8 4.2 4.2 0 0 1 8 1.2 2.6 2.6 0 0 1 .4 5H68a2.6 2.6 0 0 1-2-3.4Z"/></g>
     <g class="al-nightsky">${stars}<path class="al-moon" d="M20 9.4a6.4 6.4 0 1 0 5.6 9.6 5.2 5.2 0 1 1-5.6-9.6Z"/></g>
     <g class="al-tree"><rect class="al-trunk" x="27" y="62" width="2.4" height="18"/><circle class="al-crown" cx="28.2" cy="58" r="9"/><circle class="al-crown" cx="22" cy="64" r="5.5"/></g>
     <g class="al-house">
@@ -2555,44 +2558,126 @@ const alarmScene = (uid) => {
   </svg>`;
 };
 
+// The security decor behind the house: a hedge and far trees behind a stone wall, a pillar carrying a lantern, an
+// "alarm" sign and a surveillance camera. Drawn in a 290 × 80 picture anchored at the banner's right (its last 30
+// units run on under the mini card's detail button), clipped at the text's right edge so it never runs under the text.
+// Disarmed, the camera looks down; armed, it pans over the garden with its field of view in the state colour and a
+// scan line running through it (amber and blinking during a delay, fast and red when triggered, the wall then
+// flashing red). At night the lantern lights the pillar and, while armed, the camera's infrared LEDs glow.
+const alarmDecor = (uid) => {
+  const id = (n) => `al-${n}-${uid}`;
+  const stones = (n, x, y, a, b) =>
+    `<pattern id="${id(n)}" width="28" height="9" patternUnits="userSpaceOnUse" x="${x}" y="${y}"><rect class="al-stJ" width="28" height="9"/><rect class="${a}" x=".5" y=".5" width="13" height="8" rx=".8"/><rect class="${b}" x="14.5" y=".5" width="13" height="8" rx=".8"/><rect class="al-stH" x="1" y="1" width="12" height="1" rx=".5"/><rect class="al-stH" x="15" y="1" width="12" height="1" rx=".5"/></pattern>`;
+  return `<div class="al-decor" aria-hidden="true"><svg viewBox="0 0 290 80" focusable="false">
+    <defs>
+      <linearGradient id="${id("fov")}" x1="0" y1="0" x2="1" y2="0"><stop class="al-fov-s" offset="0" stop-opacity=".5"/><stop class="al-fov-s" offset="1" stop-opacity="0"/></linearGradient>
+      <linearGradient id="${id("scan")}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="${id("shade")}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".25" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".06"/></linearGradient>
+      <radialGradient id="${id("glow")}"><stop offset="0" stop-color="#ffd88a" stop-opacity=".5"/><stop offset="1" stop-color="#ffd88a" stop-opacity="0"/></radialGradient>
+      <clipPath id="${id("fovclip")}"><path d="M95 40.5 193 24v58Z"/></clipPath>
+      ${stones("st1", 0, 62, "al-stA", "al-stB")}${stones("st2", 7, 71, "al-stB", "al-stA")}
+    </defs>
+    <path class="al-far" d="M75 62V52c4-5 9-6 13-3 2-6 9-8 14-4 4-5 11-5 14 0 3-3 8-3 10 1 3-6 11-7 15-1 4-4 10-4 13 1 4-5 11-5 15 0 3-4 9-4 12 0 4-6 12-6 16 0 3-3 8-3 11 1 4-5 10-5 13 0 3-3 7-3 10 0 4-5 10-5 13 0 3-3 8-3 11 1 3-4 8-4 11 0V62Z"/>
+    <path class="al-hedge" d="M75 62c2-6 8-8 12-5 3-5 10-6 14-1 4-5 11-5 15 0 4-4 11-4 14 1 4-5 11-5 15 0 4-4 11-4 15 1 4-5 11-5 15 0 4-4 11-4 15 1 4-5 11-5 14 0 4-4 10-4 13 1 3-4 9-4 12 0 4-5 10-5 14 0 3-4 9-4 12 0 3-3 7-3 9 0V62Z"/>
+    <path class="al-hedgeH" d="M81 58c2-2 4-2 6-1M104 56c2-2 5-2 7-1M134 57c2-2 5-2 7-1M164 56c2-2 5-2 7-1M195 57c2-2 5-2 7-1M225 56c2-2 5-2 7-1M251 57c2-2 4-2 6-1M274 56c2-2 4-2 6-1" fill="none"/>
+    <rect fill="url(#${id("st1")})" x="71" y="62" width="219" height="9"/><rect fill="url(#${id("st2")})" x="71" y="71" width="219" height="9"/>
+    <rect fill="url(#${id("shade")})" x="71" y="62" width="219" height="18"/>
+    <rect class="al-copS" x="71" y="61.6" width="219" height="1.4"/><rect class="al-cop" x="70" y="59" width="220" height="2.8" rx=".6"/><rect class="al-copH" x="70" y="59" width="220" height=".8" rx=".4"/>
+    <g class="al-post">
+      <rect class="al-pil" x="66" y="48" width="14" height="32"/><rect class="al-pilL" x="66" y="48" width="4" height="32"/><path class="al-pilJ" d="M66 61h14M66 77h14" fill="none"/>
+      <rect class="al-pilC" x="64.5" y="45.5" width="17" height="3.2" rx=".8"/><path class="al-pilC" d="M66.5 45.5 73 42.6l6.5 2.9Z"/>
+      <ellipse class="al-glow" cx="73" cy="58" rx="22" ry="16" fill="url(#${id("glow")})"/>
+      <rect class="al-lan" x="70.6" y="49.6" width="4.8" height="1.2" rx=".4"/><rect class="al-lanG" x="71" y="50.8" width="4" height="5.2" rx="1"/><path class="al-lanF" d="M73 50.8V56M71 53.4h4" fill="none"/><rect class="al-lan" x="71.4" y="56" width="3.2" height=".9" rx=".3"/>
+      <rect class="al-sgn" x="67.5" y="63" width="11" height="10.4" rx="1.4"/><rect class="al-sgnB" x="67.5" y="63" width="11" height="2.6" rx="1.2"/><path class="al-sgnI" d="M73 66.6l2.5 1v2c0 1.6-1.1 2.5-2.5 2.9-1.4-.4-2.5-1.3-2.5-2.9v-2Z"/><path class="al-sgnK" d="M72.1 69.3l.7.7 1.2-1.3" fill="none"/>
+      <rect class="al-mount" x="71.9" y="40.6" width="2.2" height="3"/>
+      <g class="al-cam">
+        <g class="al-fov"><path class="al-fov-cone" fill="url(#${id("fov")})" d="M95 40.5 193 24v58Z"/><g clip-path="url(#${id("fovclip")})"><rect class="al-scan" x="95" y="20" width="26" height="62" fill="url(#${id("scan")})"/></g><path class="al-fov-edge" d="M95 40.5 193 24M95 44 193 82" fill="none"/></g>
+        <rect class="al-cam-body" x="74" y="38.4" width="20" height="7.6" rx="3.2"/><rect class="al-cam-under" x="74" y="43.4" width="20" height="2.6" rx="1.3"/>
+        <path class="al-cam-hood" d="M75.5 38.8c0-1.6 1-2.4 2.4-2.4h18.4c.9 0 1.4 1.4.6 2l-1 .8H75.5Z"/>
+        <circle class="al-lens-o" cx="93.4" cy="42.2" r="3.3"/><circle class="al-lens" cx="93.4" cy="42.2" r="2.5"/><circle class="al-lens-g" cx="93.8" cy="41.7" r="1.1"/><circle class="al-lens-w" cx="94.2" cy="41.2" r=".4"/>
+        <g class="al-ir"><circle cx="93.4" cy="39.2" r=".45"/><circle cx="93.4" cy="45.2" r=".45"/><circle cx="90.6" cy="42.2" r=".45"/></g>
+        <circle class="al-cam-led" cx="78.2" cy="41.6" r="1"/><circle class="al-mount" cx="73" cy="41.4" r="1.6"/>
+      </g>
+    </g>
+    <rect class="al-flash" x="64" y="42" width="226" height="38"/>
+  </svg></div>`;
+};
+
 // The banner's colours and animations, day and night. Calm: a steady light while armed, a blinking one
 // during a delay, a soft red pulse when the alarm goes off.
 const SCENE_STYLE = `
   .banner { position: relative; overflow: hidden; height: 90px; flex: none; color: #10283f; --al-scene-w: min(190px, 100cqw - 232px);
-            background: #edf2f8; }
-  .banner.dark { color: #fff; background: #111a2f; }
-  /* Frosted glass behind the house, to match the glass shield: blurred colour blobs (the one behind the shield in the
-     state colour), a light sheen sliding across now and then, and a glass ground strip. */
-  .al-glass { position: absolute; inset: 0 0 10px 0; overflow: hidden; pointer-events: none; }
-  .al-blob { position: absolute; border-radius: 50%; filter: blur(20px); animation: al-float 9s ease-in-out infinite alternate; }
-  .al-blob.b1 { right: -10px; top: -20px; width: 130px; height: 110px; background: var(--c); opacity: .42; }
-  .al-blob.b2 { right: 150px; top: 10px; width: 120px; height: 90px; background: #7cc4f5; opacity: .38; animation-delay: -3s; }
-  .al-blob.b3 { right: 270px; top: -30px; width: 140px; height: 110px; background: #c6b4f3; opacity: .3; animation-delay: -6s; }
-  .banner.has-zoom .al-blob.b1 { right: 6px; }
-  .dark .al-blob.b1 { opacity: .5; } .dark .al-blob.b2 { background: #2f6fb8; opacity: .45; } .dark .al-blob.b3 { background: #5b3fa6; opacity: .35; }
-  .banner.alarm .al-blob.b1 { opacity: .65; animation: al-pulse 1.4s ease-in-out infinite; }
-  .banner.alarm .al-blob.b2 { background: #ff8a8d; }
-  .al-sheen { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.45) 50%, transparent 58%);
-              background-size: 300% 100%; background-position: 120% 0; animation: al-sheen 7s ease-in-out infinite; }
-  .dark .al-sheen { background-image: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.1) 50%, transparent 58%); }
+            background: linear-gradient(180deg, #d9e7f4 0%, #e9f1f8 75%, #f1f5f8 100%); }
+  .banner.dark { color: #fff; background: linear-gradient(180deg, #0d1730 0%, #17264a 75%, #1d2d50 100%); }
+  /* The ground strip: a paved sidewalk with a lit curb. */
   .al-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
-               background: repeating-linear-gradient(90deg, rgba(255,255,255,.62) 0 43px, rgba(16,40,63,.1) 43px 44px);
-               box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 2px 0 rgba(16,40,63,.06);
-               -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
-  .dark .al-ground { background: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 43px, rgba(255,255,255,.14) 43px 44px);
-                     box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
+               background: repeating-linear-gradient(90deg, #b9c2cc 0 19px, #98a3af 19px 20px, #c4ccd4 20px 39px, #98a3af 39px 40px);
+               box-shadow: inset 0 2px 0 #8a95a2, inset 0 3px 0 #d4dae1; }
+  .dark .al-ground { background: repeating-linear-gradient(90deg, #2b3343 0 19px, #1f2633 19px 20px, #313a4b 20px 39px, #1f2633 39px 40px);
+                     box-shadow: inset 0 2px 0 #485368; }
   .al-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: var(--al-scene-w); overflow: hidden; }
+  /* The decor stops at the text's right edge; its picture keeps its scale (1 px per unit), anchored at the right. */
+  .al-decor { position: absolute; right: 0; bottom: 10px; height: 80px; width: calc(var(--al-scene-w) + 4px); overflow: hidden; }
+  .al-decor svg { position: absolute; right: -30px; bottom: 0; width: 290px; height: 80px; }
+  .banner.has-zoom .al-decor { width: calc(var(--al-scene-w) + 30px); }
+  .banner.has-zoom .al-decor svg { right: -4px; }
   /* The house stands left of the shield, never behind it: moved 26 px to the left of the drawing (the picture keeps
-     its scale, 1 px per unit). A picture too narrow for the whole house (or the tree) leaves it out: the glass stays. */
+     its scale, 1 px per unit). A picture too narrow for the whole house (or the tree, or the camera's pillar) leaves it
+     out: the sky and the wall stay, the wall fading in at its left end. */
   .al-house { transform: translateX(-26px); }
   @container al-card (max-width: 375px) { .banner:not(.has-zoom) .al-house { display: none; } }
-  @container al-card (max-width: 405px) { .banner:not(.has-zoom) .al-tree { display: none; } }
+  @container al-card (max-width: 405px) { .banner:not(.has-zoom) :is(.al-tree, .al-post) { display: none; }
+    .banner:not(.has-zoom) .al-decor { -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px); mask-image: linear-gradient(90deg, transparent, #000 16px); } }
   @container al-card (max-width: 371px) { .banner.has-zoom .al-house { display: none; } }
-  @container al-card (max-width: 401px) { .banner.has-zoom .al-tree { display: none; } }
-  .al-nightsky { display: none; }
+  @container al-card (max-width: 401px) { .banner.has-zoom :is(.al-tree, .al-post) { display: none; }
+    .banner.has-zoom .al-decor { -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px); mask-image: linear-gradient(90deg, transparent, #000 16px); } }
+  .al-nightsky, .dark .al-day { display: none; }
   .dark .al-nightsky { display: inline; }
-  .al-star { fill: #fff; opacity: .35; } .al-star.tw { animation: al-twinkle 3.2s ease-in-out infinite alternate; }
+  .al-sun { fill: #ffd65a; } .al-sun-halo { fill: #ffd65a; opacity: .28; }
+  .al-cloud { fill: #fff; opacity: .92; animation: al-drift 7s ease-in-out infinite alternate; }
+  .al-cloud.c2 { animation-delay: -3s; }
+  .al-star { fill: #fff; opacity: .8; } .al-star.tw { animation: al-twinkle 3.2s ease-in-out infinite alternate; }
   .al-moon { fill: #f4f1dc; }
+  /* Wall, hedge and pillar. */
+  .al-far { fill: #c3d7e4; } .dark .al-far { fill: #16233f; }
+  .al-hedge { fill: #7fb36b; } .dark .al-hedge { fill: #183224; }
+  .al-hedgeH { stroke: #a3cf8e; stroke-width: 1; stroke-linecap: round; } .dark .al-hedgeH { stroke: #24452f; }
+  .al-stA { fill: #d3ccc0; } .al-stB { fill: #c6beb1; } .al-stJ { fill: #a99f90; } .al-stH { fill: #fff; opacity: .28; }
+  .dark .al-stA { fill: #343c4d; } .dark .al-stB { fill: #2d3443; } .dark .al-stJ { fill: #1f2531; } .dark .al-stH { opacity: .05; }
+  .al-cop { fill: #e3ddd3; } .al-copS { fill: #a39a8c; } .al-copH { fill: #fff; opacity: .6; }
+  .dark .al-cop { fill: #465066; } .dark .al-copS { fill: #232a38; } .dark .al-copH { opacity: .12; }
+  .al-pil { fill: #bdb4a6; } .al-pilL { fill: #d6cfc3; } .al-pilC { fill: #e8e2d8; } .al-pilJ { stroke: #a99f90; stroke-width: .5; }
+  .dark .al-pil { fill: #2a3141; } .dark .al-pilL { fill: #384154; } .dark .al-pilC { fill: #4b556c; } .dark .al-pilJ { stroke: #1f2531; }
+  .al-lan, .al-mount { fill: #4d5867; } .dark .al-mount { fill: #6a768b; } .al-lanF { stroke: #4d5867; stroke-width: .4; }
+  .al-lanG { fill: #e9eef3; } .dark .al-lanG { fill: #ffd27a; filter: drop-shadow(0 0 3px #ffcf6e); }
+  .al-glow { display: none; } .dark .al-glow { display: inline; }
+  .al-sgn { fill: #fff; stroke: #9aa3ae; stroke-width: .5; } .dark .al-sgn { fill: #dfe5ee; stroke: #6b778a; }
+  .al-sgnB, .al-sgnI { fill: var(--c); } .al-sgnK { stroke: #fff; stroke-width: .7; stroke-linecap: round; stroke-linejoin: round; }
+  /* The camera. */
+  .al-cam-body { fill: #f6f8fa; } .al-cam-under { fill: #d5dbe2; } .al-cam-hood { fill: #e4e9ee; }
+  .dark .al-cam-body { fill: #a3adbf; } .dark .al-cam-under { fill: #7d889c; } .dark .al-cam-hood { fill: #8c97ab; }
+  .al-lens-o { fill: #2b3442; } .al-lens { fill: #1d2530; } .al-lens-g { fill: #5d7a99; } .al-lens-w { fill: #fff; opacity: .8; }
+  .al-ir { display: none; fill: #ff5a5f; opacity: .8; }
+  .al-cam-led { fill: #43a047; }
+  .al-cam { transform-box: view-box; transform-origin: 73px 41.4px; transform: rotate(36deg); }
+  .al-fov { display: none; } .al-fov-s { stop-color: var(--c); } .al-fov-edge { stroke: var(--c); stroke-width: .6; opacity: .7; }
+  .al-scan { animation: al-scan 2.4s linear infinite; }
+  .al-flash { fill: #e5484d; opacity: 0; }
+  .banner:is(.home, .away, .night, .vacation, .custom) .al-cam { animation: al-pan 9s ease-in-out infinite alternate; }
+  .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-fov { display: inline; }
+  .banner:is(.home, .away, .night, .vacation, .custom) .al-cam-led { fill: var(--c); filter: drop-shadow(0 0 1.5px var(--c)); }
+  .banner.dark:is(.home, .away, .night, .vacation, .custom, .alarm) .al-ir { display: inline; }
+  .banner.wait .al-cam { transform: rotate(10deg); }
+  .banner.wait .al-fov { animation: al-blink 1.2s ease-in-out infinite; } .banner.wait .al-fov-s { stop-color: #ffa600; } .banner.wait .al-fov-edge { stroke: #ffa600; } .banner.wait .al-scan { display: none; }
+  .banner.wait .al-cam-led { fill: #ffa600; animation: al-blink 1.2s ease-in-out infinite; }
+  .banner.alarm .al-cam { animation: al-pan 1.8s ease-in-out infinite alternate; }
+  .banner.alarm .al-fov { animation: al-pulse .8s ease-in-out infinite; } .banner.alarm .al-scan { animation-duration: .9s; }
+  .banner.alarm .al-cam-led { fill: #e5484d; filter: drop-shadow(0 0 2px #e5484d); animation: al-blink .6s ease-in-out infinite; }
+  .banner.alarm .al-lanG { fill: #ff5a5f; filter: drop-shadow(0 0 3px #ff3b3f); animation: al-blink .6s ease-in-out infinite; }
+  .banner.alarm .al-flash { animation: al-flash 1.2s ease-in-out infinite; }
+  @keyframes al-pan { from { transform: rotate(3deg); } to { transform: rotate(17deg); } }
+  @keyframes al-scan { 0% { transform: translateX(-30px); opacity: 0; } 20% { opacity: 1; } 70% { opacity: .6; } 100% { transform: translateX(80px); opacity: 0; } }
+  @keyframes al-flash { 0%, 100% { opacity: 0; } 50% { opacity: .16; } }
   .al-trunk { fill: #6b4a2a; } .al-crown { fill: #5aa83d; } .dark .al-crown { fill: #1a3a2a; } .dark .al-trunk { fill: #3e2c1c; }
   .al-wall { fill: #f3e6d3; } .dark .al-wall { fill: #3a4658; }
   .al-roof { fill: #c0603a; } .dark .al-roof { fill: #5a3530; }
@@ -2616,9 +2701,8 @@ const SCENE_STYLE = `
   .banner.alarm .al-beacon-light { filter: drop-shadow(0 0 2px #ff3b3f); animation: al-pulse 2.4s ease-in-out infinite; }
   .banner.alarm .al-win { fill: #f08a8d; animation: al-pulse 2.4s ease-in-out infinite; }
   .banner.dark.alarm .al-win { fill: #ff6b6f; filter: drop-shadow(0 0 2px #ff3b3f); }
-  @keyframes al-float { to { transform: translate(14px, 8px) scale(1.08); } }
-  @keyframes al-sheen { 0%, 60% { background-position: 120% 0; } 100% { background-position: -20% 0; } }
-  @keyframes al-twinkle { from { opacity: .15; } to { opacity: .5; } }
+  @keyframes al-drift { to { transform: translateX(4px); } }
+  @keyframes al-twinkle { from { opacity: .3; } to { opacity: 1; } }
   @keyframes al-blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
   @keyframes al-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
   /* The big state shield stands in front of the house, at the right. */
@@ -3472,8 +3556,8 @@ class AlarmBase extends HTMLElement {
     const name = esc(c.title || st.attributes?.friendly_name || this._t("title"));
     const ent = esc(st.entity_id);
     return `<div class="banner ${cls}${isNight(this._hass, c) ? " dark" : ""}${zoom ? " has-zoom" : ""}">
-        <div class="al-glass" aria-hidden="true"><i class="al-blob b3"></i><i class="al-blob b2"></i><i class="al-blob b1"></i><i class="al-sheen"></i></div>
         <div class="al-ground" aria-hidden="true"></div>
+        ${alarmDecor(this._uid)}
         ${alarmScene(this._uid)}
         <div class="al-shield clickable" role="button" tabindex="0" aria-label="${esc(this._stateText(st))}" data-entity="${ent}">${shield(st.state, this._uid)}</div>
         <div class="header htext">
