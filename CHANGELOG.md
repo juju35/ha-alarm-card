@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.15.0 - 2026-11-18
+
+### Features
+- **Mini card buttons beside the radar**: on the illustrated header, the compact mini card's round arm / disarm buttons now stand under the expand button, as 24 px frosted discs like it, in columns of two added to the left (up to three columns for six buttons) — the compact card is the 90 px banner alone. The shield, the radar and its glow move left to make room while the text keeps its width; the camera and the sensors that would come too close to the text are left out. At phone width (300 px and less) with more than two buttons, they go back to a row under the banner. The zoomed view keeps its buttons under the header, as before. The surveillance camera sits 4 px further right.
+
 ## 1.14.0 - 2026-11-18
 
 ### Features
