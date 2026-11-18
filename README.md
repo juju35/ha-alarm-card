@@ -28,7 +28,7 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 
 - Two cards: a full **Alarm Card** and a compact, single-row **Alarm Mini Card** (state, countdown and one-tap buttons)
 - Detail button at the top right of the mini card: it switches to the full card and back; a click anywhere outside the card brings the compact view back. When the card is too narrow for all its buttons (every arm mode at the default 6 columns), they move to a second row under the name
-- Illustrated header: a house behind a stone wall guarded by a surveillance camera (looking down when disarmed, panning over the garden with its field of view in the state colour once armed), an alarm sign and a lantern lit at night, beside the big state shield, lit or dark windows, a door light once armed (blinking while arming), a red roof beacon and red windows when triggered, day and night skies (night after sunset or with the dark theme, even while the sun is up), and a round state icon in the state colour
+- Illustrated header: a surveillance radar around the big state shield — range rings, a sweep with a fading trail, four sensors (door, motion, window, siren) linked to the centre and a surveillance camera with its field of view and a REC light. Grey and still when disarmed; once armed, everything takes the state colour, the sweep turns, each sensor pings as it passes and the camera pans (infrared LEDs at night); amber and blinking during the exit / entry delay; red, fast and pulsing when triggered. Day and night versions (night with the dark theme), and a round state icon in the state colour
 - State shield colored by state and mode (disarmed, home, away, night, vacation, custom), pulsing during the exit / entry delay, flashing when the alarm goes off
 - One button per supported arm mode, and Disarm (Cancel during the exit delay)
 - Exit and entry delay countdown with a progress bar (Alarmo's `delay`, or the `expiration` attribute)
@@ -160,7 +160,7 @@ zoom: true
 | `buttons` | both | — | Buttons section: `switch`, `light`, `fan`, `input_boolean` and `siren` entities show their state and a tap on their icon toggles them; `button`, `input_button`, `script` and `scene` entities run. A tap on the name opens the entity. Entity ids, or `{ entity, name }` |
 | `cameras` | both | — | Camera entities whose snapshots show in a Cameras section, refreshed with Home Assistant's camera pictures; a tap opens the camera. Entity ids, or `{ entity, name }` |
 | `cameras_on_alarm` | both | `true` | Show the cameras only while the alarm is triggered or its entry delay runs (`pending`); `false`: always |
-| `illustration` | both | `true` | Illustrated header (90 px): the house behind its guarded wall and the big state shield on the sky, the round state icon, the title and the state. `false` keeps the classic header |
+| `illustration` | both | `true` | Illustrated header (90 px): the surveillance radar and the big state shield, the round state icon, the title and the state. `false` keeps the classic header |
 | `illustration_theme` | both | `auto` | Day or night picture of the illustrated header: `auto` (follows the Home Assistant theme: night with a dark theme, day with a light theme), `day` or `night` |
 | `show_logo` | both | `true` (full) / `true` illustrated, `false` classic (mini) | Show the round header icon: the state icon in the state colour on the illustrated header, the brand logo on the classic one. Off by default on the classic compact mini card, which then shows the state shield as its icon |
 | `show_controls` | both | `true` | Arm / disarm buttons |
@@ -176,13 +176,13 @@ zoom: true
 
 ## Screenshots
 
-The header's house and shield follow the panel's state: a steady light by the door once armed, blinking amber while arming (and during the entry delay); red windows pulsing slowly and a red beacon on the roof while the alarm is triggered. It settles to a still card once disarmed, and honours `prefers-reduced-motion`.
+The header's radar and shield follow the panel's state: once armed the sweep turns, each sensor pings as it passes and the camera pans; amber and faster while arming (and during the entry delay); red, with a fast sweep and the window sensor pulsing, while the alarm is triggered. It settles to a still, grey radar once disarmed, and honours `prefers-reduced-motion`.
 
 | | Light | Dark |
 |---|---|---|
 | Triggered (flashing) | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/triggered.gif" alt="shield flashing while triggered" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/triggered-dark.gif" alt="shield flashing while triggered dark" width="400"> |
 | Arming (pulsing) | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/arming.gif" alt="shield pulsing while arming" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/arming-dark.gif" alt="shield pulsing while arming dark" width="400"> |
-| Armed (door light) | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/armed.gif" alt="house with its door light while armed" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/armed-dark.gif" alt="house with its door light while armed dark" width="400"> |
+| Armed (sweep) | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/armed.gif" alt="radar sweeping while armed" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/armed-dark.gif" alt="radar sweeping while armed dark" width="400"> |
 
 | Light | Dark |
 |---|---|
