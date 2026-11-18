@@ -2495,9 +2495,9 @@ const shield = (state, uid = 0) => `<div class="shield ${stateClass(state)}"><sv
 </svg></div>`;
 
 // ---------------------------------------------------------------------------
-// Illustrated header: a house on a lawn, at the right of a 90 px banner, with the big
-// state shield standing in front of it. The left of the banner is open sky: the card's text sits there.
-// The scene is drawn in a 190 × 80 picture (the 10 px lawn strip under it is CSS, edge to edge); its colours
+// Illustrated header: a house at the right of a 90 px frosted-glass banner, with the big
+// state shield standing in front of it. The left of the banner is calm glass: the card's text sits there.
+// The scene is drawn in a 190 × 80 picture (the 10 px glass strip under it is CSS, edge to edge); its colours
 // follow the state through var(--c), set in CSS only (WebKit/Safari-safe).
 // ---------------------------------------------------------------------------
 
@@ -2539,12 +2539,7 @@ const AL_STARS = [
 const alarmScene = (uid) => {
   const stars = AL_STARS.map(([x, y, r], i) => `<circle class="al-star${i % 3 ? "" : " tw"}" cx="${x}" cy="${y}" r="${r}"/>`).join("");
   return `<svg class="al-scene" viewBox="0 0 190 80" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
-    <g class="al-day"><circle class="al-sun-halo" cx="20" cy="16" r="10"/><circle class="al-sun" cx="20" cy="16" r="6.5"/>
-      <path class="al-cloud" d="M40 20a4 4 0 0 1 6-3.4 5 5 0 0 1 9.4 1.4 3 3 0 0 1 .6 6H42a3 3 0 0 1-2-4Z"/>
-      <path class="al-cloud c2" d="M66 8a3.4 3.4 0 0 1 5-2.8 4.2 4.2 0 0 1 8 1.2 2.6 2.6 0 0 1 .4 5H68a2.6 2.6 0 0 1-2-3.4Z"/></g>
     <g class="al-nightsky">${stars}<path class="al-moon" d="M20 9.4a6.4 6.4 0 1 0 5.6 9.6 5.2 5.2 0 1 1-5.6-9.6Z"/></g>
-    <path class="al-hill far" d="M0 80C26 66 54 60 88 64C122 68 156 58 190 60C206 61 222 62 240 61V80Z"/>
-    <path class="al-hill" d="M0 80C40 72 92 73 190 70L240 69V80Z"/>
     <g class="al-tree"><rect class="al-trunk" x="27" y="62" width="2.4" height="18"/><circle class="al-crown" cx="28.2" cy="58" r="9"/><circle class="al-crown" cx="22" cy="64" r="5.5"/></g>
     <g class="al-house">
       <rect class="al-chimney" x="114" y="27" width="7" height="14"/>
@@ -2564,30 +2559,40 @@ const alarmScene = (uid) => {
 // during a delay, a soft red pulse when the alarm goes off.
 const SCENE_STYLE = `
   .banner { position: relative; overflow: hidden; height: 90px; flex: none; color: #10283f; --al-scene-w: min(190px, 100cqw - 232px);
-            background: linear-gradient(90deg, #f3f9ff 0%, #e2f0fc 38%, #c4e1f7 100%); }
-  .banner.dark { color: #fff; background: linear-gradient(90deg, #2c4068 0%, #1b2b4e 42%, #0f1a34 100%); }
+            background: #edf2f8; }
+  .banner.dark { color: #fff; background: #111a2f; }
+  /* Frosted glass behind the house, to match the glass shield: blurred colour blobs (the one behind the shield in the
+     state colour), a light sheen sliding across now and then, and a glass ground strip. */
+  .al-glass { position: absolute; inset: 0 0 10px 0; overflow: hidden; pointer-events: none; }
+  .al-blob { position: absolute; border-radius: 50%; filter: blur(20px); animation: al-float 9s ease-in-out infinite alternate; }
+  .al-blob.b1 { right: -10px; top: -20px; width: 130px; height: 110px; background: var(--c); opacity: .42; }
+  .al-blob.b2 { right: 150px; top: 10px; width: 120px; height: 90px; background: #7cc4f5; opacity: .38; animation-delay: -3s; }
+  .al-blob.b3 { right: 270px; top: -30px; width: 140px; height: 110px; background: #c6b4f3; opacity: .3; animation-delay: -6s; }
+  .banner.has-zoom .al-blob.b1 { right: 6px; }
+  .dark .al-blob.b1 { opacity: .5; } .dark .al-blob.b2 { background: #2f6fb8; opacity: .45; } .dark .al-blob.b3 { background: #5b3fa6; opacity: .35; }
+  .banner.alarm .al-blob.b1 { opacity: .65; animation: al-pulse 1.4s ease-in-out infinite; }
+  .banner.alarm .al-blob.b2 { background: #ff8a8d; }
+  .al-sheen { position: absolute; inset: 0; background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.45) 50%, transparent 58%);
+              background-size: 300% 100%; background-position: 120% 0; animation: al-sheen 7s ease-in-out infinite; }
+  .dark .al-sheen { background-image: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.1) 50%, transparent 58%); }
   .al-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
-               background: repeating-linear-gradient(90deg, #5aa83d 0 22px, #6cbb4c 22px 44px); box-shadow: inset 0 2px 0 #4f9a35; }
-  .dark .al-ground { background: repeating-linear-gradient(90deg, #1f4a2a 0 22px, #245433 22px 44px); box-shadow: inset 0 2px 0 #2c6139; }
-  /* The hills run on past the picture's right edge (the banner clips them), under the mini card's detail button. */
+               background: repeating-linear-gradient(90deg, rgba(255,255,255,.62) 0 43px, rgba(16,40,63,.1) 43px 44px);
+               box-shadow: inset 0 1px 0 rgba(255,255,255,.95), inset 0 2px 0 rgba(16,40,63,.06);
+               -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+  .dark .al-ground { background: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 43px, rgba(255,255,255,.14) 43px 44px);
+                     box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
   .al-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: var(--al-scene-w); overflow: hidden; }
   /* The house stands left of the shield, never behind it: moved 26 px to the left of the drawing (the picture keeps
-     its scale, 1 px per unit). A picture too narrow for the whole house (or the tree) leaves it out: the sky and the
-     hills stay. */
+     its scale, 1 px per unit). A picture too narrow for the whole house (or the tree) leaves it out: the glass stays. */
   .al-house { transform: translateX(-26px); }
   @container al-card (max-width: 375px) { .banner:not(.has-zoom) .al-house { display: none; } }
   @container al-card (max-width: 405px) { .banner:not(.has-zoom) .al-tree { display: none; } }
   @container al-card (max-width: 371px) { .banner.has-zoom .al-house { display: none; } }
   @container al-card (max-width: 401px) { .banner.has-zoom .al-tree { display: none; } }
-  .al-nightsky, .dark .al-day { display: none; }
+  .al-nightsky { display: none; }
   .dark .al-nightsky { display: inline; }
-  .al-sun { fill: #ffd65a; } .al-sun-halo { fill: #ffd65a; opacity: .28; }
-  .al-cloud { fill: #fff; opacity: .92; animation: al-drift 7s ease-in-out infinite alternate; }
-  .al-cloud.c2 { animation-delay: -3s; }
-  .al-star { fill: #fff; opacity: .8; } .al-star.tw { animation: al-twinkle 3.2s ease-in-out infinite alternate; }
+  .al-star { fill: #fff; opacity: .35; } .al-star.tw { animation: al-twinkle 3.2s ease-in-out infinite alternate; }
   .al-moon { fill: #f4f1dc; }
-  .al-hill { fill: #86c27f; } .al-hill.far { fill: #a7d39f; }
-  .dark .al-hill { fill: #17303d; } .dark .al-hill.far { fill: #1d3a4a; }
   .al-trunk { fill: #6b4a2a; } .al-crown { fill: #5aa83d; } .dark .al-crown { fill: #1a3a2a; } .dark .al-trunk { fill: #3e2c1c; }
   .al-wall { fill: #f3e6d3; } .dark .al-wall { fill: #3a4658; }
   .al-roof { fill: #c0603a; } .dark .al-roof { fill: #5a3530; }
@@ -2611,8 +2616,9 @@ const SCENE_STYLE = `
   .banner.alarm .al-beacon-light { filter: drop-shadow(0 0 2px #ff3b3f); animation: al-pulse 2.4s ease-in-out infinite; }
   .banner.alarm .al-win { fill: #f08a8d; animation: al-pulse 2.4s ease-in-out infinite; }
   .banner.dark.alarm .al-win { fill: #ff6b6f; filter: drop-shadow(0 0 2px #ff3b3f); }
-  @keyframes al-drift { to { transform: translateX(4px); } }
-  @keyframes al-twinkle { from { opacity: .3; } to { opacity: 1; } }
+  @keyframes al-float { to { transform: translate(14px, 8px) scale(1.08); } }
+  @keyframes al-sheen { 0%, 60% { background-position: 120% 0; } 100% { background-position: -20% 0; } }
+  @keyframes al-twinkle { from { opacity: .15; } to { opacity: .5; } }
   @keyframes al-blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
   @keyframes al-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
   /* The big state shield stands in front of the house, at the right. */
@@ -3466,6 +3472,7 @@ class AlarmBase extends HTMLElement {
     const name = esc(c.title || st.attributes?.friendly_name || this._t("title"));
     const ent = esc(st.entity_id);
     return `<div class="banner ${cls}${isNight(this._hass, c) ? " dark" : ""}${zoom ? " has-zoom" : ""}">
+        <div class="al-glass" aria-hidden="true"><i class="al-blob b3"></i><i class="al-blob b2"></i><i class="al-blob b1"></i><i class="al-sheen"></i></div>
         <div class="al-ground" aria-hidden="true"></div>
         ${alarmScene(this._uid)}
         <div class="al-shield clickable" role="button" tabindex="0" aria-label="${esc(this._stateText(st))}" data-entity="${ent}">${shield(st.state, this._uid)}</div>

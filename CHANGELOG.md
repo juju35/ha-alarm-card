@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.12.0 - 2026-11-18
+
+### Features
+- **Frosted-glass header background**: the illustrated header's sky, sun, clouds and hills give way to a Liquid Glass background matching the state shield — blurred colour blobs drifting slowly (the one behind the shield in the state colour, pulsing red when triggered), a light sheen sliding across now and then, and a frosted glass ground strip. The house, the tree and the shield are unchanged; the night version keeps the moon and dimmed stars. Honours `prefers-reduced-motion`.
+
 ## 1.11.1 - 2026-11-18
 
 ### Fixes
