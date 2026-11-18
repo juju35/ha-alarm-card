@@ -605,7 +605,7 @@ test("mini card at 6 columns (240 px) with 3 open sensors: the arm confirmation 
   }
 });
 
-test("illustrated header: 90 px banner, a 10 px ground strip edge to edge, the shield whole and the house on the strip", async (t) => {
+test("illustrated header: 90 px banner, a 10 px ground strip edge to edge, the shield whole", async (t) => {
   if (skip) return t.skip(skip);
   const page = await openPage();
   try {
@@ -629,7 +629,6 @@ test("illustrated header: 90 px banner, a 10 px ground strip edge to edge, the s
           const banner = r(".banner");
           const ground = r(".al-ground");
           const shieldPath = r(".al-shield .sc-ring");
-          const wall = sr.querySelector(".al-wall");
           const text = r(".htext .titles");
           const scene = r(".al-scene");
           res.push({
@@ -638,7 +637,6 @@ test("illustrated header: 90 px banner, a 10 px ground strip edge to edge, the s
             banner: { h: banner.height, w: banner.width },
             ground: { h: ground.height, left: ground.left - banner.left, right: banner.right - ground.right, bottom: banner.bottom - ground.bottom },
             shield: { top: shieldPath.top - banner.top, bottom: banner.bottom - shieldPath.bottom, h: shieldPath.height },
-            wallGap: wall && getComputedStyle(sr.querySelector(".al-scene")).display !== "none" ? ground.top - wall.getBoundingClientRect().bottom : null,
             textRight: text.right,
             sceneLeft: scene && getComputedStyle(sr.querySelector(".al-scene")).display !== "none" ? scene.left : null,
           });
@@ -654,9 +652,7 @@ test("illustrated header: 90 px banner, a 10 px ground strip edge to edge, the s
       assert.deepEqual([m.ground.left, m.ground.right, m.ground.bottom], [0, 0, 0], `${what}: strip not edge to edge`);
       assert.ok(m.shield.top >= 1, `${what}: the shield touches the top (${m.shield.top} px)`);
       assert.ok(m.shield.bottom >= 10, `${what}: the shield goes into the strip`);
-      // A little smaller than the house is tall, so that both stand side by side.
       assert.ok(m.shield.h >= 58, `${what}: the shield is small (${m.shield.h} px)`);
-      if (m.wallGap !== null) assert.ok(Math.abs(m.wallGap) <= 0.5, `${what}: the house floats ${m.wallGap} px above the strip`);
       if (m.sceneLeft !== null) assert.ok(m.textRight <= m.sceneLeft + 0.5, `${what}: the text runs into the scene`);
     }
   } finally {
@@ -664,10 +660,9 @@ test("illustrated header: 90 px banner, a 10 px ground strip edge to edge, the s
   }
 });
 
-// The banner's picture: the shield never covers the house or the tree, neither is ever cut by
-// the picture's left edge (left out instead), from 190 to 500 px, on the full card and the mini card (compact and
-// zoomed), in every state, day and night.
-test("illustrated header from 190 to 500 px: the shield stands beside the house, never over it", async (t) => {
+// The banner's picture: the camera and the sensors are never cut by the picture's left edge (left out instead), from
+// 190 to 500 px, on the full card and the mini card (compact and zoomed), in every state, day and night.
+test("illustrated header from 190 to 500 px: the camera and the sensors are whole or left out", async (t) => {
   if (skip) return t.skip(skip);
   const panelIn = (state, extra = {}) => ({ [PANEL]: { ...states[PANEL], state, attributes: { ...states[PANEL].attributes, ...extra } } });
   const STATES = {
@@ -688,7 +683,6 @@ test("illustrated header from 190 to 500 px: the shield stands beside the house,
         const res = [];
         const rect = (n) => n.getBoundingClientRect();
         const shown = (n) => n && n.getClientRects().length > 0 && getComputedStyle(n).display !== "none" && rect(n).width > 0;
-        const meet = (a, b) => a.left < b.right - 0.5 && b.left < a.right - 0.5 && a.top < b.bottom - 0.5 && b.top < a.bottom - 0.5;
         for (const [type, zoom] of [["alarm-card", false], ["alarm-mini-card", false], ["alarm-mini-card", true]])
           for (const [name, ov] of Object.entries(STATES))
             for (const dark of [false, true])
@@ -706,15 +700,12 @@ test("illustrated header from 190 to 500 px: the shield stands beside the house,
                 const sr = el.shadowRoot;
                 if (zoom) sr.querySelector(".zoom").dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true, detail: 1 }));
                 await new Promise((r) => requestAnimationFrame(r));
-                const shield = sr.querySelector(".banner .al-shield");
                 const scene = sr.querySelector(".banner .al-scene");
                 const what = `${type}${zoom ? " zoomed" : ""} ${name} ${dark ? "night" : "day"} ${width}px`;
                 const problems = [];
-                for (const sel of [".al-house", ".al-tree"]) {
-                  const part = sr.querySelector(`.banner ${sel}`);
+                for (const part of sr.querySelectorAll(".banner :is(.al-cam-body, .al-cam-hood, .al-node-disc)")) {
                   if (!shown(scene) || !shown(part)) continue;
-                  if (shown(shield) && meet(rect(shield), rect(part))) problems.push(`${sel} under the shield`);
-                  if (rect(part).left < rect(scene).left - 0.5) problems.push(`${sel} cut by the picture's edge`);
+                  if (rect(part).left < rect(scene).left - 0.5) problems.push(`${part.getAttribute("class")} cut by the picture's edge`);
                 }
                 if (problems.length) res.push(`${what}: ${problems.join(", ")}`);
                 box.remove();

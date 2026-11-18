@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.14.0 - 2026-11-18
+
+### Features
+- **Surveillance radar header**: the illustrated header's house, garden wall and sky give way to a surveillance radar around the big state shield, on a grid fading out towards the text: range rings, ticks and a crosshair, a sweep with a fading trail, a counter-rotating outer ring, viewfinder corners and a scan line; four sensors (door, motion, window, siren) linked to the centre; a surveillance camera hanging at the top with its field of view and a REC light. Disarmed, everything is grey and still and the camera looks down. Armed, everything takes the state colour: the sweep turns, data flows to the centre, each sensor pings as the sweep passes it and the camera pans (infrared LEDs at night). During the exit / entry delay it turns amber, faster, the sensors blinking in turn. Triggered, it turns red with a fast sweep, the window sensor filled and pulsing and a red glow behind the shield. The ground strip becomes a graduated scale with a lit edge. Narrow cards leave out the camera and the sensors closest to the text. New wording of the option's helper in the 22 languages. Honours `prefers-reduced-motion`.
+
 ## 1.13.0 - 2026-11-18
 
 ### Features

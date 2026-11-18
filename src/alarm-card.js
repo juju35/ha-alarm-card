@@ -139,7 +139,7 @@ const STRINGS = {
     cameras_on_alarm: "Show the cameras only while the alarm is triggered",
     cameras_on_alarm_helper: "Off: always shown",
     illustration: "Illustrated header",
-    illustration_helper: "House, shield and sky that follow the alarm state; off: the classic header",
+    illustration_helper: "Radar, sensors, camera and shield that follow the alarm state; off: the classic header",
     illustration_theme: "Illustration theme",
     theme_auto: "Automatic (follows the theme)",
     theme_day: "Day",
@@ -234,7 +234,7 @@ const STRINGS = {
     cameras_on_alarm: "Afficher les caméras seulement pendant un déclenchement",
     cameras_on_alarm_helper: "Désactivé : toujours affichées",
     illustration: "En-tête illustré",
-    illustration_helper: "Maison, bouclier et ciel qui suivent l'état de l'alarme ; désactivé : l'en-tête classique",
+    illustration_helper: "Radar, capteurs, caméra et bouclier qui suivent l'état de l'alarme ; désactivé : l'en-tête classique",
     illustration_theme: "Thème de l'illustration",
     theme_auto: "Automatique (suit le thème)",
     theme_day: "Jour",
@@ -329,7 +329,7 @@ const STRINGS = {
     cameras_on_alarm: "Kameras nur bei ausgelöstem Alarm anzeigen",
     cameras_on_alarm_helper: "Aus: immer angezeigt",
     illustration: "Illustrierte Kopfzeile",
-    illustration_helper: "Haus, Schild und Himmel folgen dem Alarmstatus; aus: die klassische Kopfzeile",
+    illustration_helper: "Radar, Sensoren, Kamera und Schild folgen dem Alarmstatus; aus: die klassische Kopfzeile",
     illustration_theme: "Thema der Illustration",
     theme_auto: "Automatisch (folgt dem Design)",
     theme_day: "Tag",
@@ -424,7 +424,7 @@ const STRINGS = {
     cameras_on_alarm: "Mostrar las cámaras solo con la alarma disparada",
     cameras_on_alarm_helper: "Desactivado: siempre visibles",
     illustration: "Encabezado ilustrado",
-    illustration_helper: "Casa, escudo y cielo que siguen el estado de la alarma; desactivado: el encabezado clásico",
+    illustration_helper: "Radar, sensores, cámara y escudo que siguen el estado de la alarma; desactivado: el encabezado clásico",
     illustration_theme: "Tema de la ilustración",
     theme_auto: "Automático (sigue el tema)",
     theme_day: "Día",
@@ -521,7 +521,7 @@ const STRINGS = {
     cameras_on_alarm: "Прикажи камере само током узбуне",
     cameras_on_alarm_helper: "Искључено: увек приказане",
     illustration: "Илустровано заглавље",
-    illustration_helper: "Кућа, штит и небо прате стање аларма; искључено: класично заглавље",
+    illustration_helper: "Радар, сензори, камера и штит прате стање аларма; искључено: класично заглавље",
     illustration_theme: "Тема илустрације",
     theme_auto: "Аутоматски (прати тему)",
     theme_day: "Дан",
@@ -618,7 +618,7 @@ const STRINGS = {
     cameras_on_alarm: "Prikaži kamere samo tokom uzbune",
     cameras_on_alarm_helper: "Isključeno: uvek prikazane",
     illustration: "Ilustrovano zaglavlje",
-    illustration_helper: "Kuća, štit i nebo prate stanje alarma; isključeno: klasično zaglavlje",
+    illustration_helper: "Radar, senzori, kamera i štit prate stanje alarma; isključeno: klasično zaglavlje",
     illustration_theme: "Tema ilustracije",
     theme_auto: "Automatski (prati temu)",
     theme_day: "Dan",
@@ -715,7 +715,7 @@ const STRINGS = {
     cameras_on_alarm: "Mostra le telecamere solo con l'allarme scattato",
     cameras_on_alarm_helper: "Disattivato: sempre visibili",
     illustration: "Intestazione illustrata",
-    illustration_helper: "Casa, scudo e cielo che seguono lo stato dell'allarme; disattivato: l'intestazione classica",
+    illustration_helper: "Radar, sensori, telecamera e scudo che seguono lo stato dell'allarme; disattivato: l'intestazione classica",
     illustration_theme: "Tema dell'illustrazione",
     theme_auto: "Automatico (segue il tema)",
     theme_day: "Giorno",
@@ -812,7 +812,7 @@ const STRINGS = {
     cameras_on_alarm: "Camera's alleen tonen bij een alarm",
     cameras_on_alarm_helper: "Uit: altijd getoond",
     illustration: "Geïllustreerde koptekst",
-    illustration_helper: "Huis, schild en lucht volgen de alarmstatus; uit: de klassieke koptekst",
+    illustration_helper: "Radar, sensoren, camera en schild volgen de alarmstatus; uit: de klassieke koptekst",
     illustration_theme: "Thema van de illustratie",
     theme_auto: "Automatisch (volgt het thema)",
     theme_day: "Dag",
@@ -909,7 +909,7 @@ const STRINGS = {
     cameras_on_alarm: "Mostrar as câmaras só com o alarme disparado",
     cameras_on_alarm_helper: "Desligado: sempre visíveis",
     illustration: "Cabeçalho ilustrado",
-    illustration_helper: "Casa, escudo e céu que acompanham o estado do alarme; desligado: o cabeçalho clássico",
+    illustration_helper: "Radar, sensores, câmara e escudo que acompanham o estado do alarme; desligado: o cabeçalho clássico",
     illustration_theme: "Tema da ilustração",
     theme_auto: "Automático (segue o tema)",
     theme_day: "Dia",
@@ -1006,7 +1006,7 @@ const STRINGS = {
     cameras_on_alarm: "Pokaż kamery tylko podczas alarmu",
     cameras_on_alarm_helper: "Wyłączone: zawsze widoczne",
     illustration: "Ilustrowany nagłówek",
-    illustration_helper: "Dom, tarcza i niebo zgodne ze stanem alarmu; wyłączone: klasyczny nagłówek",
+    illustration_helper: "Radar, czujniki, kamera i tarcza zgodne ze stanem alarmu; wyłączone: klasyczny nagłówek",
     illustration_theme: "Motyw ilustracji",
     theme_auto: "Automatycznie (według motywu)",
     theme_day: "Dzień",
@@ -1103,7 +1103,7 @@ const STRINGS = {
     cameras_on_alarm: "Afișează camerele doar când alarma e declanșată",
     cameras_on_alarm_helper: "Dezactivat: mereu afișate",
     illustration: "Antet ilustrat",
-    illustration_helper: "Casă, scut și cer care urmează starea alarmei; dezactivat: antetul clasic",
+    illustration_helper: "Radar, senzori, cameră și scut care urmează starea alarmei; dezactivat: antetul clasic",
     illustration_theme: "Tema ilustrației",
     theme_auto: "Automat (urmează tema)",
     theme_day: "Zi",
@@ -1200,7 +1200,7 @@ const STRINGS = {
     cameras_on_alarm: "Vis kun kameraerne, når alarmen er udløst",
     cameras_on_alarm_helper: "Fra: altid vist",
     illustration: "Illustreret overskrift",
-    illustration_helper: "Hus, skjold og himmel følger alarmens tilstand; fra: den klassiske overskrift",
+    illustration_helper: "Radar, sensorer, kamera og skjold følger alarmens tilstand; fra: den klassiske overskrift",
     illustration_theme: "Illustrationens tema",
     theme_auto: "Automatisk (følger temaet)",
     theme_day: "Dag",
@@ -1297,7 +1297,7 @@ const STRINGS = {
     cameras_on_alarm: "Visa kamerorna endast när larmet har gått",
     cameras_on_alarm_helper: "Av: visas alltid",
     illustration: "Illustrerad rubrik",
-    illustration_helper: "Hus, sköld och himmel som följer larmets läge; av: den klassiska rubriken",
+    illustration_helper: "Radar, sensorer, kamera och sköld som följer larmets läge; av: den klassiska rubriken",
     illustration_theme: "Illustrationens tema",
     theme_auto: "Automatiskt (följer temat)",
     theme_day: "Dag",
@@ -1394,7 +1394,7 @@ const STRINGS = {
     cameras_on_alarm: "Показване на камерите само при задействана аларма",
     cameras_on_alarm_helper: "Изключено: винаги показвани",
     illustration: "Илюстрирано заглавие",
-    illustration_helper: "Къща, щит и небе следват състоянието на алармата; изключено: класическото заглавие",
+    illustration_helper: "Радар, сензори, камера и щит следват състоянието на алармата; изключено: класическото заглавие",
     illustration_theme: "Тема на илюстрацията",
     theme_auto: "Автоматично (следва темата)",
     theme_day: "Ден",
@@ -1491,7 +1491,7 @@ const STRINGS = {
     cameras_on_alarm: "Показывать камеры только при сработавшей тревоге",
     cameras_on_alarm_helper: "Выкл.: видны всегда",
     illustration: "Иллюстрированный заголовок",
-    illustration_helper: "Дом, щит и небо следуют состоянию сигнализации; выкл.: классический заголовок",
+    illustration_helper: "Радар, датчики, камера и щит следуют состоянию сигнализации; выкл.: классический заголовок",
     illustration_theme: "Тема иллюстрации",
     theme_auto: "Автоматически (по теме)",
     theme_day: "День",
@@ -1588,7 +1588,7 @@ const STRINGS = {
     cameras_on_alarm: "Показувати камери лише під час тривоги",
     cameras_on_alarm_helper: "Вимк.: видно завжди",
     illustration: "Ілюстрований заголовок",
-    illustration_helper: "Будинок, щит і небо відповідають стану сигналізації; вимкнено: класичний заголовок",
+    illustration_helper: "Радар, датчики, камера і щит відповідають стану сигналізації; вимкнено: класичний заголовок",
     illustration_theme: "Тема ілюстрації",
     theme_auto: "Автоматично (за темою)",
     theme_day: "День",
@@ -1685,7 +1685,7 @@ const STRINGS = {
     cameras_on_alarm: "Kamerák megjelenítése csak riasztáskor",
     cameras_on_alarm_helper: "Ki: mindig láthatók",
     illustration: "Illusztrált fejléc",
-    illustration_helper: "A riasztó állapotát követő ház, pajzs és ég; ki: a klasszikus fejléc",
+    illustration_helper: "A riasztó állapotát követő radar, érzékelők, kamera és pajzs; ki: a klasszikus fejléc",
     illustration_theme: "Az illusztráció témája",
     theme_auto: "Automatikus (a témát követi)",
     theme_day: "Nappal",
@@ -1782,7 +1782,7 @@ const STRINGS = {
     cameras_on_alarm: "Zobraziť kamery len počas poplachu",
     cameras_on_alarm_helper: "Vypnuté: vždy zobrazené",
     illustration: "Ilustrovaná hlavička",
-    illustration_helper: "Dom, štít a obloha podľa stavu alarmu; vypnuté: klasická hlavička",
+    illustration_helper: "Radar, senzory, kamera a štít podľa stavu alarmu; vypnuté: klasická hlavička",
     illustration_theme: "Téma ilustrácie",
     theme_auto: "Automaticky (podľa témy)",
     theme_day: "Deň",
@@ -1879,7 +1879,7 @@ const STRINGS = {
     cameras_on_alarm: "Zobrazit kamery jen během poplachu",
     cameras_on_alarm_helper: "Vypnuto: vždy zobrazené",
     illustration: "Ilustrované záhlaví",
-    illustration_helper: "Dům, štít a obloha podle stavu alarmu; vypnuto: klasické záhlaví",
+    illustration_helper: "Radar, senzory, kamera a štít podle stavu alarmu; vypnuto: klasické záhlaví",
     illustration_theme: "Motiv ilustrace",
     theme_auto: "Automaticky (podle motivu)",
     theme_day: "Den",
@@ -1976,7 +1976,7 @@ const STRINGS = {
     cameras_on_alarm: "Prikaži kamere samo med alarmom",
     cameras_on_alarm_helper: "Izklopljeno: vedno prikazane",
     illustration: "Ilustrirana glava",
-    illustration_helper: "Hiša, ščit in nebo sledijo stanju alarma; izklopljeno: klasična glava",
+    illustration_helper: "Radar, senzorji, kamera in ščit sledijo stanju alarma; izklopljeno: klasična glava",
     illustration_theme: "Tema ilustracije",
     theme_auto: "Samodejno (sledi temi)",
     theme_day: "Dan",
@@ -2073,7 +2073,7 @@ const STRINGS = {
     cameras_on_alarm: "Rādīt kameras tikai trauksmes laikā",
     cameras_on_alarm_helper: "Izslēgts: vienmēr redzamas",
     illustration: "Ilustrēta galvene",
-    illustration_helper: "Māja, vairogs un debesis atbilst signalizācijas stāvoklim; izslēgts: klasiskā galvene",
+    illustration_helper: "Radars, sensori, kamera un vairogs atbilst signalizācijas stāvoklim; izslēgts: klasiskā galvene",
     illustration_theme: "Ilustrācijas tēma",
     theme_auto: "Automātiski (atbilstoši tēmai)",
     theme_day: "Diena",
@@ -2170,7 +2170,7 @@ const STRINGS = {
     cameras_on_alarm: "Εμφάνιση των καμερών μόνο όταν ενεργοποιείται ο συναγερμός",
     cameras_on_alarm_helper: "Ανενεργό: εμφανίζονται πάντα",
     illustration: "Εικονογραφημένη κεφαλίδα",
-    illustration_helper: "Σπίτι, ασπίδα και ουρανός ακολουθούν την κατάσταση του συναγερμού· ανενεργό: η κλασική κεφαλίδα",
+    illustration_helper: "Ραντάρ, αισθητήρες, κάμερα και ασπίδα ακολουθούν την κατάσταση του συναγερμού· ανενεργό: η κλασική κεφαλίδα",
     illustration_theme: "Θέμα εικονογράφησης",
     theme_auto: "Αυτόματο (ακολουθεί το θέμα)",
     theme_day: "Ημέρα",
@@ -2495,10 +2495,9 @@ const shield = (state, uid = 0) => `<div class="shield ${stateClass(state)}"><sv
 </svg></div>`;
 
 // ---------------------------------------------------------------------------
-// Illustrated header: a house behind a guarded stone wall, at the right of a 90 px banner, with the big
-// state shield standing in front of it. The left of the banner is open sky: the card's text sits there.
-// The scene is drawn in a 190 × 80 picture (the 10 px sidewalk strip under it is CSS, edge to edge); its colours
-// follow the state through var(--c), set in CSS only (WebKit/Safari-safe).
+// Illustrated header: a surveillance radar at the right of a 90 px banner, around the big state shield. The left
+// of the banner stays calm: the card's text sits there. The radar is drawn in a 260 × 80 picture (the 10 px graduated
+// strip under it is CSS, edge to edge); its colours follow the state through var(--c), set in CSS only (WebKit/Safari-safe).
 // ---------------------------------------------------------------------------
 
 // The badge's MDI icon for each state (Home Assistant's own alarm icons).
@@ -2523,198 +2522,176 @@ const isNight = (hass, config) => {
   return !!hass?.themes?.darkMode;
 };
 
-const AL_STARS = [
-  [8, 8, 0.6],
-  [30, 26, 0.5],
-  [46, 6, 0.7],
-  [64, 18, 0.45],
-  [118, 6, 0.6],
-  [150, 12, 0.5],
-  [176, 4, 0.6],
-  [184, 22, 0.45],
-];
-
-// The banner picture: sky (sun and clouds, or moon and stars), hills, a tree and the house, whose lights tell the state.
-// Windows are lit while someone is home (disarmed, armed home / night) and dark when the house is empty.
-const alarmScene = (uid) => {
-  const stars = AL_STARS.map(([x, y, r], i) => `<circle class="al-star${i % 3 ? "" : " tw"}" cx="${x}" cy="${y}" r="${r}"/>`).join("");
-  return `<svg class="al-scene" viewBox="0 0 190 80" preserveAspectRatio="xMaxYMax slice" aria-hidden="true" focusable="false">
-    <g class="al-day"><circle class="al-sun-halo" cx="20" cy="16" r="10"/><circle class="al-sun" cx="20" cy="16" r="6.5"/>
-      <path class="al-cloud" d="M40 20a4 4 0 0 1 6-3.4 5 5 0 0 1 9.4 1.4 3 3 0 0 1 .6 6H42a3 3 0 0 1-2-4Z"/>
-      <path class="al-cloud c2" d="M66 8a3.4 3.4 0 0 1 5-2.8 4.2 4.2 0 0 1 8 1.2 2.6 2.6 0 0 1 .4 5H68a2.6 2.6 0 0 1-2-3.4Z"/></g>
-    <g class="al-nightsky">${stars}<path class="al-moon" d="M20 9.4a6.4 6.4 0 1 0 5.6 9.6 5.2 5.2 0 1 1-5.6-9.6Z"/></g>
-    <g class="al-tree"><rect class="al-trunk" x="27" y="62" width="2.4" height="18"/><circle class="al-crown" cx="28.2" cy="58" r="9"/><circle class="al-crown" cx="22" cy="64" r="5.5"/></g>
-    <g class="al-house">
-      <rect class="al-chimney" x="114" y="27" width="7" height="14"/>
-      <rect class="al-wall" x="78" y="45" width="50" height="35"/>
-      <path class="al-roof" d="M72 47 103 23 134 47Z"/>
-      <rect class="al-win" x="83" y="53" width="11" height="10" rx="1"/><rect class="al-win" x="112" y="53" width="11" height="10" rx="1"/>
-      <path class="al-mullion" d="M88.5 53v10M83 58h11M117.5 53v10M112 58h11"/>
-      <rect class="al-door" x="97" y="61" width="12" height="19" rx="1"/><circle class="al-knob" cx="106.6" cy="71" r=".9"/>
-      <rect class="al-vent" x="99" y="33" width="8" height="7" rx="1.5"/>
-      <g class="al-beacon"><rect class="al-beacon-base" x="100.5" y="21.5" width="5" height="2" rx=".6"/><path class="al-beacon-light" d="M101 21.5a2 2.2 0 0 1 4 0Z"/></g>
-      <circle class="al-lamp" cx="112.5" cy="66" r="1.7"/>
-    </g>
-  </svg>`;
+// The banner picture: a surveillance radar around the big state shield. Range rings, ticks and a crosshair; a sweep
+// with a fading trail; four sensors (door, motion, window, siren) linked to the centre; a surveillance camera hanging
+// at the top with its field of view, and a REC light. Drawn in a 260 × 80 picture anchored at the banner's right, its
+// centre on the shield, clipped at the text's right edge (parts too close to the text are left out on narrow cards).
+// Disarmed: grey and still, the camera looking down. Armed: in the state colour, the sweep turning, data flowing to the
+// centre, each sensor pinging as the sweep passes it, the camera panning (infrared LEDs at night). Delay: amber, the
+// sensors blinking in turn. Triggered: red, a fast sweep, the window sensor filled and pulsing.
+const AL_ICONS = {
+  door: "M8,3C6.89,3 6,3.89 6,5V21H18V5C18,3.89 17.11,3 16,3H8M8,5H16V19H8V5M13,11V13H15V11H13Z",
+  motion:
+    "M10,0.2C9,0.2 8.2,1 8.2,2C8.2,3 9,3.8 10,3.8C11,3.8 11.8,3 11.8,2C11.8,1 11,0.2 10,0.2M15.67,1A7.33,7.33 0 0,0 23,8.33V7A6,6 0 0,1 17,1H15.67M18.33,1C18.33,3.58 20.42,5.67 23,5.67V4.33C21.16,4.33 19.67,2.84 19.67,1H18.33M21,1A2,2 0 0,0 23,3V1H21M7.92,4.03C7.75,4.03 7.58,4.06 7.42,4.11L2,5.8V11H3.8V7.33L5.91,6.67L2,22H3.8L6.67,13.89L9,17V22H10.8V15.59L8.31,11.05L9.04,8.18L10.12,10H15V8.2H11.38L9.38,4.87C9.08,4.37 8.54,4.03 7.92,4.03Z",
+  window: "M4 2H20C21.1 2 22 2.9 22 4V20C22 21.1 21.1 22 20 22H4C2.9 22 2 21.1 2 20V4C2 2.9 2.9 2 4 2M4 4V11H11V4H4M4 20H11V13H4V20M20 20V13H13V20H20M20 4H13V11H20V4Z",
+  siren:
+    "M6,6.9L3.87,4.78L5.28,3.37L7.4,5.5L6,6.9M13,1V4H11V1H13M20.13,4.78L18,6.9L16.6,5.5L18.72,3.37L20.13,4.78M4.5,10.5V12.5H1.5V10.5H4.5M19.5,10.5H22.5V12.5H19.5V10.5M6,20H18A2,2 0 0,1 20,22H4A2,2 0 0,1 6,20M12,5A6,6 0 0,1 18,11V19H6V11A6,6 0 0,1 12,5Z",
 };
+const AL_CX = 220;
+const AL_CY = 40;
+// Each sensor: icon, position, and where the sweep reaches it (a fraction of a turn, clockwise from 3 o'clock).
+const AL_NODES = [
+  ["door", 150, 16],
+  ["motion", 142, 60],
+  ["window", 108, 42],
+  ["siren", 182, 69],
+].map(([icon, x, y]) => ({ icon, x, y, turn: (((Math.atan2(y - AL_CY, x - AL_CX) * 180) / Math.PI + 360) % 360) / 360 }));
+const alPt = (r, deg) => `${(AL_CX + r * Math.cos((deg * Math.PI) / 180)).toFixed(1)} ${(AL_CY + r * Math.sin((deg * Math.PI) / 180)).toFixed(1)}`;
+const AL_TICKS = Array.from({ length: 36 }, (_, k) => `M${alPt(k % 3 ? 66 : 63, k * 10)}L${alPt(69, k * 10)}`).join("");
+const AL_TRAIL = Array.from(
+  { length: 9 },
+  (_, k) => `<path class="al-trail" style="opacity:${(0.42 * (1 - k / 9)).toFixed(2)}" d="M${AL_CX} ${AL_CY}L${alPt(70, -k * 5)}A70 70 0 0 0 ${alPt(70, -(k + 1) * 5)}Z"/>`,
+).join("");
 
-// The security decor behind the house: a hedge and far trees behind a stone wall, a pillar carrying a lantern, an
-// "alarm" sign and a surveillance camera. Drawn in a 290 × 80 picture anchored at the banner's right (its last 30
-// units run on under the mini card's detail button), clipped at the text's right edge so it never runs under the text.
-// Disarmed, the camera looks down; armed, it pans over the garden with its field of view in the state colour and a
-// scan line running through it (amber and blinking during a delay, fast and red when triggered, the wall then
-// flashing red). At night the lantern lights the pillar and, while armed, the camera's infrared LEDs glow.
-const alarmDecor = (uid) => {
+const alarmRadar = (uid) => {
   const id = (n) => `al-${n}-${uid}`;
-  const stones = (n, x, y, a, b) =>
-    `<pattern id="${id(n)}" width="28" height="9" patternUnits="userSpaceOnUse" x="${x}" y="${y}"><rect class="al-stJ" width="28" height="9"/><rect class="${a}" x=".5" y=".5" width="13" height="8" rx=".8"/><rect class="${b}" x="14.5" y=".5" width="13" height="8" rx=".8"/><rect class="al-stH" x="1" y="1" width="12" height="1" rx=".5"/><rect class="al-stH" x="15" y="1" width="12" height="1" rx=".5"/></pattern>`;
-  return `<div class="al-decor" aria-hidden="true"><svg viewBox="0 0 290 80" focusable="false">
+  const nodes = AL_NODES.map(
+    (n) =>
+      `<g class="al-node al-node-${n.icon}" style="--turn:${n.turn.toFixed(3)}"><circle class="al-node-ping" cx="${n.x}" cy="${n.y}" r="9"/><circle class="al-node-disc" cx="${n.x}" cy="${n.y}" r="6.2"/><path class="al-node-icon" transform="translate(${n.x - 3.6} ${n.y - 3.6}) scale(.3)" d="${AL_ICONS[n.icon]}"/></g>`,
+  ).join("");
+  const links = AL_NODES.map((n) => `<path class="al-link al-link-${n.icon}" d="M${n.x} ${n.y}L${AL_CX} ${AL_CY}"/>`).join("");
+  return `<div class="al-grid" aria-hidden="true"></div><div class="al-scene" aria-hidden="true"><svg viewBox="0 0 260 80" focusable="false">
     <defs>
-      <linearGradient id="${id("fov")}" x1="0" y1="0" x2="1" y2="0"><stop class="al-fov-s" offset="0" stop-opacity=".5"/><stop class="al-fov-s" offset="1" stop-opacity="0"/></linearGradient>
-      <linearGradient id="${id("scan")}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-      <linearGradient id="${id("shade")}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".12"/><stop offset=".25" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".06"/></linearGradient>
-      <radialGradient id="${id("glow")}"><stop offset="0" stop-color="#ffd88a" stop-opacity=".5"/><stop offset="1" stop-color="#ffd88a" stop-opacity="0"/></radialGradient>
-      <clipPath id="${id("fovclip")}"><path d="M95 40.5 193 24v58Z"/></clipPath>
-      ${stones("st1", 0, 62, "al-stA", "al-stB")}${stones("st2", 7, 71, "al-stB", "al-stA")}
+      <radialGradient id="${id("halo")}" cx="${AL_CX}" cy="${AL_CY}" r="70" gradientUnits="userSpaceOnUse"><stop class="al-rc" offset="0" stop-opacity=".22"/><stop class="al-rc" offset="1" stop-opacity="0"/></radialGradient>
+      <linearGradient id="${id("fov")}" x1="0" y1="0" x2="1" y2="0"><stop class="al-rc" offset="0" stop-opacity=".45"/><stop class="al-rc" offset="1" stop-opacity="0"/></linearGradient>
+      <linearGradient id="${id("scan")}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <clipPath id="${id("fovclip")}"><path d="M98 10 168 2v62Z"/></clipPath>
     </defs>
-    <path class="al-far" d="M75 62V52c4-5 9-6 13-3 2-6 9-8 14-4 4-5 11-5 14 0 3-3 8-3 10 1 3-6 11-7 15-1 4-4 10-4 13 1 4-5 11-5 15 0 3-4 9-4 12 0 4-6 12-6 16 0 3-3 8-3 11 1 4-5 10-5 13 0 3-3 7-3 10 0 4-5 10-5 13 0 3-3 8-3 11 1 3-4 8-4 11 0V62Z"/>
-    <path class="al-hedge" d="M75 62c2-6 8-8 12-5 3-5 10-6 14-1 4-5 11-5 15 0 4-4 11-4 14 1 4-5 11-5 15 0 4-4 11-4 15 1 4-5 11-5 15 0 4-4 11-4 15 1 4-5 11-5 14 0 4-4 10-4 13 1 3-4 9-4 12 0 4-5 10-5 14 0 3-4 9-4 12 0 3-3 7-3 9 0V62Z"/>
-    <path class="al-hedgeH" d="M81 58c2-2 4-2 6-1M104 56c2-2 5-2 7-1M134 57c2-2 5-2 7-1M164 56c2-2 5-2 7-1M195 57c2-2 5-2 7-1M225 56c2-2 5-2 7-1M251 57c2-2 4-2 6-1M274 56c2-2 4-2 6-1" fill="none"/>
-    <rect fill="url(#${id("st1")})" x="71" y="62" width="219" height="9"/><rect fill="url(#${id("st2")})" x="71" y="71" width="219" height="9"/>
-    <rect fill="url(#${id("shade")})" x="71" y="62" width="219" height="18"/>
-    <rect class="al-copS" x="71" y="61.6" width="219" height="1.4"/><rect class="al-cop" x="70" y="59" width="220" height="2.8" rx=".6"/><rect class="al-copH" x="70" y="59" width="220" height=".8" rx=".4"/>
-    <g class="al-post">
-      <rect class="al-pil" x="66" y="48" width="14" height="32"/><rect class="al-pilL" x="66" y="48" width="4" height="32"/><path class="al-pilJ" d="M66 61h14M66 77h14" fill="none"/>
-      <rect class="al-pilC" x="64.5" y="45.5" width="17" height="3.2" rx=".8"/><path class="al-pilC" d="M66.5 45.5 73 42.6l6.5 2.9Z"/>
-      <ellipse class="al-glow" cx="73" cy="58" rx="22" ry="16" fill="url(#${id("glow")})"/>
-      <rect class="al-lan" x="70.6" y="49.6" width="4.8" height="1.2" rx=".4"/><rect class="al-lanG" x="71" y="50.8" width="4" height="5.2" rx="1"/><path class="al-lanF" d="M73 50.8V56M71 53.4h4" fill="none"/><rect class="al-lan" x="71.4" y="56" width="3.2" height=".9" rx=".3"/>
-      <rect class="al-sgn" x="67.5" y="63" width="11" height="10.4" rx="1.4"/><rect class="al-sgnB" x="67.5" y="63" width="11" height="2.6" rx="1.2"/><path class="al-sgnI" d="M73 66.6l2.5 1v2c0 1.6-1.1 2.5-2.5 2.9-1.4-.4-2.5-1.3-2.5-2.9v-2Z"/><path class="al-sgnK" d="M72.1 69.3l.7.7 1.2-1.3" fill="none"/>
-      <rect class="al-mount" x="71.9" y="40.6" width="2.2" height="3"/>
-      <g class="al-cam">
-        <g class="al-fov"><path class="al-fov-cone" fill="url(#${id("fov")})" d="M95 40.5 193 24v58Z"/><g clip-path="url(#${id("fovclip")})"><rect class="al-scan" x="95" y="20" width="26" height="62" fill="url(#${id("scan")})"/></g><path class="al-fov-edge" d="M95 40.5 193 24M95 44 193 82" fill="none"/></g>
-        <rect class="al-cam-body" x="74" y="38.4" width="20" height="7.6" rx="3.2"/><rect class="al-cam-under" x="74" y="43.4" width="20" height="2.6" rx="1.3"/>
-        <path class="al-cam-hood" d="M75.5 38.8c0-1.6 1-2.4 2.4-2.4h18.4c.9 0 1.4 1.4.6 2l-1 .8H75.5Z"/>
-        <circle class="al-lens-o" cx="93.4" cy="42.2" r="3.3"/><circle class="al-lens" cx="93.4" cy="42.2" r="2.5"/><circle class="al-lens-g" cx="93.8" cy="41.7" r="1.1"/><circle class="al-lens-w" cx="94.2" cy="41.2" r=".4"/>
-        <g class="al-ir"><circle cx="93.4" cy="39.2" r=".45"/><circle cx="93.4" cy="45.2" r=".45"/><circle cx="90.6" cy="42.2" r=".45"/></g>
-        <circle class="al-cam-led" cx="78.2" cy="41.6" r="1"/><circle class="al-mount" cx="73" cy="41.4" r="1.6"/>
+    <circle class="al-halo" cx="${AL_CX}" cy="${AL_CY}" r="70" fill="url(#${id("halo")})"/>
+    ${[18, 30, 42, 54].map((r) => `<circle class="al-ring" cx="${AL_CX}" cy="${AL_CY}" r="${r}"/>`).join("")}
+    <path class="al-tick" d="${AL_TICKS}"/>
+    <path class="al-cross" d="M${AL_CX - 70} ${AL_CY}H${AL_CX + 70}M${AL_CX} ${AL_CY - 70}V${AL_CY + 70}M${AL_CX - 49} ${AL_CY - 49}L${AL_CX + 49} ${AL_CY + 49}M${AL_CX - 49} ${AL_CY + 49}L${AL_CX + 49} ${AL_CY - 49}"/>
+    <g class="al-sweep">${AL_TRAIL}<path class="al-sweep-line" d="M${AL_CX} ${AL_CY}H${AL_CX + 70}"/></g>
+    <circle class="al-arc" cx="${AL_CX}" cy="${AL_CY}" r="75"/>
+    <path class="al-hud" d="M${AL_CX - 66} 9v-5h7M${AL_CX - 66} 72v4h7"/>
+    <rect class="al-scanline" x="112" y="0" width="148" height="1.2"/>
+    <g class="al-rec"><circle class="al-rec-dot" cx="74" cy="74.6" r="1.3"/><text class="al-rec-text" x="76.6" y="76.4">REC</text></g>
+    ${links}
+    <g class="al-cam"><g class="al-cam-head">
+      <g class="al-fov"><path d="M98 10 168 2v62Z" fill="url(#${id("fov")})"/><g clip-path="url(#${id("fovclip")})"><rect class="al-fov-scan" x="98" y="0" width="22" height="70" fill="url(#${id("scan")})"/></g><path class="al-fov-edge" d="M98 10 168 2M98 12 168 64"/></g>
+      <g transform="translate(70 0) scale(1.5) translate(-70 0)">
+        <rect class="al-cam-body" x="70.5" y="3.4" width="17" height="6.4" rx="2.8"/><rect class="al-cam-under" x="70.5" y="7.6" width="17" height="2.2" rx="1.1"/>
+        <path class="al-cam-hood" d="M71.6 3.8c0-1.4.9-2.1 2.1-2.1h15.2c.8 0 1.2 1.2.5 1.7l-.9.7H71.6Z"/>
+        <circle class="al-lens-o" cx="87" cy="6.6" r="2.8"/><circle class="al-lens" cx="87" cy="6.6" r="2.1"/><circle class="al-lens-g" cx="87.4" cy="6.1" r=".9"/><circle class="al-lens-w" cx="87.8" cy="5.7" r=".35"/>
+        <circle class="al-cam-led" cx="74.4" cy="6" r=".85"/><g class="al-ir"><circle cx="87" cy="3.4" r=".4"/><circle cx="87" cy="9.8" r=".4"/><circle cx="84.2" cy="6.6" r=".4"/></g>
       </g>
-    </g>
-    <rect class="al-flash" x="64" y="42" width="226" height="38"/>
+    </g><rect class="al-mount" x="68.4" y="0" width="3.4" height="8" rx=".9"/><circle class="al-mount" cx="70.1" cy="8.4" r="2.2"/></g>
+    ${nodes}
   </svg></div>`;
 };
 
 // The banner's colours and animations, day and night. Calm: a steady light while armed, a blinking one
 // during a delay, a soft red pulse when the alarm goes off.
 const SCENE_STYLE = `
-  .banner { position: relative; overflow: hidden; height: 90px; flex: none; color: #10283f; --al-scene-w: min(190px, 100cqw - 232px);
-            background: linear-gradient(180deg, #d9e7f4 0%, #e9f1f8 75%, #f1f5f8 100%); }
-  .banner.dark { color: #fff; background: linear-gradient(180deg, #0d1730 0%, #17264a 75%, #1d2d50 100%); }
-  /* The ground strip: a paved sidewalk with a lit curb. */
+  .banner { position: relative; overflow: hidden; height: 90px; flex: none; color: #10283f; --al-scene-w: min(190px, 100cqw - 232px); --rc: #8ea3b8;
+            background: linear-gradient(90deg, #f3f7fb 0%, #e9f0f7 45%, #dde7f1 100%); }
+  .banner.dark { color: #fff; background: linear-gradient(90deg, #16233a 0%, #0f1a2e 45%, #0a1322 100%); --rc: #4f6582; }
+  .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) { --rc: var(--c); }
+  /* The ground strip: a graduated scale with a lit edge in the radar colour. */
   .al-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
-               background: repeating-linear-gradient(90deg, #b9c2cc 0 19px, #98a3af 19px 20px, #c4ccd4 20px 39px, #98a3af 39px 40px);
-               box-shadow: inset 0 2px 0 #8a95a2, inset 0 3px 0 #d4dae1; }
-  .dark .al-ground { background: repeating-linear-gradient(90deg, #2b3343 0 19px, #1f2633 19px 20px, #313a4b 20px 39px, #1f2633 39px 40px);
-                     box-shadow: inset 0 2px 0 #485368; }
-  .al-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: var(--al-scene-w); overflow: hidden; }
-  /* The decor stops at the text's right edge; its picture keeps its scale (1 px per unit), anchored at the right. */
-  .al-decor { position: absolute; right: 0; bottom: 10px; height: 80px; width: calc(var(--al-scene-w) + 4px); overflow: hidden; }
-  .al-decor svg { position: absolute; right: -30px; bottom: 0; width: 290px; height: 80px; }
-  .banner.has-zoom .al-decor { width: calc(var(--al-scene-w) + 30px); }
-  .banner.has-zoom .al-decor svg { right: -4px; }
-  /* The house stands left of the shield, never behind it: moved 26 px to the left of the drawing (the picture keeps
-     its scale, 1 px per unit). A picture too narrow for the whole house (or the tree, or the camera's pillar) leaves it
-     out: the sky and the wall stay, the wall fading in at its left end. */
-  .al-house { transform: translateX(-26px); }
-  @container al-card (max-width: 375px) { .banner:not(.has-zoom) .al-house { display: none; } }
-  @container al-card (max-width: 405px) { .banner:not(.has-zoom) :is(.al-tree, .al-post) { display: none; }
-    .banner:not(.has-zoom) .al-decor { -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px); mask-image: linear-gradient(90deg, transparent, #000 16px); } }
-  @container al-card (max-width: 371px) { .banner.has-zoom .al-house { display: none; } }
-  @container al-card (max-width: 401px) { .banner.has-zoom :is(.al-tree, .al-post) { display: none; }
-    .banner.has-zoom .al-decor { -webkit-mask-image: linear-gradient(90deg, transparent, #000 16px); mask-image: linear-gradient(90deg, transparent, #000 16px); } }
-  .al-nightsky, .dark .al-day { display: none; }
-  .dark .al-nightsky { display: inline; }
-  .al-sun { fill: #ffd65a; } .al-sun-halo { fill: #ffd65a; opacity: .28; }
-  .al-cloud { fill: #fff; opacity: .92; animation: al-drift 7s ease-in-out infinite alternate; }
-  .al-cloud.c2 { animation-delay: -3s; }
-  .al-star { fill: #fff; opacity: .8; } .al-star.tw { animation: al-twinkle 3.2s ease-in-out infinite alternate; }
-  .al-moon { fill: #f4f1dc; }
-  /* Wall, hedge and pillar. */
-  .al-far { fill: #c3d7e4; } .dark .al-far { fill: #16233f; }
-  .al-hedge { fill: #7fb36b; } .dark .al-hedge { fill: #183224; }
-  .al-hedgeH { stroke: #a3cf8e; stroke-width: 1; stroke-linecap: round; } .dark .al-hedgeH { stroke: #24452f; }
-  .al-stA { fill: #d3ccc0; } .al-stB { fill: #c6beb1; } .al-stJ { fill: #a99f90; } .al-stH { fill: #fff; opacity: .28; }
-  .dark .al-stA { fill: #343c4d; } .dark .al-stB { fill: #2d3443; } .dark .al-stJ { fill: #1f2531; } .dark .al-stH { opacity: .05; }
-  .al-cop { fill: #e3ddd3; } .al-copS { fill: #a39a8c; } .al-copH { fill: #fff; opacity: .6; }
-  .dark .al-cop { fill: #465066; } .dark .al-copS { fill: #232a38; } .dark .al-copH { opacity: .12; }
-  .al-pil { fill: #bdb4a6; } .al-pilL { fill: #d6cfc3; } .al-pilC { fill: #e8e2d8; } .al-pilJ { stroke: #a99f90; stroke-width: .5; }
-  .dark .al-pil { fill: #2a3141; } .dark .al-pilL { fill: #384154; } .dark .al-pilC { fill: #4b556c; } .dark .al-pilJ { stroke: #1f2531; }
-  .al-lan, .al-mount { fill: #4d5867; } .dark .al-mount { fill: #6a768b; } .al-lanF { stroke: #4d5867; stroke-width: .4; }
-  .al-lanG { fill: #e9eef3; } .dark .al-lanG { fill: #ffd27a; filter: drop-shadow(0 0 3px #ffcf6e); }
-  .al-glow { display: none; } .dark .al-glow { display: inline; }
-  .al-sgn { fill: #fff; stroke: #9aa3ae; stroke-width: .5; } .dark .al-sgn { fill: #dfe5ee; stroke: #6b778a; }
-  .al-sgnB, .al-sgnI { fill: var(--c); } .al-sgnK { stroke: #fff; stroke-width: .7; stroke-linecap: round; stroke-linejoin: round; }
+               background: repeating-linear-gradient(90deg, #cbd6e1 0 11px, #a3b4c5 11px 12px);
+               box-shadow: inset 0 1px 0 color-mix(in srgb, var(--rc) 80%, transparent), 0 -3px 6px -2px color-mix(in srgb, var(--rc) 40%, transparent); }
+  .dark .al-ground { background: repeating-linear-gradient(90deg, #15233a 0 11px, #2a4161 11px 12px); }
+  /* A surveillance grid fading out towards the text. */
+  .al-grid { position: absolute; inset: 0 0 10px 0; background-size: 12px 12px; background-position: right 0 top 0;
+             background-image: linear-gradient(rgba(30,70,110,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(30,70,110,.09) 1px, transparent 1px);
+             -webkit-mask-image: linear-gradient(90deg, transparent 35%, #000 80%); mask-image: linear-gradient(90deg, transparent 35%, #000 80%); }
+  .dark .al-grid { background-image: linear-gradient(rgba(120,200,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(120,200,255,.07) 1px, transparent 1px); }
+  /* The radar stops at the text's right edge; its picture keeps its scale (1 px per unit), its centre on the shield. */
+  .al-scene { position: absolute; right: 0; bottom: 10px; height: 80px; width: calc(var(--al-scene-w) + 4px); overflow: hidden; }
+  .al-scene svg { position: absolute; right: 0; bottom: 0; width: 260px; height: 80px; }
+  .banner.has-zoom .al-scene { width: calc(var(--al-scene-w) + 30px); }
+  .banner.has-zoom .al-scene svg { right: 16px; }
+  /* Parts too close to the text on a narrow card are left out rather than cut. */
+  @container al-card (max-width: 419px) { .banner:not(.has-zoom) :is(.al-cam, .al-rec) { display: none; } }
+  @container al-card (max-width: 388px) { .banner:not(.has-zoom) :is(.al-node-window, .al-link-window) { display: none; } }
+  @container al-card (max-width: 354px) { .banner:not(.has-zoom) :is(.al-node-motion, .al-link-motion) { display: none; } }
+  @container al-card (max-width: 346px) { .banner:not(.has-zoom) :is(.al-node-door, .al-link-door) { display: none; } }
+  @container al-card (max-width: 314px) { .banner:not(.has-zoom) :is(.al-node-siren, .al-link-siren) { display: none; } }
+  @container al-card (max-width: 405px) { .banner.has-zoom :is(.al-cam, .al-rec) { display: none; } }
+  @container al-card (max-width: 374px) { .banner.has-zoom :is(.al-node-window, .al-link-window) { display: none; } }
+  @container al-card (max-width: 340px) { .banner.has-zoom :is(.al-node-motion, .al-link-motion) { display: none; } }
+  @container al-card (max-width: 332px) { .banner.has-zoom :is(.al-node-door, .al-link-door) { display: none; } }
+  @container al-card (max-width: 300px) { .banner.has-zoom :is(.al-node-siren, .al-link-siren) { display: none; } }
+  /* The radar. */
+  .al-rc { stop-color: var(--rc); }
+  .al-halo { opacity: .6; } .banner.off .al-halo { opacity: 0; }
+  .al-ring { fill: none; stroke: var(--rc); stroke-width: .6; opacity: .45; }
+  .al-tick { stroke: var(--rc); stroke-width: .7; opacity: .5; }
+  .al-cross { stroke: var(--rc); stroke-width: .4; opacity: .22; stroke-dasharray: 1.5 2.5; }
+  .al-trail { fill: var(--rc); } .al-sweep-line { stroke: var(--rc); stroke-width: .8; opacity: .8; }
+  .al-sweep, .al-arc { transform-box: view-box; transform-origin: 220px 40px; }
+  .al-sweep { display: none; }
+  .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-sweep { display: inline; animation: al-spin 6s linear infinite; }
+  .banner.wait .al-sweep { animation-duration: 2.6s; } .banner.alarm .al-sweep { animation-duration: 1.4s; }
+  .al-arc { fill: none; stroke: var(--rc); stroke-width: 1; opacity: .35; stroke-dasharray: 14 6 3 6; }
+  .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-arc { animation: al-spin 24s linear infinite reverse; }
+  .al-hud { fill: none; stroke: var(--rc); stroke-width: .9; opacity: .6; }
+  .al-scanline { fill: var(--rc); opacity: 0; }
+  .banner:is(.home, .away, .night, .vacation, .custom) .al-scanline { animation: al-scanline 4.5s linear infinite; }
+  .al-rec-text { font: 700 4.6px/1 system-ui, sans-serif; fill: var(--rc); letter-spacing: .3px; } .al-rec-dot { fill: var(--rc); }
+  .banner.off .al-rec { opacity: .5; } .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-rec-dot { animation: al-blink 1.2s steps(2) infinite; }
+  /* The sensors, each pinging as the sweep passes it. */
+  .al-link { fill: none; stroke: var(--rc); stroke-width: .6; opacity: .35; stroke-dasharray: 2 2.5; }
+  .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-link { opacity: .6; animation: al-flow 1.2s linear infinite; }
+  .al-node, .al-node-ping { transform-box: fill-box; transform-origin: center; }
+  .al-node-ping { fill: none; stroke: var(--rc); stroke-width: .6; opacity: 0; }
+  .al-node-disc { fill: rgba(255,255,255,.85); stroke: var(--rc); stroke-width: .9; } .dark .al-node-disc { fill: rgba(16,28,48,.9); }
+  .al-node-icon { fill: var(--rc); }
+  .banner:is(.home, .away, .night, .vacation, .custom) .al-node-ping { animation: al-ping 6s ease-out infinite; animation-delay: calc(var(--turn) * 6s); }
+  .banner:is(.home, .away, .night, .vacation, .custom) .al-node-disc { animation: al-hit 6s ease-out infinite; animation-delay: calc(var(--turn) * 6s); }
+  .banner.wait .al-node { animation: al-blink 1.2s ease-in-out infinite; }
+  .banner.wait .al-node-motion { animation-delay: .3s; } .banner.wait .al-node-window { animation-delay: .6s; } .banner.wait .al-node-siren { animation-delay: .9s; }
+  .banner.alarm .al-node-window .al-node-ping { animation: al-ping 1.1s ease-out infinite; }
+  .banner.alarm .al-node-window .al-node-disc { fill: var(--rc); } .banner.alarm .al-node-window .al-node-icon { fill: #fff; }
+  .banner.alarm::before { content: ""; position: absolute; inset: 0; animation: al-pulse 1.4s ease-in-out infinite;
+                          background: radial-gradient(circle at calc(100% - 40px) 40px, color-mix(in srgb, var(--c) 35%, transparent), transparent 70%); }
+  .banner.alarm.has-zoom::before { background: radial-gradient(circle at calc(100% - 56px) 40px, color-mix(in srgb, var(--c) 35%, transparent), transparent 70%); }
   /* The camera. */
-  .al-cam-body { fill: #f6f8fa; } .al-cam-under { fill: #d5dbe2; } .al-cam-hood { fill: #e4e9ee; }
-  .dark .al-cam-body { fill: #a3adbf; } .dark .al-cam-under { fill: #7d889c; } .dark .al-cam-hood { fill: #8c97ab; }
+  .al-cam-body { fill: #f6f8fa; stroke: #9aa6b4; stroke-width: .35; } .al-cam-under { fill: #d3dae2; }
+  .al-cam-hood { fill: #e1e7ed; stroke: #9aa6b4; stroke-width: .35; }
+  .dark .al-cam-body { fill: #a3adbf; stroke: none; } .dark .al-cam-under { fill: #76829a; } .dark .al-cam-hood { fill: #8a95a9; stroke: none; }
   .al-lens-o { fill: #2b3442; } .al-lens { fill: #1d2530; } .al-lens-g { fill: #5d7a99; } .al-lens-w { fill: #fff; opacity: .8; }
-  .al-ir { display: none; fill: #ff5a5f; opacity: .8; }
+  .al-mount { fill: #56616f; } .dark .al-mount { fill: #7c889c; }
   .al-cam-led { fill: #43a047; }
-  .al-cam { transform-box: view-box; transform-origin: 73px 41.4px; transform: rotate(36deg); }
-  .al-fov { display: none; } .al-fov-s { stop-color: var(--c); } .al-fov-edge { stroke: var(--c); stroke-width: .6; opacity: .7; }
-  .al-scan { animation: al-scan 2.4s linear infinite; }
-  .al-flash { fill: #e5484d; opacity: 0; }
-  .banner:is(.home, .away, .night, .vacation, .custom) .al-cam { animation: al-pan 9s ease-in-out infinite alternate; }
-  .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-fov { display: inline; }
-  .banner:is(.home, .away, .night, .vacation, .custom) .al-cam-led { fill: var(--c); filter: drop-shadow(0 0 1.5px var(--c)); }
-  .banner.dark:is(.home, .away, .night, .vacation, .custom, .alarm) .al-ir { display: inline; }
-  .banner.wait .al-cam { transform: rotate(10deg); }
-  .banner.wait .al-fov { animation: al-blink 1.2s ease-in-out infinite; } .banner.wait .al-fov-s { stop-color: #ffa600; } .banner.wait .al-fov-edge { stroke: #ffa600; } .banner.wait .al-scan { display: none; }
-  .banner.wait .al-cam-led { fill: #ffa600; animation: al-blink 1.2s ease-in-out infinite; }
-  .banner.alarm .al-cam { animation: al-pan 1.8s ease-in-out infinite alternate; }
-  .banner.alarm .al-fov { animation: al-pulse .8s ease-in-out infinite; } .banner.alarm .al-scan { animation-duration: .9s; }
-  .banner.alarm .al-cam-led { fill: #e5484d; filter: drop-shadow(0 0 2px #e5484d); animation: al-blink .6s ease-in-out infinite; }
-  .banner.alarm .al-lanG { fill: #ff5a5f; filter: drop-shadow(0 0 3px #ff3b3f); animation: al-blink .6s ease-in-out infinite; }
-  .banner.alarm .al-flash { animation: al-flash 1.2s ease-in-out infinite; }
-  @keyframes al-pan { from { transform: rotate(3deg); } to { transform: rotate(17deg); } }
-  @keyframes al-scan { 0% { transform: translateX(-30px); opacity: 0; } 20% { opacity: 1; } 70% { opacity: .6; } 100% { transform: translateX(80px); opacity: 0; } }
-  @keyframes al-flash { 0%, 100% { opacity: 0; } 50% { opacity: .16; } }
-  .al-trunk { fill: #6b4a2a; } .al-crown { fill: #5aa83d; } .dark .al-crown { fill: #1a3a2a; } .dark .al-trunk { fill: #3e2c1c; }
-  .al-wall { fill: #f3e6d3; } .dark .al-wall { fill: #3a4658; }
-  .al-roof { fill: #c0603a; } .dark .al-roof { fill: #5a3530; }
-  .al-chimney { fill: #9a4c30; } .dark .al-chimney { fill: #4a2c28; }
-  .al-door { fill: #8a5a3a; } .dark .al-door { fill: #5b3d29; } .al-knob { fill: #e2c27a; }
-  .al-mullion { stroke: #f3e6d3; stroke-width: .8; fill: none; } .dark .al-mullion { stroke: #3a4658; }
-  /* Windows: glass by day; warm light at night while someone is home, dark when the house is empty. */
-  .al-win { fill: #86b9de; } .dark .al-win { fill: #2a3546; }
-  .banner.dark.off .al-win, .banner.dark.home .al-win, .banner.dark.night .al-win, .banner.dark.idle .al-win, .banner.dark.custom .al-win { fill: #ffcf6e; }
-  .al-vent { fill: #fff; stroke: #9aa3ae; stroke-width: .6; } .dark .al-vent { fill: #4a5568; stroke: #6b778a; }
-  /* The house tells the state with its lights, the shield beside it carries the protection: disarmed, a plain house;
-     armed, a small steady light by the door in the state colour; arming / pending, that light blinks amber;
-     triggered, the windows glow red with a slow pulse and a red beacon lights up on the roof. */
-  .al-lamp, .al-beacon { display: none; }
-  .al-beacon-base { fill: #6b7380; } .dark .al-beacon-base { fill: #4a5568; }
-  .al-beacon-light { fill: #e5484d; }
-  .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-lamp { display: inline; fill: var(--c); filter: drop-shadow(0 0 1.2px var(--c)); }
-  .banner.wait .al-lamp { fill: #ffa600; filter: drop-shadow(0 0 1.2px #ffa600); animation: al-blink 1.2s ease-in-out infinite; }
-  .banner.alarm .al-lamp { fill: #e5484d; filter: drop-shadow(0 0 1.2px #e5484d); }
-  .banner.alarm .al-beacon { display: inline; }
-  .banner.alarm .al-beacon-light { filter: drop-shadow(0 0 2px #ff3b3f); animation: al-pulse 2.4s ease-in-out infinite; }
-  .banner.alarm .al-win { fill: #f08a8d; animation: al-pulse 2.4s ease-in-out infinite; }
-  .banner.dark.alarm .al-win { fill: #ff6b6f; filter: drop-shadow(0 0 2px #ff3b3f); }
-  @keyframes al-drift { to { transform: translateX(4px); } }
-  @keyframes al-twinkle { from { opacity: .3; } to { opacity: 1; } }
+  .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-cam-led { fill: var(--rc); filter: drop-shadow(0 0 1.5px var(--rc)); }
+  .banner.wait .al-cam-led, .banner.alarm .al-cam-led { animation: al-blink .8s ease-in-out infinite; }
+  .al-ir { display: none; fill: #ff5a5f; } .banner.dark:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-ir { display: inline; }
+  .al-cam-head { transform-box: view-box; transform-origin: 70.1px 8.4px; transform: rotate(38deg); }
+  .banner:is(.home, .away, .night, .vacation, .custom) .al-cam-head { animation: al-pan 8s ease-in-out infinite alternate; }
+  .banner.wait .al-cam-head { transform: rotate(14deg); }
+  .banner.alarm .al-cam-head { animation: al-pan 1.6s ease-in-out infinite alternate; }
+  .al-fov { display: none; } .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-fov { display: inline; }
+  .al-fov-edge { fill: none; stroke: var(--rc); stroke-width: .5; opacity: .6; }
+  .al-fov-scan { animation: al-fov-scan 2.4s linear infinite; }
+  @keyframes al-spin { to { transform: rotate(360deg); } }
+  @keyframes al-flow { to { stroke-dashoffset: -9; } }
+  @keyframes al-ping { 0% { opacity: .8; transform: scale(.7); } 30% { opacity: 0; transform: scale(1.5); } 100% { opacity: 0; } }
+  @keyframes al-hit { 0% { filter: drop-shadow(0 0 3px var(--rc)); } 25%, 100% { filter: none; } }
+  @keyframes al-pan { from { transform: rotate(6deg); } to { transform: rotate(22deg); } }
+  @keyframes al-scanline { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: .22; } 90% { opacity: .15; } 100% { transform: translateY(80px); opacity: 0; } }
+  @keyframes al-fov-scan { 0% { transform: translateX(-20px); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateX(70px); opacity: 0; } }
   @keyframes al-blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
   @keyframes al-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
-  /* The big state shield stands in front of the house, at the right. */
+  /* The big state shield stands at the radar's centre, at the right. */
   .banner .al-shield { position: absolute; top: 4px; right: 4px; width: 72px; height: 72px; z-index: 1; }
   .banner .al-shield .shield { width: 100%; height: 100%; }
   .banner.has-zoom .al-shield { right: 20px; }
-  .banner.has-zoom .al-scene { right: 26px; }
   /* The text on the sky at the left: the round state icon, the title and the state. */
   .banner .htext { position: absolute; z-index: 2; left: 12px; top: 0; bottom: 10px; right: calc(var(--al-scene-w) + 4px);
                    display: flex; align-items: center; gap: 10px; padding: 0; min-width: 0; flex-wrap: nowrap; }
   .banner.has-zoom .htext { right: calc(var(--al-scene-w) + 30px); }
-  /* Mini card: the picture beside the detail button, wide enough for the whole house from 374 px (376 px with its border). */
+  /* Mini card: the picture beside the detail button. */
   .banner.has-zoom { --al-scene-w: min(190px, 100cqw - 228px); }
   .banner .htext .titles { container: al-titles / inline-size; flex: 1 1 0; align-self: stretch; min-width: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; row-gap: 2px; }
   .banner .chip { box-sizing: border-box;
@@ -2735,7 +2712,7 @@ const SCENE_STYLE = `
   .banner.dark .zoom { color: #fff; background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
   .banner .zoom:hover { background: rgba(255,255,255,.75); }
   .banner.dark .zoom:hover { background: rgba(255,255,255,.22); }
-  /* Narrower card: the house gives its room to the text, the shield stays; narrower still, the sky alone. */
+  /* Narrower card: the radar gives its room to the text, the shield stays; narrower still, the plain background alone. */
   @container (max-width: 300px) {
     .al-scene { display: none; }
     .banner .htext { right: 78px; } .banner.has-zoom .htext { right: 98px; }
@@ -3544,7 +3521,7 @@ class AlarmBase extends HTMLElement {
   }
 
   // The illustrated header (illustration: false keeps the classic one): the round state icon, the title and
-  // the state (with `detail` after it) on the sky, the house and the big state shield at the right.
+  // the state (with `detail` after it) at the left, the radar and the big state shield at the right.
   _illustrated() {
     return this._config.illustration !== false;
   }
@@ -3557,8 +3534,7 @@ class AlarmBase extends HTMLElement {
     const ent = esc(st.entity_id);
     return `<div class="banner ${cls}${isNight(this._hass, c) ? " dark" : ""}${zoom ? " has-zoom" : ""}">
         <div class="al-ground" aria-hidden="true"></div>
-        ${alarmDecor(this._uid)}
-        ${alarmScene(this._uid)}
+        ${alarmRadar(this._uid)}
         <div class="al-shield clickable" role="button" tabindex="0" aria-label="${esc(this._stateText(st))}" data-entity="${ent}">${shield(st.state, this._uid)}</div>
         <div class="header htext">
           ${showBadge ? `<div class="ibadge">${svgIcon(STATE_ICON[cls] || ICONS.shield)}</div>` : ""}

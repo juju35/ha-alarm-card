@@ -169,6 +169,6 @@ for (const s of shots) {
 }
 
 // One looping GIF per distinct shield animation (see scripts/screenshot-shots.mjs).
-for (const gif of gifs) await makeGif(browser, gif);
+for (const gif of gifs) await makeGif(browser, gif, { seconds: gif.seconds || 3 });
 await browser.close();
 rmSync(work, { recursive: true });

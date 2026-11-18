@@ -106,7 +106,7 @@ const textRules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
 // its lightest night stop below.
 const bannerRules = textRules.filter((r) => r.sel.startsWith(".banner"));
 const cardRules = textRules.filter((r) => !r.sel.startsWith(".banner"));
-const SKY = { day: "#d9e7f4", night: "#1d2d50" };
+const SKY = { day: "#dde7f1", night: "#16233a" };
 
 test("the card's CSS was found", () => {
   assert.ok(Object.keys(stateColors).length >= 9, Object.keys(stateColors).join());
