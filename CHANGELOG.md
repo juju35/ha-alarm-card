@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.13.0 - 2026-11-18
+
+### Features
+- **Security-themed header background**: the frosted-glass background gives way to a guarded garden wall under the day / night sky. Far trees and a hedge stand behind a stone wall; its pillar carries a lantern (lit at night), an alarm sign with a shield in the state colour and a surveillance camera. Disarmed, the camera looks down; armed, it pans over the garden with its field of view in the state colour and a scan line running through it, its infrared LEDs glowing at night; during the exit / entry delay its view and light blink amber; when triggered it sweeps fast in red, the lantern blinks red and the wall flashes red. The ground strip becomes a paved sidewalk. The house, the tree and the shield are unchanged; narrow cards leave out the pillar and the camera (like the tree) and fade the wall in. Honours `prefers-reduced-motion`.
+
 ## 1.12.0 - 2026-11-18
 
 ### Features
