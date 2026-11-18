@@ -2565,7 +2565,7 @@ const alarmRadar = (uid) => {
       <radialGradient id="${id("halo")}" cx="${AL_CX}" cy="${AL_CY}" r="70" gradientUnits="userSpaceOnUse"><stop class="al-rc" offset="0" stop-opacity=".22"/><stop class="al-rc" offset="1" stop-opacity="0"/></radialGradient>
       <linearGradient id="${id("fov")}" x1="0" y1="0" x2="1" y2="0"><stop class="al-rc" offset="0" stop-opacity=".45"/><stop class="al-rc" offset="1" stop-opacity="0"/></linearGradient>
       <linearGradient id="${id("scan")}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".5"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-      <clipPath id="${id("fovclip")}"><path d="M98 10 168 2v62Z"/></clipPath>
+      <clipPath id="${id("fovclip")}"><path d="M102 10 172 2v62Z"/></clipPath>
     </defs>
     <circle class="al-halo" cx="${AL_CX}" cy="${AL_CY}" r="70" fill="url(#${id("halo")})"/>
     ${[18, 30, 42, 54].map((r) => `<circle class="al-ring" cx="${AL_CX}" cy="${AL_CY}" r="${r}"/>`).join("")}
@@ -2575,17 +2575,17 @@ const alarmRadar = (uid) => {
     <circle class="al-arc" cx="${AL_CX}" cy="${AL_CY}" r="75"/>
     <path class="al-hud" d="M${AL_CX - 66} 9v-5h7M${AL_CX - 66} 72v4h7"/>
     <rect class="al-scanline" x="112" y="0" width="148" height="1.2"/>
-    <g class="al-rec"><circle class="al-rec-dot" cx="74" cy="74.6" r="1.3"/><text class="al-rec-text" x="76.6" y="76.4">REC</text></g>
+    <g class="al-rec"><circle class="al-rec-dot" cx="78" cy="74.6" r="1.3"/><text class="al-rec-text" x="80.6" y="76.4">REC</text></g>
     ${links}
     <g class="al-cam"><g class="al-cam-head">
-      <g class="al-fov"><path d="M98 10 168 2v62Z" fill="url(#${id("fov")})"/><g clip-path="url(#${id("fovclip")})"><rect class="al-fov-scan" x="98" y="0" width="22" height="70" fill="url(#${id("scan")})"/></g><path class="al-fov-edge" d="M98 10 168 2M98 12 168 64"/></g>
-      <g transform="translate(70 0) scale(1.5) translate(-70 0)">
+      <g class="al-fov"><path d="M102 10 172 2v62Z" fill="url(#${id("fov")})"/><g clip-path="url(#${id("fovclip")})"><rect class="al-fov-scan" x="102" y="0" width="22" height="70" fill="url(#${id("scan")})"/></g><path class="al-fov-edge" d="M102 10 172 2M102 12 172 64"/></g>
+      <g transform="translate(74 0) scale(1.5) translate(-70 0)">
         <rect class="al-cam-body" x="70.5" y="3.4" width="17" height="6.4" rx="2.8"/><rect class="al-cam-under" x="70.5" y="7.6" width="17" height="2.2" rx="1.1"/>
         <path class="al-cam-hood" d="M71.6 3.8c0-1.4.9-2.1 2.1-2.1h15.2c.8 0 1.2 1.2.5 1.7l-.9.7H71.6Z"/>
         <circle class="al-lens-o" cx="87" cy="6.6" r="2.8"/><circle class="al-lens" cx="87" cy="6.6" r="2.1"/><circle class="al-lens-g" cx="87.4" cy="6.1" r=".9"/><circle class="al-lens-w" cx="87.8" cy="5.7" r=".35"/>
         <circle class="al-cam-led" cx="74.4" cy="6" r=".85"/><g class="al-ir"><circle cx="87" cy="3.4" r=".4"/><circle cx="87" cy="9.8" r=".4"/><circle cx="84.2" cy="6.6" r=".4"/></g>
       </g>
-    </g><rect class="al-mount" x="68.4" y="0" width="3.4" height="8" rx=".9"/><circle class="al-mount" cx="70.1" cy="8.4" r="2.2"/></g>
+    </g><rect class="al-mount" x="72.4" y="0" width="3.4" height="8" rx=".9"/><circle class="al-mount" cx="74.1" cy="8.4" r="2.2"/></g>
     ${nodes}
   </svg></div>`;
 };
@@ -2667,7 +2667,7 @@ const SCENE_STYLE = `
   .banner:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-cam-led { fill: var(--rc); filter: drop-shadow(0 0 1.5px var(--rc)); }
   .banner.wait .al-cam-led, .banner.alarm .al-cam-led { animation: al-blink .8s ease-in-out infinite; }
   .al-ir { display: none; fill: #ff5a5f; } .banner.dark:is(.home, .away, .night, .vacation, .custom, .wait, .alarm) .al-ir { display: inline; }
-  .al-cam-head { transform-box: view-box; transform-origin: 70.1px 8.4px; transform: rotate(38deg); }
+  .al-cam-head { transform-box: view-box; transform-origin: 74.1px 8.4px; transform: rotate(38deg); }
   .banner:is(.home, .away, .night, .vacation, .custom) .al-cam-head { animation: al-pan 8s ease-in-out infinite alternate; }
   .banner.wait .al-cam-head { transform: rotate(14deg); }
   .banner.alarm .al-cam-head { animation: al-pan 1.6s ease-in-out infinite alternate; }
@@ -3526,13 +3526,15 @@ class AlarmBase extends HTMLElement {
     return this._config.illustration !== false;
   }
 
-  _banner(st, detail, showBadge) {
+  // `side`: the mini card's compact arm / disarm buttons, stacked under its detail button (`cols`: their columns).
+  _banner(st, detail, showBadge, side = null) {
     const c = this._config;
     const cls = stateClass(st.state);
     const zoom = this._zoomButton();
+    const modes = side ? ` has-modes cols-${side.cols}` : "";
     const name = esc(c.title || st.attributes?.friendly_name || this._t("title"));
     const ent = esc(st.entity_id);
-    return `<div class="banner ${cls}${isNight(this._hass, c) ? " dark" : ""}${zoom ? " has-zoom" : ""}">
+    return `<div class="banner ${cls}${isNight(this._hass, c) ? " dark" : ""}${zoom ? " has-zoom" : ""}${modes}">
         <div class="al-ground" aria-hidden="true"></div>
         ${alarmRadar(this._uid)}
         <div class="al-shield clickable" role="button" tabindex="0" aria-label="${esc(this._stateText(st))}" data-entity="${ent}">${shield(st.state, this._uid)}</div>
@@ -3549,6 +3551,7 @@ class AlarmBase extends HTMLElement {
           </div>
         </div>
         ${zoom}
+        ${side ? `<div class="mini-modes controls">${side.html}</div>` : ""}
       </div>`;
   }
 
@@ -4012,10 +4015,50 @@ const MINI_STYLE = `
     .controls { order: 2; flex: 1 1 100%; gap: 4px; }
   }
   .pad-wrap { padding: 8px 12px 12px; }
-  /* Illustrated header: the round arm / disarm buttons on their own row under the banner. */
-  .mini-row { display: flex; justify-content: flex-end; padding: 8px 12px; }
+  /* Illustrated header: the round arm / disarm buttons in a column under the detail button, 24 px frosted discs like
+     it (columns of two, added to the left); the shield, the radar and the text make room. */
+  ha-card .banner .zoom { top: 4px; }
+  ha-card .banner .mini-modes { position: absolute; z-index: 3; top: 31px; right: 5px; height: 51px; width: auto; display: flex; flex-direction: column;
+                        flex-wrap: wrap-reverse; align-content: flex-start; justify-content: flex-start; gap: 3px 4px; }
+  ha-card .banner .mini-modes .btn.round { width: 24px; height: 24px; flex: none; background: rgba(255,255,255,.55);
+                                   box-shadow: inset 0 0 0 1px rgba(255,255,255,.7); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  ha-card .banner.dark .mini-modes .btn.round { background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+  ha-card .banner .mini-modes .btn.round:hover { background: rgba(255,255,255,.75); } ha-card .banner.dark .mini-modes .btn.round:hover { background: rgba(255,255,255,.22); }
+  ha-card .banner .mini-modes .btn.round.alarm { background: color-mix(in srgb, var(--al-alarm) 22%, rgba(255,255,255,.6)); }
+  ha-card .banner .mini-modes .btn .icon { width: 14px; height: 14px; }
+  ha-card .banner.has-modes { --al-x: 14px; } ha-card .banner.has-modes.cols-2 { --al-x: 42px; } ha-card .banner.has-modes.cols-3 { --al-x: 70px; }
+  ha-card .banner.has-modes { --al-scene-w: min(190px - var(--al-x), 100cqw - 228px - var(--al-x)); }
+  ha-card .banner.has-modes .al-shield { right: calc(20px + var(--al-x)); }
+  ha-card .banner.has-modes .al-scene { width: calc(var(--al-scene-w) + 30px + var(--al-x)); }
+  ha-card .banner.has-modes .al-scene svg { right: calc(16px + var(--al-x)); }
+  ha-card .banner.has-modes .htext { right: calc(var(--al-scene-w) + 30px + var(--al-x)); }
+  ha-card .banner.alarm.has-modes::before { background: radial-gradient(circle at calc(100% - 56px - var(--al-x)) 40px, color-mix(in srgb, var(--c) 35%, transparent), transparent 70%); }
+  /* The radar narrows by the buttons' width (the text keeps its room): what would come too close to the text is left out. */
+  ha-card .banner.has-modes:is(.cols-2, .cols-3) :is(.al-cam, .al-rec), ha-card .banner.has-modes.cols-3 :is(.al-node-window, .al-link-window) { display: none; }
+  @container al-card (max-width: 415px) { ha-card .banner.has-modes.cols-1 :is(.al-cam, .al-rec) { display: none; } }
+  @container al-card (max-width: 388px) { ha-card .banner.has-modes.cols-1 :is(.al-node-window, .al-link-window) { display: none; } }
+  @container al-card (max-width: 354px) { ha-card .banner.has-modes.cols-1 :is(.al-node-motion, .al-link-motion) { display: none; } }
+  @container al-card (max-width: 346px) { ha-card .banner.has-modes.cols-1 :is(.al-node-door, .al-link-door) { display: none; } }
+  @container al-card (max-width: 314px) { ha-card .banner.has-modes.cols-1 :is(.al-node-siren, .al-link-siren) { display: none; } }
+  @container al-card (max-width: 416px) { ha-card .banner.has-modes.cols-2 :is(.al-node-window, .al-link-window) { display: none; } }
+  @container al-card (max-width: 382px) { ha-card .banner.has-modes.cols-2 :is(.al-node-motion, .al-link-motion) { display: none; } }
+  @container al-card (max-width: 374px) { ha-card .banner.has-modes.cols-2 :is(.al-node-door, .al-link-door) { display: none; } }
+  @container al-card (max-width: 342px) { ha-card .banner.has-modes.cols-2 :is(.al-node-siren, .al-link-siren) { display: none; } }
+  @container al-card (max-width: 410px) { ha-card .banner.has-modes.cols-3 :is(.al-node-motion, .al-link-motion) { display: none; } }
+  @container al-card (max-width: 402px) { ha-card .banner.has-modes.cols-3 :is(.al-node-door, .al-link-door) { display: none; } }
+  @container al-card (max-width: 370px) { ha-card .banner.has-modes.cols-3 :is(.al-node-siren, .al-link-siren) { display: none; } }
+  /* Phone width with more than two buttons: they go back to a row under the banner, which keeps the title its room. */
+  .mini-row { display: none; padding: 8px 12px; }
   .mini-row .controls { flex: 1 1 auto; justify-content: flex-end; }
   .mini-row + .pad-wrap { padding-top: 0; }
+  @container al-card (max-width: 300px) {
+    .mini-row:is(.cols-2, .cols-3) { display: flex; }
+    ha-card .banner.has-modes:is(.cols-2, .cols-3) { --al-x: 0px; }
+    ha-card .banner.has-modes:is(.cols-2, .cols-3) .mini-modes { display: none; }
+  }
+  @container (max-width: 300px) { ha-card .banner.has-modes .htext { right: calc(98px + var(--al-x)); } }
+  @container (max-width: 230px) { ha-card .banner.has-modes .htext { right: calc(36px + var(--al-x) - 14px); } }
+  ha-card .banner.has-modes:not(.has-zoom) .mini-modes { top: 4px; }
 `;
 
 // The mini card is a full card drawn compact: its detail button (top right, `zoom: false` removes it) switches
@@ -4083,11 +4126,14 @@ class AlarmMiniCard extends AlarmCard {
     const c = this._config;
     const cls = stateClass(st.state);
     if (this._illustrated()) {
-      const controls = c.show_controls !== false ? `<div class="mini-row"><div class="controls">${this._modeButtons(st, true)}</div></div>` : "";
+      // The round arm / disarm buttons stand in columns of two under the detail button, added to the left.
+      const html = c.show_controls !== false ? this._modeButtons(st, true) : "";
+      const count = (html.match(/<button /g) || []).length;
+      const side = count ? { html, cols: Math.min(3, Math.ceil(count / 2)) } : null;
       return `<style>${BASE_STYLE}${MINI_STYLE}${SCENE_STYLE}</style>${STRUT}
       <ha-card>
-        ${this._banner(st, this._miniDetail(st).replace(/^ · /, ""), c.show_logo !== false)}
-        ${controls}
+        ${this._banner(st, this._miniDetail(st).replace(/^ · /, ""), c.show_logo !== false, side)}
+        ${side && side.cols > 1 ? `<div class="mini-row cols-${side.cols}"><div class="controls">${html}</div></div>` : ""}
         ${this._pad ? `<div class="pad-wrap">${this._padHtml(st)}</div>` : ""}
       </ha-card>`;
     }
