@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.2 - 2026-11-19
+
+### Fixes
+- **Sidebar badge**: placed over the Alarm icon when the sidebar is collapsed, like Home Assistant's own badges, instead of beside it, cut off.
+
 ## 2.0.1 - 2026-11-19
 
 ### Fixes

@@ -39,7 +39,12 @@ function alarmBadgeSpan(badge, slot) {
   el.slot = slot;
   el.dataset.key = `${badge.text}|${badge.level}`;
   el.textContent = badge.text;
-  el.style.cssText = `min-width:18px; height:18px; box-sizing:border-box; padding:0 5px; align-items:center; border-radius:9px; font-size:11px; font-weight:500; line-height:1; color:#fff; background:${ALARM_BADGE_COLORS[badge.level]};`;
+  // The start badge (collapsed sidebar) is placed by Home Assistant's `ha-svg-icon + .badge` rule, but a custom
+  // panel's icon is an <ha-icon>: that rule does not match and the badge would sit beside the icon, cut off. Placed
+  // here over the icon like Home Assistant's own (top var(--ha-space-1), left 26px), out of the row's layout; the end
+  // badge stays in flow. The sidebar's rules still show the right one by slot.
+  var place = slot === "start" ? "position:absolute; top:var(--ha-space-1, 4px); left:26px; z-index:1; pointer-events:none; " : "";
+  el.style.cssText = `${place}display:inline-flex; justify-content:center; min-width:18px; height:18px; box-sizing:border-box; padding:0 5px; align-items:center; border-radius:9px; font-size:11px; font-weight:500; line-height:1; color:#fff; background:${ALARM_BADGE_COLORS[badge.level]};`;
   return el;
 }
 
