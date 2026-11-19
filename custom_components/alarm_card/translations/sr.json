@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Додаје картице аларма на ваше контролне табле и панел Аларм за подешавање Alarmo (режими, зоне, сензори, кодови и акције) у стилу картица. Панел је намењен администраторима."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card је већ подешена."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Панел Аларм",
+        "description": "Иста подешавања као картица Подешавања у панелу.",
+        "data": {
+          "panel_title": "Наслов у бочној траци",
+          "hide_header": "Сакриј горњу траку",
+          "panel_tabs": "Приказане картице",
+          "sidebar_badge": "Значка у бочној траци",
+          "entity": "Аларм приказан у заглављу",
+          "illustration_theme": "Тема илустрације"
+        },
+        "data_description": {
+          "hide_header": "Картице и дугме менија остају.",
+          "sidebar_badge": "Сензори који спречавају укључивање; црвена када је аларм активиран.",
+          "entity": "Празно: главни аларм Alarmo, иначе његова прва зона.",
+          "illustration_theme": "Ауто прати тему Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Никад",
+        "non_admin": "За не-администраторе",
+        "all": "За све"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Опште",
+        "sensors": "Сензори",
+        "codes": "Кодови",
+        "actions": "Акције"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Ауто",
+        "day": "Дан",
+        "night": "Ноћ"
+      }
+    }
+  }
+}

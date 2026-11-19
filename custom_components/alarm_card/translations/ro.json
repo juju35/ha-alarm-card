@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Adaugă cardurile de alarmă în tablourile de bord și un panou Alarmă pentru configurarea Alarmo (moduri, zone, senzori, coduri și acțiuni) în stilul cardurilor. Panoul este rezervat administratorilor."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card este deja configurat."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Panou Alarmă",
+        "description": "Aceleași setări ca fila Setări a panoului.",
+        "data": {
+          "panel_title": "Titlu în bara laterală",
+          "hide_header": "Ascunde bara de sus",
+          "panel_tabs": "File afișate",
+          "sidebar_badge": "Insignă în bara laterală",
+          "entity": "Alarma afișată în antet",
+          "illustration_theme": "Tema ilustrației"
+        },
+        "data_description": {
+          "hide_header": "Filele și butonul de meniu rămân.",
+          "sidebar_badge": "Senzorii care împiedică armarea; roșie când alarma este declanșată.",
+          "entity": "Gol: alarma principală Alarmo, altfel prima sa zonă.",
+          "illustration_theme": "Auto urmează tema Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Niciodată",
+        "non_admin": "Pentru non-administratori",
+        "all": "Pentru toți"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "General",
+        "sensors": "Senzori",
+        "codes": "Coduri",
+        "actions": "Acțiuni"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Zi",
+        "night": "Noapte"
+      }
+    }
+  }
+}

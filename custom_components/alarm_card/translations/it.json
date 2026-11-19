@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Aggiunge le schede allarme alle tue plance e un pannello Allarme per configurare Alarmo (modalità, aree, sensori, codici e azioni) nello stile delle schede. Il pannello è riservato agli amministratori."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card è già configurata."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Pannello Allarme",
+        "description": "Le stesse impostazioni della scheda Impostazioni del pannello.",
+        "data": {
+          "panel_title": "Titolo nella barra laterale",
+          "hide_header": "Nascondi la barra superiore",
+          "panel_tabs": "Schede mostrate",
+          "sidebar_badge": "Badge della barra laterale",
+          "entity": "Allarme mostrato nell'intestazione",
+          "illustration_theme": "Tema dell'illustrazione"
+        },
+        "data_description": {
+          "hide_header": "Le schede e il pulsante menu restano.",
+          "sidebar_badge": "I sensori che impediscono l'inserimento; rosso quando l'allarme è scattato.",
+          "entity": "Vuoto: l'allarme principale di Alarmo, altrimenti la sua prima area.",
+          "illustration_theme": "Auto segue il tema di Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Mai",
+        "non_admin": "Per i non amministratori",
+        "all": "Per tutti"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Generale",
+        "sensors": "Sensori",
+        "codes": "Codici",
+        "actions": "Azioni"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Giorno",
+        "night": "Notte"
+      }
+    }
+  }
+}

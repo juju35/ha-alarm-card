@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Ajoute les cartes d'alarme à vos tableaux de bord et un panneau Alarme pour configurer Alarmo (modes, zones, capteurs, codes et actions) dans le style des cartes. Le panneau est réservé aux administrateurs."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card est déjà configurée."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Panneau Alarme",
+        "description": "Les mêmes réglages que l'onglet Réglages du panneau.",
+        "data": {
+          "panel_title": "Titre dans la barre latérale",
+          "hide_header": "Masquer la barre du haut",
+          "panel_tabs": "Onglets affichés",
+          "sidebar_badge": "Pastille de la barre latérale",
+          "entity": "Alarme affichée dans l'en-tête",
+          "illustration_theme": "Thème de l'illustration"
+        },
+        "data_description": {
+          "hide_header": "Les onglets et le bouton menu restent.",
+          "sidebar_badge": "Les capteurs qui empêchent l'armement ; rouge quand l'alarme est déclenchée.",
+          "entity": "Vide : l'alarme maître d'Alarmo, sinon sa première zone.",
+          "illustration_theme": "Auto suit le thème de Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Jamais",
+        "non_admin": "Pour les non-admins",
+        "all": "Pour tout le monde"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Général",
+        "sensors": "Capteurs",
+        "codes": "Codes",
+        "actions": "Actions"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Jour",
+        "night": "Nuit"
+      }
+    }
+  }
+}

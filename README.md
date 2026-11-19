@@ -8,24 +8,28 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/juju35/ha-alarm-card/blob/main/LICENSE)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/julienstep9)
 
-<p align="center"><img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/images/icon.svg" alt="Alarm Card" width="120"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/custom_components/alarm_card/brand/icon.png" alt="Alarm Card" width="120"></p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/images/alarmo.png" alt="Alarmo" width="64">
 </p>
 
-Lovelace cards for Home Assistant to arm and disarm an alarm: state, exit and entry delay countdown, code pad, open sensors and who changed it last.
+Lovelace cards for Home Assistant to arm and disarm an alarm: state, exit and entry delay countdown, code pad, open sensors and who changed it last. Since 2.0 it is an integration that also adds an **Alarm panel** to the sidebar, to set up Alarmo (modes, areas, sensors, codes, notifications and actions) in the cards' style.
 
 The cards work with any [alarm control panel](https://www.home-assistant.io/integrations/alarm_control_panel/) ([Alarmo](https://github.com/nielsfaber/alarmo), [Manual](https://www.home-assistant.io/integrations/manual/), Verisure, Ajax…): the arm modes come from the panel's supported features and the keypad from its code format. Alarmo's extra information (delays, open and bypassed sensors, last trigger, who changed it) is shown when the panel provides it.
 
-[![Open your Home Assistant instance and open a repository inside the Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=juju35&repository=ha-alarm-card&category=plugin)
+[![Open your Home Assistant instance and open a repository inside the Marketplace.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=juju35&repository=ha-alarm-card&category=integration)
 
 | Alarm Card | Alarm Mini Card |
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/card.png" alt="alarm-card" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/mini-card.png" alt="alarm-mini-card" width="400"> |
 
+<p align="center"><img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-general.png" alt="Alarm panel" width="800"></p>
+
 ## Features
 
+- **Alarm panel** in the sidebar (administrators): the same tabs and settings as Alarmo's own panel — General (modes and their delays, areas, master alarm, behaviour after triggering, MQTT), Sensors (every Alarmo option per sensor, adding sensors, sensor groups), Codes (code use, users and their rights), Actions (notifications and actions) — then the panel's Settings, under the cards' illustrated radar header with the arm / disarm buttons
+- Sidebar badge on the Alarm panel: the sensors keeping the alarm from arming, red while it is triggered
 - Two cards: a full **Alarm Card** and a compact, single-row **Alarm Mini Card** (state, countdown and one-tap buttons)
 - Detail button at the top right of the mini card: it switches to the full card and back; a click anywhere outside the card brings the compact view back. On the illustrated header, the compact view's round arm / disarm buttons stand under it, in columns of two added to the left (back to a row under the banner at phone width when there are more than two); the zoomed view keeps them under the header. On the classic header, when the card is too narrow for all its buttons (every arm mode at the default 6 columns), they move to a second row under the name
 - Illustrated header: a surveillance radar around the big state shield — range rings, a sweep with a fading trail, four sensors (door, motion, window, siren) linked to the centre and a surveillance camera with its field of view and a REC light. Grey and still when disarmed; once armed, everything takes the state colour, the sweep turns, each sensor pings as it passes and the camera pans (infrared LEDs at night); amber and blinking during the exit / entry delay; red, fast and pulsing when triggered. Day and night versions (night with the dark theme), and a round state icon in the state colour
@@ -45,11 +49,11 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 - Click the state or a sensor to open its more-info dialog
 - Visual editor in the dashboard UI for both cards (no YAML needed)
 - Light and dark mode, 22 languages (see [Translations](#translations)), reduced-motion aware
-- Single file, no external dependency
+- No external dependency: the integration serves the cards, the panel and the badge itself
 
 ## Supported integrations
 
-The cards work with **any [alarm control panel](https://www.home-assistant.io/integrations/alarm_control_panel/)**: the arm modes come from the panel's supported features and the keypad from its code format.
+The Alarm panel sets up [Alarmo](https://github.com/nielsfaber/alarmo) through its own API (Alarmo keeps the configuration). The cards work with **any [alarm control panel](https://www.home-assistant.io/integrations/alarm_control_panel/)**: the arm modes come from the panel's supported features and the keypad from its code format.
 
 | Integration | What the cards show |
 |---|---|
@@ -58,7 +62,7 @@ The cards work with **any [alarm control panel](https://www.home-assistant.io/in
 
 ## Prerequisites
 
-Home Assistant 2024.8 or later, with an alarm control panel (Alarmo recommended).
+Home Assistant 2024.12 or later, with an alarm control panel (Alarmo recommended, and needed for the Alarm panel).
 
 ## Installation
 
@@ -66,25 +70,48 @@ Home Assistant 2024.8 or later, with an alarm control panel (Alarmo recommended)
 
 Click the button below to add the repository directly:
 
-[![Add to the Marketplace](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=juju35&repository=ha-alarm-card&category=plugin)
+[![Add to the Marketplace](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=juju35&repository=ha-alarm-card&category=integration)
 
-Then click **Install**, and reload your browser when the Marketplace asks you to.
+Then click **Install** and restart Home Assistant.
 
 Or manually:
 
 1. Open **Settings → Marketplace → Add from link** (top right; this needs a GitHub account connected)
-2. Add `https://github.com/juju35/ha-alarm-card` — Type: **Dashboard**
-3. Open **Alarm Card** and click **Install**
-4. Clear your browser cache and refresh
+2. Add `https://github.com/juju35/ha-alarm-card` — Type: **Integration**
+3. Open **Alarm Card**, click **Install** and restart Home Assistant
+
+Then add the integration: **Settings → Devices & services → Add integration → Alarm Card**. It adds the cards to your dashboard resources (in YAML mode they load on every page instead) and the **Alarm** panel to the sidebar.
+
+### Upgrading from 1.x (dashboard plugin)
+
+Up to 1.x the cards were a dashboard plugin; from 2.0 they come with the integration. Install the integration as above, add it, then remove the old **Alarm Card** dashboard plugin from the Marketplace and its `/local/community/ha-alarm-card/alarm-card.js` resource from **Settings → Dashboards → ⋮ → Resources** if it is still there. Your cards keep their YAML.
 
 ### Manual
 
-1. Download `alarm-card.js` and the `alarm-card.i18n.*.js` translation files from the [latest release](https://github.com/juju35/ha-alarm-card/releases/latest)
-2. Copy them all to `/config/www/` (without the translation files, the cards show in English)
-3. Go to **Settings → Dashboards → ⋮ → Resources** → Add resource:
-   - URL: `/local/alarm-card.js`
-   - Type: **JavaScript Module**
-4. Clear your browser cache and refresh
+1. Download `alarm_card.zip` from the [latest release](https://github.com/juju35/ha-alarm-card/releases/latest)
+2. Extract it to `/config/custom_components/alarm_card/`
+3. Restart Home Assistant and add the integration: **Settings → Devices & services → Add integration → Alarm Card**
+
+## Alarm panel
+
+The **Alarm** panel (sidebar, administrators only) sets up Alarmo in the style of the cards. Its header is the card's illustrated radar across the page, with the alarm's state and one round button per arm mode and Disarm (the code is asked first when the alarm needs one). Underneath, the tabs of Alarmo's own panel:
+
+| Tab | What you set |
+|---|---|
+| **General** | The modes (home, away, night, vacation, custom) of each area, with their exit and entry delays and alarm duration; the areas; the master alarm; disarming after triggering and ignoring blocking sensors; MQTT (topics, code) |
+| **Sensors** | Every sensor of the alarm with its live state and why it blocks arming, filtered by area or searched; type, area, group, modes and every Alarmo option (exit / entry delay, arm on close, allow open, auto bypass, trigger when unavailable, always on); adding binary sensors (the type follows the device class); sensor groups |
+| **Codes** | Code to arm, to disarm, to change mode, and the code format; users with their code, rights (arm, disarm, override) and areas |
+| **Actions** | Notifications (event, area, modes, target, title and message with Alarmo's wildcards, a **Try it** button) and actions (an entity turned on or off on an event) |
+| **Settings** | Sidebar title, hiding the top bar (never, for non-admins, for everyone: the tabs and the menu button stay), tabs shown, sidebar badge, the alarm shown in the header and the illustration theme |
+
+Everything is read and written through Alarmo's API, so Alarmo's entities, its own panel, cards and automations keep working; changes made elsewhere show up at once. The same panel settings are in **Settings → Devices & services → Alarm Card → Configure**.
+
+| Light | Dark |
+|---|---|
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-general.png" alt="panel general" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-general-dark.png" alt="panel general dark" width="400"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-sensors.png" alt="panel sensors" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-sensors-dark.png" alt="panel sensors dark" width="400"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-codes.png" alt="panel codes" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-codes-dark.png" alt="panel codes dark" width="400"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-actions.png" alt="panel actions" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-actions-dark.png" alt="panel actions dark" width="400"> |
 
 ## Configuration
 
@@ -241,23 +268,24 @@ Mini card zoomed in with its detail button (top right, click it again or anywher
 
 ```bash
 npm install
-npm run build        # bundles src/alarm-card.js into dist/alarm-card.js
-npm run check        # builds and checks the card (run in CI)
-npm test             # unit tests (node --test)
-npm run screenshots  # renders the cards with mock data (scripts/mock-states.mjs) into screenshots/ (and the triggered/arming GIFs, needs ffmpeg)
+npm run build        # builds src/ (card, panel, badge) into custom_components/alarm_card/frontend/
+npm run check        # builds and checks the frontend (run in CI)
+npm test             # card and panel tests (node --test; the browser tests need Playwright's Chromium)
+pip install -r requirements_test.txt && pytest   # integration tests
+npm run screenshots  # renders the cards and the panel with mock data (scripts/mock-states.mjs) into screenshots/ (and the GIFs, needs ffmpeg)
 ```
 
-`dist/` is not committed: `npm run build` creates it locally, CI builds it on every push, and the release workflow attaches the built file to the release, which is where the Marketplace installs it from.
+The built frontend is not committed: `npm run build` creates it locally, CI builds it on every push, and the release workflow puts it in `alarm_card.zip`, which is what the Marketplace installs.
 
 ### Releasing
 
-1. Bump `version` in `package.json`
+1. Bump the version in `custom_components/alarm_card/manifest.json`, `VERSION` in `custom_components/alarm_card/const.py` and `package.json` (then `npm install` for `package-lock.json`)
 2. Add a `## <version>` section at the top of [CHANGELOG.md](https://github.com/juju35/ha-alarm-card/blob/main/CHANGELOG.md)
-3. Push to `main`: the **Release** workflow builds the card, creates the tag and the GitHub release with the changelog section as notes, and attaches `alarm-card.js`
+3. Push to `main`: the **Release** workflow builds the frontend, creates the tag and the GitHub release with the changelog section as notes, and attaches `alarm_card.zip`
 
 ## Translations
 
-The cards auto-detect the language from your Home Assistant settings. Currently supported:
+The cards, the panel and the integration's settings auto-detect the language from your Home Assistant settings. Currently supported:
 
 | Language | Code |
 |---|---|

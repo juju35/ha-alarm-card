@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Doda kartice alarma na vaše nadzorne plošče in ploščo Alarm za nastavitev Alarmo (načini, območja, senzorji, kode in dejanja) v slogu kartic. Plošča je namenjena skrbnikom."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card je že nastavljena."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Plošča Alarm",
+        "description": "Enake nastavitve kot zavihek Nastavitve na plošči.",
+        "data": {
+          "panel_title": "Naslov v stranski vrstici",
+          "hide_header": "Skrij zgornjo vrstico",
+          "panel_tabs": "Prikazani zavihki",
+          "sidebar_badge": "Značka v stranski vrstici",
+          "entity": "Alarm v glavi",
+          "illustration_theme": "Tema ilustracije"
+        },
+        "data_description": {
+          "hide_header": "Zavihki in gumb menija ostanejo.",
+          "sidebar_badge": "Senzorji, ki preprečujejo vklop; rdeča, ko je alarm sprožen.",
+          "entity": "Prazno: glavni alarm Alarmo, sicer njegovo prvo območje.",
+          "illustration_theme": "Samodejno sledi temi Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Nikoli",
+        "non_admin": "Za neskrbnike",
+        "all": "Za vse"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Splošno",
+        "sensors": "Senzorji",
+        "codes": "Kode",
+        "actions": "Dejanja"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Samodejno",
+        "day": "Dan",
+        "night": "Noč"
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Pievieno signalizācijas kartītes jūsu informācijas paneļiem un paneli Signalizācija Alarmo iestatīšanai (režīmi, zonas, sensori, kodi un darbības) kartīšu stilā. Panelis paredzēts administratoriem."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card jau ir iestatīta."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Panelis Signalizācija",
+        "description": "Tie paši iestatījumi kā paneļa cilnē Iestatījumi.",
+        "data": {
+          "panel_title": "Virsraksts sānjoslā",
+          "hide_header": "Paslēpt augšējo joslu",
+          "panel_tabs": "Rādītās cilnes",
+          "sidebar_badge": "Žetons sānjoslā",
+          "entity": "Galvenē rādītā signalizācija",
+          "illustration_theme": "Ilustrācijas tēma"
+        },
+        "data_description": {
+          "hide_header": "Cilnes un izvēlnes poga paliek.",
+          "sidebar_badge": "Sensori, kas neļauj ieslēgt signalizāciju; sarkans, kad signalizācija nostrādājusi.",
+          "entity": "Tukšs: Alarmo galvenā signalizācija, citādi tās pirmā zona.",
+          "illustration_theme": "Auto seko Home Assistant tēmai."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Nekad",
+        "non_admin": "Ne-administratoriem",
+        "all": "Visiem"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Vispārīgi",
+        "sensors": "Sensori",
+        "codes": "Kodi",
+        "actions": "Darbības"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Diena",
+        "night": "Nakts"
+      }
+    }
+  }
+}

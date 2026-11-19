@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Adds the alarm cards to your dashboards and an Alarm panel to set up Alarmo (modes, areas, sensors, codes and actions) in the cards' style. The panel is for administrators."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Alarm panel",
+        "description": "The same settings as the panel's Settings tab.",
+        "data": {
+          "panel_title": "Sidebar title",
+          "hide_header": "Hide the top bar",
+          "panel_tabs": "Tabs shown",
+          "sidebar_badge": "Sidebar badge",
+          "entity": "Alarm shown in the header",
+          "illustration_theme": "Illustration theme"
+        },
+        "data_description": {
+          "hide_header": "The tabs and the menu button stay.",
+          "sidebar_badge": "The sensors keeping the alarm from arming; red while it is triggered.",
+          "entity": "Empty: Alarmo's master alarm, else its first area.",
+          "illustration_theme": "Auto follows Home Assistant's theme."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Never",
+        "non_admin": "For non-admins",
+        "all": "For everyone"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "General",
+        "sensors": "Sensors",
+        "codes": "Codes",
+        "actions": "Actions"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Day",
+        "night": "Night"
+      }
+    }
+  }
+}

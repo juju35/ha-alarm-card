@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Hozzáadja a riasztókártyákat az irányítópultokhoz, és egy Riasztó panelt az Alarmo beállításához (módok, zónák, érzékelők, kódok és műveletek) a kártyák stílusában. A panel csak rendszergazdáknak szól."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Az Alarm Card már be van állítva."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Riasztó panel",
+        "description": "Ugyanazok a beállítások, mint a panel Beállítások lapján.",
+        "data": {
+          "panel_title": "Cím az oldalsávban",
+          "hide_header": "Felső sáv elrejtése",
+          "panel_tabs": "Megjelenített lapok",
+          "sidebar_badge": "Jelvény az oldalsávban",
+          "entity": "A fejlécben megjelenő riasztó",
+          "illustration_theme": "Az illusztráció témája"
+        },
+        "data_description": {
+          "hide_header": "A lapok és a menügomb megmaradnak.",
+          "sidebar_badge": "Az élesítést akadályozó érzékelők; piros, ha a riasztó jelez.",
+          "entity": "Üres: az Alarmo fő riasztója, különben az első zónája.",
+          "illustration_theme": "Az Auto a Home Assistant témáját követi."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Soha",
+        "non_admin": "Nem rendszergazdáknak",
+        "all": "Mindenkinek"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Általános",
+        "sensors": "Érzékelők",
+        "codes": "Kódok",
+        "actions": "Műveletek"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Nappal",
+        "night": "Éjszaka"
+      }
+    }
+  }
+}

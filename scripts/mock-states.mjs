@@ -95,3 +95,59 @@ export const failedToArm = {
   reason: "open_sensors",
   sensors: ["binary_sensor.kitchen_window", "binary_sensor.patio_door"],
 };
+
+// Alarmo's own data (its websocket commands), for the Alarm panel's screenshots: one area, the sensors above, two
+// users, two notifications and an action. Neutral names only.
+entity("binary_sensor.garage_door", "off", { friendly_name: "Garage door", device_class: "garage_door" }, "zha", 3600);
+entity("binary_sensor.back_door", "off", { friendly_name: "Back door", device_class: "door" }, "zha", 3600);
+entity("binary_sensor.living_room_motion", "off", { friendly_name: "Living room motion", device_class: "motion" }, "zha", 3600);
+entity("siren.outdoor", "off", { friendly_name: "Outdoor siren" }, "zha", 3600);
+const mode = (enabled, exit_time, entry_time, trigger_time = 180) => ({ enabled, exit_time, entry_time, trigger_time });
+const alarmoSensor = (entity_id, type, modes, extra = {}) => ({
+  entity_id, type, modes, use_exit_delay: true, use_entry_delay: type === "door" || type === "motion", arm_on_close: false, allow_open: false,
+  always_on: false, trigger_unavailable: false, auto_bypass: false, auto_bypass_modes: [], area: "home", enabled: true, group: null, ...extra,
+});
+export const alarmo = {
+  config: {
+    code_arm_required: false, code_disarm_required: true, code_mode_change_required: true, code_format: "number",
+    disarm_after_trigger: false, ignore_blocking_sensors_after_trigger: false, master: { enabled: false, name: "master" },
+    mqtt: { enabled: false, state_topic: "alarmo/state", command_topic: "alarmo/command", event_topic: "alarmo/event", require_code: true },
+  },
+  areas: {
+    home: {
+      area_id: "home", name: "Home",
+      modes: { armed_home: mode(true, 0, 30), armed_away: mode(true, 60, 30), armed_night: mode(true, 0, 15), armed_vacation: mode(false, 60, 30), armed_custom_bypass: mode(false, 0, 30) },
+    },
+  },
+  sensors: Object.fromEntries(
+    [
+      alarmoSensor("binary_sensor.front_door", "door", ["armed_away", "armed_night"]),
+      alarmoSensor("binary_sensor.patio_door", "door", ["armed_away", "armed_night", "armed_home"]),
+      alarmoSensor("binary_sensor.kitchen_window", "window", ["armed_away", "armed_night"], { use_exit_delay: false }),
+      alarmoSensor("binary_sensor.bedroom_window", "window", ["armed_away"], { auto_bypass: true, auto_bypass_modes: ["armed_away"] }),
+      alarmoSensor("binary_sensor.hallway_motion", "motion", ["armed_away"]),
+      alarmoSensor("binary_sensor.kitchen_smoke", "environmental", [], { always_on: true, use_exit_delay: false }),
+    ].map((s) => [s.entity_id, s]),
+  ),
+  users: {
+    u1: { user_id: "u1", name: "Alex", enabled: true, can_arm: true, can_disarm: true, is_override_code: false, area_limit: [], code_format: "number", code_length: 4 },
+    u2: { user_id: "u2", name: "Sam", enabled: true, can_arm: true, can_disarm: true, is_override_code: true, area_limit: [], code_format: "number", code_length: 4 },
+    u3: { user_id: "u3", name: "Guest", enabled: false, can_arm: false, can_disarm: true, is_override_code: false, area_limit: [], code_format: "number", code_length: 4 },
+  },
+  automations: {
+    a1: {
+      automation_id: "a1", type: "notification", name: "Alarm triggered", enabled: true,
+      triggers: [{ event: "triggered", area: 0, modes: [] }], actions: [{ service: "notify.mobile_app_phone", data: { title: "Alarm!", message: "Triggered by {{open_sensors}}" } }],
+    },
+    a2: {
+      automation_id: "a2", type: "notification", name: "Failed to arm", enabled: true,
+      triggers: [{ event: "arm_failure", area: 0, modes: [] }], actions: [{ service: "notify.mobile_app_phone", data: { title: "", message: "Open: {{open_sensors}}" } }],
+    },
+    a3: {
+      automation_id: "a3", type: "action", name: "Siren when triggered", enabled: true,
+      triggers: [{ event: "triggered", area: 0, modes: [] }], actions: [{ service: "siren.turn_on", entity_id: "siren.outdoor" }],
+    },
+  },
+  sensor_groups: {},
+  entities: [{ entity_id: "alarm_control_panel.alarmo", area_id: "home" }],
+};

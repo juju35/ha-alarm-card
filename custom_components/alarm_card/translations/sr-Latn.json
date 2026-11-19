@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Dodaje kartice alarma na vaše kontrolne table i panel Alarm za podešavanje Alarmo (režimi, zone, senzori, kodovi i akcije) u stilu kartica. Panel je namenjen administratorima."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card je već podešena."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Panel Alarm",
+        "description": "Ista podešavanja kao kartica Podešavanja u panelu.",
+        "data": {
+          "panel_title": "Naslov u bočnoj traci",
+          "hide_header": "Sakrij gornju traku",
+          "panel_tabs": "Prikazane kartice",
+          "sidebar_badge": "Značka u bočnoj traci",
+          "entity": "Alarm prikazan u zaglavlju",
+          "illustration_theme": "Tema ilustracije"
+        },
+        "data_description": {
+          "hide_header": "Kartice i dugme menija ostaju.",
+          "sidebar_badge": "Senzori koji sprečavaju uključivanje; crvena kada je alarm aktiviran.",
+          "entity": "Prazno: glavni alarm Alarmo, inače njegova prva zona.",
+          "illustration_theme": "Auto prati temu Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Nikad",
+        "non_admin": "Za ne-administratore",
+        "all": "Za sve"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Opšte",
+        "sensors": "Senzori",
+        "codes": "Kodovi",
+        "actions": "Akcije"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Dan",
+        "night": "Noć"
+      }
+    }
+  }
+}

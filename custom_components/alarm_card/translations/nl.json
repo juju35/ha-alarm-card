@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Voegt de alarmkaarten toe aan je dashboards en een Alarm-paneel om Alarmo (modi, gebieden, sensoren, codes en acties) in de stijl van de kaarten in te stellen. Het paneel is voor beheerders."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card is al ingesteld."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Alarm-paneel",
+        "description": "Dezelfde instellingen als het tabblad Instellingen van het paneel.",
+        "data": {
+          "panel_title": "Titel in de zijbalk",
+          "hide_header": "Bovenbalk verbergen",
+          "panel_tabs": "Getoonde tabbladen",
+          "sidebar_badge": "Badge in de zijbalk",
+          "entity": "Alarm in de koptekst",
+          "illustration_theme": "Thema van de illustratie"
+        },
+        "data_description": {
+          "hide_header": "De tabbladen en de menuknop blijven.",
+          "sidebar_badge": "De sensoren die het inschakelen tegenhouden; rood als het alarm afgaat.",
+          "entity": "Leeg: het hoofdalarm van Alarmo, anders het eerste gebied.",
+          "illustration_theme": "Auto volgt het thema van Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Nooit",
+        "non_admin": "Voor niet-beheerders",
+        "all": "Voor iedereen"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Algemeen",
+        "sensors": "Sensoren",
+        "codes": "Codes",
+        "actions": "Acties"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Dag",
+        "night": "Nacht"
+      }
+    }
+  }
+}

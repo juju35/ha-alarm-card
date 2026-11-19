@@ -1,0 +1,59 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Tilføjer alarmkortene til dine dashboards og et Alarm-panel til at opsætte Alarmo (tilstande, områder, sensorer, koder og handlinger) i kortenes stil. Panelet er for administratorer."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card er allerede sat op."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Alarm-panel",
+        "description": "De samme indstillinger som panelets fane Indstillinger.",
+        "data": {
+          "panel_title": "Titel i sidebjælken",
+          "hide_header": "Skjul topbjælken",
+          "panel_tabs": "Viste faner",
+          "sidebar_badge": "Mærke i sidebjælken",
+          "entity": "Alarm vist i overskriften",
+          "illustration_theme": "Illustrationens tema"
+        },
+        "data_description": {
+          "hide_header": "Fanerne og menuknappen bliver.",
+          "sidebar_badge": "Sensorerne, der forhindrer tilkobling; rød, når alarmen er udløst.",
+          "entity": "Tom: Alarmos masteralarm, ellers dens første område.",
+          "illustration_theme": "Auto følger Home Assistants tema."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Aldrig",
+        "non_admin": "For ikke-administratorer",
+        "all": "For alle"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Generelt",
+        "sensors": "Sensorer",
+        "codes": "Koder",
+        "actions": "Handlinger"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Dag",
+        "night": "Nat"
+      }
+    }
+  }
+}
