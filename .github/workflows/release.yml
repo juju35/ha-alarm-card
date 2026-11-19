@@ -85,7 +85,7 @@ jobs:
         run: |
           apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends zip unzip
           (cd custom_components/alarm_card && zip -r ../../alarm_card.zip . -x "__pycache__/*")
-          unzip -l alarm_card.zip | grep -q "frontend/alarm-panel.js"
+          unzip -Z1 alarm_card.zip | grep -x "frontend/alarm-panel.js" > /dev/null
 
       - name: Publish release
         if: steps.version.outputs.exists == 'false'

@@ -132,6 +132,9 @@ async def test_options_flow_saves_the_panel_settings(hass: HomeAssistant) -> Non
         },
     )
     assert result["type"] is FlowResultType.CREATE_ENTRY
+    # The update listener re-registers the panel (new title) in a task: let it finish inside the test.
+    await hass.async_block_till_done()
+    assert _panel(hass).sidebar_title == "Security"
     assert entry.options == {
         **DEFAULTS,
         "panel_title": "Security",
