@@ -1,4 +1,4 @@
-// Renders the cards with mock alarm data and saves the README screenshots.
+// Renders the cards and the Alarm panel with mock alarm data and saves the README screenshots.
 // Usage: npm run build && npm run screenshots
 import { chromium } from "playwright";
 import { execFileSync } from "node:child_process";
@@ -6,11 +6,13 @@ import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileS
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { NOW, states, entities, sensors, logbook } from "./mock-states.mjs";
+import { NOW, states, entities, sensors, logbook, alarmo, areas, history } from "./mock-states.mjs";
 import { shots, gifs } from "./screenshot-shots.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
-const cardJs = readFileSync(`${root}dist/alarm-card.js`, "utf8");
+const FRONTEND = `${root}custom_components/alarm_card/frontend`;
+const cardJs = readFileSync(`${FRONTEND}/alarm-card.js`, "utf8");
+const panelJs = readFileSync(`${FRONTEND}/alarm-panel.js`, "utf8");
 const work = mkdtempSync(join(tmpdir(), "al-shots-"));
 
 // The decoded pixels of an image or animation, frame by frame (size, timing and an MD5 of each RGBA frame):
@@ -68,25 +70,12 @@ const page_html = (theme, width) => `<!doctype html><html><head><meta charset="u
 
 const PANEL = "alarm_control_panel.alarmo";
 
-// Opens a fresh page for one shot and mounts the card with its mock states and overrides.
+// Opens a fresh page for one shot and mounts the card (or the panel, type "panel") with its mock states and overrides.
 async function openCard(browser, s) {
-  // A new page per shot: the card's script declares top-level names, which cannot be evaluated twice in one page.
-  // Same time zone as this script (the mock's local timestamps) and a fixed locale, whatever the machine.
-  const page = await browser.newPage({
-    deviceScaleFactor: 2,
-    viewport: { width: 1000, height: 2000 },
-    timezoneId: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    locale: "en-US",
-  });
-  page.on("pageerror", (err) => console.error(`pageerror (${s.file}): ${err.message}`));
-  // The page's clock stands still at the mock's NOW: "for 2 h 05", the countdown and its bar never drift.
-  await page.clock.setFixedTime(NOW);
+  if (s.type === "panel") return openPanel(browser, s);
+  const page = await newShotPage(browser, s, { width: 1000, height: 2000 });
   await page.setContent(page_html(s.theme, s.width));
-  // document.getAnimations() leaves out the card's shadow DOM: this one walks into every shadow root.
-  await page.evaluate(() => {
-    const walk = (root) => [...root.getAnimations(), ...[...root.querySelectorAll("*")].flatMap((el) => (el.shadowRoot ? walk(el.shadowRoot) : []))];
-    window.allAnimations = () => walk(document);
-  });
+  await trackAnimations(page);
   await page.addScriptTag({ content: HA_CARD });
   await page.addScriptTag({ content: cardJs });
   await page.evaluate(
@@ -110,6 +99,64 @@ async function openCard(browser, s) {
       document.getElementById("root").appendChild(el);
     },
     { type: s.type, config: s.config, states, entities, sensors, PANEL, overrides: s.overrides, logbook, event: s.event, dark: s.theme === "dark" }
+  );
+  return page;
+}
+
+// A new page per shot: the card's script declares top-level names, which cannot be evaluated twice in one page.
+// Same time zone as this script (the mock's local timestamps) and a fixed locale, whatever the machine; the page's
+// clock stands still at the mock's NOW: "for 2 h 05", the countdown and its bar never drift.
+async function newShotPage(browser, s, viewport) {
+  const page = await browser.newPage({ deviceScaleFactor: 2, viewport, timezoneId: Intl.DateTimeFormat().resolvedOptions().timeZone, locale: "en-US" });
+  page.on("pageerror", (err) => console.error(`pageerror (${s.file}): ${err.message}`));
+  await page.clock.setFixedTime(NOW);
+  return page;
+}
+
+// document.getAnimations() leaves out the shadow DOM: window.allAnimations() walks into every shadow root.
+const trackAnimations = (page) =>
+  page.evaluate(() => {
+    const walk = (root) => [...root.getAnimations(), ...[...root.querySelectorAll("*")].flatMap((el) => (el.shadowRoot ? walk(el.shadowRoot) : []))];
+    window.allAnimations = () => walk(document);
+  });
+
+// The Alarm panel on a page of its own, on the tab of the shot, with Alarmo's mock data behind its websocket calls.
+async function openPanel(browser, s) {
+  const page = await newShotPage(browser, s, { width: s.width, height: 900 });
+  // Served at the panel's address, as in Home Assistant: the panel reads its tab from the path.
+  const html = page_html(s.theme, s.width).replace("padding: 16px;", "padding: 0;");
+  await page.route("http://ha.local/**", (route) => route.fulfill({ body: html, contentType: "text/html" }));
+  await page.goto(`http://ha.local/alarm-panel/${s.tab}`);
+  await trackAnimations(page);
+  await page.addScriptTag({ content: cardJs });
+  await page.addScriptTag({ content: panelJs });
+  await page.evaluate(
+    ({ states, entities, areas, history, alarmo, overrides, dark, options, open }) => {
+      for (const [id, o] of Object.entries(overrides || {})) states[id] = { ...states[id], ...o };
+      const el = document.createElement("alarm-card-panel");
+      el.panel = { config: {} };
+      el.narrow = false;
+      el.hass = {
+        states, entities, areas, devices: {}, language: "en", locale: { language: "en" }, themes: { darkMode: dark }, user: { is_admin: true },
+        services: { notify: { mobile_app_phone: {} } },
+        callService: async () => {},
+        callApi: async () => ({ success: true }),
+        callWS: async (msg) =>
+          msg.type === "history/history_during_period"
+            ? history
+            : msg.type === "alarm_card/settings"
+            ? { options: { panel_title: "Alarm", hide_header: "off", panel_tabs: ["general", "sensors", "codes", "actions", "timeline"], sidebar_badge: true, entity: "", illustration_theme: "auto", ...options }, admin: true, alarmo: true }
+            : alarmo[msg.type.replace("alarmo/", "")],
+        connection: { subscribeMessage: async () => () => {}, subscribeEvents: async () => () => {} },
+      };
+      document.getElementById("root").appendChild(el);
+      // The open tiles of the shot (an editor), once Alarmo's data is in.
+      setTimeout(() => {
+        for (const id of open || []) (id.startsWith("r-") || id.startsWith("t-") ? el._tlState().open : el._open).add(id);
+        el._renderPage();
+      }, 200);
+    },
+    { states, entities, areas, history, alarmo, overrides: s.overrides, dark: s.theme === "dark", options: s.options, open: s.open },
   );
   return page;
 }
@@ -141,7 +188,9 @@ async function makeGif(browser, gif, { fps = 20, seconds = 3 } = {}) {
 const browser = await chromium.launch(
   process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}
 );
-for (const s of shots) {
+// SHOTS=<regexp>: only the matching screenshots, no animation (a quick look while working on one view).
+const only = process.env.SHOTS ? new RegExp(process.env.SHOTS) : null;
+for (const s of shots.filter((x) => !only || only.test(x.file))) {
   const page = await openCard(browser, s);
   for (const sel of s.clicks || []) {
     // A mouse click (detail 1), not .click(): a keyboard-like click would move the focus and show its ring.
@@ -160,15 +209,17 @@ for (const s of shots) {
   await page.evaluate(() => { for (const a of window.allAnimations()) { a.pause(); a.currentTime = 0; } });
   const box = await page.locator("#root").boundingBox();
   const fresh = join(work, `${s.file}.png`);
+  // The panel fills its page edge to edge; a card stands on the page's 16 px padding.
+  const pad = s.type === "panel" ? 0 : 32;
   writeFileSync(
     fresh,
-    await page.screenshot({ clip: { x: 0, y: 0, width: s.width + 32, height: Math.ceil(box.height) + 32 }, animations: "disabled" })
+    await page.screenshot({ clip: { x: 0, y: 0, width: s.width + pad, height: Math.ceil(box.height) + pad }, animations: "disabled" })
   );
   keep(fresh, `${s.file}.png`);
   await page.close();
 }
 
 // One looping GIF per distinct shield animation (see scripts/screenshot-shots.mjs).
-for (const gif of gifs) await makeGif(browser, gif, { seconds: gif.seconds || 3 });
+for (const gif of only ? [] : gifs) await makeGif(browser, gif, { seconds: gif.seconds || 3 });
 await browser.close();
 rmSync(work, { recursive: true });

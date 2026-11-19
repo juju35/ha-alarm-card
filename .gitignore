@@ -1,3 +1,7 @@
 node_modules/
 dist/
 report/
+custom_components/alarm_card/frontend/
+__pycache__/
+.pytest_cache/
+*.pyc

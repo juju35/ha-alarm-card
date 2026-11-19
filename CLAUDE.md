@@ -23,24 +23,34 @@ pre-commit run -a
 npx --yes jscpd@5.4.2 .
 npm run check
 node --test test/*.test.mjs
+pytest
 ```
 
 ## Releasing — how it works here
-A release is **automatic**: on push to `main`, if `package.json` carries a version with
-no matching tag, the Release workflow publishes `vX.Y.Z`. **Never create a tag by hand.**
-`dist/` is **not** committed — the bundle is built in CI and attached to the release.
+A release is **automatic**: on push to `main`, if the version has no matching tag, the Release workflow builds the
+frontend and publishes `vX.Y.Z` with `alarm_card.zip` (the Marketplace installs it: `hacs.json` → `zip_release`).
+**Never create a tag by hand.** The built frontend (`custom_components/alarm_card/frontend/`) is **not** committed.
 
-The `Version consistency` check (validate.yml) requires the **same version in every place**,
-or the release fails.
+The `Version consistency` check (validate.yml) requires the **same version in every place**, or the release fails.
 
 ## Bumping the version
-This is a **CARD** repo. A bump is complete only when **every** file below
-carries the new version, updated together in one commit:
+This is an **INTEGRATION WITH A PANEL** repo (it serves the cards, the Alarm panel and its sidebar badge). A bump is
+complete only when **every** file below carries the new version, updated together in one commit:
 1. `CHANGELOG.md` → add a "## X.Y.Z - YYYY-MM-DD" section at the top (`### Features` | `Fixes` | `Performance` | `Maintenance`).
-2. `package.json` → `"version": "X.Y.Z"`.
-3. `package-lock.json` → run `npm install` so its version matches (CI checks it).
+2. `custom_components/alarm_card/manifest.json` → `"version": "X.Y.Z"`.
+3. `custom_components/alarm_card/const.py` → `VERSION: Final = "X.Y.Z"`.
+4. `package.json` → `"version": "X.Y.Z"`, then `npm install` so `package-lock.json` matches (CI checks it).
+- The card's, panel's and badge's JS take the manifest's version at build time (`__VERSION__`, scripts/build.mjs): no constant to bump there.
 - Bump rule: `fix` → patch, `feat` → minor, breaking change → major.
 - The PR/commit title carries the version in parentheses, e.g. `feat: new option (X.Y.Z)`.
+
+## Layout
+- `src/alarm-card.js` (the cards), `src/alarm-panel.js` (the Alarm panel), `src/alarm-badge.js` (its sidebar badge):
+  built by `npm run build` into `custom_components/alarm_card/frontend/`.
+- The panel reads and writes Alarmo only through Alarmo's API (`alarmo/*` websocket commands, `/api/alarmo/*` views);
+  its own settings are the config entry's options (`alarm_card/settings`, `alarm_card/update_settings`).
+- The panel draws its header with the card's helpers (`window.AlarmCardKit`, exported by the card).
+- Python checks: `ruff`, `vulture custom_components .vulture_whitelist.py --min-confidence 60`, `pytest`.
 
 ## README layout
 - Header order: H1, then the badge row, then the repo's **own logo** centered under the badges —
@@ -60,7 +70,8 @@ This builds on other Home Assistant integrations, so keep the `## Supported inte
 ## Translations
 - English is the source. Keep every language in sync when a user-facing string changes.
 - Languages to keep in sync: en, fr, de, es, it, nl, pt, pl, sr, sr-Latn, ro, da, sv, bg, ru, uk, hu, sk, cs, sl, lv, el (no Irish or Maltese).
-- Card UI strings are split per language by `scripts/i18n-split.mjs`; the non-English outputs are generated — **do not hand-edit them**; a CI check fails if the split is stale.
+- Card and panel UI strings are split per language by `scripts/i18n-split.mjs` at build time (the sources keep every language).
+- The integration's own strings are in `custom_components/alarm_card/translations/*.json` (pytest checks their keys).
 
 ## Screenshots — do not edit or commit them by hand
 The Screenshots workflow regenerates them on the PR branch and commits them with `[skip ci]`.

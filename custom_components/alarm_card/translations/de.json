@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Fügt die Alarmkarten zu deinen Dashboards hinzu und ein Alarm-Panel, um Alarmo (Modi, Bereiche, Sensoren, Codes und Aktionen) im Stil der Karten einzurichten. Das Panel ist Administratoren vorbehalten."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Alarm-Panel",
+        "description": "Dieselben Einstellungen wie im Tab Einstellungen des Panels.",
+        "data": {
+          "panel_title": "Titel in der Seitenleiste",
+          "hide_header": "Obere Leiste ausblenden",
+          "panel_tabs": "Angezeigte Tabs",
+          "sidebar_badge": "Badge in der Seitenleiste",
+          "entity": "Im Kopfbereich angezeigter Alarm",
+          "illustration_theme": "Thema der Illustration"
+        },
+        "data_description": {
+          "hide_header": "Die Tabs und die Menütaste bleiben.",
+          "sidebar_badge": "Die Sensoren, die das Scharfschalten verhindern; rot, wenn der Alarm ausgelöst ist.",
+          "entity": "Leer: Alarmos Master-Alarm, sonst sein erster Bereich.",
+          "illustration_theme": "Auto folgt dem Thema von Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Nie",
+        "non_admin": "Für Nicht-Admins",
+        "all": "Für alle"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Allgemein",
+        "sensors": "Sensoren",
+        "codes": "Codes",
+        "actions": "Aktionen",
+        "timeline": "Zeitleiste"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Tag",
+        "night": "Nacht"
+      }
+    }
+  }
+}

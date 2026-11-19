@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Lägger till larmkorten i dina instrumentpaneler och en Larm-panel för att ställa in Alarmo (lägen, områden, sensorer, koder och åtgärder) i kortens stil. Panelen är för administratörer."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card är redan inställt."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Larm-panel",
+        "description": "Samma inställningar som panelens flik Inställningar.",
+        "data": {
+          "panel_title": "Titel i sidofältet",
+          "hide_header": "Dölj toppfältet",
+          "panel_tabs": "Visade flikar",
+          "sidebar_badge": "Märke i sidofältet",
+          "entity": "Larm som visas i sidhuvudet",
+          "illustration_theme": "Illustrationens tema"
+        },
+        "data_description": {
+          "hide_header": "Flikarna och menyknappen finns kvar.",
+          "sidebar_badge": "Sensorerna som hindrar larmet från att aktiveras; röd när larmet har utlösts.",
+          "entity": "Tomt: Alarmos huvudlarm, annars dess första område.",
+          "illustration_theme": "Auto följer Home Assistants tema."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Aldrig",
+        "non_admin": "För icke-administratörer",
+        "all": "För alla"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Allmänt",
+        "sensors": "Sensorer",
+        "codes": "Koder",
+        "actions": "Åtgärder",
+        "timeline": "Tidslinje"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Dag",
+        "night": "Natt"
+      }
+    }
+  }
+}

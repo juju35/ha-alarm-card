@@ -1,0 +1,24 @@
+{
+  "domain": "alarm_card",
+  "name": "Alarm Card",
+  "after_dependencies": [
+    "lovelace"
+  ],
+  "codeowners": [
+    "@juju35"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "frontend",
+    "http",
+    "panel_custom",
+    "websocket_api"
+  ],
+  "documentation": "https://github.com/juju35/ha-alarm-card",
+  "integration_type": "service",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/juju35/ha-alarm-card/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "2.0.0"
+}

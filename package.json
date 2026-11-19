@@ -1,12 +1,12 @@
 {
   "name": "ha-alarm-card",
-  "version": "1.15.0",
-  "description": "Lovelace cards for Home Assistant to arm and disarm alarm control panels (Alarmo or any other integration).",
+  "version": "2.0.0",
+  "description": "Alarm cards and an Alarmo setup panel for Home Assistant (integration).",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "node scripts/build.mjs && node --check dist/alarm-card.js",
+    "check": "node scripts/build.mjs && for f in custom_components/alarm_card/frontend/*.js; do node --check \"$f\" || exit 1; done",
     "test": "node --test test/*.test.mjs",
     "screenshots": "node scripts/screenshots.mjs"
   },

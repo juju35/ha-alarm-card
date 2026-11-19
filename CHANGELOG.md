@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.0.0 - 2026-11-19
+
+### Features
+- **Alarm panel**: the repository becomes an integration (`alarm_card`) that serves the cards and adds an **Alarm** panel to the sidebar, for administrators, to set up [Alarmo](https://github.com/nielsfaber/alarmo) in the cards' style. It has the same tabs and settings as Alarmo's own panel — **General** (the modes of each area with their exit / entry delays and alarm duration, the areas, the master alarm, disarming after triggering, ignoring blocking sensors, MQTT), **Sensors** (every sensor with its live state and why it blocks arming, filtered by area or searched, with every Alarmo option; adding binary sensors, their type taken from the device class; sensor groups), **Codes** (code to arm / disarm / change mode, code format, users with their code, rights and areas) and **Actions** (notifications with Alarmo's wildcards and a **Try it** button, actions on an entity) — then **Settings**. Everything goes through Alarmo's own API, so its entities, panel, cards and automations are unchanged, and changes made elsewhere show up at once.
+- The panel's header is the card's illustrated surveillance radar across the page, following the alarm's state, with a round button per arm mode and Disarm (the code is asked first, at the top of the panel, when the alarm needs one); on a phone the buttons move under the header. Tabs under the header as on the other ha-* panels, the tab in the address; tiles in the cards' style (round tinted icon, coloured state line, state pill), unfoldable editors, popups at the top.
+- Panel settings, in its Settings tab and in **Configure**: sidebar title, hiding the top bar (never, for non-admins, for everyone — the tabs and the menu button stay, hidden from the very first display), tabs shown, sidebar badge, the alarm shown in the header, illustration theme.
+- **Timeline** tab: the activity of the alarm's sensors over 6 h, 24 h or 3 days from Home Assistant's history — summary tiles (events, triggers, most active sensor, longest opening), the alarm's state as a band on top, then one row per room (a thin lane per sensor, unfolding into a row per sensor), per sensor type, or ungrouped, sorted by recent activity, activity or name. Armed periods shade the rows, entry delays and triggers are drawn through every row, grid lines every few hours with midnight marked, a tooltip per opening (times, duration, the alarm's state then); filters by room and sensor type. The grouping, the sort and the filters are remembered by the browser.
+- **Sidebar badge**: the number of sensors keeping the alarm from arming on the Alarm panel's sidebar item, like Home Assistant's notifications count; red (with "!" when no sensor is to blame) while an Alarmo alarm is triggered.
+- The panel and the integration's settings in the 22 languages; the panel's translations are loaded on demand like the cards'.
+
+### Breaking changes
+- The Marketplace type changes from **Dashboard** to **Integration** and Home Assistant 2024.12 is now the minimum: install the integration, add it in **Settings → Devices & services**, then remove the old dashboard plugin and its `/local/community/ha-alarm-card/alarm-card.js` resource (see the README). The cards' YAML is unchanged.
+
 ## 1.15.0 - 2026-11-18
 
 ### Features

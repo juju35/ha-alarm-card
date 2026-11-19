@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Añade las tarjetas de alarma a tus paneles y un panel Alarma para configurar Alarmo (modos, zonas, sensores, códigos y acciones) con el estilo de las tarjetas. El panel está reservado a los administradores."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card ya está configurada."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Panel Alarma",
+        "description": "Los mismos ajustes que la pestaña Ajustes del panel.",
+        "data": {
+          "panel_title": "Título en la barra lateral",
+          "hide_header": "Ocultar la barra superior",
+          "panel_tabs": "Pestañas mostradas",
+          "sidebar_badge": "Insignia de la barra lateral",
+          "entity": "Alarma mostrada en el encabezado",
+          "illustration_theme": "Tema de la ilustración"
+        },
+        "data_description": {
+          "hide_header": "Las pestañas y el botón de menú se mantienen.",
+          "sidebar_badge": "Los sensores que impiden armar; en rojo cuando la alarma está disparada.",
+          "entity": "Vacío: la alarma maestra de Alarmo, si no su primera zona.",
+          "illustration_theme": "Auto sigue el tema de Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Nunca",
+        "non_admin": "Para los no administradores",
+        "all": "Para todos"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "General",
+        "sensors": "Sensores",
+        "codes": "Códigos",
+        "actions": "Acciones",
+        "timeline": "Cronología"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Día",
+        "night": "Noche"
+      }
+    }
+  }
+}

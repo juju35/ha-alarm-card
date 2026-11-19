@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Добавя картите за аларма към таблата ви и панел Аларма за настройка на Alarmo (режими, зони, сензори, кодове и действия) в стила на картите. Панелът е само за администратори."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card вече е настроена."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Панел Аларма",
+        "description": "Същите настройки като раздела Настройки на панела.",
+        "data": {
+          "panel_title": "Заглавие в страничната лента",
+          "hide_header": "Скриване на горната лента",
+          "panel_tabs": "Показани раздели",
+          "sidebar_badge": "Значка в страничната лента",
+          "entity": "Аларма в заглавката",
+          "illustration_theme": "Тема на илюстрацията"
+        },
+        "data_description": {
+          "hide_header": "Разделите и бутонът за меню остават.",
+          "sidebar_badge": "Сензорите, които пречат на включването; червена при задействана аларма.",
+          "entity": "Празно: главната аларма на Alarmo, иначе първата ѝ зона.",
+          "illustration_theme": "Авто следва темата на Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Никога",
+        "non_admin": "За неадминистратори",
+        "all": "За всички"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Общи",
+        "sensors": "Сензори",
+        "codes": "Кодове",
+        "actions": "Действия",
+        "timeline": "Времева линия"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Авто",
+        "day": "Ден",
+        "night": "Нощ"
+      }
+    }
+  }
+}

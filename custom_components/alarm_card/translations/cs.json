@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Přidá karty alarmu na vaše ovládací panely a panel Alarm pro nastavení Alarmo (režimy, zóny, senzory, kódy a akce) ve stylu karet. Panel je určen administrátorům."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card je již nastavena."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Panel Alarm",
+        "description": "Stejná nastavení jako záložka Nastavení panelu.",
+        "data": {
+          "panel_title": "Název v postranním panelu",
+          "hide_header": "Skrýt horní lištu",
+          "panel_tabs": "Zobrazené záložky",
+          "sidebar_badge": "Odznak v postranním panelu",
+          "entity": "Alarm zobrazený v záhlaví",
+          "illustration_theme": "Téma ilustrace"
+        },
+        "data_description": {
+          "hide_header": "Záložky a tlačítko nabídky zůstávají.",
+          "sidebar_badge": "Senzory, které brání aktivaci; červený, když je alarm spuštěn.",
+          "entity": "Prázdné: hlavní alarm Alarmo, jinak jeho první zóna.",
+          "illustration_theme": "Auto sleduje téma Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Nikdy",
+        "non_admin": "Pro neadministrátory",
+        "all": "Pro všechny"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Obecné",
+        "sensors": "Senzory",
+        "codes": "Kódy",
+        "actions": "Akce",
+        "timeline": "Časová osa"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Den",
+        "night": "Noc"
+      }
+    }
+  }
+}

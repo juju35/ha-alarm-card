@@ -4407,6 +4407,10 @@ define("alarm-mini-card", AlarmMiniCard);
 define("alarm-card-editor", AlarmCardEditor);
 define("alarm-mini-card-editor", AlarmMiniCardEditor);
 
+// The Alarm panel (alarm-panel.js, served by the integration) imports this file and draws its header with the
+// card's own picture, styles and helpers.
+window.AlarmCardKit = { VERSION, alarmRadar, shield, isNight, stateClass, esc, svgIcon, ICONS, STATE_ICON, MODES, BASE_STYLE, SCENE_STYLE };
+
 window.customCards = window.customCards || [];
 for (const card of [
   {

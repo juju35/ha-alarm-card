@@ -1,6 +1,6 @@
 // The README screenshots and animations, as data: scripts/screenshots.mjs renders them and
 // test/screenshots.test.mjs checks that every light shot has a dark twin showing the same state.
-import { armedAway, arming, buttons, failedToArm, triggered, withCode } from "./mock-states.mjs";
+import { armedAway, armedAwayNow, arming, buttons, failedToArm, triggered, withCode } from "./mock-states.mjs";
 
 export const shots = [
   { file: "card", type: "alarm-card", theme: "light", width: 460, config: {} },
@@ -23,6 +23,17 @@ export const shots = [
   // Alarmo refused to arm away over open sensors: the popup at the top of the card, with "Arm anyway".
   { file: "card-failed-arm", type: "alarm-card", theme: "light", width: 460, config: {}, event: failedToArm },
   { file: "card-failed-arm-dark", type: "alarm-card", theme: "dark", width: 460, config: {}, event: failedToArm },
+  // The Alarm panel (integration): one shot per tab, a sensor's editor open on the Sensors tab.
+  { file: "panel-general", type: "panel", theme: "light", width: 1100, tab: "general" },
+  { file: "panel-general-dark", type: "panel", theme: "dark", width: 1100, tab: "general" },
+  { file: "panel-sensors", type: "panel", theme: "light", width: 1100, tab: "sensors", open: ["sensor:binary_sensor.kitchen_window"] },
+  { file: "panel-sensors-dark", type: "panel", theme: "dark", width: 1100, tab: "sensors", open: ["sensor:binary_sensor.kitchen_window"] },
+  { file: "panel-codes", type: "panel", theme: "light", width: 1100, tab: "codes", overrides: armedAway },
+  { file: "panel-codes-dark", type: "panel", theme: "dark", width: 1100, tab: "codes", overrides: armedAway },
+  { file: "panel-actions", type: "panel", theme: "light", width: 1100, tab: "actions", open: ["auto:a1"] },
+  { file: "panel-actions-dark", type: "panel", theme: "dark", width: 1100, tab: "actions", open: ["auto:a1"] },
+  { file: "panel-timeline", type: "panel", theme: "light", width: 1100, tab: "timeline", overrides: armedAwayNow, open: ["r-kitchen"] },
+  { file: "panel-timeline-dark", type: "panel", theme: "dark", width: 1100, tab: "timeline", overrides: armedAwayNow, open: ["r-kitchen"] },
 ];
 
 // One looping GIF per distinct animation: triggered, arming and armed (one full radar turn) — each in light and dark.

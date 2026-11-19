@@ -1,0 +1,60 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Alarm Card",
+        "description": "Dodaje karty alarmu do pulpitów oraz panel Alarm do konfiguracji Alarmo (tryby, strefy, czujniki, kody i akcje) w stylu kart. Panel jest dostępny tylko dla administratorów."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Alarm Card jest już skonfigurowana."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Panel Alarm",
+        "description": "Te same ustawienia co karta Ustawienia panelu.",
+        "data": {
+          "panel_title": "Tytuł na pasku bocznym",
+          "hide_header": "Ukryj górny pasek",
+          "panel_tabs": "Wyświetlane karty",
+          "sidebar_badge": "Plakietka na pasku bocznym",
+          "entity": "Alarm w nagłówku",
+          "illustration_theme": "Motyw ilustracji"
+        },
+        "data_description": {
+          "hide_header": "Karty i przycisk menu pozostają.",
+          "sidebar_badge": "Czujniki blokujące uzbrojenie; czerwona, gdy alarm jest wyzwolony.",
+          "entity": "Puste: alarm główny Alarmo, w przeciwnym razie jego pierwsza strefa.",
+          "illustration_theme": "Auto podąża za motywem Home Assistant."
+        }
+      }
+    }
+  },
+  "selector": {
+    "hide_header": {
+      "options": {
+        "off": "Nigdy",
+        "non_admin": "Dla nieadministratorów",
+        "all": "Dla wszystkich"
+      }
+    },
+    "panel_tabs": {
+      "options": {
+        "general": "Ogólne",
+        "sensors": "Czujniki",
+        "codes": "Kody",
+        "actions": "Akcje",
+        "timeline": "Oś czasu"
+      }
+    },
+    "illustration_theme": {
+      "options": {
+        "auto": "Auto",
+        "day": "Dzień",
+        "night": "Noc"
+      }
+    }
+  }
+}

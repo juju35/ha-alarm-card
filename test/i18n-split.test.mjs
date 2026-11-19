@@ -9,10 +9,10 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 const MAIN = "alarm-card.js";
 const STEM = MAIN.replace(/\.js$/, "");
-// Built in a copy of the repository, so that tests reading dist/ meanwhile never see a half-written file.
+// Built in a copy of the repository, so that tests reading the frontend meanwhile never see a half-written file.
 const repo = fileURLToPath(new URL("../", import.meta.url));
 const tmp = mkdtempSync(`${tmpdir()}/i18n-split-`);
-const skip = new Set(["dist", "node_modules", ".git", "screenshots"]);
+const skip = new Set(["dist", "node_modules", ".git", "screenshots", "tests"]);
 for (const f of readdirSync(repo)) if (!skip.has(f)) cpSync(`${repo}${f}`, `${tmp}/${f}`, { recursive: true });
 symlinkSync(`${repo}node_modules`, `${tmp}/node_modules`);
 // Run through a symlink, as on macOS where os.tmpdir() (/var/folders) is a link to /private/var/folders: the build
@@ -22,10 +22,11 @@ symlinkSync(tmp, link);
 after(() => rmSync(tmp, { recursive: true, force: true }));
 after(() => rmSync(link, { force: true }));
 execFileSync(process.execPath, [`${link}/scripts/build.mjs`], { stdio: "pipe" });
-const dist = (f) => pathToFileURL(`${tmp}/dist/${f}`);
+const OUT = `${tmp}/custom_components/alarm_card/frontend`;
+const dist = (f) => pathToFileURL(`${OUT}/${f}`);
 const bundle = readFileSync(dist(MAIN), "utf8");
 const langs = JSON.parse(bundle.match(/const LANGS = new Set\((\[[^\]]*\])\)/)[1]);
-const files = readdirSync(`${tmp}/dist`).filter((f) => f.startsWith(`${STEM}.i18n.`));
+const files = readdirSync(OUT).filter((f) => f.startsWith(`${STEM}.i18n.`));
 
 test("every language but English has its own file next to the bundle", () => {
   assert.ok(langs.length >= 4 && !langs.includes("en"), `languages: ${langs}`);
