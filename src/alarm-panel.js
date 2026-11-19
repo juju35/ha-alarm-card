@@ -5294,6 +5294,15 @@ class AlarmCardPanel extends HTMLElement {
     } catch (_err) {
       this._set = null;
     }
+    // Home Assistant may create the element and set its properties before it is defined (the definition waits
+    // for the language file, scripts/i18n-split.mjs): they are then plain fields hiding the setters. Replay them.
+    for (const key of ["panel", "narrow", "hass"]) {
+      if (Object.hasOwn(this, key)) {
+        const value = this[key];
+        delete this[key];
+        this[key] = value;
+      }
+    }
   }
 
   // Redrawn when a language file has loaded (scripts/i18n-split.mjs calls setConfig on the bundle's elements).
@@ -5352,14 +5361,16 @@ class AlarmCardPanel extends HTMLElement {
   }
 
   async _start() {
+    await Promise.resolve(); // Home Assistant sets hass, panel and narrow together: panel (card_url) may come after hass
+    // The card (header picture), the panel's settings and Alarmo's data load together; each redraws when it is in.
     const kitUrl = this._panel?.config?.card_url;
     if (kitUrl && !window.AlarmCardKit) {
-      try {
-        await import(kitUrl);
-      } catch (err) {
-        console.warn("alarm-panel: card not loaded", err);
-      }
+      import(kitUrl).then(
+        () => this._render(),
+        (err) => console.warn("alarm-panel: card not loaded", err),
+      );
     }
+    const data = this._load();
     try {
       const set = await this._hass.callWS({ type: "alarm_card/settings" });
       this._set = set;
@@ -5373,10 +5384,10 @@ class AlarmCardPanel extends HTMLElement {
       this._set ??= { options: {}, admin: true, alarmo: true };
     }
     if (!this._shownTabs().includes(this._tab)) this._tab = this._shownTabs()[0];
-    if (this._set.alarmo !== false) {
-      await this._load();
-      this._subscribe();
-    }
+    this._render();
+    await data;
+    if (!this._d) this._set.alarmo = false;
+    else this._subscribe();
     this._render();
   }
 

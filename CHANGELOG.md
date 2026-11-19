@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1 - 2026-11-19
+
+### Fixes
+- **Alarm panel**: blank under its tabs in any language but English. Home Assistant could set the panel's properties before its definition, which waits for the language file, so the panel never got them. It is now defined at once and redraws itself when its language file is in.
+- **Alarm panel**: loads faster. The card's picture, the panel's settings and Alarmo's data are fetched together instead of one after the other, and the tabs and header are drawn as soon as the settings are in.
+
 ## 2.0.0 - 2026-11-19
 
 ### Features
