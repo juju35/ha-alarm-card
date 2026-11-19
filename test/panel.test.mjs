@@ -25,7 +25,9 @@ before(async () => {
 after(() => browser?.close());
 
 // Mounts the panel on `tab` and returns the page; window.calls records { kind, path, data } of every write.
-const mount = async ({ tab = "general", width = 1100, ov = {}, options = {}, page: reuse } = {}) => {
+// late: the element is created, given its properties and attached before the panel's script defines it (as when
+// the definition waits for a language file).
+const mount = async ({ tab = "general", width = 1100, ov = {}, options = {}, page: reuse, late = false } = {}) => {
   const page = reuse || (await browser.newPage({ viewport: { width, height: 900 } }));
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
@@ -34,7 +36,7 @@ const mount = async ({ tab = "general", width = 1100, ov = {}, options = {}, pag
   await page.route("http://ha.local/**", (r) => r.fulfill({ contentType: "text/html", body: "<!doctype html><html><body style='margin:0'><div id=root></div></body></html>" }));
   await page.goto(`http://ha.local/alarm-panel/${tab}`);
   await page.addScriptTag({ content: cardJs });
-  await page.addScriptTag({ content: panelJs });
+  if (!late) await page.addScriptTag({ content: panelJs });
   await page.evaluate(
     ({ states, entities, areas, history, alarmo, ov, options }) => {
       const all = structuredClone(states);
@@ -70,6 +72,7 @@ const mount = async ({ tab = "general", width = 1100, ov = {}, options = {}, pag
     },
     { states, entities, areas, history, alarmo, ov, options },
   );
+  if (late) await page.addScriptTag({ content: panelJs });
   await page.waitForFunction(() => document.querySelector("alarm-card-panel")?.shadowRoot?.querySelector(".tab.on"));
   await page.waitForTimeout(100);
   return page;
@@ -82,6 +85,15 @@ test("the tabs of Alarmo's panel, then Settings; the Sensors tab counts the sens
   const page = await mount();
   assert.deepEqual(await $(page, ".tab").allTextContents(), ["General", "Sensors1", "Codes", "Actions", "Timeline", "Settings"]);
   assert.match(await $(page, ".banner .sub").textContent(), /Kitchen window/);
+  assert.deepEqual(page.errors, []);
+  await page.close();
+});
+
+test("an element given its properties before it is defined still gets them (Home Assistant, a language file)", async (t) => {
+  if (skip) return t.skip(skip);
+  const page = await mount({ late: true });
+  await page.waitForFunction(() => document.querySelector("alarm-card-panel").shadowRoot.querySelector(".banner .mbtn"));
+  assert.ok(await $(page, ".page .box").count());
   assert.deepEqual(page.errors, []);
   await page.close();
 });

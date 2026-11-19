@@ -18,8 +18,10 @@ export function build({ split = true } = {}) {
     const code = readFileSync(`${root}src/${file}`, "utf8").replace("__VERSION__", version);
     const stem = file.replace(/\.js$/, "");
     // Translations: English stays in each file, every other language goes to <stem>.i18n.<lang>.js next to it,
-    // fetched when needed (scripts/i18n-split.mjs).
-    const r = split ? splitI18n(code, { stem, version, outDir: FRONTEND }) : { code, tables: 0, langs: [] };
+    // fetched when needed (scripts/i18n-split.mjs). The panel is defined at once: it redraws when its language is in,
+    // and Home Assistant's panel loader does not wait for a late definition.
+    const opts = { stem, version, outDir: FRONTEND, waitDefine: stem !== "alarm-panel" };
+    const r = split ? splitI18n(code, opts) : { code, tables: 0, langs: [] };
     writeFileSync(`${FRONTEND}/${file}`, r.code);
     const kb = (s) => `${(s.length / 1024).toFixed(1)} KB`;
     console.log(`Built ${file} ${kb(r.code)}${r.tables ? ` (${r.tables} tables split into ${r.langs.length} language files, from ${kb(code)})` : ""}`);

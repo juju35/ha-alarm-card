@@ -138,7 +138,7 @@ const COMPOSE = `(tables, own, spreads, data, lang, n) => {
     Object.assign(t[lang], ...(spreads[n] || []).map((m) => tables[m]?.[lang] || {}), data[lang]?.[n] || {}, own[n]?.[lang] || {});
   }`;
 
-const prelude = ({ ns, stem, version, langs, spreads, names }) => `// ── Translations loaded on demand (scripts/i18n-split.mjs) ──
+const prelude = ({ ns, stem, version, langs, spreads, names, waitDefine }) => `// ── Translations loaded on demand (scripts/i18n-split.mjs) ──
 // English is inline; every other language is in ${stem}.i18n.<lang>.js next to this file, fetched when needed.
 var ${ns} = (() => {
   const LANGS = new Set(${JSON.stringify(langs)});
@@ -252,7 +252,8 @@ var ${ns} = (() => {
   try {
     const page = document.documentElement.lang || "";
     const pending = load(LANGS.has(page) ? page : page.split("-")[0]);
-    if (pending) {
+    // waitDefine off (a panel that redraws itself): fetched at once all the same, but not waited for.
+    if (pending && ${waitDefine}) {
       ready = Promise.race([pending, new Promise((resolve) => setTimeout(resolve, 1500))]).then(() => {
         ready = null;
       });
@@ -291,7 +292,7 @@ const ownText = (code, part) => `{ ${part.own.map((p) => code.slice(p.start, p.e
  * Splits `code` (a built bundle). Writes `<outDir>/<stem>.i18n.<lang>.js` and returns the new bundle code
  * with `{ code, langs, tables, kept }`. Throws when a split table does not rebuild to the original one.
  */
-export function splitI18n(code, { stem, version, outDir, aliases = [] }) {
+export function splitI18n(code, { stem, version, outDir, aliases = [], waitDefine = true }) {
   // One global name per bundle: a bundle injected as a classic script shares the page's global scope.
   const ns = `__i18n_${stem.replace(/[^\w$]/g, "_")}`;
   const tables = findTables(parseScript(code));
@@ -318,7 +319,7 @@ export function splitI18n(code, { stem, version, outDir, aliases = [] }) {
   // The bundle's customElements.define calls go through the proxy that records the element names.
   out = out.replace(/(^|[^.\w$])customElements\.define\(/g, `$1${ns}.customElements.define(`);
   const header = out.match(/^\/\*![\s\S]*?\*\/\n/)?.[0] ?? "";
-  out = header + prelude({ ns, stem, version, langs, spreads, names: [stem, ...aliases] }) + out.slice(header.length);
+  out = header + prelude({ ns, stem, version, langs, spreads, names: [stem, ...aliases], waitDefine }) + out.slice(header.length);
   for (const lang of langs) {
     const body = `// ${stem} ${version}: "${lang}" translations, loaded by ${stem}.js when needed.\nexport default {\n${files[lang].join(",\n")}\n};\n`;
     writeFileSync(`${outDir}/${stem}.i18n.${lang}.js`, body);
