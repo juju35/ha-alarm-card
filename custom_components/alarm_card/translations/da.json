@@ -45,7 +45,8 @@
         "general": "Generelt",
         "sensors": "Sensorer",
         "codes": "Koder",
-        "actions": "Handlinger"
+        "actions": "Handlinger",
+        "timeline": "Tidslinje"
       }
     },
     "illustration_theme": {

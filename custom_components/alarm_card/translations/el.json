@@ -45,7 +45,8 @@
         "general": "Γενικά",
         "sensors": "Αισθητήρες",
         "codes": "Κωδικοί",
-        "actions": "Ενέργειες"
+        "actions": "Ενέργειες",
+        "timeline": "Χρονολόγιο"
       }
     },
     "illustration_theme": {

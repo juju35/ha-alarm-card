@@ -15,7 +15,7 @@ from custom_components.alarm_card.const import DOMAIN, PANEL_URL_PATH, VERSION
 DEFAULTS = {
     "panel_title": "Alarm",
     "hide_header": "off",
-    "panel_tabs": ["general", "sensors", "codes", "actions"],
+    "panel_tabs": ["general", "sensors", "codes", "actions", "timeline"],
     "sidebar_badge": True,
     "entity": "",
     "illustration_theme": "auto",

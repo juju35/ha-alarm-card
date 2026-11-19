@@ -5,7 +5,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { after, before, test } from "node:test";
-import { alarmo, entities, NOW, states, withCode } from "../scripts/mock-states.mjs";
+import { alarmo, areas, armedAwayNow, entities, history, NOW, states, withCode } from "../scripts/mock-states.mjs";
 
 const cardJs = readFileSync(new URL("../src/alarm-card.js", import.meta.url), "utf8").replace("__VERSION__", "test");
 const panelJs = readFileSync(new URL("../src/alarm-panel.js", import.meta.url), "utf8").replace("__VERSION__", "test");
@@ -25,8 +25,8 @@ before(async () => {
 after(() => browser?.close());
 
 // Mounts the panel on `tab` and returns the page; window.calls records { kind, path, data } of every write.
-const mount = async ({ tab = "general", width = 1100, ov = {}, options = {} } = {}) => {
-  const page = await browser.newPage({ viewport: { width, height: 900 } });
+const mount = async ({ tab = "general", width = 1100, ov = {}, options = {}, page: reuse } = {}) => {
+  const page = reuse || (await browser.newPage({ viewport: { width, height: 900 } }));
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   page.errors = errors;
@@ -36,15 +36,15 @@ const mount = async ({ tab = "general", width = 1100, ov = {}, options = {} } = 
   await page.addScriptTag({ content: cardJs });
   await page.addScriptTag({ content: panelJs });
   await page.evaluate(
-    ({ states, entities, alarmo, ov, options }) => {
+    ({ states, entities, areas, history, alarmo, ov, options }) => {
       const all = structuredClone(states);
       for (const [id, o] of Object.entries(ov)) all[id] = { ...all[id], ...o };
       window.calls = [];
-      window.opts = { panel_title: "Alarm", hide_header: "off", panel_tabs: ["general", "sensors", "codes", "actions"], sidebar_badge: true, entity: "", illustration_theme: "auto", ...options };
+      window.opts = { panel_title: "Alarm", hide_header: "off", panel_tabs: ["general", "sensors", "codes", "actions", "timeline"], sidebar_badge: true, entity: "", illustration_theme: "auto", ...options };
       const el = document.createElement("alarm-card-panel");
       el.panel = { config: {} };
       el.hass = {
-        states: all, entities, language: "en", locale: { language: "en" }, themes: { darkMode: false }, user: { is_admin: true },
+        states: all, entities, areas, devices: {}, language: "en", locale: { language: "en" }, themes: { darkMode: false }, user: { is_admin: true },
         services: { notify: { mobile_app_phone: {} } },
         callService: async (domain, service, data) => window.calls.push({ kind: "service", path: `${domain}.${service}`, data }),
         callApi: async (_method, path, data) => {
@@ -53,6 +53,10 @@ const mount = async ({ tab = "general", width = 1100, ov = {}, options = {} } = 
         },
         callWS: async (msg) => {
           if (msg.type === "alarm_card/settings") return { options: window.opts, admin: true, alarmo: true };
+          if (msg.type === "history/history_during_period") {
+            window.calls.push({ kind: "ws", path: msg.type, data: msg.entity_ids });
+            return history;
+          }
           if (msg.type === "alarm_card/update_settings") {
             window.calls.push({ kind: "ws", path: msg.type, data: msg.options });
             window.opts = { ...window.opts, ...msg.options };
@@ -64,7 +68,7 @@ const mount = async ({ tab = "general", width = 1100, ov = {}, options = {} } = 
       };
       document.getElementById("root").appendChild(el);
     },
-    { states, entities, alarmo, ov, options },
+    { states, entities, areas, history, alarmo, ov, options },
   );
   await page.waitForFunction(() => document.querySelector("alarm-card-panel")?.shadowRoot?.querySelector(".tab.on"));
   await page.waitForTimeout(100);
@@ -76,7 +80,7 @@ const calls = (page) => page.evaluate(() => window.calls);
 test("the tabs of Alarmo's panel, then Settings; the Sensors tab counts the sensors keeping it from arming", async (t) => {
   if (skip) return t.skip(skip);
   const page = await mount();
-  assert.deepEqual(await $(page, ".tab").allTextContents(), ["General", "Sensors1", "Codes", "Actions", "Settings"]);
+  assert.deepEqual(await $(page, ".tab").allTextContents(), ["General", "Sensors1", "Codes", "Actions", "Timeline", "Settings"]);
   assert.match(await $(page, ".banner .sub").textContent(), /Kitchen window/);
   assert.deepEqual(page.errors, []);
   await page.close();
@@ -185,7 +189,7 @@ test("the top bar hidden from the Settings tab: the tabs stay", async (t) => {
 
 test("on a phone the mode buttons move under the header and nothing overflows", async (t) => {
   if (skip) return t.skip(skip);
-  for (const tab of ["general", "sensors", "codes", "actions", "settings"]) {
+  for (const tab of ["general", "sensors", "codes", "actions", "timeline", "settings"]) {
     const page = await mount({ tab, width: 380 });
     assert.equal(await $(page, ".hbtns").isVisible(), false, tab);
     assert.equal(await $(page, ".modes-row").isVisible(), true, tab);
@@ -193,6 +197,29 @@ test("on a phone the mode buttons move under the header and nothing overflows", 
     assert.ok(over <= 380, `${tab}: page ${over}px wide`);
     await page.close();
   }
+});
+
+test("the timeline reads the history of the alarm and its sensors, one row per room, ungrouped when asked (remembered)", async (t) => {
+  if (skip) return t.skip(skip);
+  const page = await mount({ tab: "timeline", ov: armedAwayNow });
+  await page.waitForFunction(() => document.querySelector("alarm-card-panel").shadowRoot.querySelector(".tl"));
+  const [req] = (await calls(page)).filter((c) => c.path === "history/history_during_period");
+  assert.deepEqual([...req.data].sort(), ["alarm_control_panel.alarmo", ...Object.keys(alarmo.sensors)].sort());
+  assert.deepEqual(await $(page, ".tl-row.grp .tn").allTextContents(), ["Bedroom", "Hall", "Kitchen", "Living room"]);
+  assert.match(await $(page, ".sums").textContent(), /Triggers1/);
+  await $(page, '[data-a="tl-group"][data-v="none"]').click();
+  assert.equal(await $(page, ".tl-row:not(.alarm):not(.grp)").count(), 6);
+  // Hidden types and the grouping are kept by the browser: a new panel opens the same way.
+  await $(page, '[data-a="tl-type"][data-v="motion"]').click();
+  assert.equal(await $(page, ".tl-row:not(.alarm):not(.grp)").count(), 5);
+  await page.evaluate(() => document.querySelector("alarm-card-panel").remove());
+  await mount({ tab: "timeline", ov: armedAwayNow, page });
+  await page.waitForFunction(() => document.querySelectorAll("alarm-card-panel").length === 1 && document.querySelector("alarm-card-panel").shadowRoot.querySelector(".tl"));
+  assert.equal(await $(page, ".tl-row:not(.alarm):not(.grp)").count(), 5);
+  await $(page, ".seg-s >> nth=0").hover();
+  assert.match(await $(page, ".tip").textContent(), /Duration/);
+  assert.deepEqual(page.errors, []);
+  await page.close();
 });
 
 test("every panel text has a translation in every language", () => {

@@ -45,7 +45,8 @@
         "general": "Splošno",
         "sensors": "Senzorji",
         "codes": "Kode",
-        "actions": "Dejanja"
+        "actions": "Dejanja",
+        "timeline": "Časovnica"
       }
     },
     "illustration_theme": {

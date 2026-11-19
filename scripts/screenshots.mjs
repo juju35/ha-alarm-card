@@ -6,7 +6,7 @@ import { copyFileSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileS
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { NOW, states, entities, sensors, logbook, alarmo } from "./mock-states.mjs";
+import { NOW, states, entities, sensors, logbook, alarmo, areas, history } from "./mock-states.mjs";
 import { shots, gifs } from "./screenshot-shots.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
@@ -131,30 +131,32 @@ async function openPanel(browser, s) {
   await page.addScriptTag({ content: cardJs });
   await page.addScriptTag({ content: panelJs });
   await page.evaluate(
-    ({ states, entities, alarmo, overrides, dark, options, open }) => {
+    ({ states, entities, areas, history, alarmo, overrides, dark, options, open }) => {
       for (const [id, o] of Object.entries(overrides || {})) states[id] = { ...states[id], ...o };
       const el = document.createElement("alarm-card-panel");
       el.panel = { config: {} };
       el.narrow = false;
       el.hass = {
-        states, entities, language: "en", locale: { language: "en" }, themes: { darkMode: dark }, user: { is_admin: true },
+        states, entities, areas, devices: {}, language: "en", locale: { language: "en" }, themes: { darkMode: dark }, user: { is_admin: true },
         services: { notify: { mobile_app_phone: {} } },
         callService: async () => {},
         callApi: async () => ({ success: true }),
         callWS: async (msg) =>
-          msg.type === "alarm_card/settings"
-            ? { options: { panel_title: "Alarm", hide_header: "off", panel_tabs: ["general", "sensors", "codes", "actions"], sidebar_badge: true, entity: "", illustration_theme: "auto", ...options }, admin: true, alarmo: true }
+          msg.type === "history/history_during_period"
+            ? history
+            : msg.type === "alarm_card/settings"
+            ? { options: { panel_title: "Alarm", hide_header: "off", panel_tabs: ["general", "sensors", "codes", "actions", "timeline"], sidebar_badge: true, entity: "", illustration_theme: "auto", ...options }, admin: true, alarmo: true }
             : alarmo[msg.type.replace("alarmo/", "")],
         connection: { subscribeMessage: async () => () => {}, subscribeEvents: async () => () => {} },
       };
       document.getElementById("root").appendChild(el);
       // The open tiles of the shot (an editor), once Alarmo's data is in.
       setTimeout(() => {
-        for (const id of open || []) el._open.add(id);
+        for (const id of open || []) (id.startsWith("r-") || id.startsWith("t-") ? el._tlState().open : el._open).add(id);
         el._renderPage();
       }, 200);
     },
-    { states, entities, alarmo, overrides: s.overrides, dark: s.theme === "dark", options: s.options, open: s.open },
+    { states, entities, areas, history, alarmo, overrides: s.overrides, dark: s.theme === "dark", options: s.options, open: s.open },
   );
   return page;
 }

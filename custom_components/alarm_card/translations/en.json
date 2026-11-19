@@ -45,7 +45,8 @@
         "general": "General",
         "sensors": "Sensors",
         "codes": "Codes",
-        "actions": "Actions"
+        "actions": "Actions",
+        "timeline": "Timeline"
       }
     },
     "illustration_theme": {

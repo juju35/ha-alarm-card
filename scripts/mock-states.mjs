@@ -151,3 +151,34 @@ export const alarmo = {
   sensor_groups: {},
   entities: [{ entity_id: "alarm_control_panel.alarmo", area_id: "home" }],
 };
+
+// The rooms of the sensors (Home Assistant's areas) and their last 24 hours in the history, for the panel's
+// Timeline tab: armed away during the day, an evening at home, armed night with a short trigger by the kitchen
+// window, then armed away again. Times are hours before NOW.
+export const areas = { hall: { area_id: "hall", name: "Hall" }, living: { area_id: "living", name: "Living room" }, kitchen: { area_id: "kitchen", name: "Kitchen" }, bedroom: { area_id: "bedroom", name: "Bedroom" } };
+const ROOM_OF = {
+  "binary_sensor.front_door": "hall", "binary_sensor.hallway_motion": "hall", "binary_sensor.patio_door": "living",
+  "binary_sensor.kitchen_window": "kitchen", "binary_sensor.kitchen_smoke": "kitchen", "binary_sensor.bedroom_window": "bedroom",
+};
+for (const [id, area_id] of Object.entries(ROOM_OF)) entities[id] = { ...(entities[id] || { entity_id: id }), area_id };
+const OPENINGS = {
+  "binary_sensor.front_door": [[17.62, 17.6], [5.05, 5.04], [1.36, 1.35]],
+  "binary_sensor.hallway_motion": [[17.6, 17.55], [17.3, 17.25], [16.4, 16.3], [15.1, 15.0], [13.4, 13.3], [5.0, 4.9], [4.4, 4.3], [1.4, 1.36]],
+  "binary_sensor.patio_door": [[16.8, 15.2]],
+  "binary_sensor.kitchen_window": [[16.5, 14.6], [9.51, 9.4], [4.6, 4.4], [0.2, 0]],
+  "binary_sensor.bedroom_window": [[14.2, 13.5], [6.0, 5.2]],
+  "binary_sensor.kitchen_smoke": [],
+};
+const ALARM_DAY = [["armed_away", 24], ["pending", 17.6], ["disarmed", 17.58], ["armed_night", 13.2], ["triggered", 9.5], ["armed_night", 9.45], ["disarmed", 5.1], ["arming", 1.4], ["armed_away", 1.38]];
+const sec = (hAgo) => (NOW - hAgo * 3600e3) / 1000;
+export const history = {
+  "alarm_control_panel.alarmo": ALARM_DAY.map(([s, h]) => ({ s, lu: sec(h) })),
+  ...Object.fromEntries(
+    Object.entries(OPENINGS).map(([id, list]) => [id, [{ s: "off", lu: sec(24) }, ...list.flatMap(([a, b]) => [{ s: "on", lu: sec(a) }, ...(b > 0 ? [{ s: "off", lu: sec(b) }] : [])])]]),
+  ),
+};
+// The Timeline shots show the panel armed away since the history's last change, the kitchen window open.
+export const armedAwayNow = {
+  "alarm_control_panel.alarmo": { ...states["alarm_control_panel.alarmo"], state: "armed_away", last_changed: new Date(NOW - 1.38 * 3600e3).toISOString() },
+  "binary_sensor.kitchen_window": { ...states["binary_sensor.kitchen_window"], state: "on", last_changed: new Date(NOW - 0.2 * 3600e3).toISOString() },
+};

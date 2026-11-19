@@ -1,6 +1,6 @@
 // The README screenshots and animations, as data: scripts/screenshots.mjs renders them and
 // test/screenshots.test.mjs checks that every light shot has a dark twin showing the same state.
-import { armedAway, arming, buttons, failedToArm, triggered, withCode } from "./mock-states.mjs";
+import { armedAway, armedAwayNow, arming, buttons, failedToArm, triggered, withCode } from "./mock-states.mjs";
 
 export const shots = [
   { file: "card", type: "alarm-card", theme: "light", width: 460, config: {} },
@@ -32,6 +32,8 @@ export const shots = [
   { file: "panel-codes-dark", type: "panel", theme: "dark", width: 1100, tab: "codes", overrides: armedAway },
   { file: "panel-actions", type: "panel", theme: "light", width: 1100, tab: "actions", open: ["auto:a1"] },
   { file: "panel-actions-dark", type: "panel", theme: "dark", width: 1100, tab: "actions", open: ["auto:a1"] },
+  { file: "panel-timeline", type: "panel", theme: "light", width: 1100, tab: "timeline", overrides: armedAwayNow, open: ["r-kitchen"] },
+  { file: "panel-timeline-dark", type: "panel", theme: "dark", width: 1100, tab: "timeline", overrides: armedAwayNow, open: ["r-kitchen"] },
 ];
 
 // One looping GIF per distinct animation: triggered, arming and armed (one full radar turn) — each in light and dark.

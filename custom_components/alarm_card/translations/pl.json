@@ -45,7 +45,8 @@
         "general": "Ogólne",
         "sensors": "Czujniki",
         "codes": "Kody",
-        "actions": "Akcje"
+        "actions": "Akcje",
+        "timeline": "Oś czasu"
       }
     },
     "illustration_theme": {

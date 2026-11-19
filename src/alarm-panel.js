@@ -217,6 +217,43 @@ const PANEL_STRINGS = {
     th_day: "Day",
     th_night: "Night",
     admin_note: "This panel is for administrators. Alarmo keeps the configuration: its entities, cards and automations keep working.",
+    t_timeline: "Timeline",
+    all_rooms: "All rooms",
+    no_room: "No room",
+    tl_motion: "Motion",
+    tl_clear: "Clear",
+    tl_detected: "Detected",
+    tl_ok: "OK",
+    tl_now: "now",
+    tl_events: "Events",
+    tl_tracked: "Sensors tracked: {n}",
+    tl_triggers: "Triggers",
+    tl_none: "None",
+    tl_calm: "All calm",
+    tl_most: "Most active",
+    tl_times: "{n}×",
+    tl_longest: "Longest opening",
+    tl_alarm_at: "Alarm: {state}",
+    tl_last: "last activity {ago}",
+    tl_no_activity: "No activity",
+    tl_n_sensors: "Sensors: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 days",
+    tl_armed: "Alarm armed",
+    tl_marks: "Delay / trigger",
+    tl_by_room: "Activity by room",
+    tl_by_type: "Activity by sensor type",
+    tl_by_sensor: "Activity by sensor",
+    g_room: "By room",
+    g_type: "By type",
+    g_none: "Ungrouped",
+    so_label: "Sort",
+    so_recent: "Recent activity",
+    so_count: "Most active",
+    so_name: "Name",
+    tl_no_history: "No history for this period: is the recorder on?",
+    tl_duration: "Duration: {d}",
   },
   fr: {
     title: "Alarme",
@@ -416,6 +453,43 @@ const PANEL_STRINGS = {
     th_day: "Jour",
     th_night: "Nuit",
     admin_note: "Ce panneau est réservé aux administrateurs. Alarmo garde la configuration : ses entités, cartes et automatisations continuent de fonctionner.",
+    t_timeline: "Timeline",
+    all_rooms: "Toutes les pièces",
+    no_room: "Sans pièce",
+    tl_motion: "Mouvement",
+    tl_clear: "Calme",
+    tl_detected: "Détecté",
+    tl_ok: "OK",
+    tl_now: "maintenant",
+    tl_events: "Événements",
+    tl_tracked: "Capteurs suivis : {n}",
+    tl_triggers: "Déclenchements",
+    tl_none: "Aucun",
+    tl_calm: "Tout est calme",
+    tl_most: "Le plus actif",
+    tl_times: "{n}×",
+    tl_longest: "Ouverture la plus longue",
+    tl_alarm_at: "Alarme : {state}",
+    tl_last: "dernière activité {ago}",
+    tl_no_activity: "Aucune activité",
+    tl_n_sensors: "Capteurs : {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 jours",
+    tl_armed: "Alarme armée",
+    tl_marks: "Délai / déclenchement",
+    tl_by_room: "Activité par pièce",
+    tl_by_type: "Activité par type de capteur",
+    tl_by_sensor: "Activité par capteur",
+    g_room: "Par pièce",
+    g_type: "Par type",
+    g_none: "Sans regroupement",
+    so_label: "Tri",
+    so_recent: "Activité récente",
+    so_count: "Plus actifs",
+    so_name: "Nom",
+    tl_no_history: "Aucun historique sur cette période : l'enregistreur est-il actif ?",
+    tl_duration: "Durée : {d}",
   },
   de: {
     title: "Alarm",
@@ -615,6 +689,43 @@ const PANEL_STRINGS = {
     th_day: "Tag",
     th_night: "Nacht",
     admin_note: "Dieses Panel ist Administratoren vorbehalten. Alarmo behält die Konfiguration: seine Entitäten, Karten und Automationen funktionieren weiter.",
+    t_timeline: "Zeitleiste",
+    all_rooms: "Alle Räume",
+    no_room: "Ohne Raum",
+    tl_motion: "Bewegung",
+    tl_clear: "Ruhig",
+    tl_detected: "Erkannt",
+    tl_ok: "OK",
+    tl_now: "jetzt",
+    tl_events: "Ereignisse",
+    tl_tracked: "Überwachte Sensoren: {n}",
+    tl_triggers: "Auslösungen",
+    tl_none: "Keine",
+    tl_calm: "Alles ruhig",
+    tl_most: "Am aktivsten",
+    tl_times: "{n}×",
+    tl_longest: "Längste Öffnung",
+    tl_alarm_at: "Alarm: {state}",
+    tl_last: "letzte Aktivität {ago}",
+    tl_no_activity: "Keine Aktivität",
+    tl_n_sensors: "Sensoren: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 Tage",
+    tl_armed: "Alarm scharf",
+    tl_marks: "Verzögerung / Auslösung",
+    tl_by_room: "Aktivität nach Raum",
+    tl_by_type: "Aktivität nach Sensortyp",
+    tl_by_sensor: "Aktivität nach Sensor",
+    g_room: "Nach Raum",
+    g_type: "Nach Typ",
+    g_none: "Ohne Gruppierung",
+    so_label: "Sortierung",
+    so_recent: "Letzte Aktivität",
+    so_count: "Am aktivsten",
+    so_name: "Name",
+    tl_no_history: "Kein Verlauf für diesen Zeitraum: ist der Recorder aktiv?",
+    tl_duration: "Dauer: {d}",
   },
   es: {
     title: "Alarma",
@@ -814,6 +925,43 @@ const PANEL_STRINGS = {
     th_day: "Día",
     th_night: "Noche",
     admin_note: "Este panel está reservado a los administradores. Alarmo guarda la configuración: sus entidades, tarjetas y automatizaciones siguen funcionando.",
+    t_timeline: "Cronología",
+    all_rooms: "Todas las estancias",
+    no_room: "Sin estancia",
+    tl_motion: "Movimiento",
+    tl_clear: "Despejado",
+    tl_detected: "Detectado",
+    tl_ok: "OK",
+    tl_now: "ahora",
+    tl_events: "Eventos",
+    tl_tracked: "Sensores seguidos: {n}",
+    tl_triggers: "Disparos",
+    tl_none: "Ninguno",
+    tl_calm: "Todo tranquilo",
+    tl_most: "El más activo",
+    tl_times: "{n}×",
+    tl_longest: "Apertura más larga",
+    tl_alarm_at: "Alarma: {state}",
+    tl_last: "última actividad {ago}",
+    tl_no_activity: "Sin actividad",
+    tl_n_sensors: "Sensores: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 días",
+    tl_armed: "Alarma armada",
+    tl_marks: "Retardo / disparo",
+    tl_by_room: "Actividad por estancia",
+    tl_by_type: "Actividad por tipo de sensor",
+    tl_by_sensor: "Actividad por sensor",
+    g_room: "Por estancia",
+    g_type: "Por tipo",
+    g_none: "Sin agrupar",
+    so_label: "Orden",
+    so_recent: "Actividad reciente",
+    so_count: "Más activos",
+    so_name: "Nombre",
+    tl_no_history: "Sin historial en este periodo: ¿está activo el registro?",
+    tl_duration: "Duración: {d}",
   },
   it: {
     title: "Allarme",
@@ -1013,6 +1161,43 @@ const PANEL_STRINGS = {
     th_day: "Giorno",
     th_night: "Notte",
     admin_note: "Questo pannello è riservato agli amministratori. Alarmo conserva la configurazione: le sue entità, schede e automazioni continuano a funzionare.",
+    t_timeline: "Cronologia",
+    all_rooms: "Tutte le stanze",
+    no_room: "Senza stanza",
+    tl_motion: "Movimento",
+    tl_clear: "Libero",
+    tl_detected: "Rilevato",
+    tl_ok: "OK",
+    tl_now: "adesso",
+    tl_events: "Eventi",
+    tl_tracked: "Sensori seguiti: {n}",
+    tl_triggers: "Scatti",
+    tl_none: "Nessuno",
+    tl_calm: "Tutto tranquillo",
+    tl_most: "Il più attivo",
+    tl_times: "{n}×",
+    tl_longest: "Apertura più lunga",
+    tl_alarm_at: "Allarme: {state}",
+    tl_last: "ultima attività {ago}",
+    tl_no_activity: "Nessuna attività",
+    tl_n_sensors: "Sensori: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 giorni",
+    tl_armed: "Allarme inserito",
+    tl_marks: "Ritardo / scatto",
+    tl_by_room: "Attività per stanza",
+    tl_by_type: "Attività per tipo di sensore",
+    tl_by_sensor: "Attività per sensore",
+    g_room: "Per stanza",
+    g_type: "Per tipo",
+    g_none: "Senza raggruppamento",
+    so_label: "Ordine",
+    so_recent: "Attività recente",
+    so_count: "Più attivi",
+    so_name: "Nome",
+    tl_no_history: "Nessuno storico per questo periodo: il registratore è attivo?",
+    tl_duration: "Durata: {d}",
   },
   nl: {
     title: "Alarm",
@@ -1212,6 +1397,43 @@ const PANEL_STRINGS = {
     th_day: "Dag",
     th_night: "Nacht",
     admin_note: "Dit paneel is voor beheerders. Alarmo bewaart de configuratie: zijn entiteiten, kaarten en automatiseringen blijven werken.",
+    t_timeline: "Tijdlijn",
+    all_rooms: "Alle ruimtes",
+    no_room: "Zonder ruimte",
+    tl_motion: "Beweging",
+    tl_clear: "Rustig",
+    tl_detected: "Gedetecteerd",
+    tl_ok: "OK",
+    tl_now: "nu",
+    tl_events: "Gebeurtenissen",
+    tl_tracked: "Gevolgde sensoren: {n}",
+    tl_triggers: "Alarmen",
+    tl_none: "Geen",
+    tl_calm: "Alles rustig",
+    tl_most: "Meest actief",
+    tl_times: "{n}×",
+    tl_longest: "Langste opening",
+    tl_alarm_at: "Alarm: {state}",
+    tl_last: "laatste activiteit {ago}",
+    tl_no_activity: "Geen activiteit",
+    tl_n_sensors: "Sensoren: {n}",
+    p_6h: "6 u",
+    p_24h: "24 u",
+    p_3d: "3 dagen",
+    tl_armed: "Alarm ingeschakeld",
+    tl_marks: "Vertraging / alarm",
+    tl_by_room: "Activiteit per ruimte",
+    tl_by_type: "Activiteit per sensortype",
+    tl_by_sensor: "Activiteit per sensor",
+    g_room: "Per ruimte",
+    g_type: "Per type",
+    g_none: "Niet gegroepeerd",
+    so_label: "Sortering",
+    so_recent: "Recente activiteit",
+    so_count: "Meest actief",
+    so_name: "Naam",
+    tl_no_history: "Geen geschiedenis voor deze periode: staat de recorder aan?",
+    tl_duration: "Duur: {d}",
   },
   pt: {
     title: "Alarme",
@@ -1411,6 +1633,43 @@ const PANEL_STRINGS = {
     th_day: "Dia",
     th_night: "Noite",
     admin_note: "Este painel é reservado aos administradores. O Alarmo guarda a configuração: as suas entidades, cartões e automatizações continuam a funcionar.",
+    t_timeline: "Cronologia",
+    all_rooms: "Todas as divisões",
+    no_room: "Sem divisão",
+    tl_motion: "Movimento",
+    tl_clear: "Livre",
+    tl_detected: "Detetado",
+    tl_ok: "OK",
+    tl_now: "agora",
+    tl_events: "Eventos",
+    tl_tracked: "Sensores seguidos: {n}",
+    tl_triggers: "Disparos",
+    tl_none: "Nenhum",
+    tl_calm: "Tudo calmo",
+    tl_most: "O mais ativo",
+    tl_times: "{n}×",
+    tl_longest: "Abertura mais longa",
+    tl_alarm_at: "Alarme: {state}",
+    tl_last: "última atividade {ago}",
+    tl_no_activity: "Sem atividade",
+    tl_n_sensors: "Sensores: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 dias",
+    tl_armed: "Alarme armado",
+    tl_marks: "Atraso / disparo",
+    tl_by_room: "Atividade por divisão",
+    tl_by_type: "Atividade por tipo de sensor",
+    tl_by_sensor: "Atividade por sensor",
+    g_room: "Por divisão",
+    g_type: "Por tipo",
+    g_none: "Sem agrupar",
+    so_label: "Ordenação",
+    so_recent: "Atividade recente",
+    so_count: "Mais ativos",
+    so_name: "Nome",
+    tl_no_history: "Sem histórico neste período: o gravador está ativo?",
+    tl_duration: "Duração: {d}",
   },
   pl: {
     title: "Alarm",
@@ -1610,6 +1869,43 @@ const PANEL_STRINGS = {
     th_day: "Dzień",
     th_night: "Noc",
     admin_note: "Ten panel jest tylko dla administratorów. Alarmo przechowuje konfigurację: jego encje, karty i automatyzacje nadal działają.",
+    t_timeline: "Oś czasu",
+    all_rooms: "Wszystkie pomieszczenia",
+    no_room: "Bez pomieszczenia",
+    tl_motion: "Ruch",
+    tl_clear: "Spokój",
+    tl_detected: "Wykryto",
+    tl_ok: "OK",
+    tl_now: "teraz",
+    tl_events: "Zdarzenia",
+    tl_tracked: "Śledzone czujniki: {n}",
+    tl_triggers: "Wyzwolenia",
+    tl_none: "Brak",
+    tl_calm: "Spokojnie",
+    tl_most: "Najbardziej aktywny",
+    tl_times: "{n}×",
+    tl_longest: "Najdłuższe otwarcie",
+    tl_alarm_at: "Alarm: {state}",
+    tl_last: "ostatnia aktywność {ago}",
+    tl_no_activity: "Brak aktywności",
+    tl_n_sensors: "Czujniki: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 dni",
+    tl_armed: "Alarm uzbrojony",
+    tl_marks: "Opóźnienie / wyzwolenie",
+    tl_by_room: "Aktywność według pomieszczeń",
+    tl_by_type: "Aktywność według typu czujnika",
+    tl_by_sensor: "Aktywność według czujnika",
+    g_room: "Według pomieszczeń",
+    g_type: "Według typu",
+    g_none: "Bez grupowania",
+    so_label: "Sortowanie",
+    so_recent: "Ostatnia aktywność",
+    so_count: "Najbardziej aktywne",
+    so_name: "Nazwa",
+    tl_no_history: "Brak historii w tym okresie: czy rejestrator jest włączony?",
+    tl_duration: "Czas trwania: {d}",
   },
   sr: {
     title: "Аларм",
@@ -1809,6 +2105,43 @@ const PANEL_STRINGS = {
     th_day: "Дан",
     th_night: "Ноћ",
     admin_note: "Овај панел је намењен администраторима. Alarmo чува подешавања: његови ентитети, картице и аутоматизације и даље раде.",
+    t_timeline: "Временска линија",
+    all_rooms: "Све просторије",
+    no_room: "Без просторије",
+    tl_motion: "Покрет",
+    tl_clear: "Мирно",
+    tl_detected: "Откривено",
+    tl_ok: "ОК",
+    tl_now: "сада",
+    tl_events: "Догађаји",
+    tl_tracked: "Праћени сензори: {n}",
+    tl_triggers: "Активирања",
+    tl_none: "Нема",
+    tl_calm: "Све је мирно",
+    tl_most: "Најактивнији",
+    tl_times: "{n}×",
+    tl_longest: "Најдуже отварање",
+    tl_alarm_at: "Аларм: {state}",
+    tl_last: "последња активност {ago}",
+    tl_no_activity: "Нема активности",
+    tl_n_sensors: "Сензори: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 дана",
+    tl_armed: "Аларм укључен",
+    tl_marks: "Кашњење / активирање",
+    tl_by_room: "Активност по просторији",
+    tl_by_type: "Активност по типу сензора",
+    tl_by_sensor: "Активност по сензору",
+    g_room: "По просторији",
+    g_type: "По типу",
+    g_none: "Без груписања",
+    so_label: "Редослед",
+    so_recent: "Недавна активност",
+    so_count: "Најактивнији",
+    so_name: "Назив",
+    tl_no_history: "Нема историје за овај период: да ли је снимач укључен?",
+    tl_duration: "Трајање: {d}",
   },
   "sr-Latn": {
     title: "Alarm",
@@ -2008,6 +2341,43 @@ const PANEL_STRINGS = {
     th_day: "Dan",
     th_night: "Noć",
     admin_note: "Ovaj panel je namenjen administratorima. Alarmo čuva podešavanja: njegovi entiteti, kartice i automatizacije i dalje rade.",
+    t_timeline: "Vremenska linija",
+    all_rooms: "Sve prostorije",
+    no_room: "Bez prostorije",
+    tl_motion: "Pokret",
+    tl_clear: "Mirno",
+    tl_detected: "Otkriveno",
+    tl_ok: "OK",
+    tl_now: "sada",
+    tl_events: "Događaji",
+    tl_tracked: "Praćeni senzori: {n}",
+    tl_triggers: "Aktiviranja",
+    tl_none: "Nema",
+    tl_calm: "Sve je mirno",
+    tl_most: "Najaktivniji",
+    tl_times: "{n}×",
+    tl_longest: "Najduže otvaranje",
+    tl_alarm_at: "Alarm: {state}",
+    tl_last: "poslednja aktivnost {ago}",
+    tl_no_activity: "Nema aktivnosti",
+    tl_n_sensors: "Senzori: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 dana",
+    tl_armed: "Alarm uključen",
+    tl_marks: "Kašnjenje / aktiviranje",
+    tl_by_room: "Aktivnost po prostoriji",
+    tl_by_type: "Aktivnost po tipu senzora",
+    tl_by_sensor: "Aktivnost po senzoru",
+    g_room: "Po prostoriji",
+    g_type: "Po tipu",
+    g_none: "Bez grupisanja",
+    so_label: "Redosled",
+    so_recent: "Nedavna aktivnost",
+    so_count: "Najaktivniji",
+    so_name: "Naziv",
+    tl_no_history: "Nema istorije za ovaj period: da li je snimač uključen?",
+    tl_duration: "Trajanje: {d}",
   },
   ro: {
     title: "Alarmă",
@@ -2207,6 +2577,43 @@ const PANEL_STRINGS = {
     th_day: "Zi",
     th_night: "Noapte",
     admin_note: "Acest panou este rezervat administratorilor. Alarmo păstrează configurația: entitățile, cardurile și automatizările sale continuă să funcționeze.",
+    t_timeline: "Cronologie",
+    all_rooms: "Toate camerele",
+    no_room: "Fără cameră",
+    tl_motion: "Mișcare",
+    tl_clear: "Liniște",
+    tl_detected: "Detectat",
+    tl_ok: "OK",
+    tl_now: "acum",
+    tl_events: "Evenimente",
+    tl_tracked: "Senzori urmăriți: {n}",
+    tl_triggers: "Declanșări",
+    tl_none: "Niciuna",
+    tl_calm: "Totul e liniștit",
+    tl_most: "Cel mai activ",
+    tl_times: "{n}×",
+    tl_longest: "Cea mai lungă deschidere",
+    tl_alarm_at: "Alarmă: {state}",
+    tl_last: "ultima activitate {ago}",
+    tl_no_activity: "Nicio activitate",
+    tl_n_sensors: "Senzori: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 zile",
+    tl_armed: "Alarmă armată",
+    tl_marks: "Întârziere / declanșare",
+    tl_by_room: "Activitate pe cameră",
+    tl_by_type: "Activitate pe tip de senzor",
+    tl_by_sensor: "Activitate pe senzor",
+    g_room: "Pe cameră",
+    g_type: "Pe tip",
+    g_none: "Fără grupare",
+    so_label: "Sortare",
+    so_recent: "Activitate recentă",
+    so_count: "Cei mai activi",
+    so_name: "Nume",
+    tl_no_history: "Niciun istoric pentru această perioadă: înregistrarea este activă?",
+    tl_duration: "Durată: {d}",
   },
   da: {
     title: "Alarm",
@@ -2406,6 +2813,43 @@ const PANEL_STRINGS = {
     th_day: "Dag",
     th_night: "Nat",
     admin_note: "Dette panel er for administratorer. Alarmo beholder konfigurationen: dets enheder, kort og automatiseringer virker fortsat.",
+    t_timeline: "Tidslinje",
+    all_rooms: "Alle rum",
+    no_room: "Uden rum",
+    tl_motion: "Bevægelse",
+    tl_clear: "Roligt",
+    tl_detected: "Registreret",
+    tl_ok: "OK",
+    tl_now: "nu",
+    tl_events: "Hændelser",
+    tl_tracked: "Fulgte sensorer: {n}",
+    tl_triggers: "Udløsninger",
+    tl_none: "Ingen",
+    tl_calm: "Alt roligt",
+    tl_most: "Mest aktiv",
+    tl_times: "{n}×",
+    tl_longest: "Længste åbning",
+    tl_alarm_at: "Alarm: {state}",
+    tl_last: "seneste aktivitet {ago}",
+    tl_no_activity: "Ingen aktivitet",
+    tl_n_sensors: "Sensorer: {n}",
+    p_6h: "6 t",
+    p_24h: "24 t",
+    p_3d: "3 dage",
+    tl_armed: "Alarm tilkoblet",
+    tl_marks: "Forsinkelse / udløsning",
+    tl_by_room: "Aktivitet pr. rum",
+    tl_by_type: "Aktivitet pr. sensortype",
+    tl_by_sensor: "Aktivitet pr. sensor",
+    g_room: "Pr. rum",
+    g_type: "Pr. type",
+    g_none: "Ikke grupperet",
+    so_label: "Sortering",
+    so_recent: "Seneste aktivitet",
+    so_count: "Mest aktive",
+    so_name: "Navn",
+    tl_no_history: "Ingen historik for denne periode: er optageren slået til?",
+    tl_duration: "Varighed: {d}",
   },
   sv: {
     title: "Larm",
@@ -2605,6 +3049,43 @@ const PANEL_STRINGS = {
     th_day: "Dag",
     th_night: "Natt",
     admin_note: "Den här panelen är för administratörer. Alarmo behåller konfigurationen: dess entiteter, kort och automationer fortsätter att fungera.",
+    t_timeline: "Tidslinje",
+    all_rooms: "Alla rum",
+    no_room: "Utan rum",
+    tl_motion: "Rörelse",
+    tl_clear: "Lugnt",
+    tl_detected: "Upptäckt",
+    tl_ok: "OK",
+    tl_now: "nu",
+    tl_events: "Händelser",
+    tl_tracked: "Följda sensorer: {n}",
+    tl_triggers: "Utlösningar",
+    tl_none: "Inga",
+    tl_calm: "Allt lugnt",
+    tl_most: "Mest aktiv",
+    tl_times: "{n}×",
+    tl_longest: "Längsta öppning",
+    tl_alarm_at: "Larm: {state}",
+    tl_last: "senaste aktivitet {ago}",
+    tl_no_activity: "Ingen aktivitet",
+    tl_n_sensors: "Sensorer: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 dagar",
+    tl_armed: "Larm tillkopplat",
+    tl_marks: "Fördröjning / utlösning",
+    tl_by_room: "Aktivitet per rum",
+    tl_by_type: "Aktivitet per sensortyp",
+    tl_by_sensor: "Aktivitet per sensor",
+    g_room: "Per rum",
+    g_type: "Per typ",
+    g_none: "Ogrupperat",
+    so_label: "Sortering",
+    so_recent: "Senaste aktivitet",
+    so_count: "Mest aktiva",
+    so_name: "Namn",
+    tl_no_history: "Ingen historik för perioden: är inspelaren på?",
+    tl_duration: "Varaktighet: {d}",
   },
   bg: {
     title: "Аларма",
@@ -2804,6 +3285,43 @@ const PANEL_STRINGS = {
     th_day: "Ден",
     th_night: "Нощ",
     admin_note: "Този панел е само за администратори. Alarmo пази настройките: неговите обекти, карти и автоматизации продължават да работят.",
+    t_timeline: "Времева линия",
+    all_rooms: "Всички стаи",
+    no_room: "Без стая",
+    tl_motion: "Движение",
+    tl_clear: "Спокойно",
+    tl_detected: "Засечено",
+    tl_ok: "OK",
+    tl_now: "сега",
+    tl_events: "Събития",
+    tl_tracked: "Следени сензори: {n}",
+    tl_triggers: "Задействания",
+    tl_none: "Няма",
+    tl_calm: "Всичко е спокойно",
+    tl_most: "Най-активен",
+    tl_times: "{n}×",
+    tl_longest: "Най-дълго отваряне",
+    tl_alarm_at: "Аларма: {state}",
+    tl_last: "последна активност {ago}",
+    tl_no_activity: "Няма активност",
+    tl_n_sensors: "Сензори: {n}",
+    p_6h: "6 ч",
+    p_24h: "24 ч",
+    p_3d: "3 дни",
+    tl_armed: "Включена аларма",
+    tl_marks: "Закъснение / задействане",
+    tl_by_room: "Активност по стаи",
+    tl_by_type: "Активност по тип сензор",
+    tl_by_sensor: "Активност по сензор",
+    g_room: "По стаи",
+    g_type: "По тип",
+    g_none: "Без групиране",
+    so_label: "Подреждане",
+    so_recent: "Скорошна активност",
+    so_count: "Най-активни",
+    so_name: "Име",
+    tl_no_history: "Няма история за този период: включен ли е записът?",
+    tl_duration: "Продължителност: {d}",
   },
   ru: {
     title: "Сигнализация",
@@ -3003,6 +3521,43 @@ const PANEL_STRINGS = {
     th_day: "День",
     th_night: "Ночь",
     admin_note: "Эта панель только для администраторов. Alarmo хранит настройки: его сущности, карточки и автоматизации продолжают работать.",
+    t_timeline: "Хронология",
+    all_rooms: "Все комнаты",
+    no_room: "Без комнаты",
+    tl_motion: "Движение",
+    tl_clear: "Спокойно",
+    tl_detected: "Обнаружено",
+    tl_ok: "OK",
+    tl_now: "сейчас",
+    tl_events: "События",
+    tl_tracked: "Отслеживаемых датчиков: {n}",
+    tl_triggers: "Срабатывания",
+    tl_none: "Нет",
+    tl_calm: "Всё спокойно",
+    tl_most: "Самый активный",
+    tl_times: "{n}×",
+    tl_longest: "Самое долгое открытие",
+    tl_alarm_at: "Сигнализация: {state}",
+    tl_last: "последняя активность {ago}",
+    tl_no_activity: "Нет активности",
+    tl_n_sensors: "Датчиков: {n}",
+    p_6h: "6 ч",
+    p_24h: "24 ч",
+    p_3d: "3 дня",
+    tl_armed: "Под охраной",
+    tl_marks: "Задержка / срабатывание",
+    tl_by_room: "Активность по комнатам",
+    tl_by_type: "Активность по типу датчика",
+    tl_by_sensor: "Активность по датчикам",
+    g_room: "По комнатам",
+    g_type: "По типу",
+    g_none: "Без группировки",
+    so_label: "Сортировка",
+    so_recent: "Недавняя активность",
+    so_count: "Самые активные",
+    so_name: "Название",
+    tl_no_history: "Нет истории за этот период: включён ли регистратор?",
+    tl_duration: "Длительность: {d}",
   },
   uk: {
     title: "Сигналізація",
@@ -3202,6 +3757,43 @@ const PANEL_STRINGS = {
     th_day: "День",
     th_night: "Ніч",
     admin_note: "Ця панель лише для адміністраторів. Alarmo зберігає налаштування: його сутності, картки та автоматизації продовжують працювати.",
+    t_timeline: "Хронологія",
+    all_rooms: "Усі кімнати",
+    no_room: "Без кімнати",
+    tl_motion: "Рух",
+    tl_clear: "Спокійно",
+    tl_detected: "Виявлено",
+    tl_ok: "OK",
+    tl_now: "зараз",
+    tl_events: "Події",
+    tl_tracked: "Відстежуваних датчиків: {n}",
+    tl_triggers: "Спрацювання",
+    tl_none: "Немає",
+    tl_calm: "Усе спокійно",
+    tl_most: "Найактивніший",
+    tl_times: "{n}×",
+    tl_longest: "Найдовше відкриття",
+    tl_alarm_at: "Сигналізація: {state}",
+    tl_last: "остання активність {ago}",
+    tl_no_activity: "Немає активності",
+    tl_n_sensors: "Датчиків: {n}",
+    p_6h: "6 год",
+    p_24h: "24 год",
+    p_3d: "3 дні",
+    tl_armed: "Під охороною",
+    tl_marks: "Затримка / спрацювання",
+    tl_by_room: "Активність за кімнатами",
+    tl_by_type: "Активність за типом датчика",
+    tl_by_sensor: "Активність за датчиками",
+    g_room: "За кімнатами",
+    g_type: "За типом",
+    g_none: "Без групування",
+    so_label: "Сортування",
+    so_recent: "Нещодавня активність",
+    so_count: "Найактивніші",
+    so_name: "Назва",
+    tl_no_history: "Немає історії за цей період: чи увімкнено реєстратор?",
+    tl_duration: "Тривалість: {d}",
   },
   hu: {
     title: "Riasztó",
@@ -3401,6 +3993,43 @@ const PANEL_STRINGS = {
     th_day: "Nappal",
     th_night: "Éjszaka",
     admin_note: "Ez a panel csak rendszergazdáknak szól. Az Alarmo megőrzi a beállításokat: entitásai, kártyái és automatizálásai tovább működnek.",
+    t_timeline: "Idővonal",
+    all_rooms: "Minden helyiség",
+    no_room: "Helyiség nélkül",
+    tl_motion: "Mozgás",
+    tl_clear: "Nyugalom",
+    tl_detected: "Észlelve",
+    tl_ok: "OK",
+    tl_now: "most",
+    tl_events: "Események",
+    tl_tracked: "Követett érzékelők: {n}",
+    tl_triggers: "Riasztások",
+    tl_none: "Nincs",
+    tl_calm: "Minden nyugodt",
+    tl_most: "Legaktívabb",
+    tl_times: "{n}×",
+    tl_longest: "Leghosszabb nyitás",
+    tl_alarm_at: "Riasztó: {state}",
+    tl_last: "utolsó aktivitás {ago}",
+    tl_no_activity: "Nincs aktivitás",
+    tl_n_sensors: "Érzékelők: {n}",
+    p_6h: "6 ó",
+    p_24h: "24 ó",
+    p_3d: "3 nap",
+    tl_armed: "Élesített riasztó",
+    tl_marks: "Késleltetés / riasztás",
+    tl_by_room: "Aktivitás helyiségenként",
+    tl_by_type: "Aktivitás érzékelőtípusonként",
+    tl_by_sensor: "Aktivitás érzékelőnként",
+    g_room: "Helyiségenként",
+    g_type: "Típusonként",
+    g_none: "Csoportosítás nélkül",
+    so_label: "Rendezés",
+    so_recent: "Legutóbbi aktivitás",
+    so_count: "Legaktívabbak",
+    so_name: "Név",
+    tl_no_history: "Nincs előzmény erre az időszakra: be van kapcsolva a rögzítő?",
+    tl_duration: "Időtartam: {d}",
   },
   sk: {
     title: "Alarm",
@@ -3600,6 +4229,43 @@ const PANEL_STRINGS = {
     th_day: "Deň",
     th_night: "Noc",
     admin_note: "Tento panel je určený administrátorom. Alarmo uchováva nastavenia: jeho entity, karty a automatizácie naďalej fungujú.",
+    t_timeline: "Časová os",
+    all_rooms: "Všetky miestnosti",
+    no_room: "Bez miestnosti",
+    tl_motion: "Pohyb",
+    tl_clear: "Pokoj",
+    tl_detected: "Zistené",
+    tl_ok: "OK",
+    tl_now: "teraz",
+    tl_events: "Udalosti",
+    tl_tracked: "Sledované senzory: {n}",
+    tl_triggers: "Spustenia",
+    tl_none: "Žiadne",
+    tl_calm: "Všetko pokojné",
+    tl_most: "Najaktívnejší",
+    tl_times: "{n}×",
+    tl_longest: "Najdlhšie otvorenie",
+    tl_alarm_at: "Alarm: {state}",
+    tl_last: "posledná aktivita {ago}",
+    tl_no_activity: "Žiadna aktivita",
+    tl_n_sensors: "Senzory: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 dni",
+    tl_armed: "Alarm aktivovaný",
+    tl_marks: "Oneskorenie / spustenie",
+    tl_by_room: "Aktivita podľa miestnosti",
+    tl_by_type: "Aktivita podľa typu senzora",
+    tl_by_sensor: "Aktivita podľa senzora",
+    g_room: "Podľa miestnosti",
+    g_type: "Podľa typu",
+    g_none: "Bez zoskupenia",
+    so_label: "Zoradenie",
+    so_recent: "Nedávna aktivita",
+    so_count: "Najaktívnejšie",
+    so_name: "Názov",
+    tl_no_history: "Žiadna história za toto obdobie: je zapisovač zapnutý?",
+    tl_duration: "Trvanie: {d}",
   },
   cs: {
     title: "Alarm",
@@ -3799,6 +4465,43 @@ const PANEL_STRINGS = {
     th_day: "Den",
     th_night: "Noc",
     admin_note: "Tento panel je určen administrátorům. Alarmo uchovává nastavení: jeho entity, karty a automatizace nadále fungují.",
+    t_timeline: "Časová osa",
+    all_rooms: "Všechny místnosti",
+    no_room: "Bez místnosti",
+    tl_motion: "Pohyb",
+    tl_clear: "Klid",
+    tl_detected: "Zjištěno",
+    tl_ok: "OK",
+    tl_now: "nyní",
+    tl_events: "Události",
+    tl_tracked: "Sledované senzory: {n}",
+    tl_triggers: "Spuštění",
+    tl_none: "Žádné",
+    tl_calm: "Vše v klidu",
+    tl_most: "Nejaktivnější",
+    tl_times: "{n}×",
+    tl_longest: "Nejdelší otevření",
+    tl_alarm_at: "Alarm: {state}",
+    tl_last: "poslední aktivita {ago}",
+    tl_no_activity: "Žádná aktivita",
+    tl_n_sensors: "Senzory: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 dny",
+    tl_armed: "Alarm aktivován",
+    tl_marks: "Zpoždění / spuštění",
+    tl_by_room: "Aktivita podle místnosti",
+    tl_by_type: "Aktivita podle typu senzoru",
+    tl_by_sensor: "Aktivita podle senzoru",
+    g_room: "Podle místnosti",
+    g_type: "Podle typu",
+    g_none: "Bez seskupení",
+    so_label: "Řazení",
+    so_recent: "Nedávná aktivita",
+    so_count: "Nejaktivnější",
+    so_name: "Název",
+    tl_no_history: "Žádná historie za toto období: je záznam zapnutý?",
+    tl_duration: "Trvání: {d}",
   },
   sl: {
     title: "Alarm",
@@ -3998,6 +4701,43 @@ const PANEL_STRINGS = {
     th_day: "Dan",
     th_night: "Noč",
     admin_note: "Ta plošča je namenjena skrbnikom. Alarmo hrani nastavitve: njegove entitete, kartice in avtomatizacije še naprej delujejo.",
+    t_timeline: "Časovnica",
+    all_rooms: "Vsi prostori",
+    no_room: "Brez prostora",
+    tl_motion: "Gibanje",
+    tl_clear: "Mirno",
+    tl_detected: "Zaznano",
+    tl_ok: "OK",
+    tl_now: "zdaj",
+    tl_events: "Dogodki",
+    tl_tracked: "Spremljani senzorji: {n}",
+    tl_triggers: "Sprožitve",
+    tl_none: "Brez",
+    tl_calm: "Vse mirno",
+    tl_most: "Najbolj dejaven",
+    tl_times: "{n}×",
+    tl_longest: "Najdaljše odprtje",
+    tl_alarm_at: "Alarm: {state}",
+    tl_last: "zadnja dejavnost {ago}",
+    tl_no_activity: "Brez dejavnosti",
+    tl_n_sensors: "Senzorji: {n}",
+    p_6h: "6 h",
+    p_24h: "24 h",
+    p_3d: "3 dni",
+    tl_armed: "Alarm vklopljen",
+    tl_marks: "Zakasnitev / sprožitev",
+    tl_by_room: "Dejavnost po prostorih",
+    tl_by_type: "Dejavnost po vrsti senzorja",
+    tl_by_sensor: "Dejavnost po senzorjih",
+    g_room: "Po prostorih",
+    g_type: "Po vrsti",
+    g_none: "Brez združevanja",
+    so_label: "Razvrščanje",
+    so_recent: "Nedavna dejavnost",
+    so_count: "Najbolj dejavni",
+    so_name: "Ime",
+    tl_no_history: "Za to obdobje ni zgodovine: je snemalnik vklopljen?",
+    tl_duration: "Trajanje: {d}",
   },
   lv: {
     title: "Signalizācija",
@@ -4197,6 +4937,43 @@ const PANEL_STRINGS = {
     th_day: "Diena",
     th_night: "Nakts",
     admin_note: "Šis panelis paredzēts administratoriem. Alarmo glabā iestatījumus: tā vienības, kartītes un automatizācijas turpina darboties.",
+    t_timeline: "Laika josla",
+    all_rooms: "Visas telpas",
+    no_room: "Bez telpas",
+    tl_motion: "Kustība",
+    tl_clear: "Mierīgi",
+    tl_detected: "Konstatēts",
+    tl_ok: "OK",
+    tl_now: "tagad",
+    tl_events: "Notikumi",
+    tl_tracked: "Uzraudzītie sensori: {n}",
+    tl_triggers: "Nostrādes",
+    tl_none: "Nav",
+    tl_calm: "Viss mierīgi",
+    tl_most: "Aktīvākais",
+    tl_times: "{n}×",
+    tl_longest: "Garākā atvēršana",
+    tl_alarm_at: "Signalizācija: {state}",
+    tl_last: "pēdējā darbība {ago}",
+    tl_no_activity: "Nav darbību",
+    tl_n_sensors: "Sensori: {n}",
+    p_6h: "6 st.",
+    p_24h: "24 st.",
+    p_3d: "3 dienas",
+    tl_armed: "Signalizācija ieslēgta",
+    tl_marks: "Aizture / nostrāde",
+    tl_by_room: "Darbība pa telpām",
+    tl_by_type: "Darbība pa sensoru tipiem",
+    tl_by_sensor: "Darbība pa sensoriem",
+    g_room: "Pa telpām",
+    g_type: "Pa tipiem",
+    g_none: "Bez grupēšanas",
+    so_label: "Kārtošana",
+    so_recent: "Nesenā darbība",
+    so_count: "Aktīvākie",
+    so_name: "Nosaukums",
+    tl_no_history: "Šim periodam nav vēstures: vai ierakstītājs ir ieslēgts?",
+    tl_duration: "Ilgums: {d}",
   },
   el: {
     title: "Συναγερμός",
@@ -4396,10 +5173,52 @@ const PANEL_STRINGS = {
     th_day: "Ημέρα",
     th_night: "Νύχτα",
     admin_note: "Αυτός ο πίνακας είναι για διαχειριστές. Το Alarmo κρατά τις ρυθμίσεις: οι οντότητες, οι κάρτες και οι αυτοματισμοί του συνεχίζουν να λειτουργούν.",
+    t_timeline: "Χρονολόγιο",
+    all_rooms: "Όλα τα δωμάτια",
+    no_room: "Χωρίς δωμάτιο",
+    tl_motion: "Κίνηση",
+    tl_clear: "Ήσυχα",
+    tl_detected: "Ανιχνεύθηκε",
+    tl_ok: "OK",
+    tl_now: "τώρα",
+    tl_events: "Συμβάντα",
+    tl_tracked: "Παρακολουθούμενοι αισθητήρες: {n}",
+    tl_triggers: "Ενεργοποιήσεις",
+    tl_none: "Καμία",
+    tl_calm: "Όλα ήσυχα",
+    tl_most: "Ο πιο ενεργός",
+    tl_times: "{n}×",
+    tl_longest: "Μεγαλύτερο άνοιγμα",
+    tl_alarm_at: "Συναγερμός: {state}",
+    tl_last: "τελευταία δραστηριότητα {ago}",
+    tl_no_activity: "Καμία δραστηριότητα",
+    tl_n_sensors: "Αισθητήρες: {n}",
+    p_6h: "6 ώρ.",
+    p_24h: "24 ώρ.",
+    p_3d: "3 ημέρες",
+    tl_armed: "Οπλισμένος συναγερμός",
+    tl_marks: "Καθυστέρηση / ενεργοποίηση",
+    tl_by_room: "Δραστηριότητα ανά δωμάτιο",
+    tl_by_type: "Δραστηριότητα ανά τύπο αισθητήρα",
+    tl_by_sensor: "Δραστηριότητα ανά αισθητήρα",
+    g_room: "Ανά δωμάτιο",
+    g_type: "Ανά τύπο",
+    g_none: "Χωρίς ομαδοποίηση",
+    so_label: "Ταξινόμηση",
+    so_recent: "Πρόσφατη δραστηριότητα",
+    so_count: "Πιο ενεργοί",
+    so_name: "Όνομα",
+    tl_no_history: "Κανένα ιστορικό για αυτή την περίοδο: είναι ενεργή η καταγραφή;",
+    tl_duration: "Διάρκεια: {d}",
   },
 };
 
-const PANEL_TABS = ["general", "sensors", "codes", "actions", "settings"];
+const PANEL_TABS = ["general", "sensors", "codes", "actions", "timeline", "settings"];
+// The tabs that can be hidden (Settings always shows).
+const CONTENT_TABS = PANEL_TABS.slice(0, -1);
+const TL_KEY = "alarm-card-panel-timeline";
+const TL_SPANS = { "6h": 6, "24h": 24, "3d": 72 };
+const TL_COLOR = { door: "c-blue", window: "c-cyan", motion: "c-violet", tamper: "c-amber", environmental: "c-red", other: "c-grey" };
 const ALARM_MODES = ["armed_home", "armed_away", "armed_night", "armed_vacation", "armed_custom_bypass"];
 // The card's state classes, for each Alarmo arm mode.
 const MODE_CLASS = { armed_home: "home", armed_away: "away", armed_night: "night", armed_vacation: "vacation", armed_custom_bypass: "custom" };
@@ -4420,6 +5239,7 @@ const SETTINGS_KEY = "alarm-card-panel-settings";
 const PI = {
   menu: "M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z",
   chev: "M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z",
+  list: "M3,13H5V11H3V13M3,17H5V15H3V17M3,9H5V7H3V9M7,13H21V11H7V13M7,17H21V15H7V17M7,7V9H21V7H7Z",
   plus: "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z",
   del: "M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z",
   search: "M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z",
@@ -4511,6 +5331,10 @@ class AlarmCardPanel extends HTMLElement {
       this.shadowRoot.addEventListener("input", (e) => this._onInput(e));
       this.shadowRoot.addEventListener("change", (e) => this._onInput(e));
       this.shadowRoot.addEventListener("keydown", (e) => this._onKey(e));
+      this.shadowRoot.addEventListener("mouseover", (e) => this._tlTip(e));
+      this.shadowRoot.addEventListener("mouseout", (e) => {
+        if (e.target.closest?.("[data-tip]")) this.shadowRoot.querySelector(".tip")?.remove();
+      });
     }
     this._render();
     if (this._hass && this._unsub === undefined && this._d) this._subscribe();
@@ -4607,7 +5431,7 @@ class AlarmCardPanel extends HTMLElement {
 
   _shownTabs() {
     const tabs = this._opts().panel_tabs;
-    const shown = Array.isArray(tabs) && tabs.length ? PANEL_TABS.filter((t) => tabs.includes(t)) : PANEL_TABS.slice(0, 4);
+    const shown = Array.isArray(tabs) && tabs.length ? PANEL_TABS.filter((t) => tabs.includes(t)) : CONTENT_TABS;
     return [...shown, "settings"];
   }
 
@@ -4722,6 +5546,14 @@ class AlarmCardPanel extends HTMLElement {
   // ── Events ──
   _onInput(e) {
     const el = e.target;
+    if (el.matches("select[data-tl-sort]")) {
+      if (e.type === "change") {
+        this._tlState().sort = el.value;
+        this._tlSave();
+        this._renderPage();
+      }
+      return;
+    }
     // The select of the Settings tab saves on change (a click on a <select> only opens it).
     if (el.matches("select[data-a='set']")) {
       if (e.type === "change") this._act_set(null, el.dataset.v, el);
@@ -4755,6 +5587,8 @@ class AlarmCardPanel extends HTMLElement {
   }
 
   _onClick(e) {
+    // On a touch screen a tap on a bar of the timeline shows its tooltip.
+    if (e.target.closest("[data-tip]") && matchMedia("(hover: none)").matches) return this._tlTip(e);
     const el = e.target.closest("[data-a]");
     if (!el || el.tagName === "SELECT") return;
     const a = el.dataset.a;
@@ -5171,7 +6005,7 @@ class AlarmCardPanel extends HTMLElement {
   _act_set(_id, v, el) {
     const [key, value] = v.split("=");
     if (key === "panel_tabs") {
-      const cur = new Set(this._opts().panel_tabs || PANEL_TABS.slice(0, 4));
+      const cur = new Set(this._opts().panel_tabs || CONTENT_TABS);
       cur.has(value) ? cur.delete(value) : cur.add(value);
       if (!cur.size) return;
       return this._saveSettings({ panel_tabs: PANEL_TABS.filter((t) => cur.has(t)) });
@@ -5780,6 +6614,329 @@ class AlarmCardPanel extends HTMLElement {
     </div>`;
   }
 
+  // ── Timeline ──
+  // The activity of the alarm's sensors over 6 h, 24 h or 3 days, from Home Assistant's history: the alarm's state on
+  // top, then one row per room, sensor type or sensor (the choice, the sort and the filters are kept by the browser).
+  _tlState() {
+    if (!this._tl) {
+      let saved = {};
+      try {
+        saved = JSON.parse(localStorage.getItem(TL_KEY) || "{}") || {};
+      } catch (_err) {
+        saved = {};
+      }
+      this._tl = {
+        room: saved.room || "all",
+        period: TL_SPANS[saved.period] ? saved.period : "24h",
+        group: ["room", "type", "none"].includes(saved.group) ? saved.group : "room",
+        sort: ["recent", "count", "name"].includes(saved.sort) ? saved.sort : "recent",
+        hidden: new Set(Array.isArray(saved.hidden) ? saved.hidden : []),
+        open: new Set(),
+        data: null,
+        key: "",
+        at: 0,
+      };
+    }
+    return this._tl;
+  }
+
+  _tlSave() {
+    const s = this._tl;
+    try {
+      localStorage.setItem(TL_KEY, JSON.stringify({ room: s.room, period: s.period, group: s.group, sort: s.sort, hidden: [...s.hidden] }));
+    } catch (_err) {
+      /* kept for this page only */
+    }
+  }
+
+  _tlIds() {
+    return [this._entityId(), ...Object.keys(this._d?.sensors || {})].filter(Boolean);
+  }
+
+  // The history of the window, read again when the period or the sensors change, and every 5 minutes.
+  async _tlLoad(force = false) {
+    const s = this._tlState();
+    const ids = this._tlIds();
+    const key = `${s.period}|${ids.join(",")}`;
+    if (!force && s.key === key && Date.now() - s.at < 300000) return;
+    if (s.loading) return;
+    s.loading = true;
+    s.key = key;
+    s.at = Date.now();
+    const start = new Date(Date.now() - TL_SPANS[s.period] * 3600e3).toISOString();
+    try {
+      const res = await this._hass.callWS({
+        type: "history/history_during_period",
+        start_time: start,
+        entity_ids: ids,
+        minimal_response: true,
+        no_attributes: true,
+        significant_changes_only: false,
+      });
+      s.data = res || {};
+    } catch (err) {
+      console.warn("alarm-panel: history not loaded", err);
+      s.data = {};
+    }
+    s.loading = false;
+    if (this._tab === "timeline") this._renderPage();
+  }
+
+  // [start ms, end ms, state] of an entity over the window; its live state extends the history to now.
+  _tlSegs(id, t0, now) {
+    const pts = (this._tl.data?.[id] || []).map((p) => [((p.lc ?? p.lu) || 0) * 1000, p.s]);
+    const live = this._hass.states[id];
+    if (live) {
+      const t = Date.parse(live.last_changed);
+      if (!pts.length || t > pts[pts.length - 1][0]) pts.push([Math.max(t, t0), live.state]);
+    }
+    return pts.map(([t, st], i) => [Math.max(t, t0), i + 1 < pts.length ? pts[i + 1][0] : now, st]).filter(([a, b]) => b > a);
+  }
+
+  _tlRoom(id) {
+    const ent = this._hass.entities?.[id];
+    const area = ent?.area_id || this._hass.devices?.[ent?.device_id]?.area_id;
+    return area ? { id: area, name: this._hass.areas?.[area]?.name || area } : { id: "_none", name: this._t("no_room") };
+  }
+
+  _tlWord(type, on) {
+    if (type === "motion") return this._t(on ? "tl_motion" : "tl_clear");
+    if (type === "environmental" || type === "tamper") return this._t(on ? "tl_detected" : "tl_ok");
+    return this._t(on ? "on" : "off");
+  }
+
+  _page_timeline() {
+    const s = this._tlState();
+    this._tlLoad();
+    if (!s.data) return `<div class="empty">${pesc(this._t("loading"))}</div>`;
+    const now = Date.now();
+    const span = TL_SPANS[s.period] * 3600e3;
+    const t0 = now - span;
+    const pct = (t) => ((t - t0) / span) * 100;
+    const lang = this._hass.locale?.language || this._hass.language || "en";
+    const fmt = (t) => new Date(t).toLocaleTimeString(lang, { hour: "2-digit", minute: "2-digit" });
+    const rtf = new Intl.RelativeTimeFormat(lang, { numeric: "auto" });
+    const ago = (t) => {
+      const m = Math.round((t - now) / 60000);
+      return Math.abs(m) < 60 ? rtf.format(m, "minute") : Math.abs(m) < 2880 ? rtf.format(Math.round(m / 60), "hour") : rtf.format(Math.round(m / 1440), "day");
+    };
+    const dur = (a, b) => {
+      const m = Math.max(1, Math.round((b - a) / 60000));
+      return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, "0")}`;
+    };
+    const kit = window.AlarmCardKit;
+    const tip = (o) => `data-tip="${pesc(JSON.stringify(o))}"`;
+    // The alarm's segments, its delays and its triggers.
+    const alarmId = this._entityId();
+    const alarm = alarmId ? this._tlSegs(alarmId, t0, now) : [];
+    const stateAt = (t) => alarm.find(([a, b]) => t >= a && t < b)?.[2] || "";
+    // The sensors, with their room, type and open / unavailable intervals.
+    const all = Object.values(this._d.sensors).map((x) => {
+      const segs = this._tlSegs(x.entity_id, t0, now);
+      return {
+        id: x.entity_id,
+        name: this._name(x.entity_id),
+        type: SENSOR_TYPES.includes(x.type) ? x.type : "other",
+        room: this._tlRoom(x.entity_id),
+        on: segs.filter(([, , st]) => isOpenState(st)),
+        unav: segs.filter(([, , st]) => st === "unavailable" || st === "unknown"),
+        live: this._hass.states[x.entity_id]?.state,
+      };
+    });
+    const rooms = [...new Map(all.map((x) => [x.room.id, x.room])).values()].sort((a, b) => (a.id === "_none") - (b.id === "_none") || a.name.localeCompare(b.name));
+    if (s.room !== "all" && !rooms.some((r) => r.id === s.room)) s.room = "all";
+    const types = SENSOR_TYPES.filter((ty) => all.some((x) => x.type === ty));
+    const shown = all.filter((x) => (s.room === "all" || x.room.id === s.room) && !s.hidden.has(x.type));
+    const last = (x) => x.on.at(-1)?.[1] ?? 0;
+    const sortFn = { recent: (a, b) => last(b) - last(a), count: (a, b) => b.on.length - a.on.length, name: (a, b) => a.name.localeCompare(b.name) }[s.sort];
+    const sorted = (l) => [...l].sort(sortFn);
+    // Summary tiles.
+    const events = shown.flatMap((x) => x.on.map((iv) => ({ x, iv })));
+    const most = [...shown].sort((a, b) => b.on.length - a.on.length)[0];
+    const longest = [...events].sort((a, b) => b.iv[1] - b.iv[0] - (a.iv[1] - a.iv[0]))[0];
+    const triggers = alarm.filter(([, , st]) => st === "triggered");
+    const lastTrigger = triggers.at(-1);
+    const culprit = lastTrigger && events.filter((e) => e.iv[0] <= lastTrigger[0] && e.iv[0] >= lastTrigger[0] - 300000).sort((a, b) => b.iv[0] - a.iv[0])[0];
+    const tile = (c, icon, label, value, sub) =>
+      `<div class="sum"><div class="ti ${c}">${picon(icon)}</div><div class="tx"><div class="sl">${pesc(label)}</div><div class="sv">${pesc(value)}</div><div class="ts muted">${pesc(sub)}</div></div></div>`;
+    const sums = `<div class="sums">
+      ${tile("c-acc", PI.list, this._t("tl_events"), String(events.length), this._t("tl_tracked", { n: shown.length }))}
+      ${tile(triggers.length ? "c-alarm" : "c-off", kit?.STATE_ICON.alarm || PI.bell, this._t("tl_triggers"), triggers.length ? String(triggers.length) : this._t("tl_none"), lastTrigger ? `${fmt(lastTrigger[0])}${culprit ? ` · ${culprit.x.name}` : ""}` : this._t("tl_calm"))}
+      ${most?.on.length ? tile(TL_COLOR[most.type], PI[most.type], this._t("tl_most"), most.name, `${this._t("tl_times", { n: most.on.length })} · ${most.room.name}`) : ""}
+      ${longest ? tile(TL_COLOR[longest.x.type], PI[longest.x.type], this._t("tl_longest"), dur(longest.iv[0], longest.iv[1]), `${longest.x.name} · ${fmt(longest.iv[0])}`) : ""}
+    </div>`;
+    // Grid lines, armed periods and the delay / trigger marks drawn in every track.
+    const step = TL_SPANS[s.period] > 24 ? 6 : TL_SPANS[s.period] > 6 ? 3 : 1;
+    const ticks = [];
+    const first = new Date(t0);
+    first.setMinutes(0, 0, 0);
+    for (let t = first.getTime() + 3600e3; t < now; t += 3600e3) {
+      const h = new Date(t).getHours();
+      if (h % step === 0 && pct(t) < 93) ticks.push([t, h === 0, h !== 0 && (TL_SPANS[s.period] > 24 || h % (step * 2) !== 0)]);
+    }
+    const under =
+      ticks.map(([t, mid]) => `<i class="gl${mid ? " mid" : ""}" style="left:${pct(t)}%"></i>`).join("") +
+      alarm
+        .filter(([, , st]) => st.startsWith("armed_"))
+        .map(([a, b, st]) => `<i class="armed ${MODE_CLASS[st] || "away"}" style="left:${pct(a)}%;width:${pct(b) - pct(a)}%"></i>`)
+        .join("");
+    const marks = alarm
+      .filter(([a, , st]) => (st === "pending" || st === "triggered") && a > t0)
+      .map(([a, , st]) => `<i class="mk ${st === "triggered" ? "alarm" : "wait"}" style="left:${pct(a)}%"></i>`)
+      .join("");
+    const stLabel = (st) => this._t(`s_${st}`);
+    const alarmTrack = alarm
+      .map(([a, b, st]) => {
+        const c = kit ? kit.stateClass(st) : "idle";
+        const w = pct(b) - pct(a);
+        return `<i class="seg-a ${c}" ${tip({ t: stLabel(st), c: `c-${c}`, l: `${fmt(a)} → ${b >= now - 1000 ? this._t("tl_now") : fmt(b)}`, d: dur(a, b) })} style="left:${pct(a)}%;width:${Math.max(0.4, w)}%"><span>${w > 10 ? pesc(stLabel(st)) : ""}</span></i>`;
+      })
+      .join("");
+    const alarmSt = alarmId ? this._hass.states[alarmId] : null;
+    const alarmCls = alarmSt && kit ? kit.stateClass(alarmSt.state) : "idle";
+    const alarmRow = `<div class="tl-row alarm"><div class="tl-lab"><div class="ti c-${alarmCls}">${picon(kit?.STATE_ICON[alarmCls] || PI.home)}</div><div class="tx c-${alarmCls}"><div class="tn">${pesc(
+      alarmSt?.attributes?.friendly_name || this._t("alarm"),
+    )}</div><div class="ts">${pesc(alarmSt ? this._stateSub(alarmSt) : "")}</div></div></div><div class="tl-track">${alarmTrack}<i class="nowdot c-${alarmCls}"></i></div></div>`;
+    const bars = (x, cls = "") =>
+      x.on
+        .map(
+          ([a, b]) =>
+            `<i class="seg-s ${TL_COLOR[x.type]} ${cls}" ${tip({ t: x.name, r: x.room.name, c: TL_COLOR[x.type], l: `${this._tlWord(x.type, true)} · ${fmt(a)} → ${b >= now - 1000 ? this._t("tl_now") : fmt(b)}`, d: dur(a, b), w: stateAt(a) ? this._t("tl_alarm_at", { state: stLabel(stateAt(a)) }) : "" })} style="left:${pct(a)}%;width:${Math.max(0.4, pct(b) - pct(a))}%"></i>`,
+        )
+        .join("") +
+      x.unav
+        .map(([a, b]) => `<i class="seg-u ${cls}" ${tip({ t: x.name, r: x.room.name, c: "c-red", l: `${this._t("st_unavailable")} · ${fmt(a)} → ${fmt(b)}`, d: dur(a, b) })} style="left:${pct(a)}%;width:${pct(b) - pct(a)}%"></i>`)
+        .join("");
+    const sensorRow = (x, showRoom) => {
+      const l = x.on.at(-1);
+      // Open now: since when; otherwise its last activity.
+      const openNow = isOpenState(x.live) && l && l[1] >= now - 1000;
+      const when = openNow ? this._t("sub_since", { time: fmt(l[0]) }) : l ? this._t("tl_last", { ago: ago(l[1]) }) : this._t("tl_no_activity");
+      const line = `${showRoom ? `${x.room.name} · ` : ""}${this._tlWord(x.type, isOpenState(x.live))} · ${when}`;
+      return `<div class="tl-row"><div class="tl-lab"><div class="ti ${TL_COLOR[x.type]}">${picon(PI[x.type])}</div><div class="tx"><div class="tn">${pesc(x.name)}</div><div class="ts muted">${pesc(line)}</div></div><span class="tcnt">${x.on.length}</span></div>
+        <div class="tl-track">${under}${bars(x)}${marks}</div></div>`;
+    };
+    // Rows: by room, by type, or one row per sensor.
+    let groups;
+    if (s.group === "type") groups = types.map((ty) => ({ id: `t-${ty}`, name: this._t(`ty_${ty}`), c: TL_COLOR[ty], icon: PI[ty], l: sorted(shown.filter((x) => x.type === ty)) }));
+    else if (s.group === "room") groups = rooms.map((r) => ({ id: `r-${r.id}`, name: r.name, c: "c-acc", icon: PI.home, l: sorted(shown.filter((x) => x.room.id === r.id)) }));
+    groups = (groups || []).filter((g) => g.l.length);
+    const body =
+      s.group === "none"
+        ? sorted(shown)
+            .map((x) => sensorRow(x, true))
+            .join("")
+        : groups
+            .map((g) => {
+              const n = g.l.reduce((acc, x) => acc + x.on.length, 0);
+              const open = s.open.has(g.id) || (s.group === "room" && s.room !== "all");
+              return `<div class="tl-row grp${open ? " open" : ""}" data-a="tl-toggle" data-v="${pesc(g.id)}" role="button" tabindex="0" aria-expanded="${open}"><div class="tl-lab"><div class="ti ${g.c}">${picon(g.icon)}</div><div class="tx"><div class="tn">${pesc(g.name)}</div><div class="ts muted">${pesc(
+                `${this._t("tl_n_sensors", { n: g.l.length })} · ${g.l.map((x) => x.name).join(", ")}`,
+              )}</div></div><span class="tcnt">${n}</span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="${PI.chev}"/></svg></div>
+                <div class="tl-track lanes" style="--n:${g.l.length}">${under}${g.l.map((x) => `<div class="lane">${bars(x, "thin")}</div>`).join("")}${marks}</div></div>
+                ${open ? `<div class="tl-sub">${g.l.map((x) => sensorRow(x, s.group !== "room")).join("")}</div>` : ""}`;
+            })
+            .join("");
+    const axis = `<div class="tl-axis"><div></div><div class="tl-track">${ticks
+      .map(
+        ([t, mid, minor]) =>
+          `<span class="${mid ? "mid" : ""}${minor ? " minor" : ""}" style="left:${pct(t)}%">${pesc(mid ? new Date(t).toLocaleDateString(lang, { weekday: "short", day: "numeric" }) : `${new Date(t).getHours()} h`)}</span>`,
+      )
+      .join("")}<span class="now" style="left:100%">${fmt(now)}</span></div></div>`;
+    const seg = (a, values, cur) =>
+      `<span class="seg">${values.map(([v, l]) => `<button class="${cur === v ? "on" : ""}" aria-pressed="${cur === v}" data-a="${a}" data-v="${v}">${pesc(l)}</button>`).join("")}</span>`;
+    const filters = `<div class="filters">${[["all", this._t("all_rooms")], ...rooms.map((r) => [r.id, r.name])]
+      .map(([v, l]) => `<button class="fchip${s.room === v ? " on" : ""}" data-a="tl-room" data-v="${pesc(v)}">${pesc(l)}</button>`)
+      .join("")}<span class="grow"></span>${seg(
+      "tl-period",
+      Object.keys(TL_SPANS).map((p) => [p, this._t(`p_${p}`)]),
+      s.period,
+    )}</div>`;
+    const legend = `<div class="legend">${types
+      .map(
+        (ty) =>
+          `<button class="lchip ${TL_COLOR[ty]}${s.hidden.has(ty) ? "" : " on"}" aria-pressed="${!s.hidden.has(ty)}" data-a="tl-type" data-v="${ty}"><i></i>${pesc(this._t(`ty_${ty}`))}</button>`,
+      )
+      .join("")}<span class="lkey"><i class="u"></i>${pesc(this._t("st_unavailable"))}</span><span class="lkey"><i class="arm"></i>${pesc(this._t("tl_armed"))}</span><span class="lkey"><i class="mk"></i>${pesc(
+      this._t("tl_marks"),
+    )}</span></div>`;
+    const title = this._t({ room: "tl_by_room", type: "tl_by_type", none: "tl_by_sensor" }[s.group]);
+    const controls = `<div class="hgroup">${seg(
+      "tl-group",
+      [
+        ["room", this._t("g_room")],
+        ["type", this._t("g_type")],
+        ["none", this._t("g_none")],
+      ],
+      s.group,
+    )}<select class="sel" data-tl-sort aria-label="${pesc(this._t("so_label"))}">${[
+      ["recent", this._t("so_recent")],
+      ["count", this._t("so_count")],
+      ["name", this._t("so_name")],
+    ]
+      .map(([v, l]) => `<option value="${v}"${s.sort === v ? " selected" : ""}>${pesc(l)}</option>`)
+      .join("")}</select></div>`;
+    const empty = !Object.keys(s.data).length ? `<p class="hint">${pesc(this._t("tl_no_history"))}</p>` : "";
+    return `${filters}${sums}<section class="box wide"><div class="bh"><h2>${pesc(title)}</h2>${controls}</div>${legend}${empty}<div class="tl">${alarmRow}${body}${axis}</div></section>`;
+  }
+
+  _act_tl_room(_id, v) {
+    this._tl.room = v;
+    this._tlSave();
+    this._renderPage();
+  }
+
+  _act_tl_period(_id, v) {
+    this._tl.period = v;
+    this._tlSave();
+    this._tl.data = null;
+    this._renderPage();
+  }
+
+  _act_tl_group(_id, v) {
+    this._tl.group = v;
+    this._tl.open.clear();
+    this._tlSave();
+    this._renderPage();
+  }
+
+  _act_tl_type(_id, v) {
+    const h = this._tl.hidden;
+    // At least one type stays shown.
+    if (h.has(v)) h.delete(v);
+    else if (h.size + 1 < SENSOR_TYPES.length) h.add(v);
+    this._tlSave();
+    this._renderPage();
+  }
+
+  _act_tl_toggle(_id, v) {
+    const o = this._tl.open;
+    o.has(v) ? o.delete(v) : o.add(v);
+    this._renderPage();
+  }
+
+  // The tooltip of a bar of the timeline, under it, inside the panel.
+  _tlTip(e) {
+    const el = e.target.closest?.("[data-tip]");
+    this.shadowRoot.querySelector(".tip")?.remove();
+    if (!el) return;
+    let o;
+    try {
+      o = JSON.parse(el.dataset.tip);
+    } catch (_err) {
+      return;
+    }
+    const host = this.getBoundingClientRect();
+    const b = el.getBoundingClientRect();
+    const d = document.createElement("div");
+    d.className = `tip ${o.c || ""}`;
+    d.setAttribute("role", "tooltip");
+    d.innerHTML = `<b><i></i>${pesc(o.t)}</b>${o.r ? `<div class="m">${pesc(o.r)}</div>` : ""}<div>${pesc(o.l)}</div><div class="m">${pesc(this._t("tl_duration", { d: o.d }))}</div>${o.w ? `<div class="m">${pesc(o.w)}</div>` : ""}`;
+    this.shadowRoot.appendChild(d);
+    d.style.left = `${Math.min(Math.max(8, b.left - host.left + b.width / 2 - 100), host.width - d.offsetWidth - 8)}px`;
+    d.style.top = `${b.bottom - host.top + 8}px`;
+  }
+
   // ── Settings ──
   _pageSettings() {
     const o = this._opts();
@@ -5787,7 +6944,7 @@ class AlarmCardPanel extends HTMLElement {
       `<span class="seg">${values
         .map(([v, l]) => `<button class="${String(cur) === String(v) ? "on" : ""}" aria-pressed="${String(cur) === String(v)}" data-a="set" data-v="${key}=${v}">${pesc(l)}</button>`)
         .join("")}</span>`;
-    const tabs = o.panel_tabs?.length ? o.panel_tabs : PANEL_TABS.slice(0, 4);
+    const tabs = o.panel_tabs?.length ? o.panel_tabs : CONTENT_TABS;
     const alarms = Object.keys(this._hass.states).filter((id) => id.startsWith("alarm_control_panel."));
     return `<div class="grid">
       ${this._box(
@@ -5812,7 +6969,7 @@ class AlarmCardPanel extends HTMLElement {
               o.hide_header || "off",
             ),
           ) +
-          `<div class="frow col"><div class="fl"><b>${pesc(this._t("panel_tabs"))}</b></div><div class="chips">${PANEL_TABS.slice(0, 4)
+          `<div class="frow col"><div class="fl"><b>${pesc(this._t("panel_tabs"))}</b></div><div class="chips">${CONTENT_TABS
             .map((t) => `<button class="mchip c-acc${tabs.includes(t) ? " on" : ""}" aria-pressed="${tabs.includes(t)}" data-a="set" data-v="panel_tabs=${t}">${pesc(this._t(`t_${t}`))}</button>`)
             .join("")}</div></div>` +
           this._row(
@@ -5992,7 +7149,72 @@ const PANEL_STYLE = `
   .toast { position: fixed; z-index: 11; left: 50%; bottom: 24px; transform: translateX(-50%); padding: 8px 16px; border-radius: 18px; font-size: 13px;
            background: var(--primary-text-color); color: var(--primary-background-color); box-shadow: 0 4px 16px rgba(0,0,0,.25); }
   .toast.bad { background: var(--al-alarm); color: #fff; }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  /* Timeline: summary tiles, then the alarm's band and the rows of the sensors over the window. */
+  .c-cyan { --c: var(--al-vacation); }
+  .grow { flex: 1; }
+  .bh { flex-wrap: wrap; } .bh .sel { max-width: none; }
+  .sums { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+  .sum { display: flex; gap: 10px; align-items: center; padding: 12px; border-radius: 12px; background: var(--card-background-color, #fff); border: 1px solid var(--divider-color); min-width: 0; }
+  .sum .sl { font-size: 12px; color: var(--secondary-text-color); }
+  .sum .sv { font-size: 17px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tl { display: flex; flex-direction: column; position: relative; }
+  .tl-row { display: grid; grid-template-columns: minmax(170px, 250px) minmax(0, 1fr); align-items: center; gap: 12px; min-height: 46px; border-top: 1px solid color-mix(in srgb, var(--divider-color) 50%, transparent); }
+  .tl-row.alarm { min-height: 54px; border-top: 0; }
+  .tl-lab { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .tl-lab .ti { width: 30px; height: 30px; } .tl-lab .icon { width: 17px; height: 17px; }
+  .tcnt { margin-left: auto; flex: none; font-size: 11px; font-weight: 600; color: var(--secondary-text-color); background: var(--tile); border-radius: 9px; padding: 1px 7px; }
+  .tl-track { position: relative; height: 24px; border-radius: 6px; background: var(--tile); overflow: hidden; }
+  .tl-row.alarm .tl-track { height: 28px; overflow: visible; }
+  .tl-track > i, .lane > i { position: absolute; top: 0; bottom: 0; }
+  .gl { width: 1px; background: color-mix(in srgb, var(--divider-color) 70%, transparent); }
+  .gl.mid { width: 0; border-left: 1.5px dashed color-mix(in srgb, var(--secondary-text-color) 50%, transparent); }
+  .armed { --c: var(--al-away); background: color-mix(in srgb, var(--c) 8%, transparent); }
+  .armed.home { --c: var(--al-home); } .armed.night { --c: var(--al-night); } .armed.vacation { --c: var(--al-vacation); } .armed.custom { --c: var(--al-custom); }
+  .mk { width: 0; border-left: 2px dotted var(--al-wait); z-index: 2; } .mk.alarm { border-left: 2px solid var(--al-alarm); }
+  .seg-a { background: color-mix(in srgb, var(--c, var(--al-idle)) 72%, transparent); display: flex; align-items: center; overflow: hidden; cursor: pointer; }
+  .seg-a:first-child { border-radius: 6px 0 0 6px; }
+  .seg-a.off { background: color-mix(in srgb, var(--c) 28%, transparent); }
+  .seg-a.alarm { background: var(--c); box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 35%, transparent); z-index: 2; }
+  .seg-a span { font-size: 11px; font-weight: 500; color: #fff; padding-left: 7px; white-space: nowrap; }
+  .seg-a.off span, .seg-a.idle span { color: color-mix(in srgb, var(--c) 45%, var(--primary-text-color)); }
+  .nowdot { left: calc(100% - 5px) !important; top: 9px !important; bottom: auto !important; width: 10px; height: 10px; border-radius: 50%; background: var(--c); z-index: 3;
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 30%, transparent); animation: tl-pulse 2s ease-in-out infinite; }
+  @keyframes tl-pulse { 50% { box-shadow: 0 0 0 6px transparent; } }
+  .seg-s { top: 5px !important; bottom: 5px !important; border-radius: 4px; background: var(--c); min-width: 3px; cursor: pointer; z-index: 1; }
+  .seg-u { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--al-alarm) 55%, transparent) 0 4px, transparent 4px 8px); cursor: pointer; z-index: 1; }
+  .seg-s:hover, .seg-a:hover, .seg-u:hover { filter: brightness(1.12); }
+  .lanes { height: calc(var(--n) * 7px + 8px); padding: 4px 0; display: flex; flex-direction: column; gap: 1px; }
+  .lane { position: relative; flex: 1; }
+  .seg-s.thin, .seg-u.thin { top: 0 !important; bottom: 0 !important; border-radius: 2px; }
+  .tl-row.grp { cursor: pointer; } .tl-row.grp .chev { margin-left: 6px; } .tl-row.grp.open .chev { transform: rotate(90deg); }
+  .tl-row.grp:focus-visible { outline: 2px solid var(--primary-color); outline-offset: -2px; }
+  .tl-sub { padding-left: 16px; border-left: 2px solid color-mix(in srgb, var(--A) 30%, transparent); margin: 0 0 6px 14px; }
+  .tl-axis { display: grid; grid-template-columns: minmax(170px, 250px) minmax(0, 1fr); gap: 12px; margin-top: 6px; }
+  .tl-axis .tl-track { background: none; height: 16px; overflow: visible; }
+  .tl-axis span { position: absolute; transform: translateX(-50%); font-size: 11px; color: var(--secondary-text-color); white-space: nowrap; }
+  .tl-axis span.mid { font-weight: 600; color: var(--primary-text-color); }
+  .tl-axis span.now { transform: translateX(-100%); color: var(--A); font-weight: 600; }
+  .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 12px; color: var(--secondary-text-color); margin: -2px 0 12px; }
+  .lchip { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 14px; border: 1px solid var(--divider-color); }
+  .lchip:focus-visible { outline: 2px solid var(--primary-color); }
+  .lchip i, .lkey i { width: 14px; height: 8px; border-radius: 3px; background: var(--c); display: inline-block; }
+  .lchip:not(.on) { opacity: .5; } .lchip:not(.on) i { background: transparent; box-shadow: inset 0 0 0 1.5px var(--c); }
+  .lchip.on { color: var(--primary-text-color); }
+  .lkey { display: inline-flex; align-items: center; gap: 6px; }
+  .lkey i.u { background: repeating-linear-gradient(135deg, var(--al-alarm) 0 3px, transparent 3px 6px); }
+  .lkey i.arm { background: color-mix(in srgb, var(--al-away) 22%, transparent); }
+  .lkey i.mk { width: 0; height: 12px; border-left: 2px dotted var(--al-wait); background: none; border-radius: 0; }
+  .tip { position: absolute; z-index: 30; pointer-events: none; min-width: 180px; max-width: 260px; padding: 10px 12px; border-radius: 12px; background: var(--card-background-color, #fff);
+         color: var(--primary-text-color); box-shadow: 0 8px 28px rgba(0,0,0,.22); border: 1px solid var(--divider-color); font-size: 12px; line-height: 1.45; }
+  .tip b { display: flex; align-items: center; gap: 6px; font-size: 13px; } .tip b i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+  .tip .m { color: var(--secondary-text-color); }
+  @container al-panel (max-width: 600px) {
+    .tl-row, .tl-axis { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 8px 0; }
+    .tl-axis > div:first-child { display: none; }
+    .tl-axis span.minor { display: none; }
+    .sums { grid-template-columns: 1fr 1fr; } .sum { padding: 10px; } .sum .ti { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 `;
 
 if (!customElements.get("alarm-card-panel")) customElements.define("alarm-card-panel", AlarmCardPanel);

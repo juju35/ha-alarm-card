@@ -45,7 +45,8 @@
         "general": "Általános",
         "sensors": "Érzékelők",
         "codes": "Kódok",
-        "actions": "Műveletek"
+        "actions": "Műveletek",
+        "timeline": "Idővonal"
       }
     },
     "illustration_theme": {

@@ -45,7 +45,8 @@
         "general": "Obecné",
         "sensors": "Senzory",
         "codes": "Kódy",
-        "actions": "Akce"
+        "actions": "Akce",
+        "timeline": "Časová osa"
       }
     },
     "illustration_theme": {

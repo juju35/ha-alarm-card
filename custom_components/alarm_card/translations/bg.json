@@ -45,7 +45,8 @@
         "general": "Общи",
         "sensors": "Сензори",
         "codes": "Кодове",
-        "actions": "Действия"
+        "actions": "Действия",
+        "timeline": "Времева линия"
       }
     },
     "illustration_theme": {

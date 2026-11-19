@@ -45,7 +45,8 @@
         "general": "Allgemein",
         "sensors": "Sensoren",
         "codes": "Codes",
-        "actions": "Aktionen"
+        "actions": "Aktionen",
+        "timeline": "Zeitleiste"
       }
     },
     "illustration_theme": {

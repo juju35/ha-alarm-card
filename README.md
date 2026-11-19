@@ -28,7 +28,7 @@ The cards work with any [alarm control panel](https://www.home-assistant.io/inte
 
 ## Features
 
-- **Alarm panel** in the sidebar (administrators): the same tabs and settings as Alarmo's own panel — General (modes and their delays, areas, master alarm, behaviour after triggering, MQTT), Sensors (every Alarmo option per sensor, adding sensors, sensor groups), Codes (code use, users and their rights), Actions (notifications and actions) — then the panel's Settings, under the cards' illustrated radar header with the arm / disarm buttons
+- **Alarm panel** in the sidebar (administrators): the same tabs and settings as Alarmo's own panel — General (modes and their delays, areas, master alarm, behaviour after triggering, MQTT), Sensors (every Alarmo option per sensor, adding sensors, sensor groups), Codes (code use, users and their rights), Actions (notifications and actions) — plus a **Timeline** of the sensors' activity and the panel's Settings, under the cards' illustrated radar header with the arm / disarm buttons
 - Sidebar badge on the Alarm panel: the sensors keeping the alarm from arming, red while it is triggered
 - Two cards: a full **Alarm Card** and a compact, single-row **Alarm Mini Card** (state, countdown and one-tap buttons)
 - Detail button at the top right of the mini card: it switches to the full card and back; a click anywhere outside the card brings the compact view back. On the illustrated header, the compact view's round arm / disarm buttons stand under it, in columns of two added to the left (back to a row under the banner at phone width when there are more than two); the zoomed view keeps them under the header. On the classic header, when the card is too narrow for all its buttons (every arm mode at the default 6 columns), they move to a second row under the name
@@ -102,6 +102,7 @@ The **Alarm** panel (sidebar, administrators only) sets up Alarmo in the style o
 | **Sensors** | Every sensor of the alarm with its live state and why it blocks arming, filtered by area or searched; type, area, group, modes and every Alarmo option (exit / entry delay, arm on close, allow open, auto bypass, trigger when unavailable, always on); adding binary sensors (the type follows the device class); sensor groups |
 | **Codes** | Code to arm, to disarm, to change mode, and the code format; users with their code, rights (arm, disarm, override) and areas |
 | **Actions** | Notifications (event, area, modes, target, title and message with Alarmo's wildcards, a **Try it** button) and actions (an entity turned on or off on an event) |
+| **Timeline** | The activity of the alarm's sensors over 6 h, 24 h or 3 days, from Home Assistant's history: summary tiles (events, triggers, most active sensor, longest opening), the alarm's state as a band on top, then one row per room — or per sensor type, or ungrouped, one row per sensor — sorted by recent activity, activity or name. Every room's row has a thin lane per sensor and unfolds into a row per sensor; armed periods shade the rows, the entry delays and triggers are drawn through every row, and a tooltip gives each opening's times and duration. Filter by room and by sensor type; the grouping, the sort and the filters are remembered by the browser |
 | **Settings** | Sidebar title, hiding the top bar (never, for non-admins, for everyone: the tabs and the menu button stay), tabs shown, sidebar badge, the alarm shown in the header and the illustration theme |
 
 Everything is read and written through Alarmo's API, so Alarmo's entities, its own panel, cards and automations keep working; changes made elsewhere show up at once. The same panel settings are in **Settings → Devices & services → Alarm Card → Configure**.
@@ -112,6 +113,7 @@ Everything is read and written through Alarmo's API, so Alarmo's entities, its o
 | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-sensors.png" alt="panel sensors" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-sensors-dark.png" alt="panel sensors dark" width="400"> |
 | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-codes.png" alt="panel codes" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-codes-dark.png" alt="panel codes dark" width="400"> |
 | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-actions.png" alt="panel actions" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-actions-dark.png" alt="panel actions dark" width="400"> |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-timeline.png" alt="panel timeline" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/screenshots/panel-timeline-dark.png" alt="panel timeline dark" width="400"> |
 
 ## Configuration
 

@@ -45,7 +45,8 @@
         "general": "Allmänt",
         "sensors": "Sensorer",
         "codes": "Koder",
-        "actions": "Åtgärder"
+        "actions": "Åtgärder",
+        "timeline": "Tidslinje"
       }
     },
     "illustration_theme": {

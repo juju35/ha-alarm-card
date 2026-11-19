@@ -45,7 +45,8 @@
         "general": "Загальні",
         "sensors": "Датчики",
         "codes": "Коди",
-        "actions": "Дії"
+        "actions": "Дії",
+        "timeline": "Хронологія"
       }
     },
     "illustration_theme": {

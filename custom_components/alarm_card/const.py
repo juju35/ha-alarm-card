@@ -16,7 +16,7 @@ HIDE_HEADER_OFF: Final = "off"
 HIDE_HEADER_CHOICES: Final = (HIDE_HEADER_OFF, "non_admin", "all")
 # Tabs of the panel shown; Settings always is.
 CONF_PANEL_TABS: Final = "panel_tabs"
-PANEL_TABS: Final = ("general", "sensors", "codes", "actions")
+PANEL_TABS: Final = ("general", "sensors", "codes", "actions", "timeline")
 # The sidebar badge: the sensors keeping the alarm from arming, red while it is triggered.
 CONF_SIDEBAR_BADGE: Final = "sidebar_badge"
 DEFAULT_SIDEBAR_BADGE: Final = True
