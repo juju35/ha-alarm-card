@@ -84,7 +84,14 @@ Then add the integration: **Settings → Devices & services → Add integration 
 
 ### Upgrading from 1.x (dashboard plugin)
 
-Up to 1.x the cards were a dashboard plugin; from 2.0 they come with the integration. Install the integration as above, add it, then remove the old **Alarm Card** dashboard plugin from the Marketplace and its `/local/community/ha-alarm-card/alarm-card.js` resource from **Settings → Dashboards → ⋮ → Resources** if it is still there. Your cards keep their YAML.
+Up to 1.x the cards were a dashboard plugin; from 2.0 they come with the integration. The Marketplace cannot change the type of an installed repository, so updating the old dashboard plugin to 2.x fails with *"The installed content has no alarm_card.zip"*. Switch it over instead:
+
+1. In the Marketplace, open **Alarm Card** (type Dashboard), **⋮ → Remove**, and remove it from your custom repositories if it is listed there
+2. Remove the `/local/community/ha-alarm-card/alarm-card.js` resource from **Settings → Dashboards → ⋮ → Resources** if it is still there
+3. Add the repository again with the type **Integration** and install it, as above, then restart Home Assistant
+4. Add the integration: **Settings → Devices & services → Add integration → Alarm Card**
+
+Your cards keep their YAML.
 
 ### Manual
 

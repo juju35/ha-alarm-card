@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.3 - 2026-11-20
+
+### Fixes
+- **Upgrading from 1.x**: the README now explains the *"The installed content has no alarm_card.zip"* error shown when the old dashboard plugin is updated to 2.x, and how to switch it over to the integration (remove the dashboard plugin first, then add the repository again as an Integration). Every 2.x release note now carries these steps (#79).
+
 ## 2.0.2 - 2026-11-19
 
 ### Fixes
