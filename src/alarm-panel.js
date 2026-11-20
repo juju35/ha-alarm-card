@@ -5345,12 +5345,21 @@ class AlarmCardPanel extends HTMLElement {
         if (e.target.closest?.("[data-tip]")) this.shadowRoot.querySelector(".tip")?.remove();
       });
     }
+    // Back on the panel after leaving it: Alarmo's changes made meanwhile were not followed, so its data is read
+    // again before following them anew.
+    if (this._hass && this._unsub === undefined && this._d) {
+      this._subscribe();
+      if (this._left) this._load().then(() => this._render());
+    }
+    this._left = false;
     this._render();
-    if (this._hass && this._unsub === undefined && this._d) this._subscribe();
   }
 
   disconnectedCallback() {
     this._unsubscribe();
+    this._left = true;
+    // A popup left open (the arming code, a delete to confirm) closes without acting.
+    this._popup = null;
   }
 
   // ── Data ──
