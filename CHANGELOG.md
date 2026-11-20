@@ -8,6 +8,7 @@
 
 ### Maintenance
 - New lifecycle tests of the panel element that run without a browser.
+- New browser test: state updates leave the cards' DOM and height alone (no rewrite, nothing for entities the card does not show), with a frame stand-in that renders late like Home Assistant's.
 
 ## 2.0.3 - 2026-11-20
 
