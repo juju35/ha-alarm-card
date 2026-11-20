@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from types import SimpleNamespace
 from unittest.mock import AsyncMock, patch
 
 from homeassistant.components import frontend
@@ -11,6 +12,7 @@ from homeassistant.data_entry_flow import FlowResultType
 from homeassistant.setup import async_setup_component
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
+from custom_components.alarm_card import _lovelace_resources
 from custom_components.alarm_card.config_flow import clean_options
 from custom_components.alarm_card.const import DOMAIN, PANEL_URL_PATH, VERSION
 
@@ -34,6 +36,12 @@ async def _setup(hass: HomeAssistant, options: dict | None = None) -> MockConfig
 
 def _panel(hass: HomeAssistant):
     return hass.data.get(frontend.DATA_PANELS, {}).get(PANEL_URL_PATH)
+
+
+def test_lovelace_resources_before_and_after_2025_2() -> None:
+    old = {"resources": "r", "resource_mode": "yaml"}
+    assert _lovelace_resources(old) == ("r", "yaml")
+    assert _lovelace_resources(SimpleNamespace(resources="r", resource_mode="storage")) == ("r", "storage")
 
 
 def test_clean_options_fills_defaults_and_drops_bad_values() -> None:
@@ -164,3 +172,65 @@ async def test_without_a_built_frontend_the_entry_still_loads(hass: HomeAssistan
     entry = await _setup(hass)
     assert entry.state is ConfigEntryState.LOADED
     assert _panel(hass) is None
+
+
+async def test_the_panel_title_is_bounded(hass: HomeAssistant, hass_ws_client) -> None:
+    """A sidebar label: the options flow cuts it, the websocket refuses a longer one."""
+    assert clean_options({"panel_title": "x" * 80})["panel_title"] == "x" * 50
+    await async_setup_component(hass, "http", {})
+    await _setup(hass)
+    client = await hass_ws_client(hass)
+    await client.send_json({"id": 1, "type": "alarm_card/update_settings", "options": {"panel_title": "x" * 51}})
+    assert not (await client.receive_json())["success"]
+
+
+class _Resources:
+    """Lovelace's resource collection in storage mode, in memory."""
+
+    def __init__(self, items: list[dict], fail: bool = False) -> None:
+        self.loaded = True
+        self.items = items
+        self.fail = fail
+
+    def async_items(self) -> list[dict]:
+        return list(self.items)
+
+    async def async_create_item(self, data: dict) -> None:
+        if self.fail:
+            raise RuntimeError("storage down")
+        self.items.append({"id": str(len(self.items) + 1), **data})
+
+    async def async_update_item(self, item_id: str, data: dict) -> None:
+        for item in self.items:
+            if item["id"] == item_id:
+                item.update(data)
+
+    async def async_delete_item(self, item_id: str) -> None:
+        self.items = [i for i in self.items if i["id"] != item_id]
+
+
+async def test_the_card_resource_is_updated_and_duplicates_removed(hass: HomeAssistant) -> None:
+    await async_setup_component(hass, "http", {})
+    old = [
+        {"id": "1", "res_type": "module", "url": "/alarm_card_static/alarm-card.js?v=old"},
+        {"id": "2", "res_type": "module", "url": "/alarm_card_static/alarm-card.js"},
+        {"id": "3", "res_type": "module", "url": "/local/other.js"},
+    ]
+    resources = _Resources(old)
+    with patch("custom_components.alarm_card._lovelace_resources", return_value=(resources, "storage")):
+        await _setup(hass)
+    cards = [i for i in resources.items if i["url"].startswith("/alarm_card_static/alarm-card.js")]
+    assert len(cards) == 1
+    assert cards[0]["id"] == "1"
+    assert cards[0]["url"] != "/alarm_card_static/alarm-card.js?v=old"
+    assert any(i["url"] == "/local/other.js" for i in resources.items)
+
+
+async def test_a_failing_resource_store_falls_back_to_an_extra_module(hass: HomeAssistant, stub_frontend) -> None:
+    await async_setup_component(hass, "http", {})
+    resources = _Resources([], fail=True)
+    with patch("custom_components.alarm_card._lovelace_resources", return_value=(resources, "storage")):
+        await _setup(hass)
+    assert resources.items == []
+    urls = [c.args[1] for c in stub_frontend.call_args_list]
+    assert any(u.startswith("/alarm_card_static/alarm-card.js?v=") for u in urls)
