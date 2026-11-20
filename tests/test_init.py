@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from unittest.mock import AsyncMock, patch
+
 from homeassistant.components import frontend
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.core import HomeAssistant
@@ -58,6 +60,15 @@ async def test_setup_registers_an_admin_panel_the_card_and_the_badge(hass: HomeA
 
     assert await hass.config_entries.async_unload(entry.entry_id)
     assert _panel(hass) is None
+
+
+async def test_frontend_is_served_with_cache_headers(hass: HomeAssistant) -> None:
+    """The URLs are versioned (hash / version), so the static path can let the browser cache them."""
+    await async_setup_component(hass, "http", {})
+    with patch.object(hass.http, "async_register_static_paths", AsyncMock()) as register:
+        assert await async_setup_component(hass, DOMAIN, {})
+    (configs,) = register.call_args.args
+    assert [(c.url_path, c.cache_headers) for c in configs] == [("/alarm_card_static", True)]
 
 
 async def test_a_new_sidebar_title_registers_the_panel_again(hass: HomeAssistant) -> None:

@@ -52,7 +52,9 @@ DATA_BADGE = f"{DOMAIN}_badge"
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Serve the frontend files and register the websocket commands, once."""
     if FRONTEND_DIR.is_dir():
-        await hass.http.async_register_static_paths([StaticPathConfig(FRONTEND_URL, str(FRONTEND_DIR), False)])
+        # Cache headers on: every URL handed to the browser carries the file's hash (or the version for the
+        # translation files), so a new release is fetched at once and an unchanged one comes from the cache.
+        await hass.http.async_register_static_paths([StaticPathConfig(FRONTEND_URL, str(FRONTEND_DIR), True)])
     else:
         # A checkout of the sources: the frontend is built by `npm run build` (the release zip carries it).
         _LOGGER.error("Alarm Card frontend not found in %s: run `npm run build`", FRONTEND_DIR)
