@@ -31,6 +31,7 @@ from .const import (
     HIDE_HEADER_CHOICES,
     HIDE_HEADER_OFF,
     PANEL_TABS,
+    PANEL_TITLE_MAX,
     THEME_AUTO,
     THEME_CHOICES,
 )
@@ -38,7 +39,7 @@ from .const import (
 
 def clean_options(options: Mapping[str, Any]) -> dict[str, Any]:
     """Every option with its default, unknown keys and values dropped."""
-    title = str(options.get(CONF_PANEL_TITLE) or "").strip() or DEFAULT_PANEL_TITLE
+    title = str(options.get(CONF_PANEL_TITLE) or "").strip()[:PANEL_TITLE_MAX].strip() or DEFAULT_PANEL_TITLE
     hide = options.get(CONF_HIDE_HEADER)
     tabs = options.get(CONF_PANEL_TABS)
     theme = options.get(CONF_ILLUSTRATION_THEME)

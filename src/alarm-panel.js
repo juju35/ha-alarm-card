@@ -5345,12 +5345,21 @@ class AlarmCardPanel extends HTMLElement {
         if (e.target.closest?.("[data-tip]")) this.shadowRoot.querySelector(".tip")?.remove();
       });
     }
+    // Back on the panel after leaving it: Alarmo's changes made meanwhile were not followed, so its data is read
+    // again before following them anew.
+    if (this._hass && this._unsub === undefined && this._d) {
+      this._subscribe();
+      if (this._left) this._load().then(() => this._render());
+    }
+    this._left = false;
     this._render();
-    if (this._hass && this._unsub === undefined && this._d) this._subscribe();
   }
 
   disconnectedCallback() {
     this._unsubscribe();
+    this._left = true;
+    // A popup left open (the arming code, a delete to confirm) closes without acting.
+    this._popup = null;
   }
 
   // ── Data ──
@@ -6963,7 +6972,7 @@ class AlarmCardPanel extends HTMLElement {
         this._row(
           this._t("panel_title"),
           "",
-          `<span class="hgroup"><input class="txt" style="width:160px" data-set-title value="${pesc(o.panel_title || "")}" aria-label="${pesc(this._t("panel_title"))}">${this._btn(this._t("save"), "set", {
+          `<span class="hgroup"><input class="txt" style="width:160px" data-set-title maxlength="50" value="${pesc(o.panel_title || "")}" aria-label="${pesc(this._t("panel_title"))}">${this._btn(this._t("save"), "set", {
             v: "panel_title=",
           })}</span>`,
         ) +

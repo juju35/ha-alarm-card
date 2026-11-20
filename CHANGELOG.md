@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.0.4 - 2026-11-20
+
+### Fixes
+- Alarm panel: leaving the panel closes a popup left open (the arming code, a delete to confirm) without acting, as the cards do.
+- Alarm panel: back on the panel after leaving it, Alarmo's data is read again — the changes made meanwhile (in Alarmo's own panel, another browser) were not followed while it was away.
+- Alarm panel: the sidebar title is limited to 50 characters (Settings tab, Configure and the websocket command), as the sidebar would cut it anyway.
+
+### Maintenance
+- The card, badge, panel and translation files are served with cache headers: their URLs already carry the file's hash (or the version), so the browser keeps them until a new release instead of asking again on every load.
+- New tests: the dashboard resource is updated to the new version and its duplicates removed, a failing resource store falls back to loading the card on every page.
+- New lifecycle tests of the panel element that run without a browser.
+- New browser test: state updates leave the cards' DOM and height alone (no rewrite, nothing for entities the card does not show), with a frame stand-in that renders late like Home Assistant's.
+
 ## 2.0.3 - 2026-11-20
 
 ### Fixes
