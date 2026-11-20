@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.0.4 - 2026-11-20
+
+### Fixes
+- Alarm panel: leaving the panel closes a popup left open (the arming code, a delete to confirm) without acting, as the cards do.
+- Alarm panel: back on the panel after leaving it, Alarmo's data is read again — the changes made meanwhile (in Alarmo's own panel, another browser) were not followed while it was away.
+
+### Maintenance
+- New lifecycle tests of the panel element that run without a browser.
+
 ## 2.0.3 - 2026-11-20
 
 ### Fixes
