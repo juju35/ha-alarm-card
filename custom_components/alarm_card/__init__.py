@@ -35,6 +35,7 @@ from .const import (
     PANEL_FILENAME,
     PANEL_ICON,
     PANEL_TABS,
+    PANEL_TITLE_MAX,
     PANEL_URL_PATH,
     THEME_CHOICES,
     VERSION,
@@ -192,7 +193,7 @@ def ws_settings(hass: HomeAssistant, connection: websocket_api.ActiveConnection,
         vol.Required("type"): f"{DOMAIN}/update_settings",
         vol.Required("options"): vol.Schema(
             {
-                vol.Optional(CONF_PANEL_TITLE): cv.string,
+                vol.Optional(CONF_PANEL_TITLE): vol.All(cv.string, vol.Length(max=PANEL_TITLE_MAX)),
                 vol.Optional(CONF_HIDE_HEADER): vol.In(HIDE_HEADER_CHOICES),
                 vol.Optional(CONF_PANEL_TABS): [vol.In(PANEL_TABS)],
                 vol.Optional(CONF_SIDEBAR_BADGE): cv.boolean,

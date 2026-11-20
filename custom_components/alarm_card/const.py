@@ -10,6 +10,8 @@ VERSION: Final = "2.0.4"
 # Panel options, set in the panel's Settings tab or in Configure.
 CONF_PANEL_TITLE: Final = "panel_title"
 DEFAULT_PANEL_TITLE: Final = "Alarm"
+# A sidebar label, not a text: longer would be cut off by the sidebar anyway.
+PANEL_TITLE_MAX: Final = 50
 # Who the panel's top bar (the illustrated header) is hidden for; the tabs and the menu button stay.
 CONF_HIDE_HEADER: Final = "hide_header"
 HIDE_HEADER_OFF: Final = "off"

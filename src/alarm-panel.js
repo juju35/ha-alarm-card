@@ -6972,7 +6972,7 @@ class AlarmCardPanel extends HTMLElement {
         this._row(
           this._t("panel_title"),
           "",
-          `<span class="hgroup"><input class="txt" style="width:160px" data-set-title value="${pesc(o.panel_title || "")}" aria-label="${pesc(this._t("panel_title"))}">${this._btn(this._t("save"), "set", {
+          `<span class="hgroup"><input class="txt" style="width:160px" data-set-title maxlength="50" value="${pesc(o.panel_title || "")}" aria-label="${pesc(this._t("panel_title"))}">${this._btn(this._t("save"), "set", {
             v: "panel_title=",
           })}</span>`,
         ) +
