@@ -5293,7 +5293,7 @@ const alarmPanel_FOLD_CSS = `
   .pf-fold.pf-measure { display:block; position:absolute; visibility:hidden; }
   :host([pf-folded]) .pf-top, :host([pf-folded]) .pf-tabs { display:none !important; }
   .pf-bar { display:flex; flex-wrap:wrap; align-items:center; column-gap:12px; min-height:64px; padding:0 16px; box-sizing:border-box; }
-  .pf-menu { flex:none; margin-inline:-8px -4px; color:var(--primary-text-color); }
+  .pf-menu { flex:none; display:flex; margin-inline:-8px -4px; color:var(--primary-text-color); }
   .pf-menu[hidden] { display:none; }
   .pf-ic { flex:none; width:40px; height:40px; border-radius:50%; display:grid; place-items:center; color:var(--pf-accent);
            background:color-mix(in srgb, currentColor 14%, transparent); }
@@ -5310,7 +5310,7 @@ const alarmPanel_FOLD_CSS = `
   .pf-pill:hover { background:color-mix(in srgb, currentColor 6%, transparent); }
   .pf-pill[aria-selected="true"] { color:var(--pf-accent); border:1.5px solid var(--pf-accent); background:color-mix(in srgb, var(--pf-accent) 14%, transparent); }
   .pf-pill:focus-visible { outline:2px solid var(--pf-accent); outline-offset:2px; }
-  .pf-pill svg { width:20px; height:20px; fill:currentColor; }
+  .pf-pill svg { width:20px; height:20px; fill:currentColor; flex:none; }
   .pf-pill ha-icon { --mdc-icon-size:20px; display:flex; }
   .pf-pill .pf-l { font-size:14px; font-weight:700; }
   .pf-pill b { position:absolute; top:-5px; right:-5px; min-width:18px; height:18px; padding:0 4px; box-sizing:border-box; border-radius:999px;
@@ -5401,7 +5401,7 @@ function alarmPanelFold(host, o) {
   fold.className = "pf-fold";
   fold.style.setProperty("--pf-accent", o.accent);
   if (o.actsMenu) fold.classList.add("pf-amenu");
-  fold.innerHTML = `<div class="pf-bar"><ha-menu-button class="pf-menu" hidden></ha-menu-button><span class="pf-ic" aria-hidden="true"></span>
+  fold.innerHTML = `<div class="pf-bar"><span class="pf-menu" hidden></span><span class="pf-ic" aria-hidden="true"></span>
     <div class="pf-names"><span class="pf-t"></span><span class="pf-s"></span></div>
     <div class="pf-pills" role="tablist"></div>
     <div class="pf-end"><span class="pf-stat" role="status"></span><div class="pf-acts"></div></div></div><div class="pf-extra"></div><div class="pf-subs" role="tablist" hidden></div>`;
@@ -5409,6 +5409,10 @@ function alarmPanelFold(host, o) {
   at.parentNode.insertBefore(sense, at);
   at.parentNode.insertBefore(fold, at);
   const el = (c) => fold.querySelector(c);
+  // Home Assistant's menu button, in a shadow root of its own: the panel's own look-ups of its menu button never
+  // find this one
+  const menuBtn = document.createElement("ha-menu-button");
+  el(".pf-menu").attachShadow?.({ mode: "open" })?.append(menuBtn);
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
   let folded = false;
   let queued = false;
@@ -5457,8 +5461,11 @@ function alarmPanelFold(host, o) {
           tone = ` style="background:${cs.backgroundColor};color:${cs.color}"`;
         }
         const path = o.icons[id];
+        const own = path ? null : b.querySelector("svg, ha-icon");
         const glyph = !path
-          ? `<span class="pf-l" aria-hidden="true">${esc(label.slice(0, 1))}</span>`
+          ? own
+            ? own.outerHTML
+            : `<span class="pf-l" aria-hidden="true">${esc(label.slice(0, 1))}</span>`
           : path.startsWith("mdi:")
             ? `<ha-icon icon="${esc(path)}" aria-hidden="true"></ha-icon>`
             : `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${path}"/></svg>`;
@@ -5514,11 +5521,10 @@ function alarmPanelFold(host, o) {
       acts.appendChild(c);
     }
     const m = o.menu?.();
-    const menu = el(".pf-menu");
-    menu.hidden = !m?.show;
+    el(".pf-menu").hidden = !m?.show;
     if (m) {
-      menu.hass = m.hass;
-      menu.narrow = m.narrow;
+      menuBtn.hass = m.hass;
+      menuBtn.narrow = m.narrow;
     }
   };
   const queue = () => {
