@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Final
 
 DOMAIN: Final = "alarm_card"
-VERSION: Final = "2.1.1"
+VERSION: Final = "2.1.2"
 
 # Panel options, set in the panel's Settings tab or in Configure.
 CONF_PANEL_TITLE: Final = "panel_title"
