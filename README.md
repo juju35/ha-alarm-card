@@ -58,7 +58,7 @@ The Alarm panel sets up [Alarmo](https://github.com/nielsfaber/alarmo) through i
 | Integration | What the cards show |
 |---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/images/alarmo.png" alt="" width="16"> [Alarmo](https://github.com/nielsfaber/alarmo) (Marketplace, recommended) | Everything: state, arm modes, keypad, exit and entry delays, open and bypassed sensors, last trigger, who changed the state, forced arming with a sensor open, "Arm anyway" when Alarmo refuses to arm |
-| [Manual](https://www.home-assistant.io/integrations/manual/) (built in), Verisure, Ajax and any other panel | State, arm modes, keypad, delays (`expiration` attribute), the sensors you list |
+| <img src="https://raw.githubusercontent.com/juju35/ha-alarm-card/main/images/home_assistant.png" alt="" width="16"> [Manual](https://www.home-assistant.io/integrations/manual/) (built in), Verisure, Ajax and any other panel | State, arm modes, keypad, delays (`expiration` attribute), the sensors you list |
 
 ## Prerequisites
 
