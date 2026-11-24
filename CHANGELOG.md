@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.3 - 2026-11-24
+
+### Maintenance
+- The card and the Alarm panel sources are split into ES modules: `src/alarm-card/` and `src/alarm-panel/` (entry `index.js`), cut at their sections, with the translations in one file per language (`i18n/<lang>.js`). `scripts/bundle.mjs` concatenates them back, in their original order, into the same single files as before for `scripts/build.mjs`; the built frontend and the release zip are unchanged, and the tests evaluate the assembled sources.
+
 ## 2.1.2 - 2026-11-22
 
 ### Performance

@@ -1,9 +1,11 @@
-// Builds the integration's frontend from src/: the card (alarm-card.js), the Alarm panel (alarm-panel.js) and its
-// sidebar badge (alarm-badge.js), into custom_components/alarm_card/frontend/ (not committed: CI and the release
+// Builds the integration's frontend from src/: the card (ES modules in src/alarm-card/), the Alarm panel (ES modules
+// in src/alarm-panel/), each assembled into one classic script by scripts/bundle.mjs, and its sidebar badge
+// (src/alarm-badge.js), into custom_components/alarm_card/frontend/ (not committed: CI and the release
 // workflow build it, and the release zip carries it).
 // Usage: node scripts/build.mjs
 import { mkdirSync, readdirSync, readFileSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { sourceOf } from "./bundle.mjs";
 import { splitI18n } from "./i18n-split.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
@@ -15,8 +17,8 @@ export function build({ split = true } = {}) {
   mkdirSync(FRONTEND, { recursive: true });
   for (const f of readdirSync(FRONTEND)) if (f.endsWith(".js")) rmSync(`${FRONTEND}/${f}`);
   for (const file of FILES) {
-    const code = readFileSync(`${root}src/${file}`, "utf8").replace("__VERSION__", version);
     const stem = file.replace(/\.js$/, "");
+    const code = sourceOf(stem).replace("__VERSION__", version);
     // Translations: English stays in each file, every other language goes to <stem>.i18n.<lang>.js next to it,
     // fetched when needed (scripts/i18n-split.mjs). The panel is defined at once: it redraws when its language is in,
     // and Home Assistant's panel loader does not wait for a late definition.

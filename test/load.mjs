@@ -1,10 +1,10 @@
-// Evaluates src/alarm-card.js (a classic script, bundled as is by scripts/build.mjs) in a sandbox with
+// Evaluates src/alarm-card/ (assembled, test/source.mjs) (a classic script, bundled as is by scripts/build.mjs) in a sandbox with
 // minimal DOM stand-ins and returns the names the tests need. No dependency, no browser: the shadow DOM
 // update (morph) is replaced by keeping the last HTML.
-import { readFileSync } from "node:fs";
 import vm from "node:vm";
+import { cardSource } from "./source.mjs";
 
-const source = readFileSync(new URL("../src/alarm-card.js", import.meta.url), "utf8");
+const source = cardSource;
 
 export const load = () => {
   const registry = new Map();
@@ -44,7 +44,7 @@ export const load = () => {
   // a refactor moved the block out of the pattern's reach, instead of running the real morph and failing
   // every DOM test in confusing ways.
   const patched = source.replace(/const morph = \(root, html\) => \{[\s\S]*?\n\};/, "const morph = (root, html) => { root.innerHTML = html; };");
-  if (patched === source) throw new Error("test/load.mjs: the morph block was not found in src/alarm-card.js — update the replacement pattern.");
+  if (patched === source) throw new Error("test/load.mjs: the morph block was not found in the card source (src/alarm-card/) — update the replacement pattern.");
   return vm.runInContext(
     `${patched}
     ({ stateClass, supportedModes, remaining, fmtCountdown, fmtDuration, parseTime, entityList, esc, STRINGS, intlLang, ago,

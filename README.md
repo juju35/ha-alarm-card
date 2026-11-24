@@ -284,7 +284,7 @@ pip install -r requirements_test.txt && pytest   # integration tests
 npm run screenshots  # renders the cards and the panel with mock data (scripts/mock-states.mjs) into screenshots/ (and the GIFs, needs ffmpeg)
 ```
 
-The built frontend is not committed: `npm run build` creates it locally, CI builds it on every push, and the release workflow puts it in `alarm_card.zip`, which is what the Marketplace installs.
+The card and the panel are written as ES modules in `src/alarm-card/` and `src/alarm-panel/` (entry `index.js`, translations one file per language in `i18n/`); `npm run build` assembles each (`scripts/bundle.mjs`) into the single file served from the integration. The built frontend is not committed: `npm run build` creates it locally, CI builds it on every push, and the release workflow puts it in `alarm_card.zip`, which is what the Marketplace installs.
 
 ### Releasing
 

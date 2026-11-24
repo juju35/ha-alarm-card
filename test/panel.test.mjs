@@ -1,15 +1,15 @@
-// The Alarm panel (src/alarm-panel.js) in Chromium, with a stand-in for Home Assistant: Alarmo's mock data behind
+// The Alarm panel (src/alarm-panel/ (assembled, test/source.mjs)) in Chromium, with a stand-in for Home Assistant: Alarmo's mock data behind
 // the websocket calls, and every write recorded. Each test clicks through a tab the way a user would and checks
 // what the panel sends to Alarmo's API (the same payloads as Alarmo's own panel).
 // Needs Playwright's Chromium: skipped locally without it, failing in CI (CI=true).
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { after, before, test } from "node:test";
 import { alarmo, areas, armedAwayNow, entities, history, NOW, states, withCode } from "../scripts/mock-states.mjs";
+import { cardSource, panelSource } from "./source.mjs";
 
-const cardJs = readFileSync(new URL("../src/alarm-card.js", import.meta.url), "utf8").replace("__VERSION__", "test");
-const panelJs = readFileSync(new URL("../src/alarm-panel.js", import.meta.url), "utf8").replace("__VERSION__", "test");
-const strings = readFileSync(new URL("../src/alarm-panel.js", import.meta.url), "utf8");
+const cardJs = cardSource.replace("__VERSION__", "test");
+const panelJs = panelSource.replace("__VERSION__", "test");
+const strings = panelSource;
 
 let browser;
 let skip = false;
