@@ -11,7 +11,8 @@
     "**/test/**",
     "**/.git/**",
     "**/*.min.js",
-    "**/custom_components/alarm_card/frontend/**"
+    "**/custom_components/alarm_card/frontend/**",
+    "**/src/*/i18n/**"
   ],
   "reporters": [
     "console",

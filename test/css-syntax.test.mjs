@@ -7,7 +7,8 @@ import * as acorn from "acorn";
 import * as csstree from "css-tree";
 
 const SRC = new URL("../src/", import.meta.url);
-const files = readdirSync(SRC)
+// Every source file, the ES modules of src/alarm-card/ and src/alarm-panel/ included.
+const files = readdirSync(SRC, { recursive: true })
   .filter((f) => f.endsWith(".js"))
   .map((f) => new URL(f, SRC));
 
@@ -70,7 +71,7 @@ test("every style sheet of the cards parses without error", () => {
     for (const { text, line } of sheets(source)) {
       count++;
       csstree.parse(text, {
-        onParseError: (err) => errors.push(`${String(file).split("/").pop()}:${line} ${err.message} near "${text.slice(Math.max(0, err.offset - 40), err.offset + 40).replace(/\s+/g, " ")}"`),
+        onParseError: (err) => errors.push(`${String(file).split("/src/").pop()}:${line} ${err.message} near "${text.slice(Math.max(0, err.offset - 40), err.offset + 40).replace(/\s+/g, " ")}"`),
       });
     }
   }

@@ -3,10 +3,10 @@
 // banner, with its dot alone (.dot-only) when the text still does not fit above the ground strip. Decided by
 // measurement only: no fixed width threshold, no share cap, no title cut down to a few characters.
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { test } from "node:test";
+import { cardSource } from "./source.mjs";
 
-const src = readFileSync(new URL("../src/alarm-card.js", import.meta.url), "utf8");
+const src = cardSource;
 const method = src.match(/\n( +)_fitPill\(\) \{[\s\S]*?\n\1\}\n/)[0].trim();
 const textWidth = src.match(/(?:const|var) \w*[tT]extWidth = [\s\S]*?\n\};\n/)[0];
 const CLS = {"titles":  "titles",  "row":  "tline",  "pill":  "chip",  "name":  "name",  "sub":  "sub"};

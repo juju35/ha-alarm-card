@@ -1,11 +1,11 @@
-// The panel element's lifecycle, without a browser: src/alarm-panel.js evaluated in a sandbox, its methods called on
+// The panel element's lifecycle, without a browser: src/alarm-panel/ (assembled, test/source.mjs) evaluated in a sandbox, its methods called on
 // the element with the drawing stubbed out.
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import vm from "node:vm";
+import { panelSource } from "./source.mjs";
 
-const source = readFileSync(new URL("../src/alarm-panel.js", import.meta.url), "utf8");
+const source = panelSource;
 
 const loadPanel = () => {
   const registry = new Map();

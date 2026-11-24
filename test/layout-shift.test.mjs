@@ -4,11 +4,11 @@
 // its height holds on every frame — disarmed and arming, full card and mini card (compact and zoomed).
 // Needs Playwright's Chromium: skipped without it locally, and fails in CI (CI=true).
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { after, before, test } from "node:test";
 import { arming, buttons, entities, NOW, sensors, states } from "../scripts/mock-states.mjs";
+import { cardSource } from "./source.mjs";
 
-const cardJs = readFileSync(new URL("../src/alarm-card.js", import.meta.url), "utf8").replace("__VERSION__", "test");
+const cardJs = cardSource.replace("__VERSION__", "test");
 const PANEL = "alarm_control_panel.alarmo";
 // Home Assistant's <ha-card> is a Lit element: it renders its slot a few microtasks after it is attached, so that a
 // card rewritten from scratch measured its header (the status pill) in an empty frame. A plain stand-in hides that;

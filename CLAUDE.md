@@ -45,12 +45,21 @@ complete only when **every** file below carries the new version, updated togethe
 - The PR/commit title carries the version in parentheses, e.g. `feat: new option (X.Y.Z)`.
 
 ## Layout
-- `src/alarm-card.js` (the cards), `src/alarm-panel.js` (the Alarm panel), `src/alarm-badge.js` (its sidebar badge):
+- `src/alarm-card/` (the cards), `src/alarm-panel/` (the Alarm panel), `src/alarm-badge.js` (its sidebar badge):
   built by `npm run build` into `custom_components/alarm_card/frontend/`.
 - The panel reads and writes Alarmo only through Alarmo's API (`alarmo/*` websocket commands, `/api/alarmo/*` views);
   its own settings are the config entry's options (`alarm_card/settings`, `alarm_card/update_settings`).
 - The panel draws its header with the card's helpers (`window.AlarmCardKit`, exported by the card).
 - Python checks: `ruff`, `vulture custom_components .vulture_whitelist.py --min-confidence 60`, `pytest`.
+
+## Source layout
+- `src/alarm-card/` and `src/alarm-panel/` hold ES modules (entry `index.js`), concatenated in the order of the entry
+  file by `scripts/bundle.mjs` (`sourceOf(name)`, called by `scripts/build.mjs`) into the classic script each ships as:
+  import lines removed, `export` keywords dropped. Not committed once assembled. Modules share one scope, so keep
+  top-level names unique across modules; a new module must be listed in the entry file.
+- Translations: one file per language in `i18n/<lang>.js` (`export default { … };`), gathered by the table file next
+  to them and rebuilt into a single object literal at build for `scripts/i18n-split.mjs`.
+- `src/alarm-badge.js` (small) stays a single file. Tests evaluate the assembled sources (`test/source.mjs`).
 
 ## README layout
 - Header order: H1, then the badge row, then the repo's **own logo** centered under the badges —

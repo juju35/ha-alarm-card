@@ -4,11 +4,11 @@
 // Needs Playwright's Chromium (`npx playwright install chromium`). Without it the tests are skipped locally,
 // and fail in CI (CI=true), where the Validate workflow installs it.
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import { after, before, test } from "node:test";
 import { armedAway, arming, entities, NOW, sensors, states, triggered, withCode } from "../scripts/mock-states.mjs";
+import { cardSource } from "./source.mjs";
 
-const cardJs = readFileSync(new URL("../src/alarm-card.js", import.meta.url), "utf8").replace("__VERSION__", "test");
+const cardJs = cardSource.replace("__VERSION__", "test");
 const PANEL = "alarm_control_panel.alarmo";
 
 const THEMES = {
