@@ -27,8 +27,11 @@ pytest
 ```
 
 ## Releasing — how it works here
-A release is **automatic**: on push to `main`, if the version has no matching tag, the Release workflow builds the
-frontend and publishes `vX.Y.Z` with `alarm_card.zip` (the Marketplace installs it: `hacs.json` → `zip_release`).
+A release is **manual**: run the Release workflow (`gh workflow run release.yml`, or
+*Actions → Release → Run workflow*). It publishes `vX.Y.Z` from the version on `main` if that tag
+does not exist yet, with the CHANGELOG sections of every version since the previous tag: several
+bumped PRs ship as one release. Merging a PR publishes nothing.
+The workflow builds the frontend and attaches `alarm_card.zip` (the Marketplace installs it: `hacs.json` → `zip_release`).
 **Never create a tag by hand.** The built frontend (`custom_components/alarm_card/frontend/`) is **not** committed.
 
 The `Version consistency` check (validate.yml) requires the **same version in every place**, or the release fails.
@@ -42,7 +45,10 @@ complete only when **every** file below carries the new version, updated togethe
 4. `package.json` → `"version": "X.Y.Z"`, then `npm install` so `package-lock.json` matches (CI checks it).
 - The card's, panel's and badge's JS take the manifest's version at build time (`__VERSION__`, scripts/build.mjs): no constant to bump there.
 - Bump rule: `fix` → patch, `feat` → minor, breaking change → major.
-- The PR/commit title carries the version in parentheses, e.g. `feat: new option (X.Y.Z)`.
+- **Bump only when what users install changes** (shipped code, translations, assets of the
+  release). CI, workflows, tests, screenshots, README, lint config, CLAUDE.md: no bump, no
+  CHANGELOG entry, no version in the title (e.g. `ci: …`, `docs: …`, `test: …`, `chore: …`).
+- A bumping PR/commit title carries the version in parentheses, e.g. `feat: new option (X.Y.Z)`.
 
 ## Layout
 - `src/alarm-card/` (the cards), `src/alarm-panel/` (the Alarm panel), `src/alarm-badge.js` (its sidebar badge):
