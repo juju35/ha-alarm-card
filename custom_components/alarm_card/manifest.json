@@ -4,6 +4,7 @@
   "after_dependencies": [
     "lovelace"
   ],
+  "categories": ["security_safety.alarm_systems"],
   "codeowners": [
     "@juju35"
   ],
