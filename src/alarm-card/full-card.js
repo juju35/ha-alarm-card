@@ -68,7 +68,8 @@ export const FULL_STYLE = `
   .tile .tx { min-width: 0; display: flex; flex-direction: column; }
   .tile .k { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tile .v { font-size: 11px; color: ${textColor("var(--c, var(--secondary-text-color))")}; white-space: nowrap; }
-  .tile.on { background: color-mix(in srgb, var(--c) 12%, var(--secondary-background-color, transparent)); }
+  /* Calm tiles: an open sensor reads from its tinted icon and state line, the tile background stays neutral. */
+  .tile.on { background: var(--secondary-background-color, transparent); }
   .tile.btn { padding: 4px 10px 4px 4px; }
   .tile.btn .tx { flex: 1 1 auto; }
   .btn-act { flex: none; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: none; border-radius: 50%; cursor: pointer;

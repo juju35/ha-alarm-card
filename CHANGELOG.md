@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.4 - 2026-11-27
+
+### Fixes
+- Idle states use the theme's secondary text colour (`--secondary-text-color`), like every ha-* card.
+- Tiles have the 10 px corner radius shared by the ha-* cards.
+- Open sensors: the tile background stays neutral, the tinted icon and the state line show the state (card charter).
+
 ## 2.1.3 - 2026-11-24
 
 ### Maintenance

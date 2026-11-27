@@ -1851,7 +1851,7 @@ export const PANEL_STYLE = `
   .ti.big { margin: 0 auto; width: 48px; height: 48px; }
   /* Tiles: the ha-* card look (neutral tile, round tinted icon, bold name, coloured state line, state pill). */
   .list { display: flex; flex-direction: column; gap: 6px; }
-  .tile { border-radius: 12px; background: var(--tile); }
+  .tile { border-radius: 10px; background: var(--tile); }
   .trow { display: flex; align-items: center; gap: 10px; padding: 8px 10px; min-height: 52px; border-radius: 12px; }
   .trow[data-a] { cursor: pointer; }
   .trow:focus-visible { outline: 2px solid var(--primary-color); outline-offset: -2px; }

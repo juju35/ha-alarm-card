@@ -12,7 +12,7 @@ export const BASE_STYLE = `
   :host { --al-accent: #e5484d; --al-off: var(--success-color, #43a047); --al-home: var(--orange-color, #f59f00); --al-away: var(--error-color, #db4437);
           --al-night: var(--deep-purple-color, #7048e8); --al-vacation: var(--cyan-color, #1098ad); --al-custom: var(--purple-color, #ae3ec9);
           --al-wait: var(--warning-color, #ffa600);
-          --al-alarm: var(--error-color, #db4437); --al-idle: var(--disabled-text-color, #9e9e9e); }
+          --al-alarm: var(--error-color, #db4437); --al-idle: var(--secondary-text-color, #9e9e9e); }
   ha-card { overflow: hidden; }
   .icon { width: 18px; height: 18px; fill: currentColor; flex: none; }
   .clickable { cursor: pointer; }
