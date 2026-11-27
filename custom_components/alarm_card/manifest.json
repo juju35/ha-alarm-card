@@ -21,5 +21,5 @@
   "issue_tracker": "https://github.com/juju35/ha-alarm-card/issues",
   "requirements": [],
   "single_config_entry": true,
-  "version": "2.1.3"
+  "version": "2.1.4"
 }
