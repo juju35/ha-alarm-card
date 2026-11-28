@@ -40,6 +40,7 @@ from .const import (
     THEME_CHOICES,
     VERSION,
 )
+from .legacy_dashboard import async_check_legacy_dashboard
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -65,6 +66,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    await async_check_legacy_dashboard(hass)
     if not FRONTEND_DIR.is_dir():
         return True
     if not hass.data.get(DATA_CARD):
