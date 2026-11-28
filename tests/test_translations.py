@@ -68,8 +68,8 @@ def test_every_translation_file_is_tested() -> None:
 
 
 def test_serbian_stays_in_one_script() -> None:
-    """sr is Cyrillic and sr-Latn is Latin, apart from names and brands."""
+    """sr is Cyrillic and sr-Latn is Latin, apart from names, brands and placeholders."""
     for path, text in _strings(_load("sr")).items():
-        assert not LATIN.search(LATIN_IN_CYRILLIC.sub("", text)), path
+        assert not LATIN.search(LATIN_IN_CYRILLIC.sub("", PLACEHOLDER.sub("", text))), path
     for path, text in _strings(_load("sr-Latn")).items():
         assert not CYRILLIC.search(text), path

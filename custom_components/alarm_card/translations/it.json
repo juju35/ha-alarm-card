@@ -56,5 +56,11 @@
         "night": "Notte"
       }
     }
+  },
+  "issues": {
+    "legacy_dashboard_install": {
+      "title": "{name} ancora registrato come voce dashboard del Marketplace",
+      "description": "{name} è ancora registrato nel Marketplace come repository **Dashboard**, come prima di diventare un'integrazione. Il Marketplace scarica per esso l'archivio dell'integrazione, quindi installazioni e aggiornamenti falliscono con «{error}». Disinstallarlo e reinstallarlo non basta: la voce resta di tipo Dashboard.\n\n1. In **Impostazioni → Marketplace**, disinstalla la voce {name} di tipo **Dashboard** se è installata.\n2. Apri **Aggiungi da link** e rimuovi {repositories} sotto **Aggiunti da link**.\n3. Aggiungi di nuovo `{url}` con il tipo **Integrazione**, aggiornalo da lì e riavvia.\n\nLe tue dashboard continuano a funzionare: l'integrazione fornisce le stesse schede."
+    }
   }
 }
